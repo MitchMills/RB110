@@ -1,13 +1,48 @@
+### 8.2 ALPHABETICAL NUMBERS
+NUMBERS = (0..19).to_a
+NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+NUMBERS_TO_WORDS = NUMBERS.zip(NUMBER_WORDS).to_h
+
+# def alphabetic_number_sort(numbers)
+#   words = numbers.map { |number| NUMBERS_TO_WORDS[number] }.sort
+#   words.map { |word| NUMBERS_TO_WORDS.key(word) }
+# end
+
+###
+# NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+
+# def alphabetic_number_sort(numbers)
+#   numbers.sort_by { |number| NUMBER_WORDS[number] }
+# end
+###
+
+###
+# SORTED_INTEGERS = [
+#   8, 18, 11, 15, 5, 4, 14, 9, 19, 1,
+#   7, 17, 6, 16, 10, 13, 3, 12, 2, 0
+# ]
+
+# def alphabetic_number_sort(numbers)
+#   SORTED_INTEGERS.intersection(numbers)
+# end
+###
+
+p alphabetic_number_sort((0..19).to_a) == [
+  8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
+  6, 16, 10, 13, 3, 12, 2, 0
+]
+
 ### 7.2 LETTER COUNTER II
-def word_sizes(string)
+# def word_sizes(string)
+#   clean_string = string.downcase.delete('^ a-z')
+#   sizes = clean_string.split.map(&:size)
+#   sizes.map { |size| [size, sizes.count(size)] }.to_h
+# end
 
-end
-
-
-p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
-p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
-p word_sizes('') == {}
-p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
+# p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
+# p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
+# p word_sizes('') == {}
+# p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
 
 ### 6.2 LETTER COUNTER I
 # def word_sizes(words)
