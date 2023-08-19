@@ -1,13 +1,21 @@
-### 10.2 SPIN ME AROUND IN CIRCLES
-def spin_me(str)
-  str.split.each do |word|
-    word.reverse!
-  end.join(" ")
+### 11.2 LIST OF DIGITS
+def digit_list(integer)
+  
 end
 
-spin_me("hello world") # "olleh dlrow"
+puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+puts digit_list(7) == [7]                     # => true
+puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+puts digit_list(444) == [4, 4, 4]             # => true
 
+### 10.2 SPIN ME AROUND IN CIRCLES
+# def spin_me(str)
+#   str.split.each do |word|
+#     word.reverse!
+#   end.join(" ")
+# end
 
+# spin_me("hello world") # "olleh dlrow"
 
 ### 9.2 DDAAIILLYY DDOOUUBBLLEE
 # def crunch(string)
