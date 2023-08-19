@@ -1,7 +1,41 @@
+### 10.2 SPIN ME AROUND IN CIRCLES
+def spin_me(str)
+  str.split.each do |word|
+    word.reverse!
+  end.join(" ")
+end
+
+spin_me("hello world") # "olleh dlrow"
+
+
+
+### 9.2 DDAAIILLYY DDOOUUBBLLEE
+# def crunch(string)
+#   string.chars.select.with_index do |_, index|
+#     string[index] != string[index + 1]
+#   end.join
+# end
+
+# def crunch(string)
+#   string.each_char.with_object('') do |character, result|
+#     result << character unless character == result[-1]
+#   end
+# end
+
+# def crunch(string)
+#   string.chars.chunk { |character| character }.map(&:first).join
+# end
+
+# p crunch('4444abcabccba') == '4abcabcba'
+# p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+# p crunch('ggggggggggggggg') == 'g'
+# p crunch('a') == 'a'
+# p crunch('') == ''
+
 ### 8.2 ALPHABETICAL NUMBERS
-NUMBERS = (0..19).to_a
-NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
-NUMBERS_TO_WORDS = NUMBERS.zip(NUMBER_WORDS).to_h
+# NUMBERS = (0..19).to_a
+# NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+# NUMBERS_TO_WORDS = NUMBERS.zip(NUMBER_WORDS).to_h
 
 # def alphabetic_number_sort(numbers)
 #   words = numbers.map { |number| NUMBERS_TO_WORDS[number] }.sort
@@ -23,14 +57,14 @@ NUMBERS_TO_WORDS = NUMBERS.zip(NUMBER_WORDS).to_h
 # ]
 
 # def alphabetic_number_sort(numbers)
-#   SORTED_INTEGERS.intersection(numbers)
+#   numbers.sort_by { |number| SORTED_INTEGERS.index(number) }
 # end
 ###
 
-p alphabetic_number_sort((0..19).to_a) == [
-  8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
-  6, 16, 10, 13, 3, 12, 2, 0
-]
+# p alphabetic_number_sort((0..19).to_a) == [
+#   8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
+#   6, 16, 10, 13, 3, 12, 2, 0
+# ]
 
 ### 7.2 LETTER COUNTER II
 # def word_sizes(string)

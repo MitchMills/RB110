@@ -1,11 +1,9 @@
 # PROBLEM
-Write a method that takes an Array of Integers between 0 and 19, and returns an Array of those Integers sorted based on the English words for each number:
+You are given a method named spin_me that takes a string as an argument and returns a string that contains the same words, but with each word's characters reversed. Given the method's implementation, will the returned string be the same object as the one passed in as an argument or a different object?
 
-zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+  Input: 
 
-  Input: array: numbers between 0 and 19
-
-  Output: array: same numbers sorted alphabetically
+  Output:
 
   ## Rules
   ### explicit
@@ -17,15 +15,19 @@ zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve,
 
 
 # EXAMPLES
-alphabetic_number_sort((0..19).to_a) == [
-  8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
-  6, 16, 10, 13, 3, 12, 2, 0
-]
+def spin_me(str)
+  str.split.each do |word|
+    word.reverse!
+  end.join(" ")
+end
+
+spin_me("hello world") # "olleh dlrow"
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
