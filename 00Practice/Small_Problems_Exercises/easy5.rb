@@ -1,12 +1,40 @@
 ### 11.2 LIST OF DIGITS
+# def digit_list(integer)
+#   integer.digits.reverse
+# end
+
+# def digit_list(number)
+#   number.to_s.chars.map(&:to_i)
+# end
+
+# def digit_list(integer)
+#   digits = []
+#   loop do
+#     integer, remainder = integer.divmod(10)
+#     digits.prepend(remainder)
+#     break if integer == 0
+#   end
+#   digits
+# end
+
+# def digit_list(integer)
+#   Array.new(integer.to_s.size).map do |digit|
+#     integer, remainder = integer.divmod(10)
+#     remainder
+#   end.reverse
+# end
+
 def digit_list(integer)
-  
+  Array.new(Math.log10(integer).to_i + 1).map do |digit|
+    integer, remainder = integer.divmod(10)
+    remainder
+  end.reverse
 end
 
-puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
-puts digit_list(7) == [7]                     # => true
-puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
-puts digit_list(444) == [4, 4, 4]             # => true
+p digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+p digit_list(7) == [7]                     # => true
+p digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+p digit_list(444) == [4, 4, 4]             # => true
 
 ### 10.2 SPIN ME AROUND IN CIRCLES
 # def spin_me(str)
