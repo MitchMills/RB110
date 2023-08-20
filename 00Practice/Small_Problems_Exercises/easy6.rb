@@ -1,21 +1,70 @@
+### 3.2 FIBONACCI NUMBER LOCATION BY LENGTH
+def find_fibonacci_index_by_length(integer)
+
+end
+
+p find_fibonacci_index_by_length(2) == 7          # 1 1 2 3 5 8 13
+p find_fibonacci_index_by_length(3) == 12         # 1 1 2 3 5 8 13 21 34 55 89 144
+p find_fibonacci_index_by_length(10) == 45
+p find_fibonacci_index_by_length(100) == 476
+p find_fibonacci_index_by_length(1000) == 4782
+p find_fibonacci_index_by_length(10000) == 47847
+
+### 2.2 DELETE VOWELS
+# VOWELS = 'AEIOUaeiou'
+# def remove_vowels(strings_array)
+#   strings_array.map {|string| string.delete(VOWELS) }
+# end
+
+# p remove_vowels(%w(abcdefghijklmnopqrstuvwxyz)) == %w(bcdfghjklmnpqrstvwxyz)
+# p remove_vowels(%w(green YELLOW black white)) == %w(grn YLLW blck wht)
+# p remove_vowels(%w(ABC AEIOU XYZ)) == ['BC', '', 'XYZ']
+
+### 1.2 CUTE ANGLES
+# DEGREE = "\xC2\xB0"
+# MINUTES_PER_DEGREE = 60
+# SECONDS_PER_MINUTE = 60
+
+# def dms(angle)
+#   dms = get_dms(angle)
+#   format_dms(dms)
+# end
+
+# def get_dms(degrees)
+#   minutes = (degrees - degrees.truncate) * MINUTES_PER_DEGREE
+#   seconds = (minutes - minutes.truncate) * SECONDS_PER_MINUTE
+#   [degrees, minutes, seconds].map(&:truncate)
+# end
+
+# def format_dms(dms)
+#   degrees, minutes, seconds = dms
+#   minutes, seconds = [minutes, seconds].map { |value| sprintf('%02d', value) }
+#   "#{degrees}#{DEGREE}#{minutes}'#{seconds}\""
+# end
+
+# p dms(30) == %(30°00'00")
+# p dms(76.73) == %(76°43'48")
+# p dms(254.6) == %(254°35'59")
+# p dms(93.034773) == %(93°02'05")
+# p dms(0) == %(0°00'00")
+# p dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
+
 ### 10 MUTATION
-array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
-p array1.object_id
-array2 = []
-p array2.object_id
-puts
-array1.each { |value| array2 << value }
-p array1.object_id
-p array2.object_id
-puts
-array2.each { |value| value.upcase! if value.start_with?('C', 'S') }
-p array1
-p array1.object_id
-puts
-p array2
-p array2.object_id
-
-
+# array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+# p array1.object_id
+# array2 = []
+# p array2.object_id
+# puts
+# array1.each { |value| array2 << value }
+# p array1.object_id
+# p array2.object_id
+# puts
+# array2.each { |value| value.upcase! if value.start_with?('C', 'S') }
+# p array1
+# p array1.object_id
+# puts
+# p array2
+# p array2.object_id
 
 ### 9 DOES MY LIST INCLUDE THIS?
 # def include?(array, target)
