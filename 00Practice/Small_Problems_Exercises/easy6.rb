@@ -1,14 +1,77 @@
-### 3.2 FIBONACCI NUMBER LOCATION BY LENGTH
-def find_fibonacci_index_by_length(integer)
+### 4.2 REVERSED ARRAYS I
+def
 
 end
 
-p find_fibonacci_index_by_length(2) == 7          # 1 1 2 3 5 8 13
-p find_fibonacci_index_by_length(3) == 12         # 1 1 2 3 5 8 13 21 34 55 89 144
-p find_fibonacci_index_by_length(10) == 45
-p find_fibonacci_index_by_length(100) == 476
-p find_fibonacci_index_by_length(1000) == 4782
-p find_fibonacci_index_by_length(10000) == 47847
+list = [1,2,3,4]
+result = reverse!(list)
+result == [4, 3, 2, 1] # true
+list == [4, 3, 2, 1] # true
+list.object_id == result.object_id # true
+
+list = %w(a b e d c)
+reverse!(list) == ["c", "d", "e", "b", "a"] # true
+list == ["c", "d", "e", "b", "a"] # true
+
+list = ['abc']
+reverse!(list) == ["abc"] # true
+list == ["abc"] # true
+
+list = []
+reverse!(list) == [] # true
+list == [] # true
+
+### 3.2 FIBONACCI NUMBER LOCATION BY LENGTH
+# def find_fibonacci_index_by_length(length)
+#   limit = 10**(length - 1)
+#   fibonaccis = [1, 1]
+#   until fibonaccis.last >= limit
+#     fibonaccis << (fibonaccis[-2] + fibonaccis[-1])
+#   end
+#   fibonaccis.size
+# end
+
+# def find_fibonacci_index_by_length(length)
+#   limit = 10**(length - 1)
+#   current_pair = [1, 1]
+#   index = 2
+#   until current_pair.last >= limit
+#     next_number = current_pair.sum
+#     current_pair = [current_pair.last, next_number]
+#     index += 1
+#   end
+#   index
+# end
+
+# def find_fibonacci_index_by_length(length)
+#   limit = 10**(length - 1)
+#   current_pair = [1, 1]
+#   index = 2
+#   loop do 
+#     return index if current_pair.last >= limit
+#     next_number = current_pair.sum
+#     current_pair = [current_pair.last, next_number]
+#     index += 1
+#   end
+# end
+
+# def find_fibonacci_index_by_length(length)
+#   current_pair = [1, 1]
+#   index = 3
+#   loop do
+#     next_number = current_pair.sum
+#     return index if next_number.to_s.size >= length
+#     index += 1
+#     current_pair = [current_pair.last, next_number]
+#   end
+# end
+
+# p find_fibonacci_index_by_length(2) == 7          # 1 1 2 3 5 8 13
+# p find_fibonacci_index_by_length(3) == 12         # 1 1 2 3 5 8 13 21 34 55 89 144
+# p find_fibonacci_index_by_length(10) == 45
+# p find_fibonacci_index_by_length(100) == 476
+# p find_fibonacci_index_by_length(1000) == 4782
+# p find_fibonacci_index_by_length(10000) == 47847
 
 ### 2.2 DELETE VOWELS
 # VOWELS = 'AEIOUaeiou'

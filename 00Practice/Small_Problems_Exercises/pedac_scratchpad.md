@@ -1,11 +1,9 @@
 # PROBLEM
-The Fibonacci series is a series of numbers (1, 1, 2, 3, 5, 8, 13, 21, ...) such that the first 2 numbers are 1 by definition, and each subsequent number is the sum of the two previous numbers. This series appears throughout the natural world.
+Write a method that takes an Array as an argument, and reverses its elements in place; that is, mutate the Array passed into this method. The return value should be the same Array object.
 
-Computationally, the Fibonacci series is a very simple series, but the results grow at an incredibly rapid rate. For example, the 100th Fibonacci number is 354,224,848,179,261,915,075 -- that's enormous, especially considering that it takes 6 iterations before it generates the first 2 digit number.
+You may not use Array#reverse or Array#reverse!.
 
-Write a method that calculates and returns the index of the first Fibonacci number that has the number of digits specified as an argument. (The first Fibonacci number has index 1.)
-
-You may assume that the argument is always greater than or equal to 2.
+Note: for the test case list = ['abc'], we want to reverse the elements in the array. The array only has one element, a String, but we're not reversing the String itself, so the reverse! method call should return ['abc'].
 
   Input: 
 
@@ -21,18 +19,28 @@ You may assume that the argument is always greater than or equal to 2.
 
 
 # EXAMPLES
-find_fibonacci_index_by_length(2) == 7          # 1 1 2 3 5 8 13
-find_fibonacci_index_by_length(3) == 12         # 1 1 2 3 5 8 13 21 34 55 89 144
-find_fibonacci_index_by_length(10) == 45
-find_fibonacci_index_by_length(100) == 476
-find_fibonacci_index_by_length(1000) == 4782
-find_fibonacci_index_by_length(10000) == 47847
+list = [1,2,3,4]
+result = reverse!(list)
+result == [4, 3, 2, 1] # true
+list == [4, 3, 2, 1] # true
+list.object_id == result.object_id # true
+
+list = %w(a b e d c)
+reverse!(list) == ["c", "d", "e", "b", "a"] # true
+list == ["c", "d", "e", "b", "a"] # true
+
+list = ['abc']
+reverse!(list) == ["abc"] # true
+list == ["abc"] # true
+
+list = []
+reverse!(list) == [] # true
+list == [] # true
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
