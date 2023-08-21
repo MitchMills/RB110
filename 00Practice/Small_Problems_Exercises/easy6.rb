@@ -1,18 +1,37 @@
-### 5.2 REVERSED ARRAYS II
-def reverse(list)
+### 6.2 COMBINING ARRAYS
+def merge(array1, array2)
 
 end
 
-p reverse([1,2,3,4]) == [4,3,2,1]          # => true
-p reverse(%w(a b e d c)) == %w(c d e b a)  # => true
-p reverse(['abc']) == ['abc']              # => true
-p reverse([]) == []                        # => true
+p merge([1, 3, 5], [3, 6, 9]) == [1, 3, 5, 6, 9]
 
-list = [1, 3, 2]                      # => [1, 3, 2]
-new_list = reverse(list)              # => [2, 3, 1]
-p list.object_id != new_list.object_id  # => true
-p list == [1, 3, 2]                     # => true
-p new_list == [2, 3, 1]                 # => true
+### 5.2 REVERSED ARRAYS II
+# def reverse(list)
+#   list.each_index.map { |index| list[-(index + 1)] }
+# end
+
+# def reverse(list)
+#   list.each_index.map { |index| list[-index - 1] }
+# end
+
+# def reverse(list)
+#   list.each_index.map { |index| list[(list.size - 1) - index] }
+# end
+
+# def reverse(list)
+#   1.upto(list.size).map { |index| list[-index] }
+# end
+
+# p reverse([1,2,3,4]) == [4,3,2,1]          # => true
+# p reverse(%w(a b e d c)) == %w(c d e b a)  # => true
+# p reverse(['abc']) == ['abc']              # => true
+# p reverse([]) == []                        # => true
+
+# list = [1, 3, 2]                      # => [1, 3, 2]
+# new_list = reverse(list)              # => [2, 3, 1]
+# p list.object_id != new_list.object_id  # => true
+# p list == [1, 3, 2]                     # => true
+# p new_list == [2, 3, 1]                 # => true
 
 ### 4.2 REVERSED ARRAYS I
 # def reverse!(array)
