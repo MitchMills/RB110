@@ -1,9 +1,33 @@
 ### 6.2 COMBINING ARRAYS
-def merge(array1, array2)
-
+def merge(array_1, array_2)
+  array_1 | array_2
 end
 
-p merge([1, 3, 5], [3, 6, 9]) == [1, 3, 5, 6, 9]
+# def merge(array1, array2)
+#   (array1 + array2).uniq
+# end
+
+# def merge(array1, array2)
+#   array1 + array2.reject { |element| array1.include?(element) }
+# end
+
+# def merge(array1, array2)
+#   array2.each_with_object(array1) do |element, array1| 
+#     array1 << element unless array1.include?(element)
+#   end
+# end
+
+# def merge(array1, array2)
+#   array2.inject(array1, :<<).uniq
+# end
+
+# def merge(array1, array2)
+#   array2.inject(array1) do |_, element|
+#     array1 << element unless array1.include?(element)
+#   end
+# end
+
+p merge([1, 3, 5], [3, 6, 9])# == [1, 3, 5, 6, 9]
 
 ### 5.2 REVERSED ARRAYS II
 # def reverse(list)
