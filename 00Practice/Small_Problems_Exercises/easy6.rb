@@ -1,25 +1,72 @@
-### 4.2 REVERSED ARRAYS I
-def
+### 5.2 REVERSED ARRAYS II
+def reverse(list)
 
 end
 
-list = [1,2,3,4]
-result = reverse!(list)
-result == [4, 3, 2, 1] # true
-list == [4, 3, 2, 1] # true
-list.object_id == result.object_id # true
+p reverse([1,2,3,4]) == [4,3,2,1]          # => true
+p reverse(%w(a b e d c)) == %w(c d e b a)  # => true
+p reverse(['abc']) == ['abc']              # => true
+p reverse([]) == []                        # => true
 
-list = %w(a b e d c)
-reverse!(list) == ["c", "d", "e", "b", "a"] # true
-list == ["c", "d", "e", "b", "a"] # true
+list = [1, 3, 2]                      # => [1, 3, 2]
+new_list = reverse(list)              # => [2, 3, 1]
+p list.object_id != new_list.object_id  # => true
+p list == [1, 3, 2]                     # => true
+p new_list == [2, 3, 1]                 # => true
 
-list = ['abc']
-reverse!(list) == ["abc"] # true
-list == ["abc"] # true
+### 4.2 REVERSED ARRAYS I
+# def reverse!(array)
+#   (array.size / 2).times do |index|
+#     array[index], array[-(index + 1)] = array[-(index + 1)], array[index]
+#   end
+#   array
+# end
 
-list = []
-reverse!(list) == [] # true
-list == [] # true
+# def reverse!(list)
+#   list.each_index do |index|
+#     front, back = index, -(index + 1)
+#     list[front], list[back] = list[back], list[front] if index < list.size / 2
+#   end
+# end
+
+### DANIEL CHAE
+# def reverse!(a)
+#   a[0..].each_with_index.each_with_object(a) { |(v, i), a| a[-i - 1] = v }
+# end
+
+# def reverse!(list)
+#   list.clone.each_with_index.with_object(list) do |(element, index), list|
+#     list[-(index + 1)] = element
+#   end
+# end
+
+# More memory efficient, but potentially slower one-liner (amortized O(n))
+# def reverse!(a)
+#   a.each_with_index { |v, i| a.unshift(a.delete_at(i)) }
+# end
+
+# def preverse!(list)
+#   list.each_index { |index| list.prepend(list.delete_at(index)) }
+# end
+
+###
+# list = [1,2,3,4]
+# result = reverse!(list)
+# p result == [4, 3, 2, 1] # true
+# p list == [4, 3, 2, 1] # true
+# p list.object_id == result.object_id # true
+
+# list = %w(a b e d c)
+# p reverse!(list) == ["c", "d", "e", "b", "a"] # true
+# p list == ["c", "d", "e", "b", "a"] # true
+
+# list = ['abc']
+# p reverse!(list) == ["abc"] # true
+# p list == ["abc"] # true
+
+# list = []
+# p reverse!(list) == [] # true
+# p list == [] # true
 
 ### 3.2 FIBONACCI NUMBER LOCATION BY LENGTH
 # def find_fibonacci_index_by_length(length)

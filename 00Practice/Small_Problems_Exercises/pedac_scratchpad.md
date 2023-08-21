@@ -1,9 +1,7 @@
 # PROBLEM
-Write a method that takes an Array as an argument, and reverses its elements in place; that is, mutate the Array passed into this method. The return value should be the same Array object.
+Write a method that takes an Array, and returns a new Array with the elements of the original list in reverse order. Do not modify the original list.
 
-You may not use Array#reverse or Array#reverse!.
-
-Note: for the test case list = ['abc'], we want to reverse the elements in the array. The array only has one element, a String, but we're not reversing the String itself, so the reverse! method call should return ['abc'].
+You may not use Array#reverse or Array#reverse!, nor may you use the method you wrote in the previous exercise.
 
   Input: 
 
@@ -19,23 +17,16 @@ Note: for the test case list = ['abc'], we want to reverse the elements in the a
 
 
 # EXAMPLES
-list = [1,2,3,4]
-result = reverse!(list)
-result == [4, 3, 2, 1] # true
-list == [4, 3, 2, 1] # true
-list.object_id == result.object_id # true
+reverse([1,2,3,4]) == [4,3,2,1]          # => true
+reverse(%w(a b e d c)) == %w(c d e b a)  # => true
+reverse(['abc']) == ['abc']              # => true
+reverse([]) == []                        # => true
 
-list = %w(a b e d c)
-reverse!(list) == ["c", "d", "e", "b", "a"] # true
-list == ["c", "d", "e", "b", "a"] # true
-
-list = ['abc']
-reverse!(list) == ["abc"] # true
-list == ["abc"] # true
-
-list = []
-reverse!(list) == [] # true
-list == [] # true
+list = [1, 3, 2]                      # => [1, 3, 2]
+new_list = reverse(list)              # => [2, 3, 1]
+list.object_id != new_list.object_id  # => true
+list == [1, 3, 2]                     # => true
+new_list == [2, 3, 1]                 # => true
 
 # DATA STRUCTURES
 
