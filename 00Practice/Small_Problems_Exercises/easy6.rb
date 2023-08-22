@@ -1,33 +1,72 @@
-### 6.2 COMBINING ARRAYS
-def merge(array_1, array_2)
-  array_1 | array_2
+### 7.2 HALVSIES
+def halvsies(array)
+
 end
 
-# def merge(array1, array2)
+p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+p halvsies([5]) == [[5], []]
+p halvsies([]) == [[], []]
+
+### 6.2 COMBINING ARRAYS
+# def merge(array_1, array_2) # non-mutating
+#   array_1 | array_2
+# end
+
+# def merge(array1, array2) # non-mutating
 #   (array1 + array2).uniq
 # end
 
-# def merge(array1, array2)
+# def merge(array1, array2) # non-mutating
 #   array1 + array2.reject { |element| array1.include?(element) }
 # end
 
-# def merge(array1, array2)
+# def merge(array1, array2) # MUTATING
 #   array2.each_with_object(array1) do |element, array1| 
 #     array1 << element unless array1.include?(element)
 #   end
 # end
 
-# def merge(array1, array2)
+# def merge(array1, array2) # MUTATING
 #   array2.inject(array1, :<<).uniq
 # end
 
-# def merge(array1, array2)
-#   array2.inject(array1) do |_, element|
-#     array1 << element unless array1.include?(element)
+# def merge(array1, array2) # MUTATING
+#   array2.inject(array1) do |array1, element|
+#     array1.include?(element) ? array1 : array1 << element
 #   end
 # end
 
-p merge([1, 3, 5], [3, 6, 9])# == [1, 3, 5, 6, 9]
+
+# def merge(array1, array2) # non-mutating
+#   result = [] + array1
+#   array2.each_with_object(result) do |element, result|
+#     result << element unless array1.include?(element)
+#   end
+# end
+
+# def merge(array1, array2) # non-mutating
+#   result = [] + array1
+#   array2.inject(result, :<<).uniq
+# end
+
+# def merge(array1, array2) # non-mutating
+#   result = [] + array1
+#   array2.inject(result) do |result, element|
+#     array1.include?(element) ? result : result << element
+#   end
+# end
+
+# array1 = [1, 3, 5]
+# array2 = [3, 6, 9]
+# puts "array1: #{array1}, #{array1.object_id}"
+# puts "array2: #{array2}, #{array2.object_id}"
+# merged = merge(array1, array2)
+# puts
+# puts "merged: #{merged}, #{merged.object_id}"
+# puts
+# puts "array1: #{array1}, #{array1.object_id}"
+# puts "array2: #{array2}, #{array2.object_id}"
 
 ### 5.2 REVERSED ARRAYS II
 # def reverse(list)
@@ -44,6 +83,10 @@ p merge([1, 3, 5], [3, 6, 9])# == [1, 3, 5, 6, 9]
 
 # def reverse(list)
 #   1.upto(list.size).map { |index| list[-index] }
+# end
+
+# def reverse(list)
+#   -1.downto(-list.size).map { |index| list[index] }
 # end
 
 # p reverse([1,2,3,4]) == [4,3,2,1]          # => true
