@@ -2,7 +2,7 @@
 - input: integer
   - represents row number
 - output: integer
-  -represent sum of all numbers in that row number
+  -represents sum of all numbers in that row number
 
   # Rules
   - each row has the same number of integers as the row number
@@ -28,16 +28,15 @@
 ]
 
 ## ALGORITHM
-1. create empty `rows` array
-2. (add `row_number` rows to `rows` array)
-3. sum last row of `rows` array
-4. return sum
-
-  2. add`row_number` rows to `rows array`
-    1. create a row
-      - create an empty row
-        - add start integer to row
-        - increment start integer by 2
-        - repeat until sub-array length == row number
-    2. add row to `rows` array
-    3. repeat until `rows` length = `row_number`
+- set `row_length` to 1
+- set `start_number` to 2
+- create `current_row`
+  - set `current_row` to a new empty array
+  - add `start_number` to `current_row`
+  - add successive numbers, incremented by 2, to `current_row`
+  - stop when `current_row` length == `row_length`
+  - if `row_length` == `row_number` (input integer), return sum of `current_row`
+  - else, set `start_number` to equal last number of `current_row` + 2
+  - increment `row_length` by 1
+  - repeat
+  
