@@ -7,7 +7,7 @@ number_of_greetings = 2
 
 while number_of_greetings > 0
   greeting
-  number_of_greetings -= 1
+  number_of_greetings -=1
 end
 
 ### 9 FIRST TO FIVE
