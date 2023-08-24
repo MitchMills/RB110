@@ -4,29 +4,18 @@ def sum_even_rows(row_number)
 end
 
 def get_last_row(row_number)
-  # current_row = []
   start_number = 2
-
-  # (1..row_number).each do |current_row_number|
-  #   current_row = create_row(current_row_number, start_number)
-  #   start_number = current_row.last + 2
-  # end
-
-  (1..row_number).each.with_object([]) do |current_row_number, current_row|
-    current_row = create_row(current_row_number, start_number)
-    start_number = current_row.last + 2
-  end
-
+  (1..row_number).each_with_object([]) do |current_row_number, current_row|
+    current_row << create_row(current_row_number, start_number)
+    start_number = current_row.last.last + 2
+  end.last
 end
-
 
 def create_row(row_length, start_number)
   (0...row_length).map do |element|
     start_number + (2 * element)
   end
 end
-
-
 
 #####
 # def sum_even_rows(row_number)
