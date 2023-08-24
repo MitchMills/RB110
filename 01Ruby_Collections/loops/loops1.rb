@@ -1,5 +1,47 @@
-### 6 
+### 10 GREET YOUR FRIENDS
+# friends = ['Sarah', 'John', 'Hannah', 'Dave']
 
+# for friend in friends
+#   puts "Hello, #{friend}!"
+# end
+
+### 9 THAT'S ODD
+# for i in 1..10
+#   puts i if i.odd?
+# end
+
+### 8 PRINT UNTIL
+# numbers = [7, 9, 13, 25, 18]
+
+# until numbers.size == 0
+#   puts numbers.shift
+# end
+
+# index = 0
+
+# until index == numbers.size
+#   puts numbers[index]
+#   index += 1
+# end
+
+# p numbers
+
+### 7 COUNT UP
+# count = 1
+
+# until count > 10
+#   puts count
+#   count += 1
+# end
+
+### 6 PRINT WHILE
+# numbers = []
+
+# while numbers.size < 5
+#   numbers << rand(100)
+# end
+
+# puts numbers
 
 ### 5 SAY HELLO
 # say_hello = true
