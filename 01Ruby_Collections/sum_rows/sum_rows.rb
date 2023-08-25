@@ -4,19 +4,15 @@ def sum_row(last_row_number)
 end
 
 def get_last_row(last_row_number)
-  last_row_start_number = get_start_number(last_row_number)
+  last_row_start_number = get_next_start_number(last_row_number - 1)
   create_row(last_row_number, last_row_start_number)
 end
 
-def get_start_number(row_number)
-  start_number = 2
-  (1..row_number).map do |current_row_number|
+def get_next_start_number(previous_row_number)
+  return 2 if previous_row_number == 0
+  (1..previous_row_number).inject(2) do |start_number, current_row_number|
     start_number += (2 * current_row_number)
-  end.last
-end
-
-def get_next_start_number(row_number, start_number)
-  start_number + (2 * row_number)
+  end
 end
 
 def create_row(row_number, start_number)
@@ -25,15 +21,10 @@ def create_row(row_number, start_number)
   end
 end
 
-p get_start_number(1)
-p get_start_number(2)
-p get_start_number(3)
-p get_start_number(4)
-
-# p sum_row(1)# == 2
-# p sum_row(2)# == 10
-# p sum_row(3)# == 30
-# p sum_row(4)# == 68
+p sum_row(1)
+p sum_row(2)
+p sum_row(3)
+p sum_row(4)
 
 #####
 # def sum_even_rows(row_number)
