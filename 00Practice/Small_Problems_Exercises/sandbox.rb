@@ -1,4 +1,22 @@
-########### Rachele II
+########### RACHELE SESSION II
+#### RACHELE II, PROBLEM 2
+=begin
+Given an array of n positive integers and a positive integer, find the minimal length of a contiguous subarray for which the sum >= integer.
+
+p minSubLength([2, 3, 1, 2, 4, 3], 7) == 2
+p minSubLength([1, 10, 5, 2, 7], 9) == 1
+p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+p minSubLength([1, 2, 4], 8) == 0
+=end
+
+
+
+
+
+
+
+
+#### RACHELE II, PROBLEM 1
 # Write a method that takes an array of consecutive letters as input and returns the missing letter.
 
 # p determine_missing_letter(['a','b','c','d','f']) == 'E' 
@@ -10,7 +28,8 @@
 
 
 
-############### Rachele I
+############### RACHELE SESSION I
+#### RACHELE I, PROBLEM 2
 # For "x", determine how many positive integers less than or equal to "x" are odd but not prime. Assume "x" is an integer between 1 and 10000.
 
 # Example: 5 has three odd numbers (1,3,5) and only the number 1 is not prime, so the answer is 1
@@ -18,15 +37,16 @@
 
 # A prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself.
 
-# p odd_not_prime(15) == 3
-# p odd_not_prime(48) == 10
-# p odd_not_prime(82) == 20
+p odd_not_prime(15) == 3
+p odd_not_prime(48) == 10
+p odd_not_prime(82) == 20
 
 
 
 
 
-
+############################
+#### RACHELE I, PROBLEM 1
 =begin
 You will be given a number and you will need to return it as a string in expanded form. For example:
 
@@ -68,22 +88,26 @@ Output: string
 
 A____________________
 DIVMOD APPROACH
+- Get the individual digits of the input number
+  - initialize an empty array: `digits`
+  - get the quotient and remainder from dividing the input number by 10
+  - store the remainder in `digits` (append each digit: 70304 --> [4, 0, 3, 0, 7])
+  - set number to equal the quotient
+  - repeat until quotient equals 0
 
-- initialize an empty array: `digits`
-- get the quotient and remainder from dividing the input number by 10
-- store the remainder in an array (append each digit: 70304 --> [4, 0, 3, 0, 7])
-- set number to equal the quotient
-- repeat until quotient equals 0
+- Add appropriate number of zeros to each digit
+  - set `digits_with_zeros` to equal return value from:
+    - iterating over `digits` with indexes
+      - multiply each digit by 10**index --> [4, 0, 300, 0, 7000]
 
-- set `digit_strings` to equal return value from:
-  - iterating over `digits` with indexes
-      - convert each element into a string
-      - concatenate appropriate number of zeros to each string
-        - element + ('0' * index) --> ['4', '00', '300', '0000', '70000']
-  - reverse order of `digit_strings`
-- filter 'digit_strings' for elements that do not have '0' as their first character
-- join elements of resulting array with ' + ' between elements
-- return resulting string
+- Remove places that are only zeros
+  - set `non_zero_digits` equal to only elements that are not 0 --> [4, 300, 7000]
+
+- Create and return the output string
+  - `digit_strings` = each element of `non_zero_digits` converted to a string
+  - reverse `digit_strings`
+  - join elements with ' + ' between elements
+  - return resulting string
 
 =end
 # def expanded_form(number)
@@ -95,12 +119,15 @@ DIVMOD APPROACH
 #     break if quotient == 0
 #   end
   
-#   digit_strings = digits.map.with_index do |digit, index|
-#     digit.to_s + ('0' * index)
-#   end.reverse
+#   digits_with_zeros = digits.map.with_index do |digit, index|
+#     digit * 10**index
+#   end
 
-#   non_zero_digit_strings = digit_strings.select { |string| string[0] != '0'}
-#   non_zero_digit_strings.join(' + ')
+#   non_zero_digits = digits_with_zeros.select {|digit| digit != 0}
+
+#   digit_strings = non_zero_digits.map(&:to_s).reverse
+
+#   digit_strings.join(' + ')
 # end
 # _________________
 =begin
@@ -161,24 +188,27 @@ CHARS APPROACH
 #   digit_strings_with_zeros.select { |string| string[0] != '0'}.join(' + ')
 # end
 
-def expanded_form(number)
-  digit_strings = []
+# def expanded_form(number)
+#   digit_strings = []
 
-  number.to_s.reverse.each_char.with_index do |character, index|
-    digit_strings.prepend(character + ('0' * index))
-  end
+#   number.to_s.reverse.each_char.with_index do |character, index|
+#     digit_strings.prepend(character + ('0' * index))
+#   end
 
-  digit_strings.select { |digit_string| digit_string[0] != '0' }.join(' + ')
-end
+#   digit_strings.select { |digit_string| digit_string[0] != '0' }.join(' + ')
+# end
 
-p expanded_form(12) #== '10 + 2'
-p expanded_form(42) #== '40 + 2'
-p expanded_form(70304) #== '70000 + 300 + 4'
+# p expanded_form(12) #== '10 + 2'
+# p expanded_form(42) #== '40 + 2'
+# p expanded_form(70304) #== '70000 + 300 + 4'
+
+
+
 
 
 
 ################################
-
+### PALINDROME SUBSTRINGS
 # PROBLEM:
 
 # Given a string, write a method `palindrome_substrings` which returns
