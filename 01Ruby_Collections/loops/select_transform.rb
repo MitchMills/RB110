@@ -1,5 +1,140 @@
+###### select letter: non-mutating
+# def select_letter(string, target_letter)
+#   selected = ''
+#   index = 0
+
+#   loop do
+#     current_letter = string[index]
+#     if current_letter == target_letter
+#       selected << current_letter
+#     end
+#     index += 1
+#     break if index >= string.size
+#   end
+
+#   selected
+# end
+
+### select letter: MUTATING
+# def select_letter(string, target_letter)
+#   index = 0
+#   selected = ''
+
+#   loop do
+#     current_letter = string[index]
+#     if current_letter == target_letter
+#       selected << current_letter
+#       string[index] = ''
+#     end
+#     index += 1
+#     break if index >= string.size
+#   end
+
+#   selected
+# end
+
+# question = 'How many times does a particular character appear in this sentence?'
+
+# p question
+# p question.object_id
+# puts
+# p select_letter(question, 'a') # => "aaaaaaaa"
+# puts
+# p question
+# p question.object_id
 
 
+###### multiply: non-mutating
+# def multiply(numbers, multiplier)
+#   multiplied = []
+#   index = 0
+
+#   loop do
+#     current_number = numbers[index]
+#     multiplied << current_number * multiplier
+#     index += 1
+#     break if index >= numbers.size
+#   end
+
+#   multiplied
+# end
+
+### multiply: MUTATING
+# def multiply(numbers, multiplier)
+#   index = 0
+
+#   loop do
+#     numbers[index] *= multiplier
+#     index += 1
+#     break if index >= numbers.size
+#   end
+
+#   numbers
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+
+# p my_numbers
+# p my_numbers.object_id
+# puts
+# p multiply(my_numbers, 3) # => [3, 12, 9, 21, 6, 18]
+# puts
+# p my_numbers
+# p my_numbers.object_id
+
+###### general select: non-mutating
+# def general_select(product_list, target_type)
+#   products = product_list.keys
+#   index = 0
+#   selected_products = {}
+
+#   loop do
+#     current_product = products[index]
+#     current_type = product_list[current_product]
+#     if current_type == target_type
+#       selected_products[current_product] = current_type
+#     end
+#     index += 1
+#     break if index >= products.size
+#   end
+
+#   selected_products  
+# end
+
+### general select: MUTATING
+# def general_select(product_list, target_type)
+#   products = product_list.keys
+#   index = 0
+#   selected_products = {}
+
+#   loop do
+#     current_product = products[index]
+#     current_type = product_list[current_product]
+#     if current_type == target_type
+#       selected_products[current_product] = product_list.delete(current_product)
+#     end
+
+#     index += 1
+#     break if index >= products.size
+#   end
+
+#   selected_products
+# end
+
+# produce = {
+#   'apple' => 'Fruit',
+#   'carrot' => 'Vegetable',
+#   'pear' => 'Fruit',
+#   'broccoli' => 'Vegetable'
+# }
+
+# p produce
+# p produce.object_id
+# puts
+# p general_select(produce, 'Fruit')     # => {"apple"=>"Fruit", "pear"=>"Fruit"}
+# puts
+# p produce
+# p produce.object_id
 
 ###### double odd indices: non-mutating
 # def double_odd_indices(numbers)
@@ -146,8 +281,7 @@
 #     current_item = items[index]
 #     current_type = produce[current_item]
 #     if current_type == "Fruit"
-#       fruit[current_item] = current_type
-#       produce.delete(current_item)
+#       fruit[current_item] = produce.delete(current_item)
 #     end
 #     index += 1
 #     break if index >= items.size
