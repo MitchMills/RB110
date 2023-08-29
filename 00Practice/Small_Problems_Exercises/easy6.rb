@@ -1,17 +1,53 @@
+### 10.2 MUTATION
+array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+array2 = []
+
+array1.each { |value| array2 << value }
+
+array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
+
+puts array2
+
 ### 9.2 DOES MY LIST INCLUDE THIS?
-def include?(array, target)
+# def include?(array, search_value)
+#   array.each { |element| return true if element == search_value }
+#   false
+# end
 
-end
+# def include?(array, search_value)
+#   array.count(search_value) > 0
+# end
 
-p include?([1,2,3,4,5], 3) == true
-p include?([1,2,3,4,5], 6) == false
-p include?([], 3) == false
-p include?([nil], nil) == true
-p include?([], nil) == false
+# p include?([1,2,3,4,5], 3) == true
+# p include?([1,2,3,4,5], 6) == false
+# p include?([], 3) == false
+# p include?([nil], nil) == true
+# p include?([], nil) == false
 
 ### 8.2 FIND THE DUPLICATE
 # def find_dup(array)
-#   array.tally.key(2)
+#   array.tally.key(2) || "No duplicate found."
+# end
+
+# def find_dup(array)
+#   seen = []
+#   index = 0
+
+#   loop do
+#     current_element = array[index]
+#     return current_element if seen.include?(current_element)
+#     seen << current_element
+#     index += 1
+#     break if index >= array.size
+#   end
+#   "No duplicate found."
+# end
+
+# def find_dup(array)
+#   array.each do |element|
+#     return element if array.count(element) > 1
+#   end
+#   "No duplicate found."
 # end
 
 # p find_dup([1, 5, 1, 3])# == 1
@@ -25,6 +61,7 @@ p include?([], nil) == false
 #           85, 87, 51, 17, 66, 20, 28, 26,  2, 22,
 #           40, 23, 71, 62, 73, 32, 43, 24,  4, 56,
 #           7,  34, 57, 74, 45, 11, 88, 67,  5, 58])# == 73
+# p find_dup([1, 2, 3, 4, 5])
 
 ### 7.2 HALVSIES
 # def halvsies(array)
