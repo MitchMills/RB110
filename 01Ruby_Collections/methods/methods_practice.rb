@@ -1,5 +1,118 @@
-### PROBLEM %
+### PROBLEM 10
+# a kid is in the age range 0 - 17, an adult is in the range 18 - 64 and a senior is aged 65+
 
+def add_age_range(hash)
+  hash.each do |name, info|
+    age_group = case info["age"]
+                when (0..17) then "kid"
+                when (18..64) then "adult"
+                when (65..) then "senior"
+                end
+    
+    info["age group"] = age_group
+  end
+  hash
+end
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+p add_age_range(munsters)
+
+result = {
+  "Herman"=>{"age"=>32, "gender"=>"male", "age group"=>"adult"}, 
+  "Lily"=>{"age"=>30, "gender"=>"female", "age group"=>"adult"}, 
+  "Grandpa"=>{"age"=>402, "gender"=>"male", "age group"=>"senior"}, 
+  "Eddie"=>{"age"=>10, "gender"=>"male", "age group"=>"kid"}, 
+  "Marilyn"=>{"age"=>23, "gender"=>"female", "age group"=>"adult"}
+}
+
+
+### PROBLEM 9
+# def titleize(words)
+#   words.split.map(&:capitalize).join(' ')
+# end
+
+# def titleize(words)
+#   words.each_char.with_index.map do |char, index|
+#     next char.upcase if index == 0 || words[index - 1] == ' '
+#     char
+#   end.join
+# end
+
+# words = "the flintstones rock"
+# p titleize(words)
+
+### PROBLEM 8
+# numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   p numbers
+#   numbers.shift(1)
+# end
+
+# numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   p numbers
+#   numbers.pop(1)
+# end
+
+### PROBLEM 7
+# def letter_count(string)
+#   string.delete(' ').chars.tally
+# end
+
+# def letter_count(string)
+#   string.delete(' ').each_char.with_object(Hash.new(0)) do |char, counts|
+#     counts[char] += 1
+#   end
+# end
+
+# def letter_count(string)
+#   string.delete(' ').each_char.with_object({}) do |char, counts|
+#     counts[char] ? counts[char] += 1 : counts[char] = 1
+#   end
+# end
+
+# def letter_count(string)
+#   string.delete(' ').each_char.with_object({}) do |char, counts|
+#     counts[char] = string.count(char)
+#   end
+# end
+
+# statement = "The Flintstones Rock"
+# p letter_count(statement)
+
+### PROBLEM 6
+# def shorten(names)
+#   names.each_with_index { |name, index| names[index] = name[0, 3] }
+# end
+
+# def shorten(names)
+#   names.map! { |name| name[0, 3] }
+# end
+
+# flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+# p shorten(flintstones)
+# p flintstones
+
+### PROBLEM 5
+# def find_index(array, target)
+#   array.each_with_index { |name, index| return index if name.start_with?(target) }
+# end
+
+# def find_index(array, target)
+#   array.index { |name| name.start_with?(target) }
+# end
+
+# flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+# p find_index(flintstones, "Be")
 
 ### PROBLEM 4
 # def youngest(hash)
