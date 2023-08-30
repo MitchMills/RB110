@@ -1,3 +1,19 @@
+### 1.2 COMBINE TWO LISTS
+# def interleave(array1, array2)
+#   array1.zip(array2).flatten
+# end
+
+def interleave(array1, array2)
+  (0...array1.size).each_with_object([]) do |index, result|
+    result << array1[index]
+    result << array2[index]
+  end
+end
+
+array1 = [1, 2, 3]
+array2 = ['a', 'b', 'c']
+p interleave(array1, array2) == [1, 'a', 2, 'b', 3, 'c']
+
 ### 11 HOW MANY
 # def count_occurrences(array)
 #   array.tally.each { |type, count| puts "#{type} => #{count}" }
