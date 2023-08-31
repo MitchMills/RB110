@@ -1,3 +1,13 @@
+### 2.2 
+def letter_case_count(string)
+
+end
+
+p letter_case_count('abCdef 123') == { lowercase: 5, uppercase: 1, neither: 4 }
+p letter_case_count('AbCd +Ef') == { lowercase: 3, uppercase: 3, neither: 2 }
+p letter_case_count('123') == { lowercase: 0, uppercase: 0, neither: 3 }
+p letter_case_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
+
 ### 1.2 COMBINE TWO LISTS
 # def interleave(array1, array2)
 #   array1.zip(array2).flatten
@@ -23,16 +33,16 @@
 #   end
 # end
 
-def interleave(array1, array2)
-  (array1.size * 2).times.map do |index|
-    donor = index.even? ? array1 : array2
-    donor[index / 2]
-  end
-end
+# def interleave(array1, array2)
+#   (array1.size * 2).times.map do |index|
+#     target = index.even? ? array1 : array2
+#     target[index / 2]
+#   end
+# end
 
-array1 = [1, 2, 3]
-array2 = ['a', 'b', 'c']
-p interleave(array1, array2) == [1, 'a', 2, 'b', 3, 'c']
+# array1 = [1, 2, 3]
+# array2 = ['a', 'b', 'c']
+# p interleave(array1, array2) == [1, 'a', 2, 'b', 3, 'c']
 
 ### 11 HOW MANY
 # def count_occurrences(array)

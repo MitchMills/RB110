@@ -1,19 +1,9 @@
 # PROBLEM
-Write a method that combines two Arrays passed in as arguments, and returns a new Array that contains all elements from both Array arguments, with the elements taken in alternation.
+Write a method that takes a string, and then returns a hash that contains 3 entries: one represents the number of characters in the string that are lowercase letters, one represents the number of characters that are uppercase letters, and one represents the number of characters that are neither.
 
-You may assume that both input Arrays are non-empty, and that they have the same number of elements.
+  Input: 
 
-  Input: two arrays
-    - arrays are not empty
-    - both arrays have the same number of elements
-    - elements may be of different types (e.g. integers and strings)
-
-  Output: array
-    - contains all elements from both input arrays
-    - elements are in alternating order
-    - first element is from the first array, second is from the second, etc.
-    - 0 & even-numbered indexed elements are from first array
-    - odd-numbered indexed elements are form second array
+  Output:
 
   ## Rules
   ### explicit
@@ -25,20 +15,15 @@ You may assume that both input Arrays are non-empty, and that they have the same
 
 
 # EXAMPLES
-interleave([1, 2, 3], ['a', 'b', 'c']) == [1, 'a', 2, 'b', 3, 'c']
+letter_case_count('abCdef 123') == { lowercase: 5, uppercase: 1, neither: 4 }
+letter_case_count('AbCd +Ef') == { lowercase: 3, uppercase: 3, neither: 2 }
+letter_case_count('123') == { lowercase: 0, uppercase: 0, neither: 3 }
+letter_case_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
 
 # DATA STRUCTURES
-input: two arrays
 
-array to alternately add elements to
-
-output: array
 
 # ALGORITHM
-- create an output array
-- iterate over a range: 0 to (array1.size - 1)
-  - on each iteration add element at current index from both input arrays to output array 
-- return output array
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
