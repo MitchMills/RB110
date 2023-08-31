@@ -3,10 +3,30 @@
 #   array1.zip(array2).flatten
 # end
 
+# def interleave(array1, array2)
+#   (0...array1.size).each_with_object([]) do |index, result|
+#     result << array1[index]
+#     result << array2[index]
+#   end
+# end
+
+# def interleave(array1, array2)
+#   array1.size.times.with_object([]) do |index, result|
+#     result << array1[index]
+#     result << array2[index]
+#   end
+# end
+
+# def interleave(array1, array2)
+#   (array1.size * 2).times.map do |index|
+#     index.even? ? array1[index / 2] : array2[index / 2]
+#   end
+# end
+
 def interleave(array1, array2)
-  (0...array1.size).each_with_object([]) do |index, result|
-    result << array1[index]
-    result << array2[index]
+  (array1.size * 2).times.map do |index|
+    donor = index.even? ? array1 : array2
+    donor[index / 2]
   end
 end
 
