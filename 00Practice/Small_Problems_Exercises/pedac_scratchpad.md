@@ -1,5 +1,7 @@
 # PROBLEM
-Write a method that takes a string, and then returns a hash that contains 3 entries: one represents the number of characters in the string that are lowercase letters, one represents the number of characters that are uppercase letters, and one represents the number of characters that are neither.
+Write a method that takes a single String argument and returns a new string that contains the original value of the argument with the first character of every word capitalized and all other letters lowercase.
+
+You may assume that words are any sequence of non-blank characters.
 
   Input: 
 
@@ -15,10 +17,9 @@ Write a method that takes a string, and then returns a hash that contains 3 entr
 
 
 # EXAMPLES
-letter_case_count('abCdef 123') == { lowercase: 5, uppercase: 1, neither: 4 }
-letter_case_count('AbCd +Ef') == { lowercase: 3, uppercase: 3, neither: 2 }
-letter_case_count('123') == { lowercase: 0, uppercase: 0, neither: 3 }
-letter_case_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
+word_cap('four score and seven') == 'Four Score And Seven'
+word_cap('the javaScript language') == 'The Javascript Language'
+word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
 
 # DATA STRUCTURES
 

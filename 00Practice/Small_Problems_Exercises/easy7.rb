@@ -1,6 +1,27 @@
+### 3.2 CAPITALIZE WORDS
+def word_cap(string)
+
+end
+
+p word_cap('four score and seven') == 'Four Score And Seven'
+p word_cap('the javaScript language') == 'The Javascript Language'
+p word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
+
 ### 2.2 
 # def letter_case_count(string)
+#   lowercase = ('a'..'z').to_a
+#   uppercase = ('A'..'Z').to_a
+#   case_count = {lowercase: 0, uppercase: 0, neither: 0}
 
+#   string.each_char.with_object(case_count) do |char, case_count|
+#     if lowercase.include?(char)
+#       case_count[:lowercase] += 1
+#     elsif uppercase.include?(char)
+#       case_count[:uppercase] += 1
+#     else
+#       case_count[:neither] += 1
+#     end
+#   end
 # end
 
 # p letter_case_count('abCdef 123') == { lowercase: 5, uppercase: 1, neither: 4 }
