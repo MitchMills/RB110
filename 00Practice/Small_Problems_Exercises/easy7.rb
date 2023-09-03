@@ -1,11 +1,49 @@
-### 3.2 CAPITALIZE WORDS
-def word_cap(string)
+### 4.2 SWAP CASE
+def
 
 end
 
-p word_cap('four score and seven') == 'Four Score And Seven'
-p word_cap('the javaScript language') == 'The Javascript Language'
-p word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
+p swapcase('CamelCase') == 'cAMELcASE'
+p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+
+### 3.2 CAPITALIZE WORDS
+# def word_cap(string)
+#   string.split.map(&:capitalize).join(' ')
+# end
+
+# def word_cap(string)
+#   string.split.map do |word|
+#     word[0].upcase + word[1..].downcase
+#   end.join(' ')
+# end
+
+###
+# LOWERCASE = ('a'..'z').to_a
+# UPPERCASE = ('A'..'Z').to_a
+
+# def word_cap(string)
+#   string.split.map do |word|
+#     word.each_char.with_index.map do |char, index|
+#       index == 0 ? change_case(char, 'upper') : change_case(char, 'lower')
+#     end.join
+#   end.join(' ')
+# end
+
+# def change_case(character, target_case)
+#   original_case = target_case == 'upper' ? LOWERCASE : UPPERCASE
+#   new_case = target_case == 'upper' ? UPPERCASE : LOWERCASE
+
+#   if original_case.include?(character)
+#     index = original_case.index(character)
+#     new_case[index]
+#   else
+#     character
+#   end
+# end
+
+# p word_cap('four score and seven') == 'Four Score And Seven'
+# p word_cap('the javaScript language') == 'The Javascript Language'
+# p word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
 
 ### 2.2 
 # def letter_case_count(string)
