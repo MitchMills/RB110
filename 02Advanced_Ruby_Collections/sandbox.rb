@@ -1,44 +1,48 @@
-def letter_changes(string)
-  uppercase = ('A'..'Z').to_a
-  lowercase = ('a'..'z').to_a
-  shifted_uppercase = ('D'..'Z').to_a + ('A'..'C').to_a
-  shifted_lowercase = ('d'..'z').to_a + ('a'..'c').to_a
-  string.chars.map do |char|
-    if uppercase.include?(char)
-      index = uppercase.index(char)
-      shifted_uppercase[index]
-    elsif lowercase.include?(char)
-      index = lowercase.index(char)
-      shifted_lowercase[index]
-    else
-      char
-    end
-  end.join
-end
 
 
 
-def letter_changes(string)
-  uppercase = ('A'..'Z').to_a
-  lowercase = ('a'..'z').to_a
-  string.chars.map do |char|
-    if uppercase.include?(char)
-      index = uppercase.index(char)
-      uppercase.rotate(3)[index]
-    elsif lowercase.include?(char)
-      index = lowercase.index(char)
-      lowercase.rotate(3)[index]
-    else
-      char
-    end
-  end.join
-end
+#### SHIFTED ALPHABET
+# def letter_changes(string)
+#   uppercase = ('A'..'Z').to_a
+#   lowercase = ('a'..'z').to_a
+#   shifted_uppercase = ('D'..'Z').to_a + ('A'..'C').to_a
+#   shifted_lowercase = ('d'..'z').to_a + ('a'..'c').to_a
+#   string.chars.map do |char|
+#     if uppercase.include?(char)
+#       index = uppercase.index(char)
+#       shifted_uppercase[index]
+#     elsif lowercase.include?(char)
+#       index = lowercase.index(char)
+#       shifted_lowercase[index]
+#     else
+#       char
+#     end
+#   end.join
+# end
 
 
-p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
-p letter_changes("Road trip9") == "Urdg wuls9"
-p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
-p letter_changes('xyz') == ('abc')
+
+# def letter_changes(string)
+#   uppercase = ('A'..'Z').to_a
+#   lowercase = ('a'..'z').to_a
+#   string.chars.map do |char|
+#     if uppercase.include?(char)
+#       index = uppercase.index(char)
+#       uppercase.rotate(3)[index]
+#     elsif lowercase.include?(char)
+#       index = lowercase.index(char)
+#       lowercase.rotate(3)[index]
+#     else
+#       char
+#     end
+#   end.join
+# end
+
+
+# p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+# p letter_changes("Road trip9") == "Urdg wuls9"
+# p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+# p letter_changes('xyz') == ('abc')
 
 
 ##### VOWEL SUBSTRINGS
@@ -184,5 +188,3 @@ p letter_changes('xyz') == ('abc')
 # p count_vowel_substrings("cuaieuouac") == 7
 # p count_vowel_substrings("aeiouu") == 2
 # p count_vowel_substrings("unicornarihan") == 0
-
-
