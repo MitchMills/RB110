@@ -1,10 +1,97 @@
-### 4.2 SWAP CASE
-def
+### 5.2 STAGGERED CAPS I
+def staggered_case(string)
 
 end
 
-p swapcase('CamelCase') == 'cAMELcASE'
-p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+### 4.2 SWAP CASE
+# UPPERCASE = ('A'..'Z').to_a
+# LOWERCASE = ('a'..'z').to_a
+
+# def swapcase(string)
+#   string.chars.map do |char|
+#     change_case(char)
+#   end.join
+# end
+
+# def change_case(char)
+#   if UPPERCASE.include?(char)
+#     index = UPPERCASE.index(char)
+#     LOWERCASE[index]
+#   elsif LOWERCASE.include?(char)
+#     index = LOWERCASE.index(char)
+#     UPPERCASE[index]
+#   else
+#     char
+#   end
+# end
+
+# def change_case(char)
+  # if UPPERCASE.index(char)
+  #   LOWERCASE[UPPERCASE.index(char)]
+  # elsif LOWERCASE.index(char)
+  #   UPPERCASE[LOWERCASE.index(char)]
+  # else
+  #   char
+  # end
+# end
+
+# def change_case(char)
+#   return char unless (UPPERCASE + LOWERCASE).include?(char)
+  # if UPPERCASE.include?(char)
+  #   LOWERCASE[UPPERCASE.index(char)]
+  # else
+  #   UPPERCASE[LOWERCASE.index(char)]
+  # end
+# end
+
+# def swapcase(string)
+#   string.chars.inject('') do |result, char|
+#     if UPPERCASE.include?(char)
+#       result << LOWERCASE[UPPERCASE.index(char)]
+#     elsif LOWERCASE.include?(char)
+#       result << UPPERCASE[LOWERCASE.index(char)]
+#     else
+#       result << char
+#     end
+#   end
+# end
+
+# def swapcase(string)
+#   string.chars.inject('') do |result, char|
+#     next result << char unless (UPPERCASE + LOWERCASE).include?(char)
+#     if UPPERCASE.include?(char)
+#       result << LOWERCASE[UPPERCASE.index(char)]
+#     else
+#       result << UPPERCASE[LOWERCASE.index(char)]
+#     end
+#   end
+# end
+
+# def swapcase(string)
+#   string.chars.inject('') do |result, char|
+#     next result << char unless (UPPERCASE + LOWERCASE).include?(char)
+#     old_case = UPPERCASE.include?(char) ? UPPERCASE : LOWERCASE
+#     new_case = UPPERCASE.include?(char) ? LOWERCASE : UPPERCASE
+#     result << new_case[old_case.index(char)]
+#   end
+# end
+
+# def swapcase(string)
+#   string.chars.map do |char|
+#     next char unless (UPPERCASE + LOWERCASE).include?(char)
+#     old_case = UPPERCASE.include?(char) ? UPPERCASE : LOWERCASE
+#     new_case = UPPERCASE.include?(char) ? LOWERCASE : UPPERCASE
+#     new_case[old_case.index(char)]
+#   end.join
+# end
+
+
+# p swapcase('CamelCase') == 'cAMELcASE'
+# p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
 
 ### 3.2 CAPITALIZE WORDS
 # def word_cap(string)
