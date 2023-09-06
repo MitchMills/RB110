@@ -1,25 +1,123 @@
+##### 11111111
+
+
+
+
+##### 10101010
+# def increment(array)
+#   array.map do |hash|
+#     hash.each_with_object({}) { |(key, value), result| result[key] = value + 1 }
+#   end
+# end
+
+# array1 = [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
+# array2 = [{a: 2}, {b: 3, c: 4}, {d: 5, e: 6, f: 7}]
+
+# p increment(array1) == array2
+# p array1 == [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
+# p array2 == [{a: 2}, {b: 3, c: 4}, {d: 5, e: 6, f: 7}]
+
+##### 9999
+# def multi_sort(array)
+#   array.map { |subarray| subarray.sort.reverse }
+# end
+
+# def multi_sort(array)
+#   array.map { |subarray| subarray.sort { |a, b| b <=> a } }
+# end
+
+# arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
+
+# p multi_sort(arr)
+
+##### 8888
+# def display_all_vowels(hash)
+#   vowels = 'aeiou'
+#   hash.each_value do |words|
+#     words.each do |word|
+#       word.each_char do |char|
+#         puts char if vowels.include?(char)
+#       end
+#     end
+#   end
+# end
+
+# hsh = {
+#   first: ['the', 'quick'], 
+#   second: ['brown', 'fox'], 
+#   third: ['jumped'], 
+#   fourth: ['over', 'the', 'lazy', 'dog']
+# }
+
+# display_all_vowels(hsh)
+
+##### 7777
+# a = 2
+# b = [5, 8]
+# arr = [a, b] # [2, [5, 8]]
+
+# arr[0] += 2 # [4, [5, 8]]
+# arr[1][0] -= a # [4, [3, 8]]
+
+# p a # 2
+# p b # [3, 8]
+# p arr # [4, [3, 8]]
+
+
+##### 6666
+# def display_family_member_info(family)
+#   family.each do |name, info|
+#     puts "#{name} is a #{info['age']}-year-old #{info['gender']}."
+#   end
+# end
+
+# munsters = {
+#   "Herman" => { "age" => 32, "gender" => "male" },
+#   "Lily" => { "age" => 30, "gender" => "female" },
+#   "Grandpa" => { "age" => 402, "gender" => "male" },
+#   "Eddie" => { "age" => 10, "gender" => "male" },
+#   "Marilyn" => { "age" => 23, "gender" => "female"}
+# }
+
+# display_family_member_info(munsters)
+
 ##### 5555
-def male_ages(family)
-  age = 0
-  family.each_value { |info| age += info["age"] if info["gender"] == "male" }
-  age
-end
+# def male_ages(family)
+#   age = 0
+#   family.each_value { |info| age += info["age"] if info["gender"] == "male" }
+#   age
+# end
 
-def male_ages(family)
-  males = family.each_value.select { |info| info["gender"] == "male" }
-  males.map { |stats| stats["age"] }.sum
-end
+# def male_ages(family)
+#   males = family.values.select { |info| info["gender"] == "male" }
+#   males.map { |stats| stats["age"] }.sum
+# end
 
-munsters = {
-  "Herman" => { "age" => 32, "gender" => "male" },
-  "Lily" => { "age" => 30, "gender" => "female" },
-  "Grandpa" => { "age" => 402, "gender" => "male" },
-  "Eddie" => { "age" => 10, "gender" => "male" },
-  "Marilyn" => { "age" => 23, "gender" => "female"}
-}
+# def male_ages(family)
+#   family.values.inject(0) do |total_age, info|
+#     info['gender'] == 'male' ? total_age += info['age'] : total_age
+#   end
+# end
 
-# p munsters["Herman"]["age"]
-p male_ages(munsters)
+# def male_ages(family)
+#   family.values.map { |info| info['gender'] == 'male' ? info['age'] : 0 }.sum
+# end
+
+# def male_ages(family)
+#   family.values.filter_map do |info|
+#     info['age'] if info['gender'] == 'male'
+#   end.sum
+# end
+
+# munsters = {
+#   "Herman" => { "age" => 32, "gender" => "male" },
+#   "Lily" => { "age" => 30, "gender" => "female" },
+#   "Grandpa" => { "age" => 402, "gender" => "male" },
+#   "Eddie" => { "age" => 10, "gender" => "male" },
+#   "Marilyn" => { "age" => 23, "gender" => "female"}
+# }
+
+# p male_ages(munsters)
 
 ##### 4444
 # arr1 = [1, [2, 3], 4]
