@@ -1,7 +1,67 @@
+##### 15151515
+# def only_evens(array)
+#   array.select do |hash| # {b: [2, 4, 6], c: [3, 6], d: [4]}
+#     hash.values.all? do |array| # [2, 4, 6]
+#       array.all? { |num| num.even? } # 2
+#     end
+#   end
+# end
+
+# arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
+# p only_evens(arr) ==[{e: [8], f: [6, 10]}]
+
+##### 14141414
+# def colors_and_sizes(hash)
+#   hash.values.map do |info|
+#     info[:type] == 'fruit' ? info[:colors].map(&:capitalize) : info[:size].upcase
+#   end
+# end
+
+# produce = {
+#   'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+#   'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+#   'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+#   'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+#   'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+# }
+
+# p colors_and_sizes(produce) == [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+##### 13131313
+# def odd_sort(array)
+#   array.sort_by do |subarray|
+#     subarray.select(&:odd?)
+#   end
+# end
+
+# arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+# p odd_sort(arr) == [[1, 8, 3], [1, 5, 9], [6, 1, 7], [1, 6, 9]]
+
+##### 12121212
+# def nested_array_to_hash(array)
+#   array.each_with_object({}) do |subarray, hash|
+#     key, value = subarray
+#     hash[key] = value
+#   end
+# end
+
+# arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+# p nested_array_to_hash(arr) == {
+#   :a=>1, 
+#   "b"=>"two", 
+#   "sea"=>{:c=>3}, 
+#   {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"
+# }
+
 ##### 11111111
+# def multiples_of_three(array)
+#   array.map do |subarray|
+#     subarray.select { |num| num % 3 == 0 }
+#   end
+# end
 
-
-
+# array = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+# p multiples_of_three(array) == [[], [3, 12], [9], [15]]
 
 ##### 10101010
 # def increment(array)
