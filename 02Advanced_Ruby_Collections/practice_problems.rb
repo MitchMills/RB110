@@ -1,3 +1,23 @@
+##### 16161616
+HEX_CHARACTERS = ('0'..'9').to_a + ('a'..'f').to_a
+PATTERN = [8, 4, 4, 4, 12]
+
+# def generate_uuid
+#   PATTERN.map do |length|
+#     string = ''
+#     length.times { |num| string << HEX_CHARACTERS.sample }
+#     string
+#   end.join('-')
+# end
+
+def generate_uuid
+  PATTERN.map do |length|
+    length.times.inject('') { |string| string << HEX_CHARACTERS.sample }
+  end.join('-')
+end
+
+p generate_uuid
+
 ##### 15151515
 # def only_evens(array)
 #   array.select do |hash| # {b: [2, 4, 6], c: [3, 6], d: [4]}

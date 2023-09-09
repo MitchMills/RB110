@@ -1,42 +1,32 @@
 # PROBLEM
-Have the method letter_changes(str) take the str parameter being passed and
-modify it using the following algorithm:
-  -Replace every letter in the string with the 3rd letter following it in the alphabet (ie. c becomes f, Z becomes C).
-Then return this modified string.
+Each UUID consists of 32 hexadecimal characters, and is typically broken into 5 sections like this 8-4-4-4-12 and represented as a string.
 
-input: string
-  - can contain letters, non-letter characters, spaces, upper and lower case
+Write a method that returns one UUID when called with no parameters.
 
+input: nothing
 output: string
-  - every letter in input string replaced with 3rd letter following it
-  - non-letter characters are unchanged
-  - case is preserved
-  - if end of alphabet is reached, loop back around: x -> a, y -> b, z -> c
+  - 32 hexadecimal characters
+  - broken into 5 sections
+    - 8-4-4-4-12
+    - separated by dashes
 
 # EXAMPLES
-p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
-p letter_changes("Road trip9") == "Urdg wuls9"
-p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
-p letter_changes('xyz') == ('abc')
+"f65c57f6-a6aa-17a8-faa1-a67f2dc9fa91"
 
 # DATA STRUCTURE(S)
-input: string
-  - array of each character
-  - array of alphabet: upper and lower
-  - array of alphabet shifted 3 places: upper and lower
+- list of hexadecimal characters to randomly choose each character from
+- array representing `pattern`: [8, 4, 4, 4, 12]
+- transform `pattern` into an array: ['f65c57f6', 'a6aa, etc ]
+  - each nested array contains a string: can concatenate random characters to it until it is the correct length
 
-output: string
 
 # ALGORITHM
-- create two arrays: uppercase alphabet, lowercase alphabet
-- create two arrays: shifted uppercase alphabet, shifted lowercase alphabet
-
-- separate the input string into an array of letters
-- iterate over this array
-  - for each char, if it is included in one of the alphabets, get the index of that character in the alphabet, and replace it with the character at the same index in the shifted alphabet
-  - otherwise leave the character unchanged
-- join the array back into a string
-- return the string
+- initialize an array of hexadecimal characters: `HEX_CHARACTERS`
+- initialize an array representation of the pattern: `PATTERN`
+- iterate over `PATTERN`
+  - for the current element, add random hexadecimal characters to a string until the string is the length that matches the value of that element
+  - store this string in an array
+- join the strings in the array with '-' in between
 
 
 #################################
