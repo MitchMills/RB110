@@ -1,11 +1,76 @@
-### 5.2 STAGGERED CAPS I
+### 6.2 STAGGERED CAPS II
 def staggered_case(string)
 
 end
 
-p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
-p staggered_case('ALL_CAPS') == 'AlL_CaPs'
-p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
+p staggered_case('ALL CAPS') == 'AlL cApS'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+
+### 5.2 STAGGERED CAPS I
+# def staggered_case(string)
+#   string.chars.map.with_index do |char, idx|
+#     idx.even? ? char.upcase : char.downcase
+#   end.join
+# end
+
+# def staggered_case(string) # MUTATING
+#   (0...string.size).each do |idx|
+#     string[idx] = idx.even? ? string[idx].upcase : string[idx].downcase
+#   end
+#   string
+# end
+
+# def staggered_case(string) # MUTATING
+#   string.size.times do |idx|
+#     string[idx] = idx.even? ? string[idx].upcase : string[idx].downcase 
+#   end
+#   string
+# end
+
+# def staggered_case(string)
+#   string = string.downcase
+#   (0...string.size).each do |idx|
+#     string[idx] = string[idx].upcase if idx.even?
+#   end
+#   string
+# end
+
+# def staggered_case(string)
+#   string.size.times.inject('') do |new_string, idx|
+#     new_string << (idx.even? ? string[idx].upcase : string[idx].downcase)
+#   end
+# end
+
+# def staggered_case(string, start_upper: true)
+#   string.size.times.inject('') do |new_string, idx|
+#     char = (start_upper ? string[idx].upcase : string[idx].downcase)
+#     start_upper = !start_upper
+#     new_string << char
+#   end
+# end
+
+# def staggered_case(string, start_upper: true)
+#   string.size.times.inject('') do |new_string, idx|
+#     start_upper = !start_upper
+#     new_string << (start_upper ? string[idx].downcase : string[idx].upcase)
+#   end
+# end
+
+# def staggered_case(string)
+#   string.size.times.each_with_object('') do |idx, new_string|
+#     new_string << (idx.even? ? string[idx].upcase : string[idx].downcase)
+#   end
+# end
+
+# string = 'I Love Launch School!'
+# p staggered_case(string) # => "I LoVe lAuNcH ScHoOl!"
+# p staggered_case(string, start_upper: false) # => "i lOvE LaUnCh sChOoL!"
+# p string # => "I Love Launch School!"
+
+# p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+# p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
 ### 4.2 SWAP CASE
 # UPPERCASE = ('A'..'Z').to_a
