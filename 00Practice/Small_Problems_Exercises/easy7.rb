@@ -1,6 +1,13 @@
 ### 6.2 STAGGERED CAPS II
-def staggered_case(string)
+LETTERS = ('A'..'Z').to_a + ('a'..'z').to_a
 
+def staggered_case(string)
+  uppercase = true
+  string.chars.map do |char|
+    next char unless LETTERS.include?(char)
+    uppercase = !uppercase
+    uppercase ? char.downcase : char.upcase
+  end.join
 end
 
 p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
