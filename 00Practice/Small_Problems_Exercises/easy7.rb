@@ -1,11 +1,30 @@
-### 7.2 MULTIPLICATIVE AVERAGE
-def show_multiplicative_average(array)
+### 8.2 MULTIPLY LISTS
+def multiply_list(array1, array2)
 
 end
 
-p show_multiplicative_average([3, 5])                # => The result is 7.500
-p show_multiplicative_average([6])                   # => The result is 6.000
-p show_multiplicative_average([2, 5, 7, 11, 13, 17]) # => The result is 28361.667
+p multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+
+### 7.2 MULTIPLICATIVE AVERAGE
+# def show_multiplicative_average(array)
+#   product = array.inject(:*)
+#   result = product / array.size.to_f
+#   formatted_result = sprintf("%.3f", result)
+#   puts "The result is #{formatted_result}"
+# end
+
+# def show_multiplicative_average(array)
+#   puts "The result is #{sprintf("%.3f", (array.inject(:*).fdiv(array.size)))}"
+# end
+
+# def show_multiplicative_average(array)
+#   result = array.inject(:*).fdiv(array.size)
+#   puts "The result is #{sprintf("%.3f", result)}"
+# end
+
+# show_multiplicative_average([3, 5])                # => The result is 7.500
+# show_multiplicative_average([6])                   # => The result is 6.000
+# show_multiplicative_average([2, 5, 7, 11, 13, 17]) # => The result is 28361.667
 
 ### 6.2 STAGGERED CAPS II
 # LETTERS = ('A'..'Z').to_a + ('a'..'z').to_a
