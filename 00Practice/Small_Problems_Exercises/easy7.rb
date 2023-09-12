@@ -1,9 +1,19 @@
+
+
 ### 8.2 MULTIPLY LISTS
-def multiply_list(array1, array2)
+# def multiply_list(array1, array2)
+#   array1.map.with_index { |number, index| number * array2[index] }
+# end
 
-end
+# def multiply_list(array1, array2)
+#   array1.each_index.map { |index| array1[index] * array2[index] }
+# end
 
-p multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+# def multiply_list(array1, array2)
+#   array1.zip(array2).map { |pair| pair.inject(:*)}
+# end
+
+# p multiply_list([3, 5, 7], [9, 10, 11]) #== [27, 50, 77]
 
 ### 7.2 MULTIPLICATIVE AVERAGE
 # def show_multiplicative_average(array)
