@@ -1,3 +1,26 @@
+#### TRIPLE DOUBLE
+def triple_double(number1, number2)
+  digits = ('0'..'9').to_a
+  string1, string2 = [number1, number2].map(&:to_s)
+  
+  triples = digits.select do |digit|
+    string1.include?(digit * 3)
+  end
+
+  return 0 if triples.empty?
+
+  doubles = triples.select do |digit|
+    string2.include?(digit * 2)
+  end
+  
+  doubles.empty? ? 0 : 1
+
+end
+
+p triple_double(12345, 12345) == 0
+p triple_double(1222345, 12345) == 0
+p triple_double(666789, 12345667) == 1
+p triple_double(451999277, 41177722899) == 1
 
 
 
