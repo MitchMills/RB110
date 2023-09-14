@@ -27,18 +27,20 @@ delete_digit(10) == 1
 - input: integer
   - array of digits
   OR
-  - string ***
+  - string
 
   - array to hold possible results
 
 - output: integer
 
 # ALGORITHM
-- convert input integer into a string
-- iterate over a range from 0 up to one less than length of string
-  - remove character at index indicated by current number
-  - collect these strings in an array
-- convert all strings in array to integers
+- convert input integer into an array of digits: `digits`
+- iterate over a range from 0 up to one less than length of `digits`
+  - each element represents an index in `digits`
+  - transform each element into a subarray of all digits minus the digit at that index
+    - select all elements in `digits` that DON'T have that index
+- join digits in each subarray into a string
+- convert each string to an integer
 - sort the array
 - return the largest number
 
