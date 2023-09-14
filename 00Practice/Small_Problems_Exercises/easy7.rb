@@ -1,6 +1,6 @@
 ### 10.2 THE END IS NEAR BUT NOT HERE
 def penultimate(sentence)
-
+  sentence.split[-2]
 end
 
 p penultimate('last word') == 'last'
