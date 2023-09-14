@@ -1,10 +1,47 @@
-### 10.2 THE END IS NEAR BUT NOT HERE
-def penultimate(sentence)
-  sentence.split[-2]
-end
+### 11.2 HOW MANY
+# def count_occurrences(array)
+#   counts = get_counts(array)
+#   display_counts(counts)
+# end
 
-p penultimate('last word') == 'last'
-p penultimate('Launch School is great!') == 'is'
+# def get_counts(array)
+#   array.each_with_object(Hash.new(0)) { |type, counts| counts[type] += 1 }
+# end
+
+# def display_counts(hash)
+#   hash.each { |type, count| puts "#{type} => #{count}" }
+# end
+
+# def count_occurrences(array)
+#   array.map(&:downcase).tally.each { |type, count| puts "#{type} => #{count}" }
+# end
+
+# vehicles = [
+#   'car', 'Car', 'truck', 'car', 'SUV', 'truck',
+#   'motorcycle', 'motorcycle', 'car', 'truck', 'suv'
+# ]
+
+# count_occurrences(vehicles)
+
+### 10.2 THE END IS NEAR BUT NOT HERE
+# def middle_word(sentence)
+#   words = sentence.split
+#   middle = (words.size / 2.0).ceil - 1
+#   number = words.size.even? ? 2 : 1
+#   words.empty? ? '' : words[middle, number].join(' ')
+# end
+
+# p middle_word('In the middle of things') == 'middle'
+# p middle_word('Find the middle word') == 'the middle'
+# p middle_word('     ') == ''
+# p middle_word('') == ''
+
+# def penultimate(sentence)
+#   sentence.split[-2]
+# end
+
+# p penultimate('last word') == 'last'
+# p penultimate('Launch School is great!') == 'is'
 
 ### 9.2 MULTIPLY ALL PAIRS
 # def multiply_all_pairs(array1, array2)
