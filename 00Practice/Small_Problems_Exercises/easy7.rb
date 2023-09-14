@@ -1,4 +1,29 @@
+### 10.2 THE END IS NEAR BUT NOT HERE
+def penultimate(sentence)
 
+end
+
+p penultimate('last word') == 'last'
+p penultimate('Launch School is great!') == 'is'
+
+### 9.2 MULTIPLY ALL PAIRS
+# def multiply_all_pairs(array1, array2)
+#   array1.each_with_object([]) do |number1, products|
+#     array2.each { |number2| products << number1 * number2 }
+#   end.sort
+# end
+
+# def multiply_all_pairs(array1, array2)
+#   array1.map do |number1|
+#     array2.map { |number2| number1 * number2 }
+#   end.flatten.sort
+# end
+
+# def multiply_all_pairs(array1, array2)
+#   array1.product(array2).map { |pair| pair.inject(:*) }.sort
+# end
+
+# p multiply_all_pairs([2, 4], [4, 3, 1, 2]) #== [2, 4, 4, 6, 8, 8, 12, 16]
 
 ### 8.2 MULTIPLY LISTS
 # def multiply_list(array1, array2)
