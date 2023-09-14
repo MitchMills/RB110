@@ -1,3 +1,16 @@
+##### DELETE A DIGIT #####
+=begin
+Write a method that takes an integer and returns the largest integer that can be obtained by deleting exactly one digit.
+
+Assume all input integers will contain at least two digits
+
+p delete_digit(791983) == 91983
+p delete_digit(152) == 52
+p delete_digit(1001) == 101
+p delete_digit(10) == 1
+=end
+
+
 ##### FIND CHILDREN #####
 =begin
 def find_children(string)
