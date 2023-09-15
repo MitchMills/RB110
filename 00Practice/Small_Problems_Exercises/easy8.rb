@@ -1,3 +1,34 @@
+### 1.2 SUM OF SUMS
+# def sum_of_sums(array)
+#   subsequences = (1..array.size).map do |size|
+#     array[0, size]
+#   end
+#   subsequences.map(&:sum).sum
+# end
+
+# def sum_of_sums(array)
+#   (1..array.size).map { |size| array[0, size] }.map(&:sum).sum
+# end
+
+# def sum_of_sums(array)
+#   (1..array.size).map { |size| array.take(size) }.map(&:sum).sum
+# end
+
+def sum_of_sums(array)
+  (1..array.size).map { |size| array.take(size) }.flatten.sum
+end
+
+# def sum_of_sums(array)
+#   array.map.with_index do |number, index|
+#     number * (array.size - index)
+#   end.sum
+# end
+
+p sum_of_sums([3, 5, 2]) == (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+p sum_of_sums([1, 5, 7, 3]) == (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
+p sum_of_sums([4]) == 4
+p sum_of_sums([1, 2, 3, 4, 5]) == 35
+
 ### 10 ARRAY AVERAGE
 # def average(array)
 #   sum = 0

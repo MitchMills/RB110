@@ -1,30 +1,30 @@
 ### 11.2 HOW MANY
 ###
-def count_occurrences(array)
-  counts = get_counts(array)
-  display_counts(counts)
-end
+# def count_occurrences(array)
+#   counts = get_counts(array)
+#   display_counts(counts)
+# end
 
-def get_counts(array)
-  types = array.map(&:downcase)
-  types.each_with_object(Hash.new(0)) { |type, counts| counts[type] += 1 }
-end
+# def get_counts(array)
+#   types = array.map(&:downcase)
+#   types.each_with_object(Hash.new(0)) { |type, counts| counts[type] += 1 }
+# end
 
-def display_counts(hash)
-  hash.each { |type, count| puts "#{type} => #{count}" }
-end
+# def display_counts(hash)
+#   hash.each { |type, count| puts "#{type} => #{count}" }
+# end
 ###
 
 # def count_occurrences(array)
 #   array.map(&:downcase).tally.each { |type, count| puts "#{type} => #{count}" }
 # end
 
-vehicles = [
-  'car', 'Car', 'truck', 'car', 'SUV', 'truck',
-  'motorcycle', 'motorcycle', 'car', 'truck', 'suv'
-]
+# vehicles = [
+#   'car', 'Car', 'truck', 'car', 'SUV', 'truck',
+#   'motorcycle', 'motorcycle', 'car', 'truck', 'suv'
+# ]
 
-count_occurrences(vehicles)
+# count_occurrences(vehicles)
 
 ### 10.2 THE END IS NEAR BUT NOT HERE
 # def middle_word(sentence)
