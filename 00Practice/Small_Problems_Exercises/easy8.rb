@@ -14,8 +14,12 @@
 #   (1..array.size).map { |size| array.take(size) }.map(&:sum).sum
 # end
 
+# def sum_of_sums(array)
+#   (1..array.size).map { |size| array.take(size) }.flatten.sum
+# end
+
 def sum_of_sums(array)
-  (1..array.size).map { |size| array.take(size) }.flatten.sum
+  (1..array.size).flat_map { |size| array.take(size) }.sum
 end
 
 # def sum_of_sums(array)
