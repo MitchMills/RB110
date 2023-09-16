@@ -1,18 +1,39 @@
-def next_bigger_num(number)
-  digits = number.digits
-  combos = digits.permutation(digits.size).uniq.map(&:join).map(&:to_i).sort
-  index = combos.index(number)
-  combos[index + 1] || -1
-end
+### *** COMBINATION v PRODUCT v PERMUTATION
+numbers = 2017.digits
+p numbers.combination(4).to_a
+puts
+prods = [2, 0, 1, 7].product([2, 0, 1], [2, 0], [2])
+perms = numbers.permutation(4).to_a.sort
+p prods
+puts
+p perms
 
 
-p next_bigger_num(9) == -1
-p next_bigger_num(12) == 21
-p next_bigger_num(513) == 531
-p next_bigger_num(2017) == 2071
-p next_bigger_num(111) == -1
-p next_bigger_num(531) == -1
-p next_bigger_num(123456789) == 123456798
+### TWO CLOSEST
+# def closest_numbers(numbers)
+#   combos = numbers.combination(2).to_a
+#   result = combos.sort_by { |pair| (pair.inject(:-)).abs }.first
+# end
+
+# p closest_numbers([5, 25, 15, 11, 20]) #== [15, 11]
+# p closest_numbers([19, 25, 32, 4, 27, 16]) #== [25, 27]
+# p closest_numbers([12, 7, 17]) #== [12, 7]
+
+### NEXT BIGGER NUMBER
+# def next_bigger_num(number)
+#   digits = number.digits
+#   combos = digits.permutation(digits.size).uniq.map(&:join).map(&:to_i).sort
+#   index = combos.index(number)
+#   combos[index + 1] || -1
+# end
+
+# p next_bigger_num(9) == -1
+# p next_bigger_num(12) == 21
+# p next_bigger_num(513) == 531
+# p next_bigger_num(2017) == 2071
+# p next_bigger_num(111) == -1
+# p next_bigger_num(531) == -1
+# p next_bigger_num(123456789) == 123456798
 
 ### DELETE A DIGIT
 # def delete_digit(number)
