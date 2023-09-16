@@ -1,5 +1,10 @@
 ### *** COMBINATION v PRODUCT v PERMUTATION
-[7, 1, 0, 2]
+p [7, 1, 0, 2].each_cons(2).to_a
+# [[7, 1], [1, 0], [0, 2]]
+p [7, 1, 0, 2].each_cons(3).to_a
+# [[7, 1, 0], [1, 0, 2]]
+### returns each consecutive grouping of elements
+puts
 
 p [7, 1, 0, 2].combination(4).to_a
 # [[7, 1, 0, 2]]
