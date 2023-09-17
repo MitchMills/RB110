@@ -4,6 +4,7 @@ letter #=> 'a'
 p letter.object_id #=> 60
 letter.upcase! #=> 'A'
 p letter.object_id #=> 60
+p string
 
 
 # p string.object_id #=> 60
