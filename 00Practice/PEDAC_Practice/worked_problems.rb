@@ -1,27 +1,30 @@
-### *** COMBINATION v PRODUCT v PERMUTATION
-p [7, 1, 0, 2].each_cons(2).to_a
-# [[7, 1], [1, 0], [0, 2]]
-p [7, 1, 0, 2].each_cons(3).to_a
-# [[7, 1, 0], [1, 0, 2]]
-### returns each consecutive grouping of elements
-puts
-
-p [7, 1, 0, 2].combination(4).to_a
-# [[7, 1, 0, 2]]
-p [7, 1, 0, 2].combination(3).to_a
-# [[7, 1, 0], [7, 1, 2], [7, 0, 2], [1, 0, 2]]
-p [7, 1, 0, 2].combination(2).to_a
-# [[7, 1], [7, 0], [7, 2], [1, 0], [1, 2], [0, 2]]
-### returns every possible grouping of the elements without considering order: i.e. [7, 1] and [1, 7] are the same combination (they contain the same two elements) so only one is returned
-puts
 
 
-p [7, 1, 0, 2].product([7, 1, 0, 2])
-# [[7, 7], [7, 1], [7, 0], [7, 2], [1, 7], [1, 1], [1, 0], [1, 2], [0, 7], [0, 1], [0, 0], [0, 2], [2, 7], [2, 1], [2, 0], [2, 2]]
-### returns combinations of each element of calling array with each element of argument array(s)
-puts
 
-p [7, 1, 0, 2].permutation(4).to_a.sort
+### *** EACH_CONS v COMBINATION v PRODUCT v PERMUTATION
+# p [7, 1, 0, 2].each_cons(2).to_a
+# # [[7, 1], [1, 0], [0, 2]]
+# p [7, 1, 0, 2].each_cons(3).to_a
+# # [[7, 1, 0], [1, 0, 2]]
+# ### returns each consecutive grouping of elements
+# puts
+
+# p [7, 1, 0, 2].combination(4).to_a
+# # [[7, 1, 0, 2]]
+# p [7, 1, 0, 2].combination(3).to_a
+# # [[7, 1, 0], [7, 1, 2], [7, 0, 2], [1, 0, 2]]
+# p [7, 1, 0, 2].combination(2).to_a
+# # [[7, 1], [7, 0], [7, 2], [1, 0], [1, 2], [0, 2]]
+# ### returns every possible combination of the elements without considering order: i.e. [7, 1] and [1, 7] are the same combination (they contain the same two elements) so only one is returned
+# puts
+
+
+# p [7, 1, 0, 2].product([7, 1, 0, 2])
+# # [[7, 7], [7, 1], [7, 0], [7, 2], [1, 7], [1, 1], [1, 0], [1, 2], [0, 7], [0, 1], [0, 0], [0, 2], [2, 7], [2, 1], [2, 0], [2, 2]]
+# ### returns combinations of each element of calling array with each element of argument array(s)
+# puts
+
+# p [7, 1, 0, 2].permutation(4).to_a.sort
 # [[0, 1, 2, 7], [0, 1, 7, 2], [0, 2, 1, 7], [0, 2, 7, 1], [0, 7, 1, 2], [0, 7, 2, 1], [1, 0, 2, 7], [1, 0, 7, 2], [1, 2, 0, 7], [1, 2, 7, 0], [1, 7, 0, 2], [1, 7, 2, 0], [2, 0, 1, 7], [2, 0, 7, 1], [2, 1, 0, 7], [2, 1, 7, 0], [2, 7, 0, 1], [2, 7, 1, 0], [7, 0, 1, 2], [7, 0, 2, 1], [7, 1, 0, 2], [7, 1, 2, 0], [7, 2, 0, 1], [7, 2, 1, 0]]
 ### returns every possible grouping of the elements in every possible order: i.e. [0, 1, 2, 7] and [0, 1, 7, 2] are separate permutations
 
