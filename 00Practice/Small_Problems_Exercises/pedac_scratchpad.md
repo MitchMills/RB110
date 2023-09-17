@@ -1,37 +1,32 @@
 # PROBLEM
-Write a method that takes an Array of numbers and then returns the sum of the sums of each leading subsequence for that Array. You may assume that the Array always contains at least one number.
+Write a method that returns a list of all substrings of a string that start at the beginning of the original string. The return value should be arranged in order from shortest to longest substring.
 
-- input: array
-  - contains integers
-  - contains at least one number (no empty arrays)
-- output: integer
-  - sum of each leading subsequence of input array
-    - subsequence always starts at first element
-    - size of subsequence is from 1 up to size of input array
-    - largest subsequence is full input array
-    - number of subsequences = number of elements in input array
+- input: string
+
+- output: array
+  - list of all substrings that start at first character of original string
+  - arranged in order from shortest to longest
+  - final element of output array has same value as original string
+  - first element has one character, each subsequent element is one character longer
+  - size of output array is the same as the size of the input string
 
 # EXAMPLES
-sum_of_sums([3, 5, 2]) == (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
-sum_of_sums([1, 5, 7, 3]) == (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
-sum_of_sums([4]) == 4
-sum_of_sums([1, 2, 3, 4, 5]) == 35
+leading_substrings('abc') == ['a', 'ab', 'abc']
+leading_substrings('a') == ['a']
+leading_substrings('xyzzy') == ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
 
 # DATA STRUCTURES
-input: array [3, 5, 2]
-  - collection of all subsequences in array
-    - [[3], [3, 5], [3, 5, 2]]
-      - [3, 8, 10]
-output: integer
+- STRING # 'abc'
+  - arrray of separate characters # ['a', 'b', 'c']
+    - can transform this array into output array
+- ARRAY # ['a', 'ab', 'abc']
 
 # ALGORITHM
-- iterate over a range from 1 up to the size of the input array
-  - transform each number into a slice of the input array
-    - start index is always 0
-    - size of slice is current number in range
-- iterate over array of subsequences
-  - transform each subarray into its sum
-- return sum of that array
+- convert input string into an array of separate characters
+- transform each element in array into string of all characters up to that position
+  - use the index of the current element in the array
+    - transform element into characters from input string from index 0 up to that index
+- return array
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #

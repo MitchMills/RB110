@@ -1,9 +1,29 @@
+### 2.2 LEADING SUBSTRINGS
+# def leading_substrings(string)
+#   string.chars.each_index.map { |index| string[0..index] }
+# end
+
+# def leading_substrings(string)
+#   (0...string.size).map { |index| string[0..index] }
+# end
+
+# def leading_substrings(string)
+#   string.size.times.map { |index| string[0..index] }
+# end
+
+# def leading_substrings(string)
+#   (1..string.size).map { |size| string[0, size] }
+# end
+
+# p leading_substrings('abc') #== ['a', 'ab', 'abc']
+# p leading_substrings('a') == ['a']
+# p leading_substrings('xyzzy') == ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
+
 ### 1.2 SUM OF SUMS
 # def sum_of_sums(array)
-#   subsequences = (1..array.size).map do |size|
-#     array[0, size]
-#   end
+#   subsequences = (1..array.size).map { |size| array[0, size] }
 #   subsequences.map(&:sum).sum
+#   # subsequences.flatten.sum
 # end
 
 # def sum_of_sums(array)
@@ -18,9 +38,10 @@
 #   (1..array.size).map { |size| array.take(size) }.flatten.sum
 # end
 
-def sum_of_sums(array)
-  (1..array.size).flat_map { |size| array.take(size) }.sum
-end
+# def sum_of_sums(array)
+#   (1..array.size).flat_map { |size| array.take(size) }.sum
+#   # (1..array.size).flat_map { |size| array[0, size] }.sum
+# end
 
 # def sum_of_sums(array)
 #   array.map.with_index do |number, index|
@@ -28,10 +49,10 @@ end
 #   end.sum
 # end
 
-p sum_of_sums([3, 5, 2]) == (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
-p sum_of_sums([1, 5, 7, 3]) == (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
-p sum_of_sums([4]) == 4
-p sum_of_sums([1, 2, 3, 4, 5]) == 35
+# p sum_of_sums([3, 5, 2]) #== (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+# p sum_of_sums([1, 5, 7, 3]) #== (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
+# p sum_of_sums([4]) #== 4
+# p sum_of_sums([1, 2, 3, 4, 5]) #== 35
 
 ### 10 ARRAY AVERAGE
 # def average(array)
