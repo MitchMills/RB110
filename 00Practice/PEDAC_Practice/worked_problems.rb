@@ -1,3 +1,26 @@
+string = 'abc'
+letter = string[0]
+letter #=> 'a'
+p letter.object_id #=> 60
+letter.upcase! #=> 'A'
+p letter.object_id #=> 60
+
+
+# p string.object_id #=> 60
+# p string[0].object_id #=> 80
+# p string[0].object_id #=> 100
+
+# string[0].upcase! #=> 'A'
+# string[0] #=> 'a'
+# string #=> 'abc'
+# p string.object_id #=> 60
+
+# string[0] = string[0].upcase
+# string[0] #=> 'A'
+# string #=> 'Abc'
+# p string.object_id #=> 60
+# p string[0].object_id #=> 120
+# p string[0].object_id #=> 140
 
 
 
