@@ -1,3 +1,39 @@
+### 4.2 PALINDROMIC SUBSTRINGS
+def
+
+end
+
+
+
+### 3.2
+# def substrings(string)
+#   (0...string.size).flat_map do |start_index|
+#     (1..(string.size - start_index)).map do |substring_size|
+#       string[start_index, substring_size]
+#     end
+#   end
+# end
+
+## with helper method
+# def substrings(string)
+#   (0...string.size).flat_map do |start_index|
+#     leading_substrings(string[start_index..-1])
+#   end
+# end
+
+# def leading_substrings(string)
+#   (1..string.size).map { |size| string[0, size] }
+# end
+##
+
+# p substrings('abcde') == [
+#   'a', 'ab', 'abc', 'abcd', 'abcde',
+#   'b', 'bc', 'bcd', 'bcde',
+#   'c', 'cd', 'cde',
+#   'd', 'de',
+#   'e'
+# ]
+
 ### 2.2 LEADING SUBSTRINGS
 # def leading_substrings(string)
 #   string.chars.each_index.map { |index| string[0..index] }
