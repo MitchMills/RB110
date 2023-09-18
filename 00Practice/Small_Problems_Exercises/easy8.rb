@@ -1,9 +1,47 @@
 ### 4.2 PALINDROMIC SUBSTRINGS
-def
+def palindromes(string, ignore_case: false, ignore_non_alpha: false)
+  # string = string.downcase if ignore_case
+  # string = string.gsub(/[^a-z0-9]/i, '') if ignore_non_alpha
 
+  substrings = get_all_substrings(string)
+  get_palindromes(substrings, ignore_case:, ignore_non_alpha:)
 end
 
+def get_all_substrings(string)
+  (0...string.size).flat_map do |start_index|
+    get_leading_substrings(string[start_index..-1])
+  end
+end
 
+def get_leading_substrings(string)
+  (1..string.size).map { |length| string[0, length] }
+end
+
+def get_palindromes(strings, ignore_case:, ignore_non_alpha:)
+  strings.select { |string| is_palindrome?(string, ignore_case:, ignore_non_alpha:) }
+end
+
+def is_palindrome?(string, ignore_case:, ignore_non_alpha:)
+  string = string.downcase if ignore_case
+  string = string.gsub(/[^a-z0-9]/i, '') if ignore_non_alpha
+  string.size > 1 && string == string.reverse
+end
+
+p palindromes('abcd') == []
+p palindromes('madam') == ['madam', 'ada']
+p palindromes('hello-madam-did-madam-goodbye') == [
+  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+  '-madam-', 'madam', 'ada', 'oo'
+]
+p palindromes('knitting cassettes') == [
+  'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
+]
+
+p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: false) == ["b-b"]
+p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: false) #== ["ab-ba", "b-b"]
+p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: true) #== ["bb"]
+p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: true) #== ["abba", "bb"]
 
 ### 3.2
 # def substrings(string)
