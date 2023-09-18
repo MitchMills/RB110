@@ -1,8 +1,12 @@
+### 5.2 FIZZBUZZ
+def fizzbuzz(start_num, end_num)
+
+end
+
+p fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
+
 ### 4.2 PALINDROMIC SUBSTRINGS
 def palindromes(string, ignore_case: false, ignore_non_alpha: false)
-  # string = string.downcase if ignore_case
-  # string = string.gsub(/[^a-z0-9]/i, '') if ignore_non_alpha
-
   substrings = get_all_substrings(string)
   get_palindromes(substrings, ignore_case:, ignore_non_alpha:)
 end
@@ -38,10 +42,10 @@ p palindromes('knitting cassettes') == [
   'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
 ]
 
-p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: false) == ["b-b"]
-p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: false) #== ["ab-ba", "b-b"]
-p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: true) #== ["bb"]
-p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: true) #== ["abba", "bb"]
+p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: false) #== ["b-b"]
+p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: false) #== ["Ab-ba", "b-b"]
+p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: true) #== ["b-b"]
+p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: true) #== ["Ab-ba", "b-b"]
 
 ### 3.2
 # def substrings(string)
