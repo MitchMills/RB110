@@ -1,28 +1,73 @@
 ### 5.2 FIZZBUZZ
-# def fizzbuzz(start_number, end_number)
-#   numbers = get_numbers(start_number..end_number)
-#   puts numbers.join(", ")
-# end
+def fizzbuzz(start_number, end_number)
+  numbers = get_numbers(start_number..end_number)
+  puts numbers
+end
 
-# def get_numbers(range)
-#   range.map do |number|
-#     next "FizzBuzz" if number % 15 == 0
-#     next "Buzz" if number % 5 == 0
-#     next "Fizz" if number % 3 == 0
-#     number
+def get_numbers(range)
+  range.map { |number| fizzbuzz_value(number) }.join(", ")
+end
+
+def fizzbuzz_value(number)
+  return "FizzBuzz" if number % 15 == 0
+  return "Buzz" if number % 5 == 0
+  return "Fizz" if number % 3 == 0
+  number
+end
+
+
+
+def fb(range)
+  range.map do |number|
+    [3, 5, 15].map { |divisor| number % divisor }
+  end
+end
+
+# ["Fizz", "Buzz"] [0, 1]
+# fb[0], fb[1], fb.join
+
+mods = fb(1..15)
+# [
+#   [1, 1, 1], 
+#   [2, 2, 2], 
+#   [0, 3, 3], 
+#   [1, 4, 4], 
+#   [2, 0, 5], 
+#   [0, 1, 6], 
+#   [1, 2, 7], 
+#   [2, 3, 8], 
+#   [0, 4, 9], 
+#   [1, 0, 10], 
+#   [2, 1, 11], 
+#   [0, 2, 12], 
+#   [1, 3, 13], 
+#   [2, 4, 14], 
+#   [0, 0, 0]
+# ]
+
+array = [1, 1, 1]
+index = (0..2).select do |index|
+  array[index] == 0
+end
+p index
+fb = ['Fizz', 'Buzz']
+p index.empty? ? "number" : fb[index.last] || fb.join
+
+
+# def get_word(array)
+#   fb = ['Fizz', 'Buzz']
+#   array.map.with_index do |subarray, index|
+#     case subarray.count(0)
+#     when 0 then index + 1
+#     when 1 then fb[subarray.index(0)]
+#     else fb.join
+#     end
 #   end
 # end
 
-def fizzbuzz(start, stop)
-  result = (start..stop).map do |num|
-    word = [["Fizz"][num % 3], ["Buzz"][num % 5]].compact
-    p word
-    word.empty? ? num : word.join
-  end
-  puts result.join(", ")
-end
 
-fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
+
+# fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
 ### 4.2 PALINDROMIC SUBSTRINGS
 # def palindromes(string, ignore_case: false, ignore_non_alpha: false)
