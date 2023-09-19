@@ -1,51 +1,70 @@
 ### 5.2 FIZZBUZZ
-def fizzbuzz(start_num, end_num)
+# def fizzbuzz(start_number, end_number)
+#   numbers = get_numbers(start_number..end_number)
+#   puts numbers.join(", ")
+# end
 
+# def get_numbers(range)
+#   range.map do |number|
+#     next "FizzBuzz" if number % 15 == 0
+#     next "Buzz" if number % 5 == 0
+#     next "Fizz" if number % 3 == 0
+#     number
+#   end
+# end
+
+def fizzbuzz(start, stop)
+  result = (start..stop).map do |num|
+    word = [["Fizz"][num % 3], ["Buzz"][num % 5]].compact
+    p word
+    word.empty? ? num : word.join
+  end
+  puts result.join(", ")
 end
 
-p fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
+fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
 ### 4.2 PALINDROMIC SUBSTRINGS
-def palindromes(string, ignore_case: false, ignore_non_alpha: false)
-  substrings = get_all_substrings(string)
-  get_palindromes(substrings, ignore_case:, ignore_non_alpha:)
-end
+# def palindromes(string, ignore_case: false, ignore_non_alpha: false)
+#   substrings = get_all_substrings(string)
+#   get_palindromes(substrings, ignore_case:, ignore_non_alpha:)
+# end
 
-def get_all_substrings(string)
-  (0...string.size).flat_map do |start_index|
-    get_leading_substrings(string[start_index..-1])
-  end
-end
+# def get_all_substrings(string)
+#   (0...string.size).flat_map do |start_index|
+#     get_leading_substrings(string[start_index..-1])
+#   end
+# end
 
-def get_leading_substrings(string)
-  (1..string.size).map { |length| string[0, length] }
-end
+# def get_leading_substrings(string)
+#   (1..string.size).map { |length| string[0, length] }
+# end
 
-def get_palindromes(strings, ignore_case:, ignore_non_alpha:)
-  strings.select { |string| is_palindrome?(string, ignore_case:, ignore_non_alpha:) }
-end
+# def get_palindromes(strings, ignore_case:, ignore_non_alpha:)
+#   strings.select { |string| is_palindrome?(string, ignore_case:, ignore_non_alpha:) }
+# end
 
-def is_palindrome?(string, ignore_case:, ignore_non_alpha:)
-  string = string.downcase if ignore_case
-  string = string.gsub(/[^a-z0-9]/i, '') if ignore_non_alpha
-  string.size > 1 && string == string.reverse
-end
+# def is_palindrome?(string, ignore_case:, ignore_non_alpha:)
+#   string = string.downcase if ignore_case
+#   string = string.gsub(/[^a-z0-9]/i, '') if ignore_non_alpha
+#   string.size > 1 && string == string.reverse
+# end
 
-p palindromes('abcd') == []
-p palindromes('madam') == ['madam', 'ada']
-p palindromes('hello-madam-did-madam-goodbye') == [
-  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
-  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
-  '-madam-', 'madam', 'ada', 'oo'
-]
-p palindromes('knitting cassettes') == [
-  'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
-]
+# p palindromes('abcd') == []
+# p palindromes('madam') == ['madam', 'ada']
+# p palindromes('hello-madam-did-madam-goodbye') == [
+#   'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+#   'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+#   '-madam-', 'madam', 'ada', 'oo'
+# ]
+# p palindromes('knitting cassettes') == [
+#   'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
+# ]
 
-p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: false) #== ["b-b"]
-p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: false) #== ["Ab-ba", "b-b"]
-p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: true) #== ["b-b"]
-p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: true) #== ["Ab-ba", "b-b"]
+# p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: false) #== ["b-b"]
+# p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: false) #== ["Ab-ba", "b-b"]
+# p palindromes('Ab-ba', ignore_case: false, ignore_non_alpha: true) #== ["b-b"]
+# p palindromes('Ab-ba', ignore_case: true, ignore_non_alpha: true) #== ["Ab-ba", "b-b"]
 
 ### 3.2
 # def substrings(string)
