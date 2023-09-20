@@ -1,68 +1,121 @@
+### 6.2 DOUBLE CHAR I
+def repeater(string)
+
+end
+
+p repeater('Hello') == "HHeelllloo"
+p repeater("Good job!") == "GGoooodd  jjoobb!!"
+p repeater('') == ''
+
 ### 5.2 FIZZBUZZ
-def fizzbuzz(start_number, end_number)
-  numbers = get_numbers(start_number..end_number)
-  puts numbers
-end
+###
+# def fizzbuzz(start_number, end_number)
+#   numbers = get_numbers(start_number..end_number)
+#   puts numbers
+# end
 
-def get_numbers(range)
-  range.map { |number| fizzbuzz_value(number) }.join(", ")
-end
+# def get_numbers(range)
+#   range.map { |number| fizzbuzz_value(number) }.join(", ")
+# end
 
-def fizzbuzz_value(number)
-  return "FizzBuzz" if number % 15 == 0
-  return "Buzz" if number % 5 == 0
-  return "Fizz" if number % 3 == 0
-  number
-end
+# def fizzbuzz_value(number)
+#   return "FizzBuzz" if number % 15 == 0
+#   return "Buzz" if number % 5 == 0
+#   return "Fizz" if number % 3 == 0
+#   number
+# end
+###
 
+###
+# FIZZBUZZ_VALUES = {3 => 'Fizz', 5 => 'Buzz', 15 => 'FizzBuzz'}
 
+# def fizzbuzz(start_number, end_number)
+#   numbers = get_numbers(start_number..end_number)
+#   puts numbers
+# end
 
-def fb(range)
-  range.map do |number|
-    [3, 5, 15].map { |divisor| number % divisor }
-  end
-end
+# def get_numbers(range)
+#   range.map { |number| fizzbuzz_value(number) }.join(", ")
+# end
 
-# ["Fizz", "Buzz"] [0, 1]
-# fb[0], fb[1], fb.join
+# def fizzbuzz_value(number)
+#   key = [3, 5, 15].select { |divisor| number % divisor == 0 }.last
+#   FIZZBUZZ_VALUES[key] || number
+# end
+###
+# FIZZBUZZ_VALUES = {3 => 'Fizz', 5 => 'Buzz'}
 
-mods = fb(1..15)
-# [
-#   [1, 1, 1], 
-#   [2, 2, 2], 
-#   [0, 3, 3], 
-#   [1, 4, 4], 
-#   [2, 0, 5], 
-#   [0, 1, 6], 
-#   [1, 2, 7], 
-#   [2, 3, 8], 
-#   [0, 4, 9], 
-#   [1, 0, 10], 
-#   [2, 1, 11], 
-#   [0, 2, 12], 
-#   [1, 3, 13], 
-#   [2, 4, 14], 
-#   [0, 0, 0]
-# ]
+# def fizzbuzz(start_number, end_number)
+#   numbers = get_numbers(start_number..end_number)
+#   puts numbers
+# end
 
-array = [1, 1, 1]
-index = (0..2).select do |index|
-  array[index] == 0
-end
-p index
-fb = ['Fizz', 'Buzz']
-p index.empty? ? "number" : fb[index.last] || fb.join
+# def get_numbers(range)
+#   range.map { |number| fizzbuzz_value(number) }.join(", ")
+# end
 
+# def fizzbuzz_value(number)
+#   divisors =[3, 5, 15].select { |divisor| number % divisor == 0 }
+#   return number if divisors.size == 0
+#   return FIZZBUZZ_VALUES[divisors.first] if divisors.size == 1
+#   FIZZBUZZ_VALUES.values.join
+# end
+###
 
-# def get_word(array)
-#   fb = ['Fizz', 'Buzz']
+###
+# def fizzbuzz(start_number, end_number)
+#   numbers = get_numbers(start_number..end_number)
+#   puts numbers
+# end
+
+# def get_numbers(range)
+#   modulos = range.map do |number|
+#     [3, 5, 15].map { |divisor| number % divisor }
+#   end
+#   fizzbuzz_values(modulos).join(', ')
+# end
+
+# def fizzbuzz_values(array)
+#   fizzbuzz = ['Fizz', 'Buzz']
 #   array.map.with_index do |subarray, index|
 #     case subarray.count(0)
 #     when 0 then index + 1
-#     when 1 then fb[subarray.index(0)]
-#     else fb.join
+#     when 1 then fizzbuzz[subarray.index(0)]
+#     else fizzbuzz.join
 #     end
 #   end
+# end
+###
+
+###
+# def fizzbuzz(start, stop)
+#   result = (start..stop).each_with_object("") do |num, string|
+#     string << num.to_s unless num % 3 == 0 || num % 5 == 0
+#     string << "Fizz" if num % 3 == 0
+#     string << "Buzz" if num % 5 == 0
+#     string << ", " unless num == stop
+#   end
+#   puts result
+# end
+###
+
+fizzbuzz(1, 15)
+
+# def fb(range)
+#   range.map do |number|
+#     [3, 5, 15].map { |divisor| number % divisor }
+#   end
+# end
+
+# def get_word(array)
+#   fb = ['Fizz', 'Buzz']
+  # array.map.with_index do |subarray, index|
+  #   case subarray.count(0)
+  #   when 0 then index + 1
+  #   when 1 then fb[subarray.index(0)]
+  #   else fb.join
+  #   end
+  # end
 # end
 
 
