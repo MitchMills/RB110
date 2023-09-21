@@ -1,13 +1,63 @@
-### 6.2 DOUBLE CHAR I
-def repeater(string)
+### 8.2 REVERSE IT I
+def reverse_sentence(sentence)
 
 end
 
-p repeater('Hello') == "HHeelllloo"
-p repeater("Good job!") == "GGoooodd  jjoobb!!"
-p repeater('') == ''
+puts reverse_sentence('Hello World') == 'World Hello'
+puts reverse_sentence('Reverse these words') == 'words these Reverse'
+puts reverse_sentence('') == ''
+puts reverse_sentence('    ') == '' # Any number of spaces results in ''
+
+### 7.2 DOUBLE CHAR II
+# CONSONANTS = ('A'..'Z').to_a + ('a'..'z').to_a - 'AEIOUaeiou'.chars
+
+# def double_consonants(string)
+#   string.each_char.inject("") do |new_string, char|
+#     new_string << (CONSONANTS.include?(char) ? char * 2 : char)
+#   end
+# end
+
+# def double_consonants(string)
+#   string.chars.map do |char|
+#     CONSONANTS.include?(char) ? char * 2 : char
+#   end.join
+# end
+
+# p double_consonants('String') == "SSttrrinngg"
+# p double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
+# p double_consonants("July 4th") == "JJullyy 4tthh"
+# p double_consonants('') == ""
+
+### 6.2 DOUBLE CHAR I
+# def repeater(string)
+#   string.chars.zip(string.chars)#.join
+# end
+
+# p repeater('Hello') #== "HHeelllloo"
+# p repeater("Good job!") == "GGoooodd  jjoobb!!"
+# p repeater('') == ''
 
 ### 5.2 FIZZBUZZ
+# def fizzbuzz(start_number, end_number)
+#   numbers = get_numbers(start_number..end_number)
+#   puts numbers
+# end
+
+# def get_numbers(range)
+#   range.map do |number|
+#     modulos = [3, 5].map { |divisor| number % divisor }
+#     value = fizzbuzz_value(modulos)
+#     value.empty? ? number : value
+#   end.join(', ')
+# end
+
+# def fizzbuzz_value(array)
+#   fizzbuzz = ['Fizz', 'Buzz']
+#   value = fizzbuzz.take(array.count(0))
+#   value.size == 1 ? fizzbuzz[array.index(0)] : value.join
+# end
+###
+
 ###
 # def fizzbuzz(start_number, end_number)
 #   numbers = get_numbers(start_number..end_number)
@@ -42,6 +92,7 @@ p repeater('') == ''
 #   key = [3, 5, 15].select { |divisor| number % divisor == 0 }.last
 #   FIZZBUZZ_VALUES[key] || number
 # end
+
 ###
 # FIZZBUZZ_VALUES = {3 => 'Fizz', 5 => 'Buzz'}
 
@@ -55,7 +106,7 @@ p repeater('') == ''
 # end
 
 # def fizzbuzz_value(number)
-#   divisors =[3, 5, 15].select { |divisor| number % divisor == 0 }
+#   divisors =[3, 5].select { |divisor| number % divisor == 0 }
 #   return number if divisors.size == 0
 #   return FIZZBUZZ_VALUES[divisors.first] if divisors.size == 1
 #   FIZZBUZZ_VALUES.values.join
@@ -70,7 +121,7 @@ p repeater('') == ''
 
 # def get_numbers(range)
 #   modulos = range.map do |number|
-#     [3, 5, 15].map { |divisor| number % divisor }
+#     [3, 5].map { |divisor| number % divisor }
 #   end
 #   fizzbuzz_values(modulos).join(', ')
 # end
@@ -99,7 +150,7 @@ p repeater('') == ''
 # end
 ###
 
-fizzbuzz(1, 15)
+# fizzbuzz(1, 15)
 
 # def fb(range)
 #   range.map do |number|
