@@ -1,12 +1,12 @@
 ### 8.2 REVERSE IT I
-def reverse_sentence(sentence)
+# def reverse_sentence(sentence)
 
-end
+# end
 
-puts reverse_sentence('Hello World') == 'World Hello'
-puts reverse_sentence('Reverse these words') == 'words these Reverse'
-puts reverse_sentence('') == ''
-puts reverse_sentence('    ') == '' # Any number of spaces results in ''
+# puts reverse_sentence('Hello World') == 'World Hello'
+# puts reverse_sentence('Reverse these words') == 'words these Reverse'
+# puts reverse_sentence('') == ''
+# puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 
 ### 7.2 DOUBLE CHAR II
 # CONSONANTS = ('A'..'Z').to_a + ('a'..'z').to_a - 'AEIOUaeiou'.chars
@@ -37,7 +37,30 @@ puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 # p repeater("Good job!") == "GGoooodd  jjoobb!!"
 # p repeater('') == ''
 
-### 5.2 FIZZBUZZ
+
+###### 5.2 FIZZBUZZ
+###
+# def fizzbuzz(start_number, end_number)
+#   numbers = get_numbers(start_number..end_number)
+#   puts numbers
+# end
+
+# def get_numbers(range)
+#   range.map { |number| fizzbuzz_value(number) }.join(", ")
+# end
+
+# def fizzbuzz_value(number)
+#   divisors =[3, 5].select { |divisor| number % divisor == 0 }
+#   return number if divisors.empty?
+#   start = divisors.first == 5 ? 4 : 0
+#   length = divisors.size == 2 ? 8 : 4
+#   'FizzBuzz'[start, length]
+# end
+
+# fizzbuzz(1, 15)
+###
+
+###
 # def fizzbuzz(start_number, end_number)
 #   numbers = get_numbers(start_number..end_number)
 #   puts numbers
@@ -52,9 +75,9 @@ puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 # end
 
 # def fizzbuzz_value(array)
-#   fizzbuzz = ['Fizz', 'Buzz']
-#   value = fizzbuzz.take(array.count(0))
-#   value.size == 1 ? fizzbuzz[array.index(0)] : value.join
+#   words = ['Fizz', 'Buzz']
+#   value = words.take(array.count(0))
+#   value.size == 1 ? words[array.index(0)] : value.join
 # end
 ###
 
@@ -111,7 +134,7 @@ puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 #   return FIZZBUZZ_VALUES[divisors.first] if divisors.size == 1
 #   FIZZBUZZ_VALUES.values.join
 # end
-###
+# ##
 
 ###
 # def fizzbuzz(start_number, end_number)
