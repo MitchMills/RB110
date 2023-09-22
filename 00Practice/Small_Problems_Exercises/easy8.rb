@@ -1,10 +1,31 @@
+### 9.2 REVERSE IT II
+def reverse_words(sentence)
+
+end
+
+p reverse_words('Professional') == 'lanoisseforP'
+p reverse_words('Walk around the block') == 'Walk dnuora the kcolb'
+p reverse_words('Launch School') == 'hcnuaL loohcS'
+
 ### 8.2 REVERSE IT I
 # def reverse_sentence(sentence)
+#  sentence.split.reverse.join(' ')
+# end
 
+# def reverse_sentence(sentence)
+#   words = sentence.split
+#   words.each_index.map { |index| words[-(index + 1)] }.join(' ')
+# end
+
+# def reverse_sentence(sentence)
+#   words = sentence.split
+#   (words.size / 2).times.with_object(words) do |index, words|
+#     words[index], words[-(index + 1)] = words[-(index + 1)], words[index]
+#   end.join(' ')
 # end
 
 # puts reverse_sentence('Hello World') == 'World Hello'
-# puts reverse_sentence('Reverse these words') == 'words these Reverse'
+# p reverse_sentence('Reverse these words') #== 'words these Reverse'
 # puts reverse_sentence('') == ''
 # puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 
