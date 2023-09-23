@@ -14,6 +14,11 @@ p reverse_words('Launch School')         # => hcnuaL loohcS
 
 
 # ALGORITHM
+- find spaces
+- put word from last space to -1 in array
+- put word from 2nd last .. last in array
+- etc.
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
