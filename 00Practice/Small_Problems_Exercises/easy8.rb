@@ -1,39 +1,39 @@
 ### 9.2 REVERSE IT II
-# def reverse_words(sentence)
+def reverse_words(sentence)
 
-# end
+end
 
-# p reverse_words('Professional') == 'lanoisseforP'
-# p reverse_words('Walk around the block') == 'Walk dnuora the kcolb'
-# p reverse_words('Launch School') == 'hcnuaL loohcS'
+p reverse_words('Professional') == 'lanoisseforP'
+p reverse_words('Walk around the block') == 'Walk dnuora the kcolb'
+p reverse_words('Launch School') == 'hcnuaL loohcS'
 
 ###### 8.2 REVERSE IT I
 
 ###
-def reverse_sentence(sentence)
-  words = split_sentence(sentence)
-  words.each_index.map { |index| words[-(index + 1)] }.join(' ')
-end
+# def reverse_sentence(sentence)
+#   words = split_sentence(sentence)
+#   words.each_index.map { |index| words[-(index + 1)] }.join(' ')
+# end
 
-def split_sentence(sentence)
-  spaces = get_spaces(sentence)
-  get_words(sentence, spaces)
-end
+# def split_sentence(sentence)
+#   spaces = get_spaces(sentence)
+#   get_words(sentence, spaces)
+# end
 
-def get_spaces(string)
-  stripped = string.strip
-  stripped.chars.each_index.select { |index| stripped[index] == ' ' }
-end
+# def get_spaces(string)
+#   stripped = string.strip.squeeze(' ')
+#   stripped.chars.each_index.select { |index| stripped[index] == ' ' }
+# end
 
-def get_words(string, spaces)
-  stripped = string.strip
-  starts = spaces.map { |space| space + 1 }.prepend(0)
-  stops = spaces << stripped.size
-  starts.map.with_index do |start, index|
-    size = stops[index] - start
-    stripped[start, size]
-  end
-end
+# def get_words(string, spaces)
+#   stripped = string.strip.squeeze(' ')
+#   starts = spaces.map { |space| space + 1 }.prepend(0)
+#   stops = spaces << stripped.size
+#   starts.map.with_index do |start, index|
+#     size = stops[index] - start
+#     stripped[start, size]
+#   end
+# end
 ###
 
 ###
@@ -58,10 +58,10 @@ end
 # end
 ###
 
-p reverse_sentence('Hello World') == 'World Hello'
-p reverse_sentence('Reverse these words') == 'words these Reverse'
-p reverse_sentence('') == ''
-p reverse_sentence('    ') == '' # Any number of spaces results in ''
+# p reverse_sentence('Hello    World') == 'World Hello'
+# p reverse_sentence('Reverse these words') == 'words these Reverse'
+# p reverse_sentence('') == ''
+# p reverse_sentence('    ') == '' # Any number of spaces results in ''
 
 ### 7.2 DOUBLE CHAR II
 # CONSONANTS = ('A'..'Z').to_a + ('a'..'z').to_a - 'AEIOUaeiou'.chars
