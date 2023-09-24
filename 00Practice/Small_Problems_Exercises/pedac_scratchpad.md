@@ -1,23 +1,21 @@
 # PROBLEM
-Write a method that takes one argument, a string containing one or more words, and returns the given string with words that contain five or more characters reversed. Each string will consist of only letters and spaces. Spaces should be included only when more than one word is present.
+Write a method that takes one argument, an array containing integers, and returns the average of all numbers in the array. The array will never be empty and the numbers will always be positive integers. Your result should also be an integer.
+
+Don't use the Array#sum method for your solution - see if you can solve this problem using iteration more directly.
 
 - input: 
 
 - output:
 
 # EXAMPLES
-p reverse_words('Professional')          # => lanoisseforP
-p reverse_words('Walk around the block') # => Walk dnuora the kcolb
-p reverse_words('Launch School')         # => hcnuaL loohcS
+puts average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
+puts average([1, 5, 87, 45, 8, 8]) == 25
+puts average([9, 47, 23, 95, 16, 52]) == 40
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- find spaces
-- put word from last space to -1 in array
-- put word from 2nd last .. last in array
-- etc.
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

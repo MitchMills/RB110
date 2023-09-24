@@ -1,11 +1,48 @@
-### 9.2 REVERSE IT II
-def reverse_words(sentence)
-
+### 10.2 ARRAY AVERAGE
+def average(numbers)
+  numbers.inject(:+) / numbers.size
 end
 
-p reverse_words('Professional') == 'lanoisseforP'
-p reverse_words('Walk around the block') == 'Walk dnuora the kcolb'
-p reverse_words('Launch School') == 'hcnuaL loohcS'
+p average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
+p average([1, 5, 87, 45, 8, 8]) == 25
+p average([9, 47, 23, 95, 16, 52]) == 40
+
+### 9.2 REVERSE IT II
+###
+# def reverse_words(sentence)
+#   sentence.split.map { |word| word.size > 4 ? word.reverse : word }.join(' ')
+# end
+###
+
+###
+# def reverse_words(sentence)
+#   stripped = sentence.strip.squeeze(' ')
+#   words = split_sentence(stripped)
+#   words.map { |word| word.size > 4 ? reverse_word(word) : word }.join(' ')
+# end
+
+# def split_sentence(sentence)
+#   spaces = get_spaces(sentence)
+#   get_words(sentence, spaces)
+# end
+
+# def get_spaces(string)
+#   string.chars.each_index.select { |index| string[index] == ' ' }
+# end
+
+# def get_words(string, spaces)
+#   starts = spaces.map { |space| space + 1 }.prepend(0)
+#   stops = spaces << string.size
+#   starts.map.with_index { |start, index| string[start...stops[index]] }
+# end
+
+# def reverse_word(word)
+#   word.chars.each_index.map { |index| word[-(index + 1)] }.join
+# end
+###
+# p reverse_words('Professional') == 'lanoisseforP'
+# p reverse_words('Walk around the block') == 'Walk dnuora the kcolb'
+# p reverse_words('Launch School') == 'hcnuaL loohcS'
 
 ###### 8.2 REVERSE IT I
 
