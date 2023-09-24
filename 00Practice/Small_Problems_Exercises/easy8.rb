@@ -1,11 +1,22 @@
 ### 10.2 ARRAY AVERAGE
-def average(numbers)
-  numbers.inject(:+) / numbers.size
-end
+# def average(numbers)
+#   numbers.inject(:+) / numbers.size
+# end
 
-p average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
-p average([1, 5, 87, 45, 8, 8]) == 25
-p average([9, 47, 23, 95, 16, 52]) == 40
+# def average(array)
+#   array.each_index.with_object([]) do |idx, sums|
+#     sums << (idx == 0 ? array[idx] : array[idx] + sums.last)
+#   end.last / array.size
+# end
+
+# def average(array)
+#   sum = 0
+#   array.map { |number| sum += number }.last / array.size
+# end
+
+# p average([1, 6]) #== 3 # integer division: (1 + 6) / 2 -> 3
+# p average([1, 5, 87, 45, 8, 8]) #== 25
+# p average([9, 47, 23, 95, 16, 52]) #== 40
 
 ### 9.2 REVERSE IT II
 ###
