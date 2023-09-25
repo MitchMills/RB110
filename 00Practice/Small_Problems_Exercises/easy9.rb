@@ -1,10 +1,53 @@
-### 1.2 WELCOME STRANGER
-def greetings(name_array, info_hash)
-  name, job = [name_array, info_hash.values].map { |array| array.join(' ') }
-  puts "Hello, #{name}! Nice to have a #{job_title} around."
+### 3.2 COUNTING UP
+def sequence(number)
+  (1..number).to_a
 end
 
-greetings(['John', 'Q', 'Doe'], { title: 'Master', occupation: 'Plumber' })
+p sequence(5) == [1, 2, 3, 4, 5]
+p sequence(3) == [1, 2, 3]
+p sequence(1) == [1]
+
+### 2.2 DOUBLE DOUBLES
+# def twice(number)
+#   double_number?(number) ? number : number * 2
+# end
+
+# def double_number?(number)
+#   digits = number.digits
+#   half = digits.size / 2
+#   digits[0...half] == digits[half..-1]
+# end
+
+# def double_number?(number)
+#   string = number.to_s
+#   half = string.size / 2
+#   string[0...half] == string[half..-1]
+# end
+
+# def double_number?(number)
+#   digits = number.digits
+#   half = digits.size / 2
+#   digits.take(half) == digits.drop(half)
+# end
+
+# p twice(37) == 74
+# p twice(44) == 44
+# p twice(334433) == 668866
+# p twice(444) == 888
+# p twice(107) == 214
+# p twice(103103) == 103103
+# p twice(3333) == 3333
+# p twice(7676) == 7676
+# p twice(123_456_789_123_456_789) == 123_456_789_123_456_789
+# p twice(5) == 10
+
+### 1.2 WELCOME STRANGER
+# def greetings(names_array, job_hash)
+#   name, job = [names_array, job_hash.values].map { |array| array.join(' ') }
+#   "Hello, #{name}! Nice to have a #{job} around."
+# end
+
+# p greetings(['John', 'Q', 'Doe'], { title: 'Master', occupation: 'Plumber' })
 # => "Hello, John Q Doe! Nice to have a Master Plumber around."
 
 ### 11 ODD LISTS
