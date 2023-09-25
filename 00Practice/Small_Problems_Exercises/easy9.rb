@@ -1,3 +1,12 @@
+### 1.2 WELCOME STRANGER
+def greetings(name_array, info_hash)
+  name, job = [name_array, info_hash.values].map { |array| array.join(' ') }
+  puts "Hello, #{name}! Nice to have a #{job_title} around."
+end
+
+greetings(['John', 'Q', 'Doe'], { title: 'Master', occupation: 'Plumber' })
+# => "Hello, John Q Doe! Nice to have a Master Plumber around."
+
 ### 11 ODD LISTS
 # def oddities(array)
 #   array.select.with_index { |_, idx| idx.even? }

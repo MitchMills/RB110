@@ -1,3 +1,6 @@
+
+
+
 ### 10.2 ARRAY AVERAGE
 # def average(numbers)
 #   numbers.inject(:+) / numbers.size
