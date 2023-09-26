@@ -1,19 +1,52 @@
-### 4.2 HOW LONG ARE YOU?
-def word_lengths(words)
+### 5.2 NAME SWAPPING
+def swap_name
 
 end
 
-p word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
+p swap_name('Joe Roberts') == 'Roberts, Joe'
 
-p word_lengths("baseball hot dogs and apple pie") ==
-  ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+### 4.2 HOW LONG ARE YOU?
+# def word_lengths(words)
+#   words.split.map { |word| "#{word} #{word.size}" }
+# end
 
-p word_lengths("It ain't easy, is it?") == ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+# def word_lengths(words)
+#   words_array = split_string(words)
+#   words_array.map { |word| "#{word} #{word.size}" }
+# end
 
-p word_lengths("Supercalifragilisticexpialidocious") ==
-  ["Supercalifragilisticexpialidocious 34"]
+# def split_string(string)
+#   return [] if string.empty?
+#   spaces = get_spaces(string)
+#   starts, stops = get_starts_and_stops(string, spaces)
+#   starts.each_with_index.map do |start, index|
+#     string[start...stops[index]]
+#   end
+# end
 
-p word_lengths("") == []
+# def get_spaces(string)
+#   string.chars.each_with_index.filter_map do |char, index|
+#     index if char == ' '
+#   end
+# end
+
+# def get_starts_and_stops(string, spaces)
+#   starts = spaces.map { |index| index + 1 }.prepend(0)
+#   stops = spaces << string.length
+#   [starts, stops]
+# end
+
+# p word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
+
+# p word_lengths("baseball hot dogs and apple pie") ==
+#   ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+
+# p word_lengths("It ain't easy, is it?") == ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+
+# p word_lengths("Supercalifragilisticexpialidocious") ==
+#   ["Supercalifragilisticexpialidocious 34"]
+
+# p word_lengths("") == []
 
 ### 3.2 COUNTING UP
 # def sequence(number)
