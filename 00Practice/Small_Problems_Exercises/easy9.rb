@@ -1,16 +1,28 @@
-### 5.2 NAME SWAPPING
-def swap_name
+### 6.2 SEQUENCE COUNT
+def sequence(count, multiple)
 
 end
 
-p swap_name('Joe Roberts') == 'Roberts, Joe'
+p sequence(5, 1) == [1, 2, 3, 4, 5]
+p sequence(4, -7) == [-7, -14, -21, -28]
+p sequence(3, 0) == [0, 0, 0]
+p sequence(0, 1000000) == []
+
+### 5.2 NAME SWAPPING
+# def swap_name(names)
+#   names.split.reverse.join(', ')
+# end
+
+# p swap_name('Joe Roberts') == 'Roberts, Joe'
 
 ### 4.2 HOW LONG ARE YOU?
 # def word_lengths(words)
 #   words.split.map { |word| "#{word} #{word.size}" }
 # end
 
+# ###
 # def word_lengths(words)
+#   # stripped = words.strip.squeeze(' ')
 #   words_array = split_string(words)
 #   words_array.map { |word| "#{word} #{word.size}" }
 # end
@@ -18,16 +30,16 @@ p swap_name('Joe Roberts') == 'Roberts, Joe'
 # def split_string(string)
 #   return [] if string.empty?
 #   spaces = get_spaces(string)
-#   starts, stops = get_starts_and_stops(string, spaces)
-#   starts.each_with_index.map do |start, index|
-#     string[start...stops[index]]
-#   end
+#   get_words(string, spaces)
 # end
 
 # def get_spaces(string)
-#   string.chars.each_with_index.filter_map do |char, index|
-#     index if char == ' '
-#   end
+#   string.chars.each_index.select { |index| string[index] == ' ' }
+# end
+
+# def get_words(string, spaces)
+#   starts, stops = get_starts_and_stops(string, spaces)
+#   starts.map.with_index { |start, index| string[start...stops[index]] }
 # end
 
 # def get_starts_and_stops(string, spaces)
@@ -35,17 +47,11 @@ p swap_name('Joe Roberts') == 'Roberts, Joe'
 #   stops = spaces << string.length
 #   [starts, stops]
 # end
-
+# ###
 # p word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
-
-# p word_lengths("baseball hot dogs and apple pie") ==
-#   ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
-
+# p word_lengths("baseball hot dogs and apple pie") == ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
 # p word_lengths("It ain't easy, is it?") == ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
-
-# p word_lengths("Supercalifragilisticexpialidocious") ==
-#   ["Supercalifragilisticexpialidocious 34"]
-
+# p word_lengths("Supercalifragilisticexpialidocious") == ["Supercalifragilisticexpialidocious 34"]
 # p word_lengths("") == []
 
 ### 3.2 COUNTING UP

@@ -57,7 +57,6 @@
 # p reverse_words('Professional') == 'lanoisseforP'
 # p reverse_words('Walk around the block') == 'Walk dnuora the kcolb'
 # p reverse_words('Launch School') == 'hcnuaL loohcS'
-
 ###### 8.2 REVERSE IT I
 
 ###
