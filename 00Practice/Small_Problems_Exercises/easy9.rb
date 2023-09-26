@@ -1,11 +1,43 @@
-### 3.2 COUNTING UP
-def sequence(number)
-  (1..number).to_a
+### 4.2 HOW LONG ARE YOU?
+def word_lengths(words)
+
 end
 
-p sequence(5) == [1, 2, 3, 4, 5]
-p sequence(3) == [1, 2, 3]
-p sequence(1) == [1]
+p word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
+
+p word_lengths("baseball hot dogs and apple pie") ==
+  ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+
+p word_lengths("It ain't easy, is it?") == ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+
+p word_lengths("Supercalifragilisticexpialidocious") ==
+  ["Supercalifragilisticexpialidocious 34"]
+
+p word_lengths("") == []
+
+### 3.2 COUNTING UP
+# def sequence(number)
+#   (1..number).to_a
+# end
+
+# def sequence(number)
+#   1.upto(number).to_a
+# end
+
+# def sequence(number)
+#   current_num = 1
+#   result = []
+#   loop do
+#     result << current_num
+#     current_num += 1
+#     break if current_num > number
+#   end
+#   result
+# end
+
+# p sequence(5) == [1, 2, 3, 4, 5]
+# p sequence(3) == [1, 2, 3]
+# p sequence(1) == [1]
 
 ### 2.2 DOUBLE DOUBLES
 # def twice(number)
