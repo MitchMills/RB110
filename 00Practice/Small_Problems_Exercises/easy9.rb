@@ -1,13 +1,30 @@
 ### 6.2 SEQUENCE COUNT
-# one-liner with step for fun
+### Daniel Chae
 # def sequence(n, x)
 #   x.step((n * x == 0 ? (return [x] * n) : n * x), x).to_a
 # end
+###
+
+# def sequence(count, multiple)
+#   return [multiple] * count if multiple == 0
+#   limit = multiple * count
+#   multiple.step(limit, multiple).to_a
+# end
 
 def sequence(count, multiple)
-  step = count * multiple == 0 ? (return [multiple] * count) : count * multiple
-  multiple.step(step, multiple).to_a
+  ([multiple] * count).map.with_index do |element, index|
+    element + (index * element)
+  end
+
+  # return [multiple] * count if multiple == 0
+  # limit = multiple * count
+  # multiple.step(limit, multiple).to_a
 end
+
+p sequence(5, 1) #== [1, 2, 3, 4, 5]
+p sequence(4, -7) #== [-7, -14, -21, -28]
+p sequence(3, 0) #== [0, 0, 0]
+p sequence(0, 1000000) #== []
 
 
 # def sequence(count, multiple)
@@ -23,6 +40,10 @@ end
 # end
 
 # def sequence(count, multiple)
+#   count.times.map { |index| multiple + (index * multiple) }
+# end
+
+# def sequence(count, multiple)
 #   Array.new(count) { |index| (index + 1) * multiple }
 # end
 
@@ -30,10 +51,10 @@ end
 #   Array.new(count) { |index| multiple + (index * multiple) }
 # end
 
-p sequence(5, 1) #== [1, 2, 3, 4, 5]
-p sequence(4, -7) #== [-7, -14, -21, -28]
-p sequence(3, 0) #== [0, 0, 0]
-p sequence(0, 1000000) #== []
+# p sequence(5, 1) #== [1, 2, 3, 4, 5]
+# p sequence(4, -7) #== [-7, -14, -21, -28]
+# p sequence(3, 0) #== [0, 0, 0]
+# p sequence(0, 1000000) #== []
 
 ### 5.2 NAME SWAPPING
 # def swap_name(names)
