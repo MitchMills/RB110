@@ -1,3 +1,11 @@
+### 7.2 GRADE BOOK
+def
+
+end
+
+p get_grade(95, 90, 93) == "A"
+p get_grade(50, 50, 95) == "D"
+
 ### 6.2 SEQUENCE COUNT
 ### Daniel Chae
 # def sequence(n, x)
@@ -5,61 +13,61 @@
 # end
 ###
 
-# def sequence(count, multiple)
-#   return [multiple] * count if multiple == 0
-#   limit = multiple * count
-#   multiple.step(limit, multiple).to_a
+# def sequence(count, start)
+#   start == 0 ? [0] * count : start.step(start * count, start).to_a
 # end
 
-def sequence(count, multiple)
-  ([multiple] * count).map.with_index do |element, index|
-    element + (index * element)
-  end
-
-  # return [multiple] * count if multiple == 0
-  # limit = multiple * count
-  # multiple.step(limit, multiple).to_a
-end
-
-# [1, 1, 1, 1, 1]
-# [-7, -7, -7, -7]
-# [0, 0, 0]
-# []
-
-p sequence(5, 1) #== [1, 2, 3, 4, 5]
-p sequence(4, -7) #== [-7, -14, -21, -28]
-p sequence(3, 0) #== [0, 0, 0]
-p sequence(0, 1000000) #== []
-
-
-# def sequence(count, multiple)
-#   multiple.step(by: multiple, to: multiple * count).to_a
+# def sequence(count, start)
+#   return [0] * count if start == 0
+#   start.step(start * count, start).to_a
 # end
 
 # def sequence(count, multiple)
-#   (1..count).map { |count| count * multiple }
+#   ([multiple] * count).map.with_index do |element, index|
+#     element * (index + 1)
+#   end
+# end
+# ##
+
+# def sequence(count, start)
+#   multiple, adjustment = start == 0 ? [1, count] : [start, 1]
+#   start.step(start * count, multiple).to_a * adjustment
 # end
 
-# def sequence(count, multiple)
-#   1.upto(count).map { |count| count * multiple }
+# def sequence(count, start)
+#   multiple = start == 0 ? 1 : start
+#   adjustment = start == 0 ? count : 1
+#   start.step(start * count, multiple).to_a * adjustment
 # end
 
-# def sequence(count, multiple)
-#   count.times.map { |index| multiple + (index * multiple) }
+# def sequence(count, start)
+#   (1..count).map { |multiplier| start * multiplier }
 # end
 
-# def sequence(count, multiple)
-#   Array.new(count) { |index| (index + 1) * multiple }
+# def sequence(count, start)
+#   1.upto(count).map { |multiplier| start * multiplier }
 # end
 
-# def sequence(count, multiple)
-#   Array.new(count) { |index| multiple + (index * multiple) }
+# def sequence(count, start)
+#   count.times.map { |multiplier| start + (start * multiplier) }
+# end
+
+# def sequence(count, start)
+#   count.times.map { |multiplier| start * (multiplier + 1) }
+# end
+
+# def sequence(count, start)
+#   Array.new(count) { |index| start * (index + 1) }
+# end
+
+# def sequence(count, start)
+#   Array.new(count) { |index| start + (index * start) }
 # end
 
 # p sequence(5, 1) #== [1, 2, 3, 4, 5]
 # p sequence(4, -7) #== [-7, -14, -21, -28]
 # p sequence(3, 0) #== [0, 0, 0]
-# p sequence(0, 1000000) #== []
+# p sequence(0, 1000000) == []
 
 ### 5.2 NAME SWAPPING
 # def swap_name(names)
