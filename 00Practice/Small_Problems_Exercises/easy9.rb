@@ -1,10 +1,57 @@
-### 7.2 GRADE BOOK
-def
+### 8.2 GROCERY LIST
+def buy_fruit(shopping_list)
 
 end
 
-p get_grade(95, 90, 93) == "A"
-p get_grade(50, 50, 95) == "D"
+p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
+["apples", "apples", "apples", "orange", "bananas","bananas"]
+
+### 7.2 GRADE BOOK
+###
+# def get_grade(score1, score2, score3)
+#   average = (score1 + score2 + score3) / 3
+#   case average
+#   when (90..100) then 'A'
+#   when (80..89)  then 'B'
+#   when (70..79)  then 'C'
+#   when (60..69)  then 'D'
+#   when (0..59)   then 'F'
+#   end
+# end
+###
+
+###
+# GRADE_SCALE = { 
+#   A: (90..),
+#   B: (80..89),
+#   C: (70..79),
+#   D: (60..69),
+#   F: (0..59)
+# }
+
+
+# def get_grade(*grades)
+#   GRADE_SCALE.select do |grade, range|
+#     range.cover?(grades.sum / grades.size)
+#   end.keys.first.to_s
+# end
+###
+
+# GRADE_SCALE = {
+#   (90..)   => 'A',
+#   (80..89) => 'B',
+#   (70..79) => 'C',
+#   (60..69) => 'D',
+#   (0..59)  => 'F'
+# }
+
+# def get_grade(*grades)
+#   average = grades.sum / grades.size
+#   GRADE_SCALE.filter_map { |range, grade| grade if range.cover?(average) }.last
+# end
+
+# p get_grade(95, 90, 93) == "A"
+# p get_grade(50, 50, 95) == "D"
 
 ### 6.2 SEQUENCE COUNT
 ### Daniel Chae
