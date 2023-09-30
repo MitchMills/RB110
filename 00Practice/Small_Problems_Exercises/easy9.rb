@@ -1,11 +1,34 @@
+### 11.2 ODD LISTS
+# def oddities(array)
+#   array.filter_map.with_index { |element, index| element if index.even? }
+# end
+
+# def oddities(array)
+#   array.select.with_index { |_, index| index.even? }
+# end
+
+# p oddities([2, 3, 4, 5, 6]) #== [2, 4, 6]
+# p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
+# p oddities(['abc', 'def']) == ['abc']
+# p oddities([123]) == [123]
+# p oddities([]) == []
+# p oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
+
 ### 10.2 SUM OF DIGITS
-def sum_of_digits(number)
+# def sum_of_digits(number)
+#   number.digits.sum
+# end
 
-end
+# def sum_of_digits(num)
+#   Array.new(num.to_s.size).map do
+#     num, remainder = num.divmod(10)
+#     remainder
+#   end.sum
+# end
 
-p sum(23) == 5
-p sum(496) == 19
-p sum(123_456_789) == 45
+# p sum_of_digits(23) #== 5
+# p sum_of_digits(496) #== 19
+# p sum_of_digits(123_456_789) #== 45
 
 ### 9.2 GROUP ANAGRAMS
 ###
