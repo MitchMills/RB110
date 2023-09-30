@@ -1,10 +1,33 @@
-### 8.2 GROCERY LIST
-def buy_fruit(shopping_list)
+### 9.2 GROUP ANAGRAMS
+def find_anagrams(list)
 
 end
 
-p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
-["apples", "apples", "apples", "orange", "bananas","bananas"]
+words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+  'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+  'flow', 'neon']
+
+find_anagrams(words)
+
+### 8.2 GROCERY LIST
+# def buy_fruit(list)
+#   list.each_with_object([]) do |(type, amount), output|
+#     amount.times { output << type }
+#   end
+# end
+
+# def buy_fruit(list)
+#   types = list.to_h.keys
+#   amounts = list.to_h.values
+#   amounts.flat_map.with_index { |amount, index| [types[index]] * amount }
+# end
+
+# def buy_fruit(list)
+#   list.flat_map { |type, amount| [type] * amount }
+# end
+
+# p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) #==
+# ["apples", "apples", "apples", "orange", "bananas","bananas"]
 
 ### 7.2 GRADE BOOK
 ###
@@ -28,7 +51,6 @@ p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
 #   D: (60..69),
 #   F: (0..59)
 # }
-
 
 # def get_grade(*grades)
 #   GRADE_SCALE.select do |grade, range|
