@@ -1,13 +1,49 @@
-### 9.2 GROUP ANAGRAMS
-def find_anagrams(list)
+### 10.2 SUM OF DIGITS
+def sum_of_digits(number)
 
 end
 
-words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
-  'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
-  'flow', 'neon']
+p sum(23) == 5
+p sum(496) == 19
+p sum(123_456_789) == 45
 
-find_anagrams(words)
+### 9.2 GROUP ANAGRAMS
+###
+# def anagrams(list)
+#   anagrams = get_anagrams(list)
+#   display_anagrams(anagrams)
+# end
+
+# def get_anagrams(list)
+#   list.map do |word1|
+#     list.select { |word2| word1.chars.sort == word2.chars.sort }
+#   end.uniq
+# end
+
+# def display_anagrams(anagrams)
+#   anagrams.each { |array| p array }
+# end
+# ###
+
+# ###
+# def anagrams(list)
+#   anagrams = get_anagrams(list)
+#   display_anagrams(anagrams)
+# end
+
+# def get_anagrams(list)
+#   list.group_by { |word| word.chars.sort.join }
+# end
+
+# def display_anagrams(anagrams)
+#   anagrams.each_value { |group| p group }
+# end
+
+# words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+#   'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+#   'flow', 'neon']
+
+# anagrams(words)
 
 ### 8.2 GROCERY LIST
 # def buy_fruit(list)

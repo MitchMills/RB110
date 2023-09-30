@@ -1,22 +1,16 @@
 # PROBLEM
-Given the array...
+Write a method that takes one argument, a positive integer, and returns the sum of its digits.
 
-words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
-          'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
-          'flow', 'neon']
-
-Write a program that prints out groups of words that are anagrams. Anagrams are words that have the same exact letters in them but in a different order. Your output should look something like this:
-
-["demo", "dome", "mode"]
-["neon", "none"]
-#(etc)
+For a challenge, try writing this without any basic looping constructs (while, until, loop, and each).
 
 - input: 
 
 - output:
 
 # EXAMPLES
-
+puts sum(23) == 5
+puts sum(496) == 19
+puts sum(123_456_789) == 45
 
 # DATA STRUCTURES
 
