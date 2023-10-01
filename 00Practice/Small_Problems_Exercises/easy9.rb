@@ -31,6 +31,29 @@
 # p sum_of_digits(123_456_789) #== 45
 
 ### 9.2 GROUP ANAGRAMS
+# def anagrams(list)
+#   anagrams = get_anagrams(list)
+#   display_anagrams(anagrams)
+# end
+
+# def get_anagrams(list)
+#   anagram_list = list.map { |word| word.chars.sort.join }.uniq
+#   anagram_list.map do |anagram|
+#     list.select { |word| word.chars.sort.join == anagram }
+#   end
+# end
+
+# def display_anagrams(anagrams)
+#   anagrams.each { |array| p array }
+# end
+
+# words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+#   'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+#   'flow', 'neon']
+
+# anagrams(words)
+
+
 ###
 # def anagrams(list)
 #   anagrams = get_anagrams(list)
