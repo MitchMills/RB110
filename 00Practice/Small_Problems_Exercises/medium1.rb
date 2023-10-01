@@ -2,11 +2,54 @@
 
 
 ### 5 DIAMONDS!
-def diamond(int)
+### initial solution
+# def diamond(max_width)
+#   rows = get_rows(max_width)
+#   display_diamond(rows, max_width)
+# end
 
+# def get_rows(max_width)
+#   top_rows = (1..max_width).step(2).to_a
+#   bottom_rows = (top_rows - [max_width]).reverse
+#   top_rows + bottom_rows
+# end
+
+# def display_diamond(rows, max_width)
+#   rows.each { |row_width| puts ('*' * row_width).center(max_width) }
+# end
+###
+
+### hollow diamond solution
+def diamond(max_width)
+  rows = get_rows(max_width)
+  display_diamond(rows, max_width)
 end
 
-diamond(9)
+def get_rows(max_width)
+  top_rows = (1..max_width).step(2).to_a
+  bottom_rows = (top_rows - [max_width]).reverse
+  top_rows + bottom_rows # [1, 3, 5, 3, 1]
+
+
+  spaces = (max_width - row_width) / 2 # [2, 1, 0, 1, 2]
+end
+
+def display_diamond(rows, max_width)
+  rows.each { |row_width| puts ('*' * row_width).center(max_width) }
+end
+
+###
+
+# diamond(1)
+# diamond(3)
+# diamond(9)
+p get_rows(5)
+
+#   *
+#  * *
+# *   *
+#  * *
+#   *
 
 
 ### 4 1000 LIGHTS
