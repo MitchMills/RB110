@@ -1,57 +1,63 @@
 # PROBLEM
-Write a method that displays a 4-pointed diamond in an n x n grid, where n is an odd integer that is supplied as an argument to the method. You may assume that the argument will always be an odd integer.
+Write a method that implements a miniature stack-and-register-based programming language that has the following commands:
 
-- input: integer
-  - always odd
-  - represents longest row in diamond
+    n Place a value n in the "register". Do not modify the stack.
+    PUSH Push the register value on to the stack. Leave the value in the register.
+    ADD Pops a value from the stack and adds it to the register value, storing the result in the register.
+    SUB Pops a value from the stack and subtracts it from the register value, storing the result in the register.
+    MULT Pops a value from the stack and multiplies it by the register value, storing the result in the register.
+    DIV Pops a value from the stack and divides it into the register value, storing the integer result in the register.
+    MOD Pops a value from the stack and divides it into the register value, storing the integer remainder of the division in the register.
+    POP Remove the topmost item from the stack and place in register
+    PRINT Print the register value
 
-- output: strings
-  - rows of asterixes in shape of diamond
-    - longest row has same number of asterixes as input integer
-    - row before and after has 2 less, etc.
+All operations are integer operations (which is only important with DIV and MOD).
+
+Programs will be supplied to your language method via a string passed in as an argument. Your program may assume that all programs are correct programs; that is, they won't do anything like try to pop a non-existent value from the stack, and they won't contain unknown tokens.
+
+You should initialize the register to 0.
+
+- input: 
+
+- output:
 
 # EXAMPLES
-diamond(1)
-*
+minilang('PRINT')
+# 0
 
-diamond(3)
- *
-***
- *
+minilang('5 PUSH 3 MULT PRINT')
+# 15
 
- diamond(9)
-    *
-   ***
-  *****
- *******
-*********
- *******
-  *****
-   ***
-    *
+minilang('5 PRINT PUSH 3 PRINT ADD PRINT')
+# 5
+# 3
+# 8
+
+minilang('5 PUSH POP PRINT')
+# 5
+
+minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')
+# 5
+# 10
+# 4
+# 7
+
+minilang('3 PUSH PUSH 7 DIV MULT PRINT ')
+# 6
+
+minilang('4 PUSH PUSH 7 MOD MULT PRINT ')
+# 12
+
+minilang('-3 PUSH 5 SUB PRINT')
+# 8
+
+minilang('6 PUSH')
+# (nothing printed; no PRINT commands)
 
 # DATA STRUCTURES
-- integer
-  - range array: 1..input integer stepping by 2
-    - 9: [1, 3, 5, 7, 9]
-- rows of strings
+
 
 # ALGORITHM
-- create an array of integers from 1 up to input integer, stepping by 2
-- iterate over this range
-  - print number of *s for current value
-  - center these *s
-    - either by calling .center
-    - or by adding space: (input integer - current value) / 2
-- remove the input integer from the array, and reverse it
-- iterate over this range
-  - print number of *s for current value
-
-- [1, 3, 5, 7, 5, 3, 1]
-- transform each element
-  - if 1, then '*'.center(max_width)
-  - else
-    - '*' + (' ' * (row_width - 2)) + '*'
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # 

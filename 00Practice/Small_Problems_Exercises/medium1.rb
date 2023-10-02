@@ -1,3 +1,7 @@
+### 6 STACK MACHINE INTERPRETATION
+def minilang
+
+end
 
 
 
@@ -5,50 +9,90 @@
 ### initial solution
 # def diamond(max_width)
 #   rows = get_rows(max_width)
-#   display_diamond(rows, max_width)
+#   display_diamond(rows)
 # end
 
 # def get_rows(max_width)
-#   top_rows = (1..max_width).step(2).to_a
-#   bottom_rows = (top_rows - [max_width]).reverse
-#   top_rows + bottom_rows
+#   row_widths = get_row_widths(max_width)
+#   row_widths.map { |row_width| ('*' * row_width).center(max_width) }
 # end
 
-# def display_diamond(rows, max_width)
-#   rows.each { |row_width| puts ('*' * row_width).center(max_width) }
+# def get_row_widths(max_width)
+#   top_row_widths = (1..max_width).step(2).to_a
+#   bottom_row_widths = (top_row_widths - [max_width]).reverse
+#   top_row_widths + bottom_row_widths
 # end
+
+# def display_diamond(rows)
+#   rows.each { |row| puts row }
+# end
+
+# diamond(1)
+# diamond(3)
+# diamond(9)
+# ###
+
+# ### hollow diamond solution
+# def hollow_diamond(max_width)
+#   rows = get_rows(max_width)
+#   display_diamond(rows)
+# end
+
+# def get_rows(max_width)
+#   row_widths = get_row_widths(max_width)
+#   rows = row_widths.map { |width| width == 1 ? '*' : "*#{' ' * (width - 2)}*" }
+#   rows.map { |row| row.center(max_width) }
+# end
+
+# def get_row_widths(max_width)
+#   top_row_widths = (1..max_width).step(2).to_a
+#   bottom_row_widths = (top_row_widths - [max_width]).reverse
+#   top_row_widths + bottom_row_widths
+# end
+
+# def display_diamond(rows)
+#   rows.each { |row| puts row }
+# end
+
+# hollow_diamond(1)
+# hollow_diamond(3)
+# hollow_diamond(9)
 ###
 
-### hollow diamond solution
-def diamond(max_width)
-  row_widths = get_row_widths(max_width)
-  display_diamond(row_widths, max_width)
-end
+### choice solution
+# def diamond(max_width, hollow: false)
+#   rows = get_rows(max_width, hollow)
+#   display_diamond(rows)
+# end
 
-def get_row_widths(max_width)
-  top_row_widths = (1..max_width).step(2).to_a
-  bottom_row_widths = (top_row_widths - [max_width]).reverse
-  top_row_widths + bottom_row_widths
-end
+# def get_rows(max_width, hollow)
+#   row_widths = get_row_widths(max_width)
+#   rows = hollow ? get_hollow_rows(row_widths) : get_full_rows(row_widths)
+#   rows.map { |row| row.center(max_width) }
+# end
 
-def display_diamond(row_widths, max_width)
-  rows = row_widths.map do |row_width|
-    row_width == 1 ? '*' : '*' + (' ' * (row_width - 2)) + '*'
-  end
-  rows.each { |row| puts row.center(max_width) }
-end
-###
+# def get_row_widths(max_width)
+#   ((1...max_width).to_a + max_width.downto(1).to_a).select(&:odd?)
+# end
 
-diamond(1)
-diamond(3)
-diamond(9)
+# def get_hollow_rows(row_widths)
+#   row_widths.map { |width| width == 1 ? '*' : "*#{' ' * (width - 2)}*" }
+# end
 
-#   *
-#  * *
-# *   *
-#  * *
-#   *
+# def get_full_rows(row_widths)
+#   row_widths.map { |row_width| '*' * row_width }
+# end
 
+# def display_diamond(rows)
+#   rows.each { |row| puts row }
+# end
+
+# diamond(1)
+# diamond(3)
+# diamond(9)
+# diamond(1, hollow: true)
+# diamond(3, hollow: true)
+# diamond(9, hollow: true)
 
 ### 4 1000 LIGHTS
 ### initial solution
