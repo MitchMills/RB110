@@ -21,29 +21,27 @@
 
 ### hollow diamond solution
 def diamond(max_width)
-  rows = get_rows(max_width)
-  display_diamond(rows, max_width)
+  row_widths = get_row_widths(max_width)
+  display_diamond(row_widths, max_width)
 end
 
-def get_rows(max_width)
-  top_rows = (1..max_width).step(2).to_a
-  bottom_rows = (top_rows - [max_width]).reverse
-  top_rows + bottom_rows # [1, 3, 5, 3, 1]
-
-
-  spaces = (max_width - row_width) / 2 # [2, 1, 0, 1, 2]
+def get_row_widths(max_width)
+  top_row_widths = (1..max_width).step(2).to_a
+  bottom_row_widths = (top_row_widths - [max_width]).reverse
+  top_row_widths + bottom_row_widths
 end
 
-def display_diamond(rows, max_width)
-  rows.each { |row_width| puts ('*' * row_width).center(max_width) }
+def display_diamond(row_widths, max_width)
+  rows = row_widths.map do |row_width|
+    row_width == 1 ? '*' : '*' + (' ' * (row_width - 2)) + '*'
+  end
+  rows.each { |row| puts row.center(max_width) }
 end
-
 ###
 
-# diamond(1)
-# diamond(3)
-# diamond(9)
-p get_rows(5)
+diamond(1)
+diamond(3)
+diamond(9)
 
 #   *
 #  * *

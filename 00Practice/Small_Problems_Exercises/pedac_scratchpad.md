@@ -47,6 +47,12 @@ diamond(3)
 - iterate over this range
   - print number of *s for current value
 
+- [1, 3, 5, 7, 5, 3, 1]
+- transform each element
+  - if 1, then '*'.center(max_width)
+  - else
+    - '*' + (' ' * (row_width - 2)) + '*'
+
 # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # #
