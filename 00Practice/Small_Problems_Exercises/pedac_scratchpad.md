@@ -17,7 +17,7 @@ Programs will be supplied to your language method via a string passed in as an a
 
 You should initialize the register to 0.
 
-- input: 
+- input: string
 
 - output:
 

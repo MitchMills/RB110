@@ -1,5 +1,5 @@
 ### 6 STACK MACHINE INTERPRETATION
-def minilang
+def minilang(instructions)
 
 end
 
@@ -67,7 +67,7 @@ end
 
 # def get_rows(max_width, hollow)
 #   row_widths = get_row_widths(max_width)
-#   rows = hollow ? get_hollow_rows(row_widths) : get_full_rows(row_widths)
+#   rows = hollow ? get_hollow_rows(row_widths) : get_filled_rows(row_widths)
 #   rows.map { |row| row.center(max_width) }
 # end
 
@@ -79,7 +79,7 @@ end
 #   row_widths.map { |width| width == 1 ? '*' : "*#{' ' * (width - 2)}*" }
 # end
 
-# def get_full_rows(row_widths)
+# def get_filled_rows(row_widths)
 #   row_widths.map { |row_width| '*' * row_width }
 # end
 
