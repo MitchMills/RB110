@@ -1,10 +1,32 @@
-string = 'abc'
-letter = string[0]
-letter #=> 'a'
-p letter.object_id #=> 60
-letter.upcase! #=> 'A'
-p letter.object_id #=> 60
-p string
+
+##### ALPHABETIZED ORDER OF APPEARANCE #####
+# ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+
+# def alphabetized(string)
+#   only_alphas = string.strip.chars.select { |char| ALPHABET.include?(char) }
+#   only_alphas.each_with_index.sort_by do |char, idx|
+#     [char.downcase, idx]
+#   end.to_h.keys.join
+# end
+
+# p alphabetized("") == ""
+# p alphabetized(" ") == ""
+# p alphabetized(" a") == "a"
+# p alphabetized("a ") == "a"
+# p alphabetized(" a ") == "a"
+# p alphabetized("A b B a") == "AabB"
+# p alphabetized("A?b.B#a") == "AabB" 
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+#########
+
+
+# string = 'abc'
+# letter = string[0]
+# letter #=> 'a'
+# p letter.object_id #=> 60
+# letter.upcase! #=> 'A'
+# p letter.object_id #=> 60
+# p string
 
 
 # p string.object_id #=> 60
