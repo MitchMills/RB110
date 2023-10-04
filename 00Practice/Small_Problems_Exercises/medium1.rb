@@ -7,25 +7,25 @@ end
 
 ### 5 DIAMONDS!
 ### initial solution
-# def diamond(max_width)
-#   rows = get_rows(max_width)
-#   display_diamond(rows)
-# end
+def diamond(max_width)
+  rows = get_rows(max_width)
+  display_diamond(rows)
+end
 
-# def get_rows(max_width)
-#   row_widths = get_row_widths(max_width)
-#   row_widths.map { |row_width| ('*' * row_width).center(max_width) }
-# end
+def get_rows(max_width)
+  row_widths = get_row_widths(max_width)
+  row_widths.map { |row_width| ('*' * row_width).center(max_width) }
+end
 
-# def get_row_widths(max_width)
-#   top_row_widths = (1..max_width).step(2).to_a
-#   bottom_row_widths = (top_row_widths - [max_width]).reverse
-#   top_row_widths + bottom_row_widths
-# end
+def get_row_widths(max_width)
+  top_row_widths = (1..max_width).step(2).to_a
+  bottom_row_widths = (top_row_widths - [max_width]).reverse
+  top_row_widths + bottom_row_widths
+end
 
-# def display_diamond(rows)
-#   rows.each { |row| puts row }
-# end
+def display_diamond(rows)
+  rows.each { |row| puts row }
+end
 
 # diamond(1)
 # diamond(3)
