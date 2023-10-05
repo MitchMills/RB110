@@ -9,7 +9,7 @@ p alphabetized(" ") == ""
 p alphabetized(" a ") == "a"
 p alphabetized("Ab Ba") == "AabB"
 p alphabetized("9A #b$B .a%") == "AabB"
-p alphabetized("abcdefgABCDEFG") == "aAbBcCdDeEfFgG"
+p alphabetized("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
 =end
 
 

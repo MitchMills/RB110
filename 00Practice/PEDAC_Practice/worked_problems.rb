@@ -1,4 +1,5 @@
 
+
 ##### ALPHABETIZED ORDER OF APPEARANCE #####
 # ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
 
@@ -9,6 +10,13 @@
 #   end.to_h.keys.join
 # end
 
+# def alphabetized(string)
+#   only_alphas = string.strip.chars.select { |char| ALPHABET.include?(char) }
+#   indexes = only_alphas.each_index.to_a
+#   hash = only_alphas.zip(indexes).to_h
+#   hash.sort_by { |letter, index| [letter.downcase, index] }.to_h.keys.join
+# end
+
 # p alphabetized("") == ""
 # p alphabetized(" ") == ""
 # p alphabetized(" a") == "a"
@@ -16,7 +24,7 @@
 # p alphabetized(" a ") == "a"
 # p alphabetized("A b B a") == "AabB"
 # p alphabetized("A?b.B#a") == "AabB" 
-# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") #== "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
 #########
 
 
