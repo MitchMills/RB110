@@ -1,58 +1,91 @@
 ### 6 STACK MACHINE INTERPRETATION
+VALID_TOKENS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
+
 OPERATORS = {
-  'ADD', => :+
-  'SUB', => :-
-  'MULT', => :*
-  'DIV', => :/
+  'ADD' => :+,
+  'SUB' => :-,
+  'MULT' => :*,
+  'DIV' => :/,
   'MOD' => :%
 }
 
-def minilang(instructions)
-  register = 0
-  stack = []
-  instructions.split.each do |instruction|
-    case instruction
-    when 'PUSH'   then stack << register
+def minilang(program)
+  register, stack = 0, []
+  program.split.each do |token|
+    return "Error: invalid token" unless VALID_TOKENS.include?(token) ||
+      token.to_i.to_s == token
 
-    when 'ADD'    then register += stack.pop
-    when 'SUB'    then register -= stack.pop
-    when 'MULT'   then register *= stack.pop
-    when 'DIV'    then register /= stack.pop
-    when 'MOD'    then register %= stack.pop
+    token = "#{OPERATORS[token]}" if OPERATORS.keys.include?(token)
+    p token
 
-    when 'POP'    then register = stack.pop
-      
-    when 'PRINT'  then puts register
-    else register = instruction.to_i
+    case token
+    when "#{OPERATORS[token]}"
+      return "Error: empty stack" if stack.empty?
+      register = calculate([register, stack.pop], OPERATORS[token])
+    when 'POP'
+      return "Error: empty stack" if stack.empty?
+      register = stack.pop
+    when 'PUSH'
+      stack << register
+    when 'PRINT'
+      puts register
+    else
+      register = token.to_i
     end
+
+    # if OPERATORS.keys.include?(token)
+    #   return "Error: empty stack" if stack.empty?
+    #   register = calculate([register, stack.pop], OPERATORS[token])
+    # elsif token == 'PUSH'
+    #   stack << register
+    # elsif token == 'POP'
+    #   return "Error: empty stack" if stack.empty?
+    #   register = stack.pop
+    # elsif token == 'PRINT'
+    #   puts register
+    # else
+    #   register = token.to_i
+    # end
   end
   p register
   p stack
+  nil
 end
 
-(3 + (4 * 5) - 7) / (5 % 3)
-(3 + (20) - 7) / 2
-16 / 4
+def calculate(operands, operator)
+  operands.inject(operator)
+end
 
-[3, 4, 5, 7, 5, 3]
-3 PUSH #  3 : [3]
-5 MOD #   2 : []
-PUSH #    2 : [2]
+p minilang('ADD')
+####
 
-3 PUSH #  3 : [2, 3]
-4 PUSH #  4 : [2, 3, 4]
-5 MULT # 20 : [2, 3]
-ADD #    23 : [2]
-PUSH #   23 : [2, 23]
-7 SUB #  16 : 
+####
+# def minilang(program)
+#   register = 0
+#   stack = []
+#   program.split.each do |token|
+    # case token
+    # when 'PUSH'   then stack << register
+    # when 'ADD'    then register += stack.pop
+    # when 'SUB'    then register -= stack.pop
+    # when 'MULT'   then register *= stack.pop
+    # when 'DIV'    then register /= stack.pop
+    # when 'MOD'    then register %= stack.pop
+    # when 'POP'    then register = stack.pop
+    # when 'PRINT'  then puts register
+    # else register = token.to_i
+    # end
+#   end
+#   p register
+#   p stack
+# end
+####
 
-7 SUB #   [], 16
+# program = '3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV'
+# cheating = "#{(3 + (4 * 5) - 7) / (5 % 3)}"
+# p minilang(cheating)
 
-PUSH #    [16], 16
-3 PUSH #  [16, 3], 3
-5 MOD #   [16], 2
 
- 
 # minilang('PRINT') # 0
 # minilang('5 PUSH 3 MULT PRINT') # 15
 # minilang('5 PRINT PUSH 3 PRINT ADD PRINT') # 5 # 3 # 8
@@ -62,29 +95,29 @@ PUSH #    [16], 16
 # minilang('3 PUSH PUSH 7 DIV MULT PRINT ') # 6
 # minilang('4 PUSH PUSH 7 MOD MULT PRINT ') # 12
 # minilang('-3 PUSH 5 SUB PRINT') # 8
-minilang('6 PUSH')
+# minilang('6 PUSH')
 
 ### 5 DIAMONDS!
 ### initial solution
-def diamond(max_width)
-  rows = get_rows(max_width)
-  display_diamond(rows)
-end
+# def diamond(max_width)
+#   rows = get_rows(max_width)
+#   display_diamond(rows)
+# end
 
-def get_rows(max_width)
-  row_widths = get_row_widths(max_width)
-  row_widths.map { |row_width| ('*' * row_width).center(max_width) }
-end
+# def get_rows(max_width)
+#   row_widths = get_row_widths(max_width)
+#   row_widths.map { |row_width| ('*' * row_width).center(max_width) }
+# end
 
-def get_row_widths(max_width)
-  top_row_widths = (1..max_width).step(2).to_a
-  bottom_row_widths = (top_row_widths - [max_width]).reverse
-  top_row_widths + bottom_row_widths
-end
+# def get_row_widths(max_width)
+#   top_row_widths = (1..max_width).step(2).to_a
+#   bottom_row_widths = (top_row_widths - [max_width]).reverse
+#   top_row_widths + bottom_row_widths
+# end
 
-def display_diamond(rows)
-  rows.each { |row| puts row }
-end
+# def display_diamond(rows)
+#   rows.each { |row| puts row }
+# end
 
 # diamond(1)
 # diamond(3)
