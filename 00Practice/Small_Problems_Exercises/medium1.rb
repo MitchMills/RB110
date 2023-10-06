@@ -1,16 +1,27 @@
 ### 6 STACK MACHINE INTERPRETATION
+OPERATORS = {
+  'ADD', => :+
+  'SUB', => :-
+  'MULT', => :*
+  'DIV', => :/
+  'MOD' => :%
+}
+
 def minilang(instructions)
   register = 0
   stack = []
   instructions.split.each do |instruction|
     case instruction
     when 'PUSH'   then stack << register
+
     when 'ADD'    then register += stack.pop
     when 'SUB'    then register -= stack.pop
     when 'MULT'   then register *= stack.pop
     when 'DIV'    then register /= stack.pop
     when 'MOD'    then register %= stack.pop
+
     when 'POP'    then register = stack.pop
+      
     when 'PRINT'  then puts register
     else register = instruction.to_i
     end
@@ -22,6 +33,24 @@ end
 (3 + (4 * 5) - 7) / (5 % 3)
 (3 + (20) - 7) / 2
 16 / 4
+
+[3, 4, 5, 7, 5, 3]
+3 PUSH #  3 : [3]
+5 MOD #   2 : []
+PUSH #    2 : [2]
+
+3 PUSH #  3 : [2, 3]
+4 PUSH #  4 : [2, 3, 4]
+5 MULT # 20 : [2, 3]
+ADD #    23 : [2]
+PUSH #   23 : [2, 23]
+7 SUB #  16 : 
+
+7 SUB #   [], 16
+
+PUSH #    [16], 16
+3 PUSH #  [16, 3], 3
+5 MOD #   [16], 2
 
  
 # minilang('PRINT') # 0
