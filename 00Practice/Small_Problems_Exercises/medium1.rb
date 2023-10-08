@@ -10,7 +10,8 @@ OPERATORS = {
 }
 
 def minilang(program)
-  register, stack = 0, []
+  register = 0
+  stack = []
   program.split.each do |token|
     return "Error: invalid token" unless VALID_TOKENS.include?(token) ||
       token.to_i.to_s == token
