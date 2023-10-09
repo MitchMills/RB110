@@ -34,6 +34,10 @@ def minilang(program)
       register = token.to_i
     end
 
+    def valid_token?(token)
+
+    end
+
     # if OPERATORS.keys.include?(token)
     #   return "Error: empty stack" if stack.empty?
     #   register = calculate([register, stack.pop], OPERATORS[token])
