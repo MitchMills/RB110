@@ -38,6 +38,10 @@ def minilang(program)
 
     end
 
+    def choose_action(token)
+
+    end
+
     # if OPERATORS.keys.include?(token)
     #   return "Error: empty stack" if stack.empty?
     #   register = calculate([register, stack.pop], OPERATORS[token])
