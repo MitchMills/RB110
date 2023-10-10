@@ -1,71 +1,76 @@
+### 7 WORD TO DIGIT
+def word_to_digit(string)
+  
+end
+
+word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+
 ### 6 STACK MACHINE INTERPRETATION
-VALID_TOKENS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
+# VALID_TOKENS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
 
-OPERATORS = {
-  'ADD' => :+,
-  'SUB' => :-,
-  'MULT' => :*,
-  'DIV' => :/,
-  'MOD' => :%
-}
+# OPERATORS = {
+#   'ADD' => :+,
+#   'SUB' => :-,
+#   'MULT' => :*,
+#   'DIV' => :/,
+#   'MOD' => :%
+# }
 
-def minilang(program)
-  register = 0
-  stack = []
-  program.split.each do |token|
-    return "Error: invalid token" unless VALID_TOKENS.include?(token) ||
-      token.to_i.to_s == token
+# def minilang(program)
+#   return "Error: invalid token(s) in program" unless all_tokens_valid?(program)
+#   process_program(program)
+# end
 
-    token = "#{OPERATORS[token]}" if OPERATORS.keys.include?(token)
-    p token
+# def all_tokens_valid?(program)
+#   program.split.all? { |token| valid_token?(token) }
+# end
 
-    case token
-    when "#{OPERATORS[token]}"
-      return "Error: empty stack" if stack.empty?
-      register = calculate([register, stack.pop], OPERATORS[token])
-    when 'POP'
-      return "Error: empty stack" if stack.empty?
-      register = stack.pop
-    when 'PUSH'
-      stack << register
-    when 'PRINT'
-      puts register
-    else
-      register = token.to_i
-    end
+# def valid_token?(token)
+#   VALID_TOKENS.include?(token) || token.to_i.to_s == token
+# end
 
-    def valid_token?(token)
+# def process_program(program)
+#   register = 0
+#   stack = []
 
-    end
+#   program.split.each do |token|
+#     return "Error: empty stack" if stack_error?(stack, token)
+#     register = process_token(register, stack, token)
+#   end
+#   nil
+# end
 
-    def choose_action(token)
+# def stack_error?(stack, token)
+#   stack.empty? && (token == 'POP' || OPERATORS.keys.include?(token))
+# end
 
-    end
+# def process_token(register, stack, token)
+#   if OPERATORS.keys.include?(token)
+#     calculation(register, stack, token)
+#   else
+#     other_operation(register, stack, token)
+#   end
+# end
 
-    # if OPERATORS.keys.include?(token)
-    #   return "Error: empty stack" if stack.empty?
-    #   register = calculate([register, stack.pop], OPERATORS[token])
-    # elsif token == 'PUSH'
-    #   stack << register
-    # elsif token == 'POP'
-    #   return "Error: empty stack" if stack.empty?
-    #   register = stack.pop
-    # elsif token == 'PRINT'
-    #   puts register
-    # else
-    #   register = token.to_i
-    # end
-  end
-  p register
-  p stack
-  nil
-end
+# def calculation(register, stack, token)
+#   operands = [register, stack.pop]
+#   operator = OPERATORS[token]
+#   operands.inject(operator)
+# end
 
-def calculate(operands, operator)
-  operands.inject(operator)
-end
+# def other_operation(register, stack, token)
+#   case token
+#   when 'POP' then register = stack.pop
+#   when 'PUSH' then stack << register
+#   when 'PRINT' then puts register
+#   else register = token.to_i
+#   end
+# end
 
-p minilang('ADD')
+
+# p minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV PRINT')
+# p minilang("#{(3 + (4 * 5) - 7) / (5 % 3)} PRINT")
+
 ####
 
 ####
@@ -91,7 +96,7 @@ p minilang('ADD')
 ####
 
 # program = '3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV'
-# cheating = "#{(3 + (4 * 5) - 7) / (5 % 3)}"
+# cheating = "#{(3 + (4 * 5) - 7) / (5 % 3)} PRINT"
 # p minilang(cheating)
 
 
