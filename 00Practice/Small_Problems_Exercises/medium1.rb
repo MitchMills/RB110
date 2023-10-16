@@ -1,11 +1,12 @@
 ### 7 WORD TO DIGIT
-def word_to_digit(string)
+# def word_to_digit(string)
   
-end
+# end
 
-word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+# word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
 ### 6 STACK MACHINE INTERPRETATION
+#### With Error Handling
 # VALID_TOKENS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
 
 # OPERATORS = {
@@ -41,36 +42,30 @@ word_to_digit('Please call me at five five five one two three four. Thanks.') ==
 # end
 
 # def stack_error?(stack, token)
-#   stack.empty? && (token == 'POP' || OPERATORS.keys.include?(token))
+#   stack.empty? && (token == 'POP' || OPERATORS.include?(token))
 # end
 
 # def process_token(register, stack, token)
-#   if OPERATORS.keys.include?(token)
-#     calculation(register, stack, token)
-#   else
-#     other_operation(register, stack, token)
-#   end
+#   inputs = [register, stack, token]
+#   OPERATORS.include?(token) ? calculation(inputs) : other_operation(inputs)
 # end
 
-# def calculation(register, stack, token)
+# def calculation(inputs)
+#   register, stack, token = inputs
 #   operands = [register, stack.pop]
 #   operator = OPERATORS[token]
 #   operands.inject(operator)
 # end
 
-# def other_operation(register, stack, token)
+# def other_operation(inputs)
+#   register, stack, token = inputs
 #   case token
 #   when 'POP' then register = stack.pop
-#   when 'PUSH' then stack << register
-#   when 'PRINT' then puts register
+#   when 'PUSH' then stack << register; register
+#   when 'PRINT' then p register
 #   else register = token.to_i
 #   end
 # end
-
-
-# p minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV PRINT')
-# p minilang("#{(3 + (4 * 5) - 7) / (5 % 3)} PRINT")
-
 ####
 
 ####
@@ -99,13 +94,11 @@ word_to_digit('Please call me at five five five one two three four. Thanks.') ==
 # cheating = "#{(3 + (4 * 5) - 7) / (5 % 3)} PRINT"
 # p minilang(cheating)
 
-
 # minilang('PRINT') # 0
 # minilang('5 PUSH 3 MULT PRINT') # 15
-# minilang('5 PRINT PUSH 3 PRINT ADD PRINT') # 5 # 3 # 8
+# minilang('5 PRINT PUSH 3 PRINT ADD PRINT') # 5  3  8
 # minilang('5 PUSH POP PRINT') # 5
-# minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')
-# # 5 # 10 # 4 # 7
+# minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT') # 5  10  4  7
 # minilang('3 PUSH PUSH 7 DIV MULT PRINT ') # 6
 # minilang('4 PUSH PUSH 7 MOD MULT PRINT ') # 12
 # minilang('-3 PUSH 5 SUB PRINT') # 8
