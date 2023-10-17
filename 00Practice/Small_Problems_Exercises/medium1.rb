@@ -1,11 +1,84 @@
 ### 7 WORD TO DIGIT
-# def word_to_digit(string)
+def word_to_digit(string)
   
-# end
+end
 
-# word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
 ### 6 STACK MACHINE INTERPRETATION
+#### With memory hash
+# VALID_TOKENS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
+
+# OPERATORS = {
+#   'ADD' => :+,
+#   'SUB' => :-,
+#   'MULT' => :*,
+#   'DIV' => :/,
+#   'MOD' => :%
+# }
+
+# def minilang(program)
+#   return "Error: invalid token(s) in program" unless all_tokens_valid?(program)
+#   memory = {register: 0, stack: []}
+#   process_program(program, memory)
+# end
+
+# def all_tokens_valid?(program)
+#   program.split.all? { |token| valid_token?(token) }
+# end
+
+# def valid_token?(token)
+#   VALID_TOKENS.include?(token) || token.to_i.to_s == token
+# end
+
+# def process_program(program, memory)
+#   program.split.each do |token|
+#     return "Error: empty stack" if stack_error?(memory[:stack], token)
+#     memory[:register] = process_token(memory, token)
+#   end
+#   nil
+# end
+
+# def stack_error?(stack, token)
+#   stack.empty? && (token == 'POP' || OPERATORS.include?(token))
+# end
+
+# def process_token(memory, token)
+#   inputs = [memory[:register], memory[:stack], token]
+#   OPERATORS.include?(token) ? calculation(inputs) : other_operation(inputs)
+# end
+
+# def calculation(inputs)
+#   register, stack, token = inputs
+#   operands = [register, stack.pop]
+#   operator = OPERATORS[token]
+#   operands.inject(operator)
+# end
+
+# def other_operation(inputs)
+#   register, stack, token = inputs
+#   case token
+#   when 'POP' then register = stack.pop
+#   when 'PUSH' then stack << register; register
+#   when 'PRINT' then p register
+#   else register = token.to_i
+#   end
+# end
+# ####
+# p minilang('PRINT') # 0
+# p minilang('5 PUSH 3 MULT PRINT') # 15
+# p minilang('5 PRINT PUSH 3 PRINT ADD PRINT') # 5  3  8
+# p minilang('5 PUSH POP PRINT') # 5
+# p minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT') # 5  10  4  7
+# p minilang('3 PUSH PUSH 7 DIV MULT PRINT ') # 6
+# p minilang('4 PUSH PUSH 7 MOD MULT PRINT ') # 12
+# p minilang('-3 PUSH 5 SUB PRINT') # 8
+# p minilang('6 PUSH')
+
+# p minilang('3 PUSH 5 MOD PUSH 7 PUSH 3 PUSH 4 PUSH 5 MULT ADD SUB DIV') # 8
+# p minilang("#{(3 + (4 * 5) - 7) / (5 % 3)} PRINT") # 8
+
+
 #### With Error Handling
 # VALID_TOKENS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
 
