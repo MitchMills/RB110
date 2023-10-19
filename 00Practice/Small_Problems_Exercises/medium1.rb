@@ -1,16 +1,24 @@
 ### 7 WORD TO DIGIT
 number_words = %w(zero one two three four five six seven eight nine)
-digits = (0..9).to_a
+digits = ('0'..'9').to_a
 WORDS_TO_DIGITS = number_words.zip(digits).to_h
 
-def word_to_digit(string)
-  words = string.split
-  words.map do |word|
-    WORDS_TO_DIGITS.keys.include?(word.downcase) ? WORDS_TO_DIGITS[word] : word
-  end.join(' ')
+# {"zero"=>0, "one"=>1, "two"=>2, "three"=>3, "four"=>4, "five"=>5, "six"=>6, "seven"=>7, "eight"=>8, "nine"=>9}
+
+# def word_to_digit(words)
+#   WORDS_TO_DIGITS.keys.each do |word|
+#     words.gsub!(/\b#{word}\b/, WORDS_TO_DIGITS[word])
+#   end
+#   words
+# end
+
+def word_to_digit(words)
+  WORDS_TO_DIGITS.each do |word, digit|
+    words.gsub!(/\b#{word}\b/, digit)
+  end
+  words
 end
 
-gsub
 
 p word_to_digit('Please call me at five five five one two three four. Thanks.') #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
