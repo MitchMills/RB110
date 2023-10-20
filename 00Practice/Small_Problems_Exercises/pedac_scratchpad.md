@@ -1,40 +1,30 @@
 # PROBLEM
-Write a method that takes a sentence string as input, and returns the same string with any sequence of the words 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' converted to a string of digits.
+The Fibonacci series is a sequence of numbers starting with 1 and 1 where each number is the sum of the two previous numbers: the 3rd Fibonacci number is 1 + 1 = 2, the 4th is 1 + 2 = 3, the 5th is 2 + 3 = 5, and so on. In mathematical terms:
 
-- input: string
-  - contains "number words", e.g. "one"
-    - does case matter?
-- output: same string
-  - all number words converted into equivalent digits
+  F(1) = 1
+  F(2) = 1
+  F(n) = F(n - 1) + F(n - 2) where n > 2
+
+Write a recursive method that computes the nth Fibonacci number, where nth is an argument to the method.
+
+
+- input: 
+
+- output:
 
 # EXAMPLES
-word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+fibonacci(1) == 1
+fibonacci(2) == 1
+fibonacci(3) == 2
+fibonacci(4) == 3
+fibonacci(5) == 5
+fibonacci(12) == 144
+fibonacci(20) == 6765
 
 # DATA STRUCTURES
-- input: string
-  - array of individual words
-  - hash with word / digit correspondences
-    { one: 1, two: 2 . . .}
-- output: string
 
-- how to deal with punctuation
-  - will only appear at end of words
-    - e.g. "four.", "seven,"
-    - "four.".include?("four") => true
 
 # ALGORITHM
-- Find all target words
-  - create a hash of word to digit correspondences
-  - separate input string into an array of individual words
-  - iterate over each word
-    - remove punctuation
-      - iterate over array of number words
-        - if target word includes number word, 
-- Convert target words into digit equivalents
-  - iterate over each word in array
-    - transform target words into digit equivalents using hash
-- Return string
-  - join transformed array into string and return it
 
 # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # 

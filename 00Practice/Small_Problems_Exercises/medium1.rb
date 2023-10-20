@@ -1,9 +1,44 @@
-### 7 WORD TO DIGIT
-number_words = %w(zero one two three four five six seven eight nine)
-digits = ('0'..'9').to_a
-WORDS_TO_DIGITS = number_words.zip(digits).to_h
+### 8 FIBONACCI NUMBERS (RECURSION)
+def fibonacci(nth)
 
-# {"zero"=>0, "one"=>1, "two"=>2, "three"=>3, "four"=>4, "five"=>5, "six"=>6, "seven"=>7, "eight"=>8, "nine"=>9}
+end
+
+fibonacci(1) == 1
+fibonacci(2) == 1
+fibonacci(3) == 2
+fibonacci(4) == 3
+fibonacci(5) == 5
+fibonacci(12) == 144
+fibonacci(20) == 6765
+
+### 7 WORD TO DIGIT
+# numbers = %w(zero one two three four five six seven eight nine)
+# digits = ('0'..'9').to_a
+# NUMBERS_TO_DIGITS = numbers.zip(digits).to_h
+
+# def word_to_digit(words)
+#   words.split.map do |word|
+#     NUMBERS_TO_DIGITS.each do |number, digit|
+#       word[number] = digit if word.include?(number)
+#     end
+#     word
+#   end.join(' ')
+# end
+
+# ### using indexes instead of a hash
+# NUMBERS = %w(zero one two three four five six seven eight nine)
+
+# def word_to_digit(words)
+#   words.split.map do |word|
+#     NUMBERS.each_with_index do |number, index|
+#       word[number] = index.to_s if word.include?(number)
+#     end
+#     word
+#   end.join(' ')
+# end
+# ###
+
+# p word_to_digit('Please call me at five five five one two three four. Thanks.') #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
 # def word_to_digit(words)
 #   WORDS_TO_DIGITS.keys.each do |word|
@@ -12,15 +47,15 @@ WORDS_TO_DIGITS = number_words.zip(digits).to_h
 #   words
 # end
 
-def word_to_digit(words)
-  WORDS_TO_DIGITS.each do |word, digit|
-    words.gsub!(/\b#{word}\b/, digit)
-  end
-  words
-end
+# def word_to_digit(words)
+#   WORDS_TO_DIGITS.each do |word, digit|
+#     words.gsub!(/\b#{word}\b/, digit)
+#   end
+#   words
+# end
 
 
-p word_to_digit('Please call me at five five five one two three four. Thanks.') #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+# p word_to_digit('Please call me at five five five one two three four. Thanks.') #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
 ### 6 STACK MACHINE INTERPRETATION
 #### With memory hash
