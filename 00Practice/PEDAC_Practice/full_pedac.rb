@@ -4,7 +4,7 @@
 
 ### SHORTEST LENGTH SUBARRAY
 =begin
-Write a method that takes two inputs: an array of positive integers, and a positive integer. The method should return the shortest length of a contiguous subarray of numbers from the input array for which the sum of them is greater than or equal to the input integer.
+Write a method that takes two inputs: an array of positive integers, and a positive integer. The method should return the shortest length of a contiguous subarray from the input array for which the sum of its numbers is greater than or equal to the input integer.
 
 p shortest_length([2, 3, 1, 2, 4, 3], 7) == 2
 p shortest_length([1, 10, 5, 2, 7], 9) == 1
