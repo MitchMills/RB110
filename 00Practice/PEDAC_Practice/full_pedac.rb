@@ -11,6 +11,7 @@ p shortest_length([1, 10, 5, 2, 7], 9) == 1
 p shortest_length([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
 p shortest_length([1, 2, 4, 1], 8) == 4
 p shortest_length([1, 2, 4], 8) == 0
+p shortest_length([], 1) == 0
 
 7:39am
 PROBLEM
@@ -45,17 +46,18 @@ ALGORITHM
 - return 0 if sum of no subarrays (including full input array) exceed target sum
 =end
 
-# def shortest_length(numbers, target_sum)
-#   (1..numbers.size).each do |current_size|
-#     (0...numbers.size).each do |start_index|
-#       return current_size if numbers[start_index, current_size].sum >= target_sum
-#     end
-#   end
-#   0
-# end
+def shortest_length(numbers, target_sum)
+  (1..numbers.size).each do |current_size|
+    (0...numbers.size).each do |start_index|
+      return current_size if numbers[start_index, current_size].sum >= target_sum
+    end
+  end
+  0
+end
 
-# p shortest_length([2, 3, 1, 2, 4, 3], 7) == 2
-# p shortest_length([1, 10, 5, 2, 7], 9) == 1
-# p shortest_length([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
-# p shortest_length([1, 2, 4, 1], 8) == 4
-# p shortest_length([1, 2, 4], 8) == 0
+p shortest_length([2, 3, 1, 2, 4, 3], 7) == 2
+p shortest_length([1, 10, 5, 2, 7], 9) == 1
+p shortest_length([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+p shortest_length([1, 2, 4, 1], 8) == 4
+p shortest_length([1, 2, 4], 8) == 0
+p shortest_length([], 1) == 0
