@@ -65,8 +65,7 @@ ALGORITHM
 # p anagram_difference('ab', 'ba') == 0                 # anagrams: 'ab', 'ba'
 # p anagram_difference('ab', 'cd') == 4                 # anagrams: '', ''
 # p anagram_difference('a', 'aab') == 2                 # anagrams: 'a', 'a'
-# 
-p anagram_difference('codewars', 'hackerrank') == 10  # anagrams: 'cear', 'acer'
+# p anagram_difference('codewars', 'hackerrank') == 10  # anagrams: 'cear', 'acer'
 
 
 
