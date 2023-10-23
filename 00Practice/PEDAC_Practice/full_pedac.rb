@@ -1,6 +1,77 @@
 
 
 
+
+
+### ANAGRAM DIFFERENCES
+=begin
+Write a method that takes two strings as arguments and returns the total number of characters that must be removed from them to make them anagrams of each other. For this problem, two strings are anagrams if they contain all the same characters regardless of order. All input strings are either empty or contain only lowercase letters.
+
+Examples:
+p anagram_difference('', '') == 0                     # anagrams: '', ''
+p anagram_difference('a', '') == 1                    # anagrams: '', ''
+p anagram_difference('', 'a') == 1                    # anagrams: '', ''
+p anagram_difference('ab', 'a') == 1                  # anagrams: 'a', 'a'
+p anagram_difference('ab', 'ba') == 0                 # anagrams: 'ab', 'ba'
+p anagram_difference('ab', 'cd') == 4                 # anagrams: '', ''
+p anagram_difference('a', 'aab') == 2                 # anagrams: 'a', 'a'
+p anagram_difference('codewars', 'hackerrank') == 10  # anagrams: 'cear', 'acer'
+
+8:53
+PROBLEM
+input: two strings
+  - can be empty
+  - if not empty, contain only lowercase letters
+
+output: integer
+  - number of characters that must be removed to make strings anagrams of each other
+    - two strings are anagrams if they contain all the same characters regardless of order
+    - if strings are already anagrams of each other, return 0
+    - if strings contain no characters in common, return combined length of both strings
+    - an empty string is considered an anagram of an empty string
+    - order of two strings doesn't matter
+    - will be at least value of longer string length - shorter string length
+    - maximum length of anagram is length of shorter string
+
+EXAMPLES
+
+DATA STRUCTURES
+input: two strings
+  - array of individual characters
+output: integer
+
+ALGORITHM
+- sort input strings by length: shorter, longer # 'ba', 'dace'
+- separate each string into an array of characters # ['b', 'a'], ['d', 'a', 'c', 'e']
+- iterate over shorter array
+  - if character is included in longer array, iterate counter by 1
+- if counter ends up as 0, then return combined lengths of both arrays
+- if counter > 0, return sum of (each length - counter)
+
+=end
+# def anagram_difference(string1, string2)
+#   shorter, longer = [string1, string2].sort_by {|str| str.size }.map(&:chars)
+#   count = 0
+#   shorter.each do |char|
+#     count += 1 if longer.include?(char)
+#   end
+#   (shorter.size - count) + (longer.size - count)
+# end
+
+# p anagram_difference('', '') == 0                     # anagrams: '', ''
+# p anagram_difference('a', '') == 1                    # anagrams: '', ''
+# p anagram_difference('', 'a') == 1                    # anagrams: '', ''
+# p anagram_difference('ab', 'a') == 1                  # anagrams: 'a', 'a'
+# p anagram_difference('ab', 'ba') == 0                 # anagrams: 'ab', 'ba'
+# p anagram_difference('ab', 'cd') == 4                 # anagrams: '', ''
+# p anagram_difference('a', 'aab') == 2                 # anagrams: 'a', 'a'
+# 
+p anagram_difference('codewars', 'hackerrank') == 10  # anagrams: 'cear', 'acer'
+
+
+
+
+
 ### ANAGRAMS
 =begin
 Write a method that takes two strings as arguments and returns true if they are anagrams of each other, false otherwise. For this problem, two strings are considered anagrams if they both contain all the same type and number of letters, regardless of case. All input strings contain only letter characters.
@@ -73,6 +144,8 @@ ALGORITHM
 # p is_anagram?('apple', 'apply') == false
 # p is_anagram?('apple', 'appl') == false
 # p is_anagram?('', '') == true
+
+
 
 
 
