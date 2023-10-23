@@ -3,6 +3,58 @@
 
 
 
+### GREATEST PRODUCT
+=begin
+Write a method that takes an integer and returns the greatest product of five consecutive digits from the integer. The input integer will always be positive and will always contain more than five digits.
+
+p greatest_product(123456) == 720 # (2 * 3 * 4 * 5 * 6)
+p greatest_product(923456) == 1080 # (9 * 2 * 3 * 4 * 5)
+p greatest_product(1234567890) == 15120 # (5 * 6 * 7 * 8 * 9)
+p greatest_product(2494037820244202221011110532909999) == 0
+
+4:18
+PROBLEM / EXAMPLES
+input: integer
+  - positive
+  - at least 6 digits in length
+
+output: integer
+  - greatest product of five consecutive digits in input integer
+  - positive or zero
+
+DATA STRUCTURES
+input: integer # 123456
+  - array of digits # [1, 2, 3, 4, 5, 6]
+  - array of products of 5-element subarrays # [120, 720]
+    - sort, pick the largest
+output: integer # 720
+
+ALGORITHM
+- separate input integer into an array of digits
+- iterate over the array
+  - start at index 0, then 1, up to index (length - 5)
+  - take 5-element slices
+- get the product of each slice and store in an array
+- sort the products
+- return the largest product
+=end
+
+# def greatest_product(number)
+#   digits = number.digits.reverse
+#   (0..(digits.size - 5)).map do |index|
+#     digits[index, 5].inject(:*)
+#   end.sort.last
+# end
+
+# p greatest_product(123456) == 720 # (2 * 3 * 4 * 5 * 6)
+# p greatest_product(923456) == 1080 # (9 * 2 * 3 * 4 * 5)
+# p greatest_product(1234567890) == 15120 # (5 * 6 * 7 * 8 * 9)
+# p greatest_product(2494037820244202221011110532909999) == 0
+
+
+
+
+
 ### ANAGRAM DIFFERENCES
 =begin
 Write a method that takes two strings as arguments and returns the total number of characters that must be removed from them to make them anagrams of each other. For this problem, two strings are anagrams if they contain all the same characters regardless of order. All input strings are either empty or contain only lowercase letters.
@@ -49,6 +101,7 @@ ALGORITHM
 - if counter > 0, return sum of (each length - counter)
 
 =end
+
 # def anagram_difference(string1, string2)
 #   shorter, longer = [string1, string2].sort_by {|str| str.size }.map(&:chars)
 #   count = 0
