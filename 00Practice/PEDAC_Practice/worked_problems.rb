@@ -28,6 +28,8 @@
 #########
 
 
+
+
 # string = 'abc'
 # letter = string[0]
 # letter #=> 'a'
@@ -52,6 +54,7 @@
 # p string.object_id #=> 60
 # p string[0].object_id #=> 120
 # p string[0].object_id #=> 140
+
 
 
 
@@ -83,6 +86,9 @@
 ### returns every possible grouping of the elements in every possible order: i.e. [0, 1, 2, 7] and [0, 1, 7, 2] are separate permutations
 
 
+
+
+
 ### TWO CLOSEST
 # def closest_numbers(numbers)
 #   combos = numbers.combination(2).to_a
@@ -92,6 +98,9 @@
 # p closest_numbers([5, 25, 15, 11, 20]) #== [15, 11]
 # p closest_numbers([19, 25, 32, 4, 27, 16]) #== [25, 27]
 # p closest_numbers([12, 7, 17]) #== [12, 7]
+
+
+
 
 ### NEXT BIGGER NUMBER
 # def next_bigger_num(number)
@@ -108,6 +117,9 @@
 # p next_bigger_num(111) == -1
 # p next_bigger_num(531) == -1
 # p next_bigger_num(123456789) == 123456798
+
+
+
 
 ### DELETE A DIGIT
 # def delete_digit(number)
