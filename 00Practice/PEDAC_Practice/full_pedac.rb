@@ -2,6 +2,58 @@
 
 
 
+### SUBSTRING COUNT
+=begin
+Write a method that takes two strings as arguments and returns the number of times the second input string occurs as a substring within the first input string. Both input strings will consist solely of lowercase letters, and will always be at least one character in length.
+
+Examples:
+p count_substrings('abcdeb','b') == 2
+p count_subsbrings('cc', 'cc') == 1
+p count_substrings('abbcbb', 'bb') == 2
+p count_substrings('abcdef', 'gh') == 0
+p count_substrings('aaaaa') 'aa') == 4
+
+7:51
+PROBLEM / EXAMPLES
+input: two strings
+  - both consist solely of lowercase letters
+  - both not empty, both have at least one character
+
+output: integer
+  - represents number of times second input string occurs in first input string
+  - can be 0
+
+DATA STRUCTURES
+input: two strings 'abbcbb', 'bb'
+  - substrings 'ab', 'bb', 'bc' . . .
+    - same length as second input string
+    - compare to second input string to see if match 
+output: integer
+
+ALGORITHM
+- iterate over slices of string1
+  - start at index 0, then 1, up to (string1 length - string2 length)
+  - slice length = string2 length
+  - compare to string2, increase count by 1 if match
+- return count
+=end
+
+# def count_substrings(string1, string2)
+#   limit = string1.size - string2.size
+#   (0..limit).count do |index|
+#     string1[index, string2.size] == string2
+#   end
+# end
+
+# p count_substrings('abcdeb','b') == 2
+# p count_substrings('cc', 'cc') == 1
+# p count_substrings('abbcbb', 'bb') == 2
+# p count_substrings('abcdef', 'gh') == 0
+# p count_substrings('aaaaa', 'aa') == 4
+
+
+
+
 
 ### GREATEST PRODUCT
 =begin
