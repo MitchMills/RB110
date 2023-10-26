@@ -1,6 +1,63 @@
 
 
 
+### LETTER CHANGES
+=begin
+Write a method that takes a string as an argument and returns a new string with every letter character replaced with the 3rd letter following it in the alphabet ('a' becomes 'd', 'b' becomes 'e', etc).
+
+Maintain the case of the original letter. Loop back to the beginning of the alphabet if the 3rd letter is past the end ('x' becomes 'a', 'Y' becomes 'B', etc). Leave any non-letter characters unchanged.
+
+Examples:
+p letter_changes('abc') == 'def'
+p letter_changes('WxY') == 'ZaB'
+p letter_changes('364.39') == '364.39'
+p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
+
+7:36
+PROBLEM / EXAMPLES
+input: string
+  - can contain any character (letters, numbers, symbols)
+
+output: string
+  - every letter character of input string replaced
+    - 3rd letter following it in alphabet
+      - loop back to beginning of alphabet: xyz => abc
+    - maintain case
+  - all othe characters unchanged
+
+DATA STRUCTURES
+input: string
+  - array of individual characters to iterate over and transform
+output: string
+
+ALGORITHM
+- create a string of alphabetical characters (upper and lowercase)
+- create a string of shifted alphabetical characters (+3)
+- split the input string into individual characters
+- iterate over each character
+  - if the character is present in the alphabet string, replace it with the character at the same index in the shifted alphabet string
+  - otherwise leave as is
+- join the array back into a string
+- return the string
+=end
+
+# ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+# SHIFTED_ALPHABET = ('D'..'Z').to_a + ('A'..'C').to_a + ('d'..'z').to_a + ('a'..'c').to_a
+# def letter_changes(string)
+#   string.chars.map do |char|
+#     ALPHABET.include?(char) ? SHIFTED_ALPHABET[ALPHABET.index(char)] : char
+#   end.join
+# end
+
+# p letter_changes('abc') == 'def'
+# p letter_changes('WxY') == 'ZaB'
+# p letter_changes('364.39') == '364.39'
+# p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
+
+
+
+
+
 ### SMALLER THAN CURRENT
 =begin
 Write a method that takes an array of numbers as an argument. For each number in the input array, determine how many other numbers in the array are less than that current number. Return these results in an array.
