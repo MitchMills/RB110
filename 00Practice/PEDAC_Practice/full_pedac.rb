@@ -49,6 +49,13 @@ ALGORITHM
 #   end.join
 # end
 
+# ALPHABET = ('A'..'Z').to_a + ('A'..'C').to_a + ('a'..'z').to_a + ('a'..'c').to_a
+# def letter_changes(string)
+#   string.chars.map do |char|
+#     ALPHABET.include?(char) ? ALPHABET[ALPHABET.index(char) + 3] : char
+#   end.join
+# end
+
 # p letter_changes('abc') == 'def'
 # p letter_changes('WxY') == 'ZaB'
 # p letter_changes('364.39') == '364.39'
