@@ -1,3 +1,6 @@
+
+
+
 ### SMALLER THAN CURRENT
 =begin
 Write a method that takes an array of numbers as an argument. For each number in the input array, determine how many other numbers in the array are less than that current number. Return these results in an array.
@@ -12,19 +15,47 @@ p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
 p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
 p smaller_than([7, 7, 7]) == [0, 0, 0]
 p smaller_than([1]) == [0]
+
+7:12
+PROBLEM / EXAMPLES
+input: array
+  - contains numbers
+
+output: array
+  - each element represents the number of other elements in the array that the current element is greater than
+    - current element is the number in the corresponding place in the input array
+  - contains numbers
+  - same size as input array
+  - if a given number occurs more than once in input array:
+    - only count it once in terms of being less than the current element
+  - if no other elements are less than the current element, result is 0
+
+DATA STRUCTURES
+input: array # [1, 1, 2, 2]
+  - array of unique values in input array: # [1, 2]
+output: array # [0, 0, 1, 1]
+
+ALGORITHM
+- create an array of the unique values in the input array
+- iterate over the input array
+  - transform each element
+    - count how many elements in the unique values array are less than the current element
+    - return that count
+- return the transformed array
 =end
 
-def smaller_than(array)
+# def smaller_than(array)
+#  uniques = array.uniq
+#  array.map { |number| uniques.count { |unique| number > unique } }
+# end
 
-end
-
-p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
-p smaller_than([1, 200]) == [0, 1]
-p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
-p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
-p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
-p smaller_than([7, 7, 7]) == [0, 0, 0]
-p smaller_than([1]) == [0]
+# p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
+# p smaller_than([1, 200]) == [0, 1]
+# p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
+# p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
+# p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
+# p smaller_than([7, 7, 7]) == [0, 0, 0]
+# p smaller_than([1]) == [0]
 
 
 
