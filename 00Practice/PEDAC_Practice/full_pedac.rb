@@ -1,3 +1,30 @@
+### SMALLER THAN CURRENT
+=begin
+Write a method that takes an array of numbers as an argument. For each number in the input array, determine how many other numbers in the array are less than that current number. Return these results in an array.
+
+When counting how many numbers are less than the current number, only consider unique values. If a given number occurs more than once in the array, it should only be counted once.
+
+Examples:
+p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
+p smaller_than([1, 200]) == [0, 1]
+p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
+p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
+p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
+p smaller_than([7, 7, 7]) == [0, 0, 0]
+p smaller_than([1]) == [0]
+=end
+
+def smaller_than(array)
+
+end
+
+p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
+p smaller_than([1, 200]) == [0, 1]
+p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
+p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
+p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
+p smaller_than([7, 7, 7]) == [0, 0, 0]
+p smaller_than([1]) == [0]
 
 
 
