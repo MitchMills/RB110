@@ -2,7 +2,6 @@
 =begin
 Write a method that, given a string, returns a new string containing only the alphabetic characters (all whitespace and non-alphabetic characters removed). These characters should be in case-insensitive alphabetical order, in the order they appear in the original string.
 
-
 EXAMPLES
 p alphabetized("") == ""
 p alphabetized(" ") == ""
@@ -11,6 +10,7 @@ p alphabetized("Ab Ba") == "AabB"
 p alphabetized("9A #b$B .a%") == "AabB"
 p alphabetized("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
 =end
+
 
 
 
@@ -24,6 +24,8 @@ p greatest_product("123456") == 23456
 p greatest_product("123455555") == 55555
 p greatest_product("1020304") == 10203
 =end
+
+
 
 
 ##### VOWEL SUBSTRINGS #####
@@ -42,6 +44,7 @@ p count_vowel_substrings("unicornarihan") == 0
 
 
 
+
 ##### MULTIPLY ALL PAIRS #####
 =begin
 Write a method that, given two arrays each containing lists of numbers, returns a new array that contains the product of every pair of numbers that can be formed between the elements of the two arrays. The results should be sorted by increasing value.
@@ -50,6 +53,7 @@ You may assume that neither argument is an empty array.
 
 p multiply_all_pairs([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
 =end
+
 
 
 
@@ -64,6 +68,7 @@ p next_bigger_num(111) == -1
 p next_bigger_num(12345) == 12354
 p next_bigger_num(54321) == -1
 =end
+
 
 
 
