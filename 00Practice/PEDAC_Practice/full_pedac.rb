@@ -1,6 +1,107 @@
 
 
 
+
+
+### VOWEL SUBSTRINGS
+=begin
+Write a method that takes a string as an argument and returns the number of "vowel substrings" within it. A "vowel substring" is a contiguous sequence of characters within the input string that consists only of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it at least once. All input strings will contain only lowercase letters.
+
+Examples:
+p count_vowel_substrings('abcde') == 0
+p count_vowel_substrings('aeiou') == 1
+p count_vowel_substrings('iaoue') == 1
+p count_vowel_substrings('aeiogu') == 0
+p count_vowel_substrings('aeiouu') == 2
+p count_vowel_substrings('aeiouuu') == 3
+p count_vowel_substrings('aaeeiioouu') == 4
+
+7:14
+PROBLEM
+input: string
+  - contains only lowercase letters
+
+output: integer
+  - number of 'vowel substrings' in input string
+    - vowel substring
+      - consists only of vowels (aeiou)
+      - contains each vowel at least once
+      - order doesn't matter
+      - case doesn't matter (only lowercase in input strings)
+      - must be at least five characters in length
+      - cannot contain any consonants
+
+EXAMPLES
+p count_vowel_substrings('abcde') == 0 # 
+p count_vowel_substrings('aeiou') == 1 # 'aeiou'
+p count_vowel_substrings('iaoue') == 1 # 'iaoue'
+p count_vowel_substrings('aeiogu') == 0 #
+p count_vowel_substrings('aeiouu') == 2 # 'aeiou', 'aeiouu'
+p count_vowel_substrings('aeiouuu') == 3 # 'aeiou', 'aeiouu', 'aeiouuu'
+p count_vowel_substrings('aaeeiioouu') == 4 
+# 'aaeeiioou', 'aaeeiioouu', 'aeeiioou', 'aeeiioouu'
+
+DATA STRUCTURES
+input: sring
+  - substrings
+    - start at index 0, then 1, etc
+      - length 5, then length 6, etc, up to (length - start index)
+    - array containing all vowels: 'aeiou'
+    - array containing all consonants:
+output: integer
+
+ALGORITHM
+- create an array of all vowels
+- create an array of all consonants
+- get all substrings
+  - iterate over input string, with indexes
+    - create substrings starting at each index
+      - length starting at 5, up to input string length - current index
+- count substrings that meet criteria
+  - no consonants
+  - contain at least one of each vowel
+    - get unique letters, sort them, then compare to all vowels array
+=end
+# VOWELS = %w(a e i o u)
+# CONSONANTS = ('a'..'z').to_a - VOWELS
+
+# def count_vowel_substrings(string)
+#   substrings = get_all_substrings(string)
+#   only_vowels = get_only_vowels(substrings)
+#   uniques = only_vowels.map { |substring| substring.chars.uniq.sort.join }
+#   uniques.count { |unique| unique == 'aeiou' }
+# end
+# def get_all_substrings(string)
+#   substrings = []
+#   last_index = string.size - 5
+#   (0..last_index).each do |index|
+#     largest = string.size - index
+#     (5..largest).each do |size|
+#       substrings << string[index, size]
+#     end
+#   end
+#   substrings
+# end
+# def get_only_vowels(substrings)
+#   substrings.select do |substring|
+#     substring.each_char.none? do |char|
+#       CONSONANTS.include?(char)
+#     end
+#   end
+# end
+
+# p count_vowel_substrings('abcde') == 0 # 
+# p count_vowel_substrings('aeiou') == 1 # 'aeiou'
+# p count_vowel_substrings('iaoue') == 1 # 'iaoue'
+# p count_vowel_substrings('aeiogu') == 0 #
+# p count_vowel_substrings('aeiouu') == 2 # 'aeiou', 'aeiouu'
+# p count_vowel_substrings('aeiouuu') == 3 # 'aeiou', 'aeiouu', 'aeiouuu'
+# p count_vowel_substrings('aaeeiioouu') == 4 # 'aaeeiioou', 'aaeeiioouu', 'aeeiioou', 'aeeiioouu'
+
+
+
+
+
 ### LETTER CHANGES
 =begin
 Write a method that takes a string as an argument and returns a new string with every letter character replaced with the 3rd letter following it in the alphabet ('a' becomes 'd', 'b' becomes 'e', etc).
