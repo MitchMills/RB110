@@ -3,6 +3,64 @@
 
 
 
+### PAIRS
+=begin
+Write a function that takes an array as an argument, and returns an array with pairs of elements grouped into subarrays. The first element should be paired with the last, the second element with the second to last, etc.
+
+If the array has an odd number of elements, repeat the middle element twice for the final pair.
+
+Examples
+p pairs([1, 2, 3, 4, 5, 6]) == [[1, 6], [2, 5], [3, 4]]
+p pairs([1, 2, 3, 4, 5]) == [[1, 5], [2, 4], [3, 3]]
+p pairs([1, 2]) == [[1, 2]]
+p pairs([1]) == [[1, 1]]
+p pairs([]) == []
+
+7:04
+PROBLEM / EXAMPLES
+input: array
+  - flat
+  - can be empty
+
+output: array
+  - nested: contains subarrays each with a pair of elements from the input array
+    - pairs are: 1st and last, 2nd and 2nd to last, etc
+    - if odd number of elements, last pair is middle element twice
+  - if input array is empty, return an empty array
+
+DATA STRUCTURES
+input: array # [1, 2, 3, 4, 5]
+  - subarrays of pairs # [1, 5], [2, 4], [3, 3]
+    - index 0, index -1
+    - index 1, index -2
+    - index 2, index -3
+output: nested array # [[1, 5], [2, 4], [3, 3]]
+
+[1, 2, 3, 4, 5, 6] # 0 1 2 / -1 -2 -3
+[1, 6], [2, 5], [3, 4]
+
+ALGORITHM
+- create subarrays of pairs
+    - iterate over a range: 0 up to (array size - 1) / 2 # current index
+      - transform each element into a subarray: [array[current index], array[-current index + 1]]
+=end
+
+# def pairs(array)
+#   (0..((array.size - 1)/2)).map do |index|
+#     [array[index], array[-(index + 1)]]
+#   end
+# end
+
+# p pairs([1, 2, 3, 4, 5, 6]) == [[1, 6], [2, 5], [3, 4]]
+# p pairs([1, 2, 3, 4, 5]) == [[1, 5], [2, 4], [3, 3]]
+# p pairs([1, 2]) == [[1, 2]]
+# p pairs([1]) == [[1, 1]]
+# p pairs([]) == []
+
+
+
+
+
 ### VOWEL SUBSTRINGS
 =begin
 Write a method that takes a string as an argument and returns the number of "vowel substrings" within it. A "vowel substring" is a contiguous sequence of characters within the input string that consists only of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it at least once. All input strings will contain only lowercase letters.
