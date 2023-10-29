@@ -3,6 +3,67 @@
 
 
 
+
+### NEXT BIGGEST NUMBER
+=begin
+Write a method that, given a positive integer, returns the next biggest number that can be formed from the same digits. If no bigger number can be formed from those digits, return -1
+
+Examples:
+p next_bigger_num(9) == -1
+p next_bigger_num(12) == 21
+p next_bigger_num(315) == 351
+p next_bigger_num(111) == -1
+p next_bigger_num(12345) == 12354
+p next_bigger_num(12344) == 12434
+p next_bigger_num(54321) == -1
+
+7:07
+PROBLEM / EXAMPLES
+input: integer
+  - positive
+
+output: integer
+  - same digits as input integer
+  - should be next biggest number that can be formed from those digits
+  - if no bigger number can be formed, return -1
+  
+
+DATA STRUCTURES
+- input: integer # 12345
+  - array of individual digits # [1, 2, 3, 4, 5]
+    - sorted to find largest possible number: # [5, 4, 3, 2, 1] => 54321
+- output: integer
+
+ALGORITHM
+- find largest possible number with given digits
+  - separate input integer into an array of individual digits
+  - sort the digits highest to lowest
+  - rejoin them into an integer
+- iterate from input integer up to largest number, incrementing by 1
+- return first number that contains all the same digits as the input integer
+=end
+
+# def next_bigger_num(number)
+#   largest = number.digits.sort.reverse.join.to_i
+#   ((number + 1)..largest).each do |num|
+#     return num if num.digits.sort.reverse.join.to_i == largest
+#   end
+#   -1
+# end
+
+# p next_bigger_num(9) == -1
+# p next_bigger_num(12) == 21
+# p next_bigger_num(315) == 351
+# p next_bigger_num(111) == -1
+# p next_bigger_num(13579) == 13597
+# p next_bigger_num(13573) == 13735
+# p next_bigger_num(13576) == 13657
+# p next_bigger_num(97531) == -1
+
+
+
+
+
 ### PAIRS
 =begin
 Write a function that takes an array as an argument, and returns an array with pairs of elements grouped into subarrays. The first element should be paired with the last, the second element with the second to last, etc.
