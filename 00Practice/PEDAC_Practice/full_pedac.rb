@@ -3,6 +3,93 @@
 
 
 
+### TRIPLE DOUBLE
+=begin
+Write a method that takes two integers as arguments and returns true if the first integer has a sequence of at least three in a row of the same number, and the second integer has a sequence of at least two in a row of that same number. Otherwise, return false.
+
+Examples:
+p triple_double(12345, 12345) == false
+p triple_double(1222345, 122345) == true
+p triple_double(1222345, 123345) == false
+p triple_double(666789, 12345666) == true
+p triple_double(451999277666, 41177722899) == true
+
+7:52 / 8:15
+PROBLEM / EXAMPLES
+input: two integers
+
+output: boolean
+  - true if:
+    - first integer has a sequence of at least three of a number AND
+    - second integer has a sequence of at least two of that same number
+  - otherwise false
+
+DATA STRUCTURES
+input: integers # 1222345
+  - converted to string # '1222345'
+    - substrings to analyze for triples, doubles # '122', '222', '223' etc
+      - start at index 0, end at index (length - 3) or index (length - 2)
+      - length 3 or 2
+  - array to hold found triples # ['222', '444']
+    - or candidate digits # ['2', '4']
+output: boolean
+
+ALGORITHM
+- search first input integer for triples
+  - convert first input integer into a string
+  - iterate over string and collect all three-character substrings
+  - search collected substrings for triples
+- if no triple(s) found, return false
+- if triple(s) found, search second input integer for doubles of same digit(s)
+  - convert second input integer into a string
+  - iterate over string and collect all two-character substrings
+  - search collected substrings for doubles of target digit(s)
+- if matching double found, return true
+- if no matching double found, return false
+=end
+
+# def triple_double(number1, number2)
+#   triples = multiples(number1, 3)
+#   return false if triples.empty?
+#
+#   doubles = multiples(number2, 2)
+#   return false if doubles.empty?
+#
+#   triples.each do |triple|
+#     doubles.each do |double|
+#       return true if triple[0] == double[0]
+#     end
+#   end
+#   false
+# end
+
+# def multiples(number, size)
+#   substrings = get_substrings(number, size)
+#   multiples = find_multiples(substrings)
+# end
+
+# def get_substrings(number, size)
+#   (0..(number.to_s.size - size)).map do |index|
+#     number.to_s[index, size]
+#   end
+# end
+
+# def find_multiples(substrings)
+#   substrings.select do |substring|
+#     substring.chars.all? { |char| char == substring[0] }
+#   end
+# end
+
+# p triple_double(12345, 12345) == false
+# p triple_double(1222345, 122345) == true
+# p triple_double(1222345, 123345) == false
+# p triple_double(666789, 12345666) == true
+# p triple_double(451999277666, 41177722899) == true
+
+
+
+
+
 ### MULTIPLY ALL PAIRS
 =begin
 Write a method that, given two arrays each containing lists of numbers, returns a new array that contains the product of every pair of numbers that can be formed between the elements of the two arrays. The results should be sorted by increasing value.
