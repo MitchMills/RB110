@@ -3,6 +3,84 @@
 
 
 
+### REPEATED SUBSTRING
+=begin
+Write a method that takes a string as an argument and returns true if that string can be constructed by taking a substring and concatenating two or more copies of the substring together. Return false otherwise.
+
+Examples:
+p repeated_substring('aba') == false
+p repeated_substring('aaa') == true
+p repeated_substring('abab') == true
+p repeated_substring('abcABC') == false
+p repeated_substring('AabAaba') == false
+p repeated_substring('aB@AbaB@Ab') == true
+p repeated_substring('ab3ab3ab3') == true
+
+4:54
+PROBLEM / EXAMPLES
+input: string
+  - can contain any type of character (letters, numbers, symbols)
+
+output: boolean
+  - true if input string can be constructed by concatenating two or more copies of any substring
+  - false otherwise
+  - case sensitive ('a' != 'A')
+  - substring can be one character
+  - maximum substring size is half the input string length
+  - input string length must be a multiple of substring length
+
+DATA STRUCTURES
+- input: string
+  - array of all possible substrings
+    - index 0 up to (input string length - 1 / 2)
+    - size 1 up to (input string length / 2)
+  - substring * (string size / substring size) == string # 'ab' * 2  == 'abab'
+- output: boolean
+
+ALGORITHM
+- find all possible suitable substrings
+  - take slices of string
+    - index 0 up to half of string length - 1
+      - size 1 up to string length / 2
+  - store slices in an array
+- compare concatenated substrings to string
+  - iterate over substring array
+    - multiply substring * (string length / substring length)
+    - compare to string
+    - true if they're equal, otherwise false
+    - can stop as soon as one successful candidate is found
+=end
+
+# def repeated_substring(string)
+#   substrings = get_all_substrings(string)
+#   substrings.each do |substring|
+#     return true if substring * (string.size / substring.size) == string
+#   end
+#   false
+# end
+
+# def get_all_substrings(string)
+#   substrings = []
+#   (0..((string.size - 1) / 2)).each do |index|
+#     (1..(string.size / 2)).each do |size|
+#       substrings << string[index, size]
+#     end
+#   end
+#   substrings
+# end
+
+# p repeated_substring('aba') == false
+# p repeated_substring('aaa') == true
+# p repeated_substring('abab') == true
+# p repeated_substring('abcABC') == false
+# p repeated_substring('AabAaba') == false
+# p repeated_substring('aB@AbaB@Ab') == true
+# p repeated_substring('ab3ab3ab3') == true
+
+
+
+
+
 ### TRIPLE DOUBLE
 =begin
 Write a method that takes two integers as arguments and returns true if the first integer has a sequence of at least three in a row of the same number, and the second integer has a sequence of at least two in a row of that same number. Otherwise, return false.
