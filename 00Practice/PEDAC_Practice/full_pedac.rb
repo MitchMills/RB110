@@ -3,6 +3,73 @@
 
 
 
+### DELETE A DIGIT
+=begin
+Write a method that takes an integer as an argument and returns the largest integer that can be obtained by deleting exactly one digit.
+
+Assume all input integers will contain at least two digits
+
+Examples:
+p delete_digit(10) == 1
+p delete_digit(12) == 2
+p delete_digit(123) == 23
+p delete_digit(321) == 32
+p delete_digit(12345) == 2345
+p delete_digit(62345) == 6345
+p delete_digit(791983) == 91983
+
+8:27
+PROBLEM / EXAMPLES
+input: integer
+  - contains at least two digits
+
+output: integer
+  - contains one less digit that input integer
+  - should be largest value that can be created by deleting one digit from input integer
+    - original order is maintained, just with one digit deleted
+
+DATA STRUCTURES
+input: integer # 62345
+  - array of digits # [6, 2, 3, 4, 5]
+    - subarrays # [6, 2, 3, 4], [6, 3, 4, 5], [6, 2, 4, 5] . . .
+      - joined and converted back to integers # 6234, 6345, 6245
+        - sorted to find largest
+  - OR string '62345' ***
+    - same as above but with substrings
+output: integer
+
+ALGORITHM
+- convert input integer to array of digits
+- create all possible subarrays with one digit deleted
+  - iterate over a range from 0 up to array length - 1 (represents indexes)
+    - transform each element into a subarray
+      - delete a digit at each index
+- convert subarrays back into integers
+- sort these integers
+- return the largest
+
+=end
+
+# def delete_digit(number)
+#   digits = number.digits.reverse
+#   subarrays = (0...digits.size).map do |index|
+#     digits - [digits[index]]
+#   end
+#   subarrays.map { |subarray| subarray.join.to_i }.sort.last
+# end
+
+# p delete_digit(10) == 1
+# p delete_digit(12) == 2
+# p delete_digit(123) == 23
+# p delete_digit(321) == 32
+# p delete_digit(12345) == 2345
+# p delete_digit(62345) == 6345
+# p delete_digit(791983) == 91983
+
+
+
+
+
 ### REPEATED SUBSTRING
 =begin
 Write a method that takes a string as an argument and returns true if that string can be constructed by taking a substring and concatenating two or more copies of the substring together. Return false otherwise.
