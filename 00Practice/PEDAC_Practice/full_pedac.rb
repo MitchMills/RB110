@@ -58,85 +58,16 @@ ALGORITHM
 
 # ALPHABET = [0] + ('a'..'z').to_a
 
-###
 # def alphabet_score(string)
 #   words = string.split
-#   scores = get_scores(words)
-#   scores.keys.sort do |a, b|
-#     (scores[a] <=> scores[b]).nonzero? || words.index(b) <=> words.index(a)
+#   words.sort_by do |word|
+#     [get_score(word), words.reverse.index(word)]
 #   end.last
 # end
 
-# def get_scores(words)
-#   scores = {}
-#   words.each do |word|
-#     score = word.chars.map do |char|
-#       ALPHABET.index(char)
-#     end.inject(:+)
-#     scores[word] = score
-#   end
-#   scores
+# def get_score(word)
+#   word.chars.map { |char| ALPHABET.index(char) }.sum
 # end
-###
-
-###
-# def alphabet_score(string)
-#   words = string.split
-#   scores = get_scores(words)
-#   scores.max do |word1, word2|
-#     word1[0] <=> word2[0] || word2[1] <=> word1[1]
-#   end[2]
-# end
-
-# def get_scores(words)
-#   words.map.with_index do |word, index|
-#     score = word.chars.map do |char|
-#       ALPHABET.index(char)
-#     end.inject(:+)
-#     [score, index, word]
-#   end
-# end
-###
-
-###
-# def alphabet_score(string)
-#   words = string.split
-#   scores = get_scores(words)
-#   scores.max do |a, b|
-#     a[:score] <=> b[:score] || b[:index] <=> a[:index]
-#   end[:word]
-# end
-
-# def get_scores(words)
-#   words.map.with_index do |word, index|
-#     score = word.chars.map do |char|
-#       ALPHABET.index(char)
-#     end.inject(:+)
-#     { word: word, score: score, index: index }
-#   end
-# end
-###
-
-###
-# def alphabet_score(string)
-#   words = string.split
-#   scores = get_scores(words)
-#   words.max do |a, b|
-#     scores[a] <=> scores[b] || words.index(b) <=> words.index(a)
-#   end
-# end
-
-# def get_scores(words)
-#   scores = {}
-#   words.each do |word|
-#     score = word.chars.map do |char|
-#       ALPHABET.index(char)
-#     end.inject(:+)
-#     scores[word] = score
-#   end
-#   scores
-# end
-###
 
 # p alphabet_score('time is up') #== 'time'
 # p alphabet_score('time to stop') #== 'stop'
