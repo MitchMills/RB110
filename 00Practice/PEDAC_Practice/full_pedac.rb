@@ -3,6 +3,148 @@
 
 
 
+### ALPHABET SCORE
+=begin
+Write a method that takes a string of words as an argument and returns the word that scores highest according to the letters it contains. Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, etc. So, for example, the word "ace" has a score of 9 (1 + 3 + 5).
+
+If two words are tied for highest score, return the word that appears earliest in the original string.
+
+You can assume that all letters in the input string are lowercase and all input strings are valid.
+
+Examples:
+p alphabet_score('time is up') == 'time'
+p alphabet_score('time to stop') == 'stop'
+p alphabet_score('aced up') == 'up'
+p alphabet_score('ebb ace') == 'ebb'
+p alphabet_score('c ba') == 'c'
+
+9:04 / 9:29
+PROBLEM / EXAMPLES
+input: string
+  - only contains lowercase letters
+  - contains "words"
+    - contiguous sequence of non-space characters (letters)
+
+outuput: string
+  - word from input string with highest score
+    - score based on letters in word
+      - a = 1, b = 2, etc
+    - NOT based on number of letters: up > aced
+  - if two or more words have the same highest score
+    - return the word that occurs first in input string
+
+DATA STRUCTURES
+- input: string # 'time to stop'
+  - array of alphabet letters ['a', 'b', 'c', . . .]; can use index as score
+  - array of individual words in input string # ['time', 'to', 'stop']
+  - hash with word as key and score as value # { 'ace' => 9, . . . }
+    - can sort by score and then retrieve highest scoring word
+    - problem: word order in original string: maybe can use index to decide ties?
+- output: string
+
+ALGORITHM
+- create an array of letters in alphabetical order
+- Give each word a score
+  - separate input string into individual words
+  - us alphabet array to give each word a score
+  - store in a hash with word as key and score as value
+- Return the highest scoring word
+  - sort the hash by scores
+  - return the word associated with the highest score
+  - TIES?
+    - if two words have the same score, compare the index of each word in the words array
+
+=end
+
+# ALPHABET = [0] + ('a'..'z').to_a
+
+###
+# def alphabet_score(string)
+#   words = string.split
+#   scores = get_scores(words)
+#   scores.keys.sort do |a, b|
+#     (scores[a] <=> scores[b]).nonzero? || words.index(b) <=> words.index(a)
+#   end.last
+# end
+
+# def get_scores(words)
+#   scores = {}
+#   words.each do |word|
+#     score = word.chars.map do |char|
+#       ALPHABET.index(char)
+#     end.inject(:+)
+#     scores[word] = score
+#   end
+#   scores
+# end
+###
+
+###
+# def alphabet_score(string)
+#   words = string.split
+#   scores = get_scores(words)
+#   scores.max do |word1, word2|
+#     word1[0] <=> word2[0] || word2[1] <=> word1[1]
+#   end[2]
+# end
+
+# def get_scores(words)
+#   words.map.with_index do |word, index|
+#     score = word.chars.map do |char|
+#       ALPHABET.index(char)
+#     end.inject(:+)
+#     [score, index, word]
+#   end
+# end
+###
+
+###
+# def alphabet_score(string)
+#   words = string.split
+#   scores = get_scores(words)
+#   scores.max do |a, b|
+#     a[:score] <=> b[:score] || b[:index] <=> a[:index]
+#   end[:word]
+# end
+
+# def get_scores(words)
+#   words.map.with_index do |word, index|
+#     score = word.chars.map do |char|
+#       ALPHABET.index(char)
+#     end.inject(:+)
+#     { word: word, score: score, index: index }
+#   end
+# end
+###
+
+###
+# def alphabet_score(string)
+#   words = string.split
+#   scores = get_scores(words)
+#   words.max do |a, b|
+#     scores[a] <=> scores[b] || words.index(b) <=> words.index(a)
+#   end
+# end
+
+# def get_scores(words)
+#   scores = {}
+#   words.each do |word|
+#     score = word.chars.map do |char|
+#       ALPHABET.index(char)
+#     end.inject(:+)
+#     scores[word] = score
+#   end
+#   scores
+# end
+###
+
+# p alphabet_score('time is up') #== 'time'
+# p alphabet_score('time to stop') #== 'stop'
+# p alphabet_score('aced up') #== 'up'
+# p alphabet_score('ebb ace') #== 'ebb'
+# p alphabet_score('c ba') #== 'c'
+
+
 ### DELETE A DIGIT
 =begin
 Write a method that takes an integer as an argument and returns the largest integer that can be obtained by deleting exactly one digit.
