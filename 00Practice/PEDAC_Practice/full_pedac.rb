@@ -1,5 +1,92 @@
+### LONGEST ALPHABETICAL
+=begin
+Write a method that takes a string containing only lowercase letters as an argument, and returns the longest substring that is in alphabetical order. If there are multiple solutions, return the substring that occurs first in the input string. All input strings will be at least one character in length.
+
+Examples:
+p longest('asd') == 'as'
+p longest('nab') == 'ab'
+p longesT('abcbcd') == 'abc'
+p longest('abcdeapbcdef') ==  'abcde'
+p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+p longest('asdfbyfgiklag') == 'fgikl'
+p longest('z') == 'z'
+p longest('zyba') == 'z'
+
+9:20
+PROBLEM / EXAMPLES
+input: string
+  - contains only lowercase letters
+  - at least one character in length (no empty strings)
+
+output: string
+  - longest substring of characters in alphabetical order
+  - if multiple longest, return first
+
+DATA STRUCTURES
+- input: string
+  - array of substrings # ['abc', 'bcb', ...]
+    - array of characters in each substring ['a', 'b', 'c']
+- output: string
+
+ALGORITHM
+- Get all substrings
+  - start at index 0, up to index (input string length - 1)
+    - start at length 1, up to (input string length - current index)
+- Determine which substrings are in alphabetical order
+  - create an array of lowercase letters in alpha order
+  - examine each substring character by character
+    (- length one substrings are automatically in alpha order)
+    - if character has a lower index in alpha array than previous character, reject that substring
+- Choose substring to return
+  - longest
+  - if tie, then one that occurs first
+
+=end
+ALPHABET = ('a'..'z').to_a
+
+def longest(string)
+  substrings = get_all_substrings(string)
+  alpha_substrings = get_alpha_substrings(substrings)
+  # alpha_substrings.sort_by do |substring|
+  #   [substring.size, alpha_substrings.reverse.index(substring)]
+  # end.last
+end
+
+def get_all_substrings(string)
+  substrings = []
+  (0...string.size).each do |index|
+    (1..(string.size - index)).each do |length|
+      substrings << string[index, length]
+    end
+  end
+  substrings
+end
+
+def get_alpha_substrings(substrings)
+  substrings.select do |substring|
+
+    (0..(substring.size - 2)).each do |index1|
+      (1..(substring.size - 1)).each do |index2|
+
+      end
+    end
+    
+  end
+end
+
+def alphabetical?(char1, char2)
+
+end
 
 
+p longest('abcbcd') #== 'abc'
+# p longest('asd') == 'as'
+# p longest('nab') == 'ab'
+# p longest('abcdeapbcdef') ==  'abcde'
+# p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+# p longest('asdfbyfgiklag') == 'fgikl'
+# p longest('z') == 'z'
+# p longest('zyba') == 'z'
 
 
 
