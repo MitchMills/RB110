@@ -1,3 +1,8 @@
+
+
+
+
+
 ### LONGEST ALPHABETICAL
 =begin
 Write a method that takes a string containing only lowercase letters as an argument, and returns the longest substring that is in alphabetical order. If there are multiple solutions, return the substring that occurs first in the input string. All input strings will be at least one character in length.
@@ -12,74 +17,88 @@ p longest('asdfbyfgiklag') == 'fgikl'
 p longest('z') == 'z'
 p longest('zyba') == 'z'
 
-9:20
+7:07
 PROBLEM / EXAMPLES
 input: string
   - contains only lowercase letters
-  - at least one character in length (no empty strings)
-
+  - at least once character in length
 output: string
-  - longest substring of characters in alphabetical order
-  - if multiple longest, return first
+  - longest substring that is in alphabetical order
+    - if multiple, return one that occurs first
+  - if input string is only one character, return input string
+  - substring can be any length from 1 up to length of input string
 
 DATA STRUCTURES
-- input: string
-  - array of substrings # ['abc', 'bcb', ...]
-    - array of characters in each substring ['a', 'b', 'c']
-- output: string
+input: string # 'abc'
+  - array of all possible substrings # ['a', 'ab', 'abc', 'b', . . .]
+    - start at index 0, up to (input string length - 1)
+      - start at size 1, up to (input string length - current index)
+  - array of all lowercase alphabetic characters, in order # ['a', 'b', 'c' . . .]
+  - array of characters in each substring # ['a', 'b']
+    - examine each character and next character
+      - current index and current index + 1
+        - from index 0 up to (input string length - 2)
+        - what about length 1 substrings?
+  - array of only alphabetical substrings, sorted first by size and then by order in input string
+output: string
 
 ALGORITHM
-- Get all substrings
-  - start at index 0, up to index (input string length - 1)
-    - start at length 1, up to (input string length - current index)
-- Determine which substrings are in alphabetical order
-  - create an array of lowercase letters in alpha order
-  - examine each substring character by character
-    (- length one substrings are automatically in alpha order)
-    - if character has a lower index in alpha array than previous character, reject that substring
-- Choose substring to return
-  - longest
-  - if tie, then one that occurs first
-
+- Get all possible substrings
+  - iterate over a range representing starting indexes
+    - 0 up to (input string length - 1)
+  - iterate over a range representing substring size
+    - 1 up to (input string length - current index)
+  - take slices of input string: [current index, current size]
+  - collect these substrings in an array
+- Find alphabetical substrings
+  - create an array of all lowercase letters in alphabetical order
+  - iterate over each substring
+    - iterate over a range representing starting indexes
+      - compare character at current index to character at current index + 1
+        - check whether index of first character in alphabet array is lower than that of second character
+        - if true for all characters in substring, store that substring in a new array
+- Find longest alphabetical substring
+  - sort substrings first by size and then by position in alphabetical substrings array
+  - return the longest
+    - return first if a tie
 =end
-ALPHABET = ('a'..'z').to_a
+# ALPHABET = ('a'..'z').to_a
 
-def longest(string)
-  substrings = get_all_substrings(string)
-  alpha_substrings = get_alpha_substrings(substrings)
-  # alpha_substrings.sort_by do |substring|
-  #   [substring.size, alpha_substrings.reverse.index(substring)]
-  # end.last
-end
+# def longest(string)
+#   return string if string.size == 1
+#   substrings = get_all_substrings(string)
+#   alpha_substrings = find_alpha_substrings(substrings)
+#   find_longest(alpha_substrings)
+# end
 
-def get_all_substrings(string)
-  substrings = []
-  (0...string.size).each do |index|
-    (1..(string.size - index)).each do |length|
-      substrings << string[index, length]
-    end
-  end
-  substrings
-end
+# def get_all_substrings(string)
+#   (0...string.size).each.with_object([]) do |index, substrings|
+#     (1..(string.size - index)).each do |length|
+#       substrings << string[index, length]
+#     end
+#   end
+# end
 
-def get_alpha_substrings(substrings)
-  substrings.select do |substring|
+# def find_alpha_substrings(substrings)
+#   substrings.select do |substring|
+#     (0..(substring.size - 2)).all? do |index|
+#       alphabetical?(substring[index], substring[index + 1])
+#     end
+#   end
+# end
 
-    (0..(substring.size - 2)).each do |index1|
-      (1..(substring.size - 1)).each do |index2|
+# def alphabetical?(char1, char2)
+#   ALPHABET.index(char1) <= ALPHABET.index(char2)
+# end
 
-      end
-    end
-    
-  end
-end
+# def find_longest(strings)
+#   strings.sort_by do |string|
+#     [string.size, strings.reverse.index(string)]
+#   end.last
+# end
 
-def alphabetical?(char1, char2)
-
-end
-
-
-p longest('abcbcd') #== 'abc'
+# p longest('abc') == 'abc'
+# p longest('abcxyz') == 'abc'
 # p longest('asd') == 'as'
 # p longest('nab') == 'ab'
 # p longest('abcdeapbcdef') ==  'abcde'
@@ -87,6 +106,8 @@ p longest('abcbcd') #== 'abc'
 # p longest('asdfbyfgiklag') == 'fgikl'
 # p longest('z') == 'z'
 # p longest('zyba') == 'z'
+
+
 
 
 
