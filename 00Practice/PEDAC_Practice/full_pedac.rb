@@ -62,8 +62,10 @@ ALGORITHM
   - return the longest
     - return first if a tie
 =end
+
 # ALPHABET = ('a'..'z').to_a
 
+###
 # def longest(string)
 #   return string if string.size == 1
 #   substrings = get_all_substrings(string)
@@ -96,9 +98,37 @@ ALGORITHM
 #     [string.size, strings.reverse.index(string)]
 #   end.last
 # end
+###
+
+###
+# def longest(string)
+#   return string if string.size == 1
+#   substrings = get_substrings(string)
+#   find_longest(substrings)
+# end
+
+# def get_substrings(string)
+#   (0...string.size).each.with_object([]) do |index, substrings|
+#     (1..(string.size - index)).each do |length|
+#       substring = string[index, length]
+#       substrings << substring if alphabetical?(substring)
+#     end
+#   end
+# end
+
+# def alphabetical?(substring)
+#   (0..(substring.size - 2)).all? do |index|
+#     ALPHABET.index(substring[index]) <= ALPHABET.index(substring[index + 1])
+#   end
+# end
+
+# def find_longest(strings)
+#   strings.sort_by { |str| [str.size, strings.reverse.index(str)] }.last
+# end
+###
 
 # p longest('abc') == 'abc'
-# p longest('abcxyz') == 'abc'
+# p longest('abcbcd') == 'abc'
 # p longest('asd') == 'as'
 # p longest('nab') == 'ab'
 # p longest('abcdeapbcdef') ==  'abcde'
@@ -106,6 +136,7 @@ ALGORITHM
 # p longest('asdfbyfgiklag') == 'fgikl'
 # p longest('z') == 'z'
 # p longest('zyba') == 'z'
+
 
 
 
