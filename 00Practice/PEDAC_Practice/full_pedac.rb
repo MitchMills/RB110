@@ -1,4 +1,56 @@
+### DASHERIZER
+=begin
+Write a method that takes an integer as an argument and returns a string, with a dash placed between any consecutive odd digits.
 
+Examples:
+p dasherizer(2112) == '21-12'
+p dasherizer(201305742) == '201-305-742'
+p dasherizer(123456789) == '123456789'
+p dasherizer(217521) == '21-7-521'
+
+PROBLEM / EXERCISES
+input: integer
+
+outuput: string
+  - same digits as input integer, with dashes between consecutive odd digits
+
+DATA STRUCTURES
+input: integer # 2112
+  - converted to string # '2112'
+  - converted to array of digits # ['2', '1', '1', '2']
+    - transformed if following digit is odd # [['2', '1-', '1', '2']]
+      - range of indexes from 0 up to array.length - 2
+        - compare element at index to element at (index + 1)
+    - joined back into string
+output: string
+
+ALGORITHM
+- convert input integer into string
+- convert string into array of digits
+- iterate over a range from 0 to (digits array length - 2)
+  - transform the array
+    -each element that is odd and is followed by an odd number:
+      - digit at that index in digits array + '-'
+    - all other elements:
+      - digit at that index in digits array
+- join the array into a string and return it
+=end
+# def dasherizer(number)
+#   digits = number.to_s.chars
+#   result = (0..(digits.size - 2)).map do |index|
+#     if digits[index].to_i.odd? && digits[index + 1].to_i.odd?
+#       digits[index] + '-'
+#     else
+#       digits[index]
+#     end
+#   end.join
+#   result + digits[-1]
+# end
+
+p dasherizer(2112) == '21-12'
+p dasherizer(201305742) == '201-305-742'
+p dasherizer(123456789) == '123456789'
+p dasherizer(217521) == '21-7-521'
 
 
 
