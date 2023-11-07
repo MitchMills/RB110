@@ -1,3 +1,6 @@
+
+
+
 ### DASHERIZER
 =begin
 Write a method that takes an integer as an argument and returns a string, with a dash placed between any consecutive odd digits.
@@ -35,6 +38,7 @@ ALGORITHM
       - digit at that index in digits array
 - join the array into a string and return it
 =end
+
 # def dasherizer(number)
 #   digits = number.to_s.chars
 #   result = (0..(digits.size - 2)).map do |index|
@@ -47,10 +51,22 @@ ALGORITHM
 #   result + digits[-1]
 # end
 
-p dasherizer(2112) == '21-12'
-p dasherizer(201305742) == '201-305-742'
-p dasherizer(123456789) == '123456789'
-p dasherizer(217521) == '21-7-521'
+# def dasherizer(number)
+#   digits = number.digits.reverse
+#   (0..(digits.size - 2)).map do |index|
+#     if digits[index].odd? && digits[index + 1].odd?
+#       digits[index].to_s + '-'
+#     else
+#       digits[index].to_s
+#     end
+#   end.join + digits[-1].to_s
+# end
+
+# p dasherizer(2112) #== '21-12'
+# p dasherizer(201305742) #== '201-305-742'
+# p dasherizer(123456789) #== '123456789'
+# p dasherizer(217521) #== '21-7-521'
+
 
 
 
