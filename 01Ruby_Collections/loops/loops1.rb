@@ -1,5 +1,24 @@
+### GREET YOUR FRIENDS
+# friends = ['Sarah', 'John', 'Hannah', 'Dave']
+
+# for friend in friends
+#   puts "Hello, #{friend}!"
+# end
+
+### THAT'S ODD
+# for i in 1..10
+#   next if i.even?
+#   puts i
+# end
+
 ### PRINT UNTIL
-numbers = [7, 9, 13, 25, 18]
+# numbers = [7, 9, 13, 25, 18]
+
+# index = 0
+# until index >= numbers.size
+#   puts numbers[index]
+#   index += 1
+# end
 
 ### COUNT UP
 # count = 1
