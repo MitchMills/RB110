@@ -1,27 +1,83 @@
-produce = {
-  'apple' => 'Fruit',
-  'carrot' => 'Vegetable',
-  'pear' => 'Fruit',
-  'broccoli' => 'Vegetable'
-}
+##### multiply, non-mutating
+# def multiply(numbers, multiplier)
+#   result = []
+#   counter = 0
 
-def select_fruit(products_hash)
-  fruit = {}
-  counter = 0
-  products = products_hash.keys
+#   loop do
+#     break if counter == numbers.size
+#     result << numbers[counter] * multiplier
+#     counter += 1
+#   end
 
-  loop do
-    break if counter == products.size
-    current_product = products[counter]
-    current_category = products_hash[current_product]
-    fruit[current_product] = current_category if current_category == 'Fruit'
-    counter += 1
-  end
+#   result
+# end
 
-  fruit
-end
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p multiply(my_numbers, 3) == [3, 12, 9, 21, 6, 18]
 
-p select_fruit(produce) == {"apple"=>"Fruit", "pear"=>"Fruit"}
+##### double odd indices, non-mutating
+# def double_odd_indices(numbers)
+#   result = []
+#   counter = 0
+
+#   loop do
+#     break if counter >= numbers.size
+#     current_number = numbers[counter]
+#     current_number *= 2 if counter.odd?
+#     result << current_number
+#     counter += 1
+#   end
+
+#   result
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p double_odd_indices(my_numbers) == [1, 8, 3, 14, 2, 12]
+
+##### doubled numbers: MUTATING
+# def double_numbers(numbers)
+#   counter = 0
+
+#   loop do
+#     break if counter >= numbers.size
+#     numbers[counter] *= 2
+#     counter += 1
+#   end
+
+#   numbers
+# end
+
+# p my_numbers = [1, 4, 3, 7, 2, 6]
+# p my_numbers.object_id
+# p double_numbers(my_numbers) == [2, 8, 6, 14, 4, 12]
+# p my_numbers
+# p my_numbers.object_id
+
+##### select fruit
+# produce = {
+#   'apple' => 'Fruit',
+#   'carrot' => 'Vegetable',
+#   'pear' => 'Fruit',
+#   'broccoli' => 'Vegetable'
+# }
+
+# def select_fruit(products_hash)
+#   fruit = {}
+#   counter = 0
+#   products = products_hash.keys
+
+#   loop do
+#     break if counter == products.size
+#     current_product = products[counter]
+#     current_category = products_hash[current_product]
+#     fruit[current_product] = current_category if current_category == 'Fruit'
+#     counter += 1
+#   end
+
+#   fruit
+# end
+
+# p select_fruit(produce) == {"apple"=>"Fruit", "pear"=>"Fruit"}
 
 
 ###### select letter: non-mutating
