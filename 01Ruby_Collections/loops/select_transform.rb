@@ -1,3 +1,29 @@
+produce = {
+  'apple' => 'Fruit',
+  'carrot' => 'Vegetable',
+  'pear' => 'Fruit',
+  'broccoli' => 'Vegetable'
+}
+
+def select_fruit(products_hash)
+  fruit = {}
+  counter = 0
+  products = products_hash.keys
+
+  loop do
+    break if counter == products.size
+    current_product = products[counter]
+    current_category = products_hash[current_product]
+    fruit[current_product] = current_category if current_category == 'Fruit'
+    counter += 1
+  end
+
+  fruit
+end
+
+p select_fruit(produce) == {"apple"=>"Fruit", "pear"=>"Fruit"}
+
+
 ###### select letter: non-mutating
 # def select_letter(string, target_letter)
 #   selected = ''
