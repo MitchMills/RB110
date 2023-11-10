@@ -1,39 +1,3 @@
-def get_all_substrings1(string)
-  substrings = []
-
-  final_index = string.size - 1
-
-  (0..final_index).each do |start_index| # outer loop
-    max_length = string.size - start_index
-
-    (1..max_length).each do |current_length| # inner loop
-      substrings << string[start_index, current_length]
-    end
-  end
-
-  substrings
-end
-
-p get_all_substrings1('abcde') # => ["a", "ab", "abc", "abcd", "abcde", "b", "bc", "bcd", "bcde", "c", "cd", "cde", "d", "de", "e"]
-
-
-def get_all_substrings2(string)
-  substrings = []
-
-  max_length = string.size
-
-  (1..max_length).each do |current_length| # outer loop
-    final_index = string.size - current_length
-
-    (0..final_index).each do |start_index| # inner loop
-      substrings << string[start_index, current_length]
-    end
-  end
-
-  substrings
-end
-
-p get_all_substrings2('abcde') # => ["a", "b", "c", "d", "e", "ab", "bc", "cd", "de", "abc", "bcd", "cde", "abcd", "bcde", "abcde"]
 
 
 ### SELECT VOWELS, MUTATING
