@@ -2,13 +2,21 @@
 def grab_vowels(string)
   vowels = 'AEIOUaeiou'
   current_index = 0
-  result
+  original_size = string.size
 
   loop do
-
+    break if current_index >= string.size
+    current_character = string[current_index]
+    string.delete!(current_character) if vowels.include?(current_character)
+    current_index += 1
   end
   
+  original_size - string.size
 end
+
+string = 'The quick brown fox jumps over the lazy dog.'
+p grab_vowels(string)
+p string
 
 ### SELECT VOWELS, NON-MUTATING
 # def count_vowels(string)
