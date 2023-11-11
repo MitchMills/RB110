@@ -1,5 +1,41 @@
 
 
+### DOUBLE ODD INDICES, MUTATING
+# def double_odd_indices!(numbers)
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= numbers.size
+#     numbers[current_index] *= 2 if current_index.odd?
+#     current_index += 1
+#   end
+
+#   numbers
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p double_odd_indices!(my_numbers) == [1, 8, 3, 14, 2, 12]
+# p my_numbers == [1, 8, 3, 14, 2, 12]
+
+### DOUBlE ODD INDICES, NON-MUTATING
+# def double_odd_indices(numbers)
+#   doubled = []
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= numbers.size
+#     current_number = numbers[current_index]
+#     doubled << (current_index.odd? ? current_number * 2 : current_number)
+#     current_index += 1
+#   end
+
+#   doubled
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p double_odd_indices(my_numbers) == [1, 8, 3, 14, 2, 12]
+# p my_numbers == [1, 4, 3, 7, 2, 6]
+
 ### DOUBLE ODD NUMBERS, MUTATING
 # def double_odd_numbers!(numbers)
 #   current_index = 0
