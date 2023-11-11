@@ -1,26 +1,82 @@
-
-
-### SELECT VOWELS, MUTATING
-# def grab_vowels(string)
-#   vowels = 'AEIOUaeiou'
+### REMOVE FRUIT, MUTATING
+# def remove_fruit(produce)
+#   items = produce.keys
 #   current_index = 0
-#   original_size = string.size
+#   removed = {}
 
 #   loop do
-#     break if current_index >= string.size
-#     current_character = string[current_index]
-#     string.delete!(current_character) if vowels.include?(current_character)
+#     break if current_index >= items.size
+#     current_item = items[current_index]
+#     category = produce[current_item]
+#     removed[current_item] = category if category == 'Fruit'
+#     produce.delete(current_item) if category == 'Fruit'
+#     current_index += 1
+#   end
+
+#   removed
+# end
+
+# produce = {
+#   'apple' => 'Fruit',
+#   'carrot' => 'Vegetable',
+#   'pear' => 'Fruit',
+#   'broccoli' => 'Vegetable'
+# }
+
+# p remove_fruit(produce) == {"apple"=>"Fruit", "pear"=>"Fruit"}
+# p produce
+
+### SELECT FRUIT, NON-MUTATING
+# def select_fruit(produce)
+#   fruit = {}
+#   items = produce.keys
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= items.size
+#     current_item = items[current_index]
+#     category = produce[current_item]
+#     fruit[current_item] = category if category == 'Fruit'
+#     current_index += 1
+#   end
+#   fruit
+# end
+
+# produce = {
+#   'apple' => 'Fruit',
+#   'carrot' => 'Vegetable',
+#   'pear' => 'Fruit',
+#   'broccoli' => 'Vegetable'
+# }
+
+# p select_fruit(produce) == {"apple"=>"Fruit", "pear"=>"Fruit"}
+# p produce
+
+### REMOVE VOWELS, MUTATING
+# def remove_vowels(string)
+#   vowels = 'AEIOUaeiou'
+#   current_index = 0
+#   control_string = string.dup
+#   deleted = ''
+
+#   loop do
+#     break if current_index >= control_string.size
+#     current_character = control_string[current_index]
+#     if vowels.include?(current_character)
+#       deleted << current_character
+#       string.delete!(current_character)
+#     end
 #     current_index += 1
 #   end
   
-#   original_size - string.size
+#   deleted
 # end
 
 # string = 'The quick brown fox jumps over the lazy dog.'
-# p grab_vowels(string)
+# p remove_vowels(string)
 # p string
 
-### SELECT VOWELS, NON-MUTATING
+### COUNT VOWELS, NON-MUTATING
 # def count_vowels(string)
 #   vowels = 'AEIOUaeiou'
 #   result = []
@@ -35,7 +91,7 @@
 # end
 
 # string = "The quick brown fox jumps over the lazy dog"
-# p select_vowels(string)
+# p count_vowels(string)
 # p string
 
 ### ADD S, MUTATING
@@ -74,21 +130,24 @@
 # p fruits
 
 ### SELECT LETTERS, MUTATING
-# def grab_letters(string, target)
+# def delete_letter(string, target)
 #   index = 0
 #   original_size = string.size
+#   control_string = string.dup
 
 #   loop do
-#     break if index >= string.size
-#     current_character = string[index]
+#     break if index >= control_string.size
+#     current_character = control_string[index]
 #     string.delete!(current_character) if current_character == target
 #     index += 1
 #   end
+
 #   original_size - string.size
 # end
 
 # string = 'the quick brown fox jumps over the lazy dog'
-# p grab_letters(string, 'o')
+# p delete_letter(string, 't')
+# p string
 
 ### SELECT LETTERS, NON-MUTATING
 # def count_letter(string, target)
