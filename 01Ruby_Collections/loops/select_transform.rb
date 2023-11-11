@@ -1,3 +1,75 @@
+
+
+### DOUBLE ODD NUMBERS, MUTATING
+# def double_odd_numbers!(numbers)
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= numbers.size
+#     numbers[current_index] *= 2 if numbers[current_index].odd?
+#     current_index += 1
+#   end
+
+#   numbers
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p double_odd_numbers!(my_numbers) == [2, 4, 6, 14, 2, 6]
+# p my_numbers == [2, 4, 6, 14, 2, 6]
+
+### DOUBLE ODD NUMBERS, NON-MUTATING
+# def double_odd_numbers(numbers)
+#   doubled = []
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= numbers.size
+#     current_number = numbers[current_index]
+#     doubled << (current_number.odd? ? current_number * 2 : current_number)
+#     current_index += 1
+#   end
+
+#   doubled
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p double_odd_numbers(my_numbers) == [2, 4, 6, 14, 2, 6]
+# p my_numbers == [1, 4, 3, 7, 2, 6]
+
+### DOUBLE NUMBERS, MUTATING
+# def double_numbers!(numbers)
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= numbers.size
+#     numbers[current_index] *= 2
+#     current_index += 1
+#   end
+
+#   numbers
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p double_numbers!(my_numbers) == [2, 8, 6, 14, 4, 12]
+# p my_numbers
+
+### DOUBLE NUMBERS, NON-MUTATING
+# def double_numbers(numbers)
+#   doubles = []
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= numbers.size
+#     doubles << numbers[current_index] * 2
+#     current_index += 1
+#   end
+#   doubles
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p double_numbers(my_numbers) == [2, 8, 6, 14, 4, 12]
+# p my_numbers
+
 ### REMOVE FRUIT, MUTATING
 # def remove_fruit(produce)
 #   items = produce.keys
