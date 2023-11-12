@@ -1,3 +1,49 @@
+### REMOVE LETTER, MUTATING
+# def remove_letter(string, target)
+#   removed = ''
+#   current_index = 0
+#   control_string = string.dup
+
+#   loop do
+#     break if current_index >= control_string.size
+#     current_letter = control_string[current_index]
+#     if current_letter == target
+#       removed << current_letter
+#       string.delete!(current_letter)
+#     end
+#     current_index += 1
+#   end
+
+#   removed
+# end
+
+# question = 'How many times does a particular character appear in this sentence?'
+# # p remove_letter(question, 'a') # => "aaaaaaaa"
+# # p remove_letter(question, 't') # => "ttttt"
+# p remove_letter(question, 'z') # => ""
+# p question
+
+### SELECT LETTER, NON-MUTATING
+# def select_letter(string, target)
+#   result = ''
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= string.size
+#     current_letter = string[current_index]
+#     result << current_letter if current_letter == target
+#     current_index += 1
+#   end
+
+#   result
+# end
+
+# question = 'How many times does a particular character appear in this sentence?'
+# p select_letter(question, 'a') # => "aaaaaaaa"
+# p select_letter(question, 't') # => "ttttt"
+# p select_letter(question, 'z') # => ""
+# p question
+
 ### MULTIPLY, MUTATING
 # def multiply!(numbers, multiplier)
 #   current_index = 0
