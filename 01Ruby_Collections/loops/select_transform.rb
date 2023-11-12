@@ -1,5 +1,68 @@
 
 
+
+### GENERAL REMOVE, MUTATING
+# def general_remove(list, target)
+#   current_index = 0
+#   products = list.keys
+#   removed = {}
+
+#   loop do
+#     break if current_index >= products.size
+#     current_product = products[current_index]
+#     current_category = list[current_product]
+
+#     if current_category == target
+#       removed[current_product] = current_category
+#       list.delete(current_product)
+#     end
+#     current_index += 1
+#   end
+
+#   removed
+# end
+
+# produce = {
+#   'apple' => 'Fruit',
+#   'carrot' => 'Vegetable',
+#   'pear' => 'Fruit',
+#   'broccoli' => 'Vegetable'
+# }
+
+# p general_remove(produce, 'Fruit')
+# p general_remove(produce, 'Vegetable')
+# p general_remove(produce, 'Meat')
+# p produce
+
+### GENERAL SELECT, NON-MUTATING
+# def general_select(list, target)
+#   selected = {}
+#   products = list.keys
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= products.size
+#     current_product = products[current_index]
+#     current_category = list[current_product]
+#     selected[current_product] = current_category if current_category == target
+#     current_index += 1
+#   end
+
+#   selected
+# end
+
+# produce = {
+#   'apple' => 'Fruit',
+#   'carrot' => 'Vegetable',
+#   'pear' => 'Fruit',
+#   'broccoli' => 'Vegetable'
+# }
+
+# p general_select(produce, 'Fruit')     == {"apple"=>"Fruit", "pear"=>"Fruit"}
+# p general_select(produce, 'Vegetable') == {"carrot"=>"Vegetable", "broccoli"=>"Vegetable"}
+# p general_select(produce, 'Meat')      == {}
+# p produce
+
 ### DOUBLE ODD INDICES, MUTATING
 # def double_odd_indices!(numbers)
 #   current_index = 0
