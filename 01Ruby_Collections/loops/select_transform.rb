@@ -1,4 +1,37 @@
+### MULTIPLY, MUTATING
+# def multiply!(numbers, multiplier)
+#   current_index = 0
 
+#   loop do
+#     break if current_index >= numbers.size
+#     numbers[current_index] *= multiplier
+#     current_index += 1
+#   end
+
+#   numbers
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p multiply!(my_numbers, 3) == [3, 12, 9, 21, 6, 18]
+# p my_numbers
+
+### MULTIPLY, NON-MUTATING
+# def multiply(numbers, multiplier)
+#   result = []
+#   current_index = 0
+
+#   loop do
+#     break if current_index >= numbers.size
+#     result << numbers[current_index] * multiplier
+#     current_index += 1
+#   end
+
+#   result
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p multiply(my_numbers, 3) == [3, 12, 9, 21, 6, 18]
+# p my_numbers
 
 
 ### GENERAL REMOVE, MUTATING
