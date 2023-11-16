@@ -1,4 +1,67 @@
+### PROBLEM 10
+def add_age_group(family)
+  family.each do |name, data|
+    age_group = case data['age']
+                when (0..17) then 'kid'
+                when (18..64) then 'adult'
+                else 'senior'
+                end
+    data['age_group'] = age_group
+  end
+end
 
+# kid: 0 - 17
+# adult 18 - 64
+# senior 65+
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+with_age_group = { "Herman" => { "age" => 32, "gender" => "male", "age_group" => "adult" },
+"Lily" => {"age" => 30, "gender" => "female", "age_group" => "adult" },
+"Grandpa" => { "age" => 402, "gender" => "male", "age_group" => "senior" },
+"Eddie" => { "age" => 10, "gender" => "male", "age_group" => "kid" },
+"Marilyn" => { "age" => 23, "gender" => "female", "age_group" => "adult" } }
+
+p add_age_group(munsters) == with_age_group
+
+### PROBLEM 9
+# def titleize(string)
+#   string.split.map { |word| word.capitalize }.join(' ')
+# end
+
+# words = "the flintstones rock"
+# p titleize(words)
+
+### PROBLEM 8
+# numbers = [1, 2, 3, 4]
+# numbers.each_with_index do |number, index|
+#   p "#{index}  #{numbers.inspect}  #{number}"
+#   numbers.pop(1)
+# end
+
+# numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   numbers.pop(1)
+# end
+
+# numbers = [1, 2, 3, 4]
+# numbers.each_with_index do |number, index|
+#   p "#{index}  #{numbers.inspect}  #{number}"
+#   numbers.shift(1)
+# end
+
+# numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   numbers.shift(1)
+# end
 
 
 ### PROBLEM 7
