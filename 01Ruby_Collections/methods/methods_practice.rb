@@ -1,5 +1,42 @@
-### PROBLEM 6
 
+
+
+### PROBLEM 7
+# def lettercount(string)
+#   string.each_char.with_object({}) do |char, counts|
+#     counts[char] = string.count(char) unless char == ' '
+#   end.sort_by { |char, count| char }
+# end
+
+# LETTERS = ('A'..'Z').to_a + ('a'..'z').to_a
+
+# def lettercount(string)
+#   LETTERS.each_with_object({}) do |letter, tally|
+#     count = string.count(letter)
+#     tally[letter] = string.count(letter) if count > 0
+#   end
+# end
+
+# def lettercount(string)
+#   string.delete(' ').chars.tally
+# end
+
+# statement = "The Flintstones Rock"
+# p lettercount(statement)
+
+### PROBLEM 6
+# def abbreviate(list, length)
+#   list.each do |name|
+#     name.replace(name[0, 3])
+#   end
+# end
+
+# def abbreviate(list, length)
+#   list.map! { |name| name[0, 3] }
+# end
+
+# flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+# p abbreviate(flintstones, 3)
 
 ### PROBLEM 5
 # def find_flintstone(list, target)
