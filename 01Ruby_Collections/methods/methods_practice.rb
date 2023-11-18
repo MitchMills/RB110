@@ -1,8 +1,3 @@
-a = [1, 3]
-b = [2]
-arr = [a, b]
-arr # => [[1, 3], [2]]
-
 ### PROBLEM 10
 # def add_age_group(family)
 #   family.each do |name, data|
