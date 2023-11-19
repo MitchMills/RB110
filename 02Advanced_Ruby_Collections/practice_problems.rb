@@ -1,18 +1,11 @@
-array = [[8, 13, 27], ['apple', 'banana', 'cantaloupe']]
+##### 11111
+arr = ['10', '11', '9', '7', '8']
 
-result = array.map do |arr|
-  arr.select do |item|
-    if item.class == Integer    # if it's an integer
-      item > 13
-    else
-      item.size < 6
-    end
-  end
+sorted = arr.sort do |a, b|
+  b.to_i <=> a.to_i
 end
 
-p result
-# => [[27], ["apple"]]
-
+p sorted
 
 ##### 16161616
 # HEX_CHARACTERS = ('0'..'9').to_a + ('a'..'f').to_a
