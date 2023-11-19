@@ -1,3 +1,18 @@
+array = [[8, 13, 27], ['apple', 'banana', 'cantaloupe']]
+
+result = array.map do |arr|
+  arr.select do |item|
+    if item.class == Integer    # if it's an integer
+      item > 13
+    else
+      item.size < 6
+    end
+  end
+end
+
+p result
+# => [[27], ["apple"]]
+
 
 ##### 16161616
 # HEX_CHARACTERS = ('0'..'9').to_a + ('a'..'f').to_a
