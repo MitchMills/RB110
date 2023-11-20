@@ -1,11 +1,29 @@
+##### 22222
+arr1 = ['a', 'b', ['c', ['d', 'e', 'f', 'g']]]
+
+arr2 = [{first: ['a', 'b', 'c'], second: ['d', 'e', 'f']}, {third: ['g', 'h', 'i']}]
+
+arr3 = [['abc'], ['def'], {third: ['ghi']}]
+
+hsh1 = {'a' => ['d', 'e'], 'b' => ['f', 'g'], 'c' => ['h', 'i']}
+
+hsh2 = {first: {'d' => 3}, second: {'e' => 2, 'f' => 1}, third: {'g' => 0}}
+
+p arr1[2][1][3] == 'g'
+
+p arr2 == 'g'
+p arr3 == 'g'
+p hsh1 == 'g'
+p hsh2 == 'g'
+
 ##### 11111
-arr = ['10', '11', '9', '7', '8']
+# arr = ['10', '11', '9', '7', '8']
 
-sorted = arr.sort do |a, b|
-  b.to_i <=> a.to_i
-end
+# sorted = arr.sort do |a, b|
+#   b.to_i <=> a.to_i
+# end
 
-p sorted
+# p sorted
 
 ##### 16161616
 # HEX_CHARACTERS = ('0'..'9').to_a + ('a'..'f').to_a
