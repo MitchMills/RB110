@@ -1,3 +1,27 @@
+##### 55555
+
+
+##### 44444
+# arr1 = [1, [2, 3], 4]
+# # p arr1
+# # arr1[1][1] += 1
+# # p arr1
+
+# arr2 = [{a: 1}, {b: 2, c: [7, 6, 5], d: 4}, 3]
+# # p arr2
+# # arr2[2] += 1
+# # p arr2
+
+# hsh1 = {first: [1, 2, [3]]}
+# # p hsh1
+# # hsh1[:first][2][0] += 1
+# # p hsh1
+
+# hsh2 = {['a'] => {a: ['1', :two, 3], b: 4}, 'b' => 5}
+# # p hsh2
+# # hsh2[['a']][:a][2] += 1
+# # p hsh2
+
 ##### 33333
 # arr1 = ['a', 'b', ['c', ['d', 'e', 'f', 'g']]]
 
@@ -20,27 +44,27 @@
 # p hsh2[:third].key(0) == 'g'
 
 ##### 22222
-def sort_books(list, criterion)
-  list.sort_by do |book|
-    book[criterion]
-  end
-end
+# def sort_books(list, criterion)
+#   list.sort_by do |book|
+#     book[criterion]
+#   end
+# end
 
-books = [
-  {title: 'One Hundred Years of Solitude', author: 'Gabriel Garcia Marquez', published: '1967'},
-  {title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', published: '1925'},
-  {title: 'War and Peace', author: 'Leo Tolstoy', published: '1869'},
-  {title: 'Ulysses', author: 'James Joyce', published: '1922'}
-]
+# books = [
+#   {title: 'One Hundred Years of Solitude', author: 'Gabriel Garcia Marquez', published: '1967'},
+#   {title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', published: '1925'},
+#   {title: 'War and Peace', author: 'Leo Tolstoy', published: '1869'},
+#   {title: 'Ulysses', author: 'James Joyce', published: '1922'}
+# ]
 
-p sort_books(books, :published)
+# p sort_books(books, :published)
 
-[
-  {:title=>"War and Peace", :author=>"Leo Tolstoy", :published=>"1869"}, 
-  {:title=>"Ulysses", :author=>"James Joyce", :published=>"1922"}, 
-  {:title=>"The Great Gatsby", :author=>"F. Scott Fitzgerald", :published=>"1925"}, 
-  {:title=>"One Hundred Years of Solitude", :author=>"Gabriel Garcia Marquez", :published=>"1967"}
-]
+# [
+#   {:title=>"War and Peace", :author=>"Leo Tolstoy", :published=>"1869"}, 
+#   {:title=>"Ulysses", :author=>"James Joyce", :published=>"1922"}, 
+#   {:title=>"The Great Gatsby", :author=>"F. Scott Fitzgerald", :published=>"1925"}, 
+#   {:title=>"One Hundred Years of Solitude", :author=>"Gabriel Garcia Marquez", :published=>"1967"}
+# ]
 
 ##### 11111
 # arr = ['10', '11', '9', '7', '8']
