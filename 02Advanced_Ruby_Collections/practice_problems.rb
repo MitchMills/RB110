@@ -1,5 +1,21 @@
 ##### 55555
+def total_age(family, gender)
+  total = 0
+  family.each_value do |info|
+    total += info['age'] if info['gender'] == gender
+  end
+  total
+end
 
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+p total_age(munsters, 'male') == 444
 
 ##### 44444
 # arr1 = [1, [2, 3], 4]
