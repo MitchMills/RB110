@@ -1,42 +1,164 @@
-##### 99999
-def sort_nested_array(array)
-  array.each do |subarray|
+##### 1616161616
+PATTERN = [8, 4, 4, 4, 12]
+HEXADECIMALS = ('0'..'9').to_a + ('a'..'f').to_a
 
-  end
+# def generate_uuid
+#   PATTERN.map do |digits|
+#     substring = ''
+#     digits.times do |digit|
+#       substring << HEXADECIMALS.sample
+#     end
+#     substring
+#   end.join('-')
+# end
+
+def generate_uuid
+  PATTERN.map do |digits|
+    (1..digits).map { |digit| HEXADECIMALS.sample }.join
+  end.join('-')
 end
 
-arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
+p generate_uuid
+
+##### 1515151515
+# def all_even(lists)
+#   lists.select do |hash|
+#     hash.each_value.all? do |numbers|
+#       numbers.all? { |number| number.even? }
+#     end
+#   end
+# end
+
+# arr = [
+#   {a: [1, 2, 3]}, 
+#   {b: [2, 4, 6], c: [3, 6], d: [4]}, 
+#   {e: [8], f: [6, 10]}
+# ]
+# p all_even(arr) == [{e: [8], f: [6, 10]}]
+
+##### 1414141414
+# def colors_and_sizes(list)
+#   list.each_value.map do |data|
+#     data[:type] == 'fruit' ? data[:colors].map(&:capitalize) : data[:size].upcase
+#   end
+# end
+
+# products = {
+#   'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+#   'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+#   'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+#   'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+#   'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+# }
+
+# p colors_and_sizes(products) == [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+##### 1313131313
+# def odd_sort(array)
+#   array.sort_by do |subarray|
+#     subarray.select { |num| num.odd? }
+#   end
+# end
+
+# lists = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+# p odd_sort(lists) == [[1, 8, 3], [1, 5, 9], [6, 1, 7], [1, 6, 9]]
+# p lists
+
+##### 1212121212
+# def hashify(array)
+#   array.each_with_object({}) do |subarray, hash|
+#     key, value = subarray
+#     hash[key] = value
+#   end
+# end
+
+# pairs = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+# p hashify(pairs) == {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+
+
+##### 1111111111
+# def multiples(lists, multiple)
+#   lists.map { |list| get_multiples(list, multiple) }
+# end
+
+# def get_multiples(list, multiple)
+#   list.select { |number| multiple_of?(number, multiple) }
+# end
+
+# def multiple_of?(number, multiple)
+#   number % multiple == 0
+# end
+
+# number_lists = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+
+# p multiples(number_lists, 3) == [[], [3, 12], [9], [15]]
+
+
+##### 1010101010
+# def add_one(array)
+#   array.map do |hash|
+#     hash.each_with_object({}) do |(key, value), new_hash|
+#       new_hash[key] = value + 1
+#     end
+#   end
+# end
+
+# original = [
+#   {a: 1}, 
+#   {b: 2, c: 3}, 
+#   {d: 4, e: 5, f: 6}
+# ]
+
+# p add_one(original) #== [{a: 2}, {b: 3, c: 4}, {d: 5, e: 6, f: 7}]
+# p original
+
+##### 99999
+# def sort_nested_array(array)
+#   array.map do |subarray|
+#     subarray.sort.reverse
+#   end
+# end
+
+# arr = [
+#   ['b', 'c', 'a'], 
+#   [2, 1, 3], 
+#   ['blue', 'black', 'green']
+# ]
 
 # p sort_nested_array(arr)
 
 ##### 88888
-def display_vowels(lists)
-  vowels = get_vowels(lists)
-  lists.each_value do |list|
-    list.each { |word| check_each_char(word) }
-  end
-end
+# def vowels(lists)
+#   vowels = get_all_vowels(lists)
+#   display_vowels(vowels)
+# end
 
-def get_vowels(lists)
-  
-end
+# def get_all_vowels(lists)
+#   lists.each_value.map do |list|
+#     list.map { |word| get_each_vowel(word) }
+#   end.flatten
+# end
 
-def check_each_char(word)
-  word.each_char.select { |char| vowel?(char) }
-end
+# def get_each_vowel(word)
+#   word.each_char.select { |char| vowel?(char) }
+# end
 
-def vowel?(char)
-  'aeiou'.include?(char)
-end
+# def vowel?(char)
+#   'AEIOUaeiou'.include?(char)
+# end
 
-hsh = {
-  first: ['the', 'quick'], 
-  second: ['brown', 'fox'], 
-  third: ['jumped'], 
-  fourth: ['over', 'the', 'lazy', 'dog']
-}
+# def display_vowels(vowels_list)
+#   vowels_list.each { |vowel| puts vowel }
+# end
 
-display_vowels(hsh)
+# hsh = {
+#   first: ['the', 'quick'], 
+#   second: ['brown', 'fox'], 
+#   third: ['jumped'], 
+#   fourth: ['over', 'the', 'lazy', 'dog']
+# }
+
+# vowels(hsh)
 
 ##### 77777
 # a = 2
