@@ -1,3 +1,74 @@
+##### 99999
+def sort_nested_array(array)
+  array.each do |subarray|
+
+  end
+end
+
+arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
+
+# p sort_nested_array(arr)
+
+##### 88888
+def display_vowels(lists)
+  vowels = get_vowels(lists)
+  lists.each_value do |list|
+    list.each { |word| check_each_char(word) }
+  end
+end
+
+def get_vowels(lists)
+  
+end
+
+def check_each_char(word)
+  word.each_char.select { |char| vowel?(char) }
+end
+
+def vowel?(char)
+  'aeiou'.include?(char)
+end
+
+hsh = {
+  first: ['the', 'quick'], 
+  second: ['brown', 'fox'], 
+  third: ['jumped'], 
+  fourth: ['over', 'the', 'lazy', 'dog']
+}
+
+display_vowels(hsh)
+
+##### 77777
+# a = 2
+# b = [5, 8]
+# arr = [a, b] # [2, [5, 8]]
+
+# arr[0] += 2 # [4, [5, 8]]
+# arr[1][0] -= a # [4, [3, 8]]
+
+# p arr # [4, [3, 8]]
+# p a # 2
+# p b # [3, 8]
+
+##### 66666
+# def display_family_info(family)
+#   family.each do |name, info|
+#     puts "#{name} is a #{info['age']}-year-old #{info['gender']}"
+#   end
+# end
+
+# # (Name) is a (age)-year-old (male or female).
+
+# munsters = {
+#   "Herman" => { "age" => 32, "gender" => "male" },
+#   "Lily" => { "age" => 30, "gender" => "female" },
+#   "Grandpa" => { "age" => 402, "gender" => "male" },
+#   "Eddie" => { "age" => 10, "gender" => "male" },
+#   "Marilyn" => { "age" => 23, "gender" => "female"}
+# }
+
+# display_family_info(munsters)
+
 ##### 55555
 # def total_age(family, gender)
 #   total = 0
@@ -12,6 +83,12 @@
 #     addition = info['gender'] == gender ? info['age'] : 0
 #     total + addition
 #   end
+# end
+
+# def total_age(family, gender)
+#   family.each_value.map do |info|
+#     info['gender'] == gender ? info['age'] : 0
+#   end.sum
 # end
 
 # munsters = {
