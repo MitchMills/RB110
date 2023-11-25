@@ -1,4 +1,72 @@
+### CLOSEST VALUES
+=begin
+Write a method that takes an array of integers as an argument and returns the
+two numbers that are closest together in value. If more than one pair of integers satisfies this condition, return the pair whose elements occurs first in the input array.
 
+Examples:
+p closest_numbers([2, 4, 6, 7]) == [6, 7]
+p closest_numbers([5, 15, 25, 11, 20]) == [15, 11]
+p closest_numbers([3, 6, 8, 11, 13]) == [6, 8]
+p closest_numbers([12, 7, 17]) == [12, 7]
+
+5:05
+PROBLEM / EXAMPLES
+input: array
+  - contains only integers
+  - contains at least 3 integers
+
+output: array
+  - contains two integers
+  - these are the two integers from the input array that are closest to each other in value
+  - if more than one pair is equally close, return the pair whose elements occur first in input array
+  - integers do not have to be consecutive
+
+DATA STRUCTURES
+- input: array
+  - nested array of all possible two-element combinations # [[2, 4], [2, 6], [2, 7] . . . ]
+    - sorted by the difference between its two elements, then by index
+-output: array
+  - first array from sorted nested array
+
+ALGORITHM
+- get all possible two element combinations from input array
+  - iterate over input array
+    - start at first element, then second, up to the second to last element
+      - index 0 up to index (input array length - 2)
+    - combine with each successive element
+      - index (current index + 1) up to index (input array length - 1)
+  - store in an array (each element will be a two element subarray) 
+- sort these combos by difference between the two elements, then by order of appearance
+  - for order of appearance, can use index of each combo in nested array
+- return the first combo from this sorted list
+=end
+def closest_numbers(array)
+  combos = get_all_combos(array)
+  sorted_combos = sort_combos(combos)
+  sorted_combos.first
+end
+
+def get_all_combos(array)
+  combos = []
+  (0..(array.size - 2)).each do |index1|
+    ((index1 + 1)..(array.size - 1)).each do |index2|
+      combos << [array[index1], array[index2]]
+    end
+  end
+  combos
+end
+
+def sort_combos(array)
+  array.sort_by.with_index do |pair, index|
+    sorted_pair = pair.sort
+    [sorted_pair[1] - sorted_pair[0], index]
+  end
+end
+
+p closest_numbers([2, 4, 6, 7]) == [6, 7]
+p closest_numbers([5, 15, 25, 11, 20]) == [15, 11]
+p closest_numbers([3, 6, 8, 11, 13]) == [6, 8]
+p closest_numbers([12, 7, 17]) == [12, 7]
 
 
 ### DASHERIZER
