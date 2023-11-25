@@ -1,3 +1,8 @@
+
+
+
+
+
 ### CLOSEST VALUES
 =begin
 Write a method that takes an array of integers as an argument and returns the
@@ -40,33 +45,34 @@ ALGORITHM
   - for order of appearance, can use index of each combo in nested array
 - return the first combo from this sorted list
 =end
-def closest_numbers(array)
-  combos = get_all_combos(array)
-  sorted_combos = sort_combos(combos)
-  sorted_combos.first
-end
 
-def get_all_combos(array)
-  combos = []
-  (0..(array.size - 2)).each do |index1|
-    ((index1 + 1)..(array.size - 1)).each do |index2|
-      combos << [array[index1], array[index2]]
-    end
-  end
-  combos
-end
+# def closest_numbers(array)
+#   combos = get_all_combos(array)
+#   sorted_combos = sort_combos(combos)
+#   sorted_combos.first
+# end
 
-def sort_combos(array)
-  array.sort_by.with_index do |pair, index|
-    sorted_pair = pair.sort
-    [sorted_pair[1] - sorted_pair[0], index]
-  end
-end
+# def get_all_combos(array)
+#   combos = []
+#   (0..(array.size - 2)).each do |index1|
+#     ((index1 + 1)..(array.size - 1)).each do |index2|
+#       combos << [array[index1], array[index2]]
+#     end
+#   end
+#   combos
+# end
 
-p closest_numbers([2, 4, 6, 7]) == [6, 7]
-p closest_numbers([5, 15, 25, 11, 20]) == [15, 11]
-p closest_numbers([3, 6, 8, 11, 13]) == [6, 8]
-p closest_numbers([12, 7, 17]) == [12, 7]
+# def sort_combos(array)
+#   array.sort_by.with_index do |pair, index|
+#     sorted_pair = pair.sort
+#     [sorted_pair[1] - sorted_pair[0], index]
+#   end
+# end
+
+# p closest_numbers([2, 4, 6, 7]) == [6, 7]
+# p closest_numbers([5, 15, 25, 11, 20]) == [15, 11]
+# p closest_numbers([3, 6, 8, 11, 13]) == [6, 8]
+# p closest_numbers([12, 7, 17]) == [12, 7]
 
 
 ### DASHERIZER
