@@ -2,6 +2,80 @@
 
 
 
+### ALPHABETICAL ORDER
+=begin
+Write a method that, given a string, returns a new string containing only the alphabetic characters (all whitespace and non-alphabetic characters removed). These characters should be in case-insensitive alphabetical order, in the order they appear in the original string.
+
+EXAMPLES
+p alphabetized('') == ''
+p alphabetized(' ') == ''
+p alphabetized(' ba ') == 'ab'
+p alphabetized('Ab Ba') == 'AabB'
+p alphabetized('Ba Ab') == 'aABb'
+p alphabetized('9A #b$B .a%') == 'AabB'
+p alphabetized('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') == 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
+
+7:45
+PROBLEM / EXAMPLES
+input: string
+  - can contain alphabetic and non-alphabetic characters and whitespace
+  - can be an empty string
+  - can contain only whitespace
+
+output: string
+  - new string
+  - contains only the alphabetic characters from the input string
+    - whitespace and  non-alphabetic characters removed
+  - should be in case insensitive alphabetic order in order they appear in input string
+    - e.g. 'Aa' => 'Aa'; 'aA' => 'aA'
+  - if input string is empty, return empty string
+  - if input string contains only whitespace (or non-alphabetic characters), return empty string
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters
+  - array of only alphabetic characters
+  - sorted array
+- output: string
+
+ALGORITHM
+- remove all non-alphabetic characters
+  - create an array of all alphabetic characters
+  - convert input string into an array of individual characters
+  - select only those characters that are alphabetic
+- sort remaining characters
+  - sort by downcased character
+  - sort also by index?
+- return string
+  - join array characters into string
+=end
+
+# ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+
+# def alphabetized(string)
+#   alpha_characters = get_alpha_characters(string)
+#   sorted = sort_characters(alpha_characters)
+#   sorted.join
+# end
+
+# def get_alpha_characters(string)
+#   string.chars.select { |char| ALPHABET.include?(char) }
+# end
+
+# def sort_characters(array)
+#   array.sort_by.with_index { |char, index| [char.downcase, index] }
+# end
+
+# p alphabetized('') == ''
+# p alphabetized(' ') == ''
+# p alphabetized(' ba ') == 'ab'
+# p alphabetized('Ab Ba') == 'AabB'
+# p alphabetized('Ba Ab') == 'aABb'
+# p alphabetized('9A #b$B .a%') == 'AabB'
+# p alphabetized('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') == 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
+
+
+
 
 ### CLOSEST VALUES
 =begin
