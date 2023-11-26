@@ -52,27 +52,27 @@ ALGORITHM
 
 # ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
 
-# def alphabetized(string)
-#   alpha_characters = get_alpha_characters(string)
-#   sorted = sort_characters(alpha_characters)
-#   sorted.join
-# end
+def alphabetized(string)
+  alpha_characters = get_alpha_characters(string)
+  sorted = sort_characters(alpha_characters)
+  sorted.join
+end
 
-# def get_alpha_characters(string)
-#   string.chars.select { |char| ALPHABET.include?(char) }
-# end
+def get_alpha_characters(string)
+  string.chars.select { |char| ALPHABET.include?(char) }
+end
 
-# def sort_characters(array)
-#   array.sort_by.with_index { |char, index| [char.downcase, index] }
-# end
+def sort_characters(array)
+  array.sort_by.with_index { |char, index| [char.downcase, index] }
+end
 
-# p alphabetized('') == ''
-# p alphabetized(' ') == ''
-# p alphabetized(' ba ') == 'ab'
-# p alphabetized('Ab Ba') == 'AabB'
-# p alphabetized('Ba Ab') == 'aABb'
-# p alphabetized('9A #b$B .a%') == 'AabB'
-# p alphabetized('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') == 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
+p alphabetized('') == ''
+p alphabetized(' ') == ''
+p alphabetized(' ba ') == 'ab'
+p alphabetized('Ab Ba') == 'AabB'
+p alphabetized('Ba Ab') == 'aABb'
+p alphabetized('9A #b$B .a%') == 'AabB'
+p alphabetized('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') == 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
 
 
 
