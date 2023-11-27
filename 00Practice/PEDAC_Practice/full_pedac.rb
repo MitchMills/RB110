@@ -2,6 +2,83 @@
 
 
 
+
+### SUBSTRING TWICE
+=begin
+Write a method that takes two strings and returns true if there exists a substring that appears in both of them. Return false otherwise. Only consider substrings that are at least two characters in length. Disregard case (for example, 'ace' and 'Ace' would be considered the same substring).
+
+All input strings will contain at least two characters, and will not contain any spaces.
+
+EXAMPLES
+p substring_twice?('face', 'Ace') == true
+p substring_twice?('face', 'ACTUALLY') == true
+p substring_twice?('face', 'gave') == false
+p substring_twice?('aa', 'aa') == true
+
+8:10
+PROBLEM / EXAMPLES
+input: two strings
+  - contain at least two characters
+  - do not contain any spaces
+
+output: boolean
+    - true: if there is a substring that appears in both
+      - substrings must be at least two characters in length
+      - disregard case
+      - substring can be the entire input string
+    - false: otherwise
+
+DATA STRUCTURES
+- input: strings
+    - two arrays containing all possible substrings from each input string
+- output: boolean
+
+ALGORITHM
+- get all possible substrings from each input string, store in two arrays
+  - get all length 2 substrings, then length 3, up to maximum length
+    - start at length 2, up to string length
+    
+    - start from first index, then second, up to last index that can create a substring of that length
+      - start at index 0, up to index (input string length - current target length)
+
+- compare the arrays to see if they have any substrings in common
+  - iterate over the shortest array
+    - sort two arrays by length
+    - see if each element is included in the other array
+      - if yes, return true
+- return true if so, false otherwise
+=end
+
+# def substring_twice?(string1, string2)
+#   substrings1 = get_all_substrings(string1)
+#   substrings2 = get_all_substrings(string2)
+#   common_substring?(substrings1, substrings2)
+# end
+
+# def get_all_substrings(string)
+#   (2..string.size).each_with_object([]) do |current_length, substrings|
+#     (0..(string.size - current_length)).each do |start_index|
+#       substrings << (string[start_index, current_length]).downcase
+#     end
+#   end
+# end
+
+# def common_substring?(array1, array2)
+#   shorter, longer = [array1, array2].sort_by { |array| array.size }
+#   shorter.each do |substring|
+#     return true if longer.include?(substring)
+#   end
+#   false
+# end
+
+# p substring_twice?('face', 'Ace') == true
+# p substring_twice?('face', 'ACTUALLY') == true
+# p substring_twice?('face', 'gave') == false
+# p substring_twice?('aa', 'aa') == true
+
+
+
+
 ### ALPHABETICAL ORDER
 =begin
 Write a method that, given a string, returns a new string containing only the alphabetic characters (all whitespace and non-alphabetic characters removed). These characters should be in case-insensitive alphabetical order, in the order they appear in the original string.
@@ -52,27 +129,27 @@ ALGORITHM
 
 # ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
 
-def alphabetized(string)
-  alpha_characters = get_alpha_characters(string)
-  sorted = sort_characters(alpha_characters)
-  sorted.join
-end
+# def alphabetized(string)
+#   alpha_characters = get_alpha_characters(string)
+#   sorted = sort_characters(alpha_characters)
+#   sorted.join
+# end
 
-def get_alpha_characters(string)
-  string.chars.select { |char| ALPHABET.include?(char) }
-end
+# def get_alpha_characters(string)
+#   string.chars.select { |char| ALPHABET.include?(char) }
+# end
 
-def sort_characters(array)
-  array.sort_by.with_index { |char, index| [char.downcase, index] }
-end
+# def sort_characters(array)
+#   array.sort_by.with_index { |char, index| [char.downcase, index] }
+# end
 
-p alphabetized('') == ''
-p alphabetized(' ') == ''
-p alphabetized(' ba ') == 'ab'
-p alphabetized('Ab Ba') == 'AabB'
-p alphabetized('Ba Ab') == 'aABb'
-p alphabetized('9A #b$B .a%') == 'AabB'
-p alphabetized('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') == 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
+# p alphabetized('') == ''
+# p alphabetized(' ') == ''
+# p alphabetized(' ba ') == 'ab'
+# p alphabetized('Ab Ba') == 'AabB'
+# p alphabetized('Ba Ab') == 'aABb'
+# p alphabetized('9A #b$B .a%') == 'AabB'
+# p alphabetized('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') == 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
 
 
 
