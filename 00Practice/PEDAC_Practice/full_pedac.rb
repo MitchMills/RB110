@@ -50,12 +50,17 @@ ALGORITHM
 =end
 
 # def substring_twice?(string1, string2)
-#   substrings1 = get_all_substrings(string1)
-#   substrings2 = get_all_substrings(string2)
-#   common_substring?(substrings1, substrings2)
+#   substrings = get_all_substrings([string1, string2])
+#   common_substring?(substrings)
 # end
 
-# def get_all_substrings(string)
+# def get_all_substrings(strings_array)
+#   strings_array.map do |string|
+#     get_substrings(string)
+#   end
+# end
+
+# def get_substrings(string)
 #   (2..string.size).each_with_object([]) do |current_length, substrings|
 #     (0..(string.size - current_length)).each do |start_index|
 #       substrings << (string[start_index, current_length]).downcase
@@ -63,8 +68,8 @@ ALGORITHM
 #   end
 # end
 
-# def common_substring?(array1, array2)
-#   shorter, longer = [array1, array2].sort_by { |array| array.size }
+# def common_substring?(substrings)
+#   shorter, longer = substrings.sort_by { |array| array.size }
 #   shorter.each do |substring|
 #     return true if longer.include?(substring)
 #   end
