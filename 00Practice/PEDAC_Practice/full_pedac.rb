@@ -142,6 +142,23 @@ ALGORITHM
 # end
 ###
 
+###
+def substring_twice?(string1, string2)
+  shorter, longer = [string1, string2].sort_by { |string| string.size }
+  common_substrings = get_substrings(shorter, longer)
+  common_substrings.size > 0
+end
+
+def get_substrings(shorter, longer)
+  (2..shorter.size).each_with_object([]) do |current_length, substrings|
+    (0..(shorter.size - current_length)).each do |start_index|
+      substring = (shorter[start_index, current_length]).downcase
+      substrings << substring if longer.downcase.include?(substring)
+    end
+  end
+end
+###
+
 # p substring_twice?('face', 'Ace') == true
 # p substring_twice?('FACE', 'actually') == true
 # p substring_twice?('face', 'gave') == false
