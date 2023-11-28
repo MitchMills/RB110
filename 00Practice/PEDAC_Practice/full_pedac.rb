@@ -48,7 +48,7 @@ ALGORITHM
       - if yes, return true
 - return true if so, false otherwise
 =end
-
+###
 # def substring_twice?(string1, string2)
 #   substrings = get_all_substrings([string1, string2])
 #   common_substring?(substrings)
@@ -75,13 +75,77 @@ ALGORITHM
 #   end
 #   false
 # end
+###
+
+###
+# def substring_twice?(string1, string2)
+#   shorter, longer = [string1, string2].sort_by { |string| string.size }
+#   substrings = get_substrings(shorter)
+#   common_substring?(longer, substrings)
+# end
+
+# def get_substrings(string)
+#   (2..string.size).each_with_object([]) do |current_length, substrings|
+#     (0..(string.size - current_length)).each do |start_index|
+#       substrings << (string[start_index, current_length]).downcase
+#     end
+#   end
+# end
+
+# def common_substring?(string, substrings)
+#   substrings.each do |substring|
+#     return true if string.downcase.include?(substring)
+#   end
+#   false
+# end
+###
+
+###
+# def substring_twice?(string1, string2)
+#   shorter, longer = [string1, string2].sort_by { |string| string.size }
+#   common_substrings = get_substrings(shorter, longer)
+#   common_substrings.size > 0
+# end
+
+# def get_substrings(shorter, longer)
+#   (2..shorter.size).each_with_object([]) do |current_length, substrings|
+#     (0..(shorter.size - current_length)).each do |start_index|
+#       substring = (shorter[start_index, current_length]).downcase
+#       substrings << substring if longer.downcase.include?(substring)
+#     end
+#   end
+# end
+###
+
+###
+# def substring_twice?(string1, string2)
+#   shorter, longer = [string1, string2].sort_by { |string| string.size }
+#   check_for_substrings(shorter, longer)
+# end
+
+# def check_for_substrings(shorter, longer)
+#   (2..shorter.size).each do |length|
+#     (0..(shorter.size - length)).each do |start|
+#       substring = get_substring(shorter, start, length)
+#       return true if common_substring?(longer, substring)
+#     end
+#   end
+#   false
+# end
+
+# def get_substring(string, start, length)
+#   string[start, length]
+# end
+
+# def common_substring?(string, substring)
+#   string.downcase.include?(substring.downcase)
+# end
+###
 
 # p substring_twice?('face', 'Ace') == true
-# p substring_twice?('face', 'ACTUALLY') == true
+# p substring_twice?('FACE', 'actually') == true
 # p substring_twice?('face', 'gave') == false
 # p substring_twice?('aa', 'aa') == true
-
-
 
 
 ### ALPHABETICAL ORDER
