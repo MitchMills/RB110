@@ -2,6 +2,80 @@
 
 
 
+### COUNT LETTERS IN STRING
+=begin
+In this kata, you've to count lowercase letters in a given string and return the letter count in a hash with 'letter' as key and count as 'value'. The key must be 'symbol' instead of string.
+
+Example:
+
+letterCount('arithmetics') #=> {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2}
+
+p letter_count('codewars') == {:a=>1, :c=>1, :d=>1, :e=>1, :o=>1, :r=>1, :s=>1, :w=>1})
+p letter_count('activity') == {:a=>1, :c=>1, :i=>2, :t=>2, :v=>1, :y=>1}
+p letter_count('arithmetics') == {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2})
+
+9:42
+PROBLEM / EXAMPLES
+input: string
+  - contains only lowercase letters
+
+output: hash
+  - keys are each letter that occurs at least once in input string
+    - must be a symbol: :a, not 'a'
+    - should be in alphabetical order, not order of appearance in string
+  - values are number of times that letter occurs in input string
+
+DATA STRUCTURES
+input: string
+  - array of individual characters
+    - sorted
+output: hash
+
+ALGORITHM
+- convert string into array of individual characters
+- sort array alphabetically
+- count occurrences of each character
+  - create an empty hash, set default value to 0
+  - iterate over the array
+    - for each char, convert to a symbol
+      - if the symbol does not exist in the hash yet, create it and set value to 1
+      - if symbol is already in hash, increment its value by 1
+  - return the hash
+=end
+
+###
+# def letter_count(string)
+#   chars = string.chars.sort
+#   result = Hash.new(0)
+#   chars.each do |char|
+#     key = char.to_sym
+#     result.include?(key) ? result[key] += 1 : result[key] = 1
+#   end
+#   result
+# end
+###
+
+###
+# def letter_count(string)
+#   chars = string.chars.sort
+#   chars.each_with_object(Hash.new(0)) do |char, result|
+#     result[char.to_sym] += 1
+#   end
+# end
+###
+
+###
+# def letter_count(string)
+#   string.chars.sort.map(&:to_sym).tally
+# end
+###
+
+# p letter_count('codewars') == {:a=>1, :c=>1, :d=>1, :e=>1, :o=>1, :r=>1, :s=>1, :w=>1}
+# p letter_count('activity') == {:a=>1, :c=>1, :i=>2, :t=>2, :v=>1, :y=>1}
+# p letter_count('arithmetics') == {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2}
+
+
+
 
 ### MAXIMUM SUM
 =begin
@@ -51,8 +125,8 @@ ALGORITHM
   - lowest to highet
 - return the largest sum
   - last sum in array
-
 =end
+
 
 # def max_sum(numbers)
 #   subarrays = get_subarrays(numbers)
@@ -63,15 +137,12 @@ ALGORITHM
 # def get_subarrays(array)
 #   subarrays = []
 #   final_index = array.size - 1
-
 #   (0..final_index).each do |current_index|
 #     max_length = array.size - current_index
-
 #     (0..max_length).each do |current_length|
 #       subarrays << array[current_index, current_length]
 #     end
 #   end
-
 #   subarrays.uniq
 # end
 
@@ -79,11 +150,12 @@ ALGORITHM
 #   subarrays.map(&:sum)
 # end
 
-# p max_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6 # [4, -1, 2, 1]
+# p max_sum([]) == 0
 # p max_sum([1, 2, 3]) == 6
 # p max_sum([-1, -2, -3]) == 0
-# p max_sum([]) == 0
 # p max_sum([1, 2, 3, -1]) == 6
+# p max_sum([1, -1, 2, 3, -1, 2]) == 6
+# p max_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6 # [4, -1, 2, 1]
 
 
 
