@@ -3,6 +3,90 @@
 
 
 
+### MAXIMUM SUM
+=begin
+The maximum sum subarray problem consists in finding the maximum sum of a contiguous subsequence in an array or list of integers:
+
+p max_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6 # [4, -1, 2, 1]
+
+Easy case is when the list is made up of only positive numbers and the maximum sum is the sum of the whole array. If the list is made up of only negative numbers, return 0 instead.
+
+Empty list is considered to have zero greatest sum. Note that the empty array is also a valid subarray.
+
+8:50
+PROBLEM /EXAMPLE
+input: array
+  - contains integers
+    - integers can be positive or negative
+
+output: integer
+  - largest sum of a contiguous sequence of integers
+  - if all integers in input array are positive, largest sum is sum of whole array
+  - if all integers in input array are negative, return 0
+  - empty subarray is valid subarray
+    - sum of empty array is considered 0
+  - return maximum sum, don't need to return the sequence that equals that sum
+
+DATA STRUCTURES
+- input: array
+  - array containing all possible subarrays
+  - array containing all sums
+  - sorted array of sums
+- output: integer
+
+ALGORITHM
+- get all possible subarrays
+  - start at index 0, then index 1, up to last index
+    - index 0 to index (array size - 1)
+    - get subarrays of every length possible from the current index
+
+    - start at length 0, then length 1, up to maximum size from current index
+      - length 0 to length (array size - current index)
+
+  - put each subarray (currentindex, current length) into a holding array
+  
+- sum all subarrays
+  - transform each subarray into its sum
+- sort the list of sums
+  - lowest to highet
+- return the largest sum
+  - last sum in array
+
+=end
+
+# def max_sum(numbers)
+#   subarrays = get_subarrays(numbers)
+#   sums = sum_subarrays(subarrays)
+#   sums.sort.last || 0
+# end
+
+# def get_subarrays(array)
+#   subarrays = []
+#   final_index = array.size - 1
+
+#   (0..final_index).each do |current_index|
+#     max_length = array.size - current_index
+
+#     (0..max_length).each do |current_length|
+#       subarrays << array[current_index, current_length]
+#     end
+#   end
+
+#   subarrays.uniq
+# end
+
+# def sum_subarrays(subarrays)
+#   subarrays.map(&:sum)
+# end
+
+# p max_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6 # [4, -1, 2, 1]
+# p max_sum([1, 2, 3]) == 6
+# p max_sum([-1, -2, -3]) == 0
+# p max_sum([]) == 0
+# p max_sum([1, 2, 3, -1]) == 6
+
+
+
 ### SUBSTRING TWICE
 =begin
 Write a method that takes two strings and returns true if there exists a substring that appears in both of them. Return false otherwise. Only consider substrings that are at least two characters in length. Disregard case (for example, 'ace' and 'Ace' would be considered the same substring).
@@ -48,7 +132,9 @@ ALGORITHM
       - if yes, return true
 - return true if so, false otherwise
 =end
+
 ###
+
 # def substring_twice?(string1, string2)
 #   substrings = get_all_substrings([string1, string2])
 #   common_substring?(substrings)
