@@ -43,6 +43,7 @@ ALGORITHM
   - return the hash
 =end
 
+
 ###
 # def letter_count(string)
 #   chars = string.chars.sort
@@ -60,6 +61,15 @@ ALGORITHM
 #   chars = string.chars.sort
 #   chars.each_with_object(Hash.new(0)) do |char, result|
 #     result[char.to_sym] += 1
+#   end
+# end
+###
+
+###
+# def letter_count(string)
+#   chars = string.chars.sort
+#   chars.each_with_object({}) do |char, result|
+#     result[char.to_sym] = chars.count(char)
 #   end
 # end
 ###
