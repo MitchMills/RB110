@@ -1,3 +1,74 @@
+### PART TWO
+=begin
+It looks like some of the digits are actually spelled out with letters: one, two, three, four, five, six, seven, eight, and nine also count as valid "digits".
+
+Equipped with this new information, you now need to find the real first and last digit on each line. For example:
+
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen
+
+In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
+
+What is the sum of all of the calibration values?
+=end
+
+number_words = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+numbers = ('1'..'9').to_a
+DIGITS = number_words.zip(numbers).to_h
+# {"one"=>"1", "two"=>"2", "three"=>"3", "four"=>"4", "five"=>"5", "six"=>"6", "seven"=>"7", "eight"=>"8", "nine"=>"9"}
+
+
+def calibration_value(values)
+  converted_values = convert_values(values)
+  # calibration_values = get_calibration_values(converted_values)
+  # calibration_values.sum
+end
+
+def convert_values(values)
+  substrings = get_substrings(values)
+
+end
+
+def get_substrings(array)
+  array.each_with_object([]) do |string, substrings|
+    max_index = string.size - 1
+    (0..max_index).each do |current_index|
+      max_length = string.size - current_index
+      max_length = 5 if max_length > 5
+      (1..max_length).each do |current_length|
+        substrings << string[current_index, current_length]
+      end
+    end
+  end
+end
+
+def get_calibration_values(values)
+  digits = get_digits(values)
+  digits.map { |array| [array[0], array[-1]].join.to_i } 
+end
+
+def get_digits(array)
+  array.map do |string|
+    numbers = '0123456789'
+    string.chars.select { |char| numbers.include?(char) }
+  end
+end
+
+test_values = ['two1nine', 'eightwothree', 'abcone2threexyz', 'xtwone3four', '4nineeightseven2', 'zoneight234', '7pqrstsixteen']
+
+p calibration_value(test_values) #== 281
+
+# values = File.read('day01.txt').split(/\n/)
+# p calibration_value(values)
+
+
+
+### PART ONE
 =begin
 The newly-improved calibration document consists of lines of text; each line originally contained a specific calibration value that the Elves now need to recover. On each line, the calibration value can be found by combining the first digit and the last digit (in that order) to form a single two-digit number.
 
@@ -45,23 +116,23 @@ ALGORITHM
 - get sum of all calibration values
 =end
 
-def calibration_value(values)
-  calibration_values = get_calibration_values(values)
-  calibration_values.sum
-end
+# def calibration_value(values)
+#   calibration_values = get_calibration_values(values)
+#   calibration_values.sum
+# end
 
-def get_calibration_values(values)
-  digits = get_digits(values)
-  digits.map { |array| [array[0], array[-1]].join.to_i } 
-end
+# def get_calibration_values(values)
+#   digits = get_digits(values)
+#   digits.map { |array| [array[0], array[-1]].join.to_i } 
+# end
 
-def get_digits(array)
-  array.map do |string|
-    numbers = '0123456789'
-    string.chars.select { |char| numbers.include?(char) }
-  end
-end
+# def get_digits(array)
+#   array.map do |string|
+#     numbers = '0123456789'
+#     string.chars.select { |char| numbers.include?(char) }
+#   end
+# end
 
-values = File.read('day01.txt').split(/\n/)
-p calibration_value(values)
+# values = File.read('day01.txt').split(/\n/)
+# p calibration_value(values)
 
