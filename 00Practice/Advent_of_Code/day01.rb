@@ -15,56 +15,110 @@ zoneight234
 In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
 
 What is the sum of all of the calibration values?
+
+PROBLEM / EXAMPLES
+input: array
+  - all elements are strings
+  - strings contains alpha and numeric characters
+    - no spaces or non alphanumeric characters
+    - may contain 'number words' (e.g. 'three')
+      - these are treated as numbers
+    - all strings contain at least one number (numeric character or number word)
+
+output: integer
+  - sum of all "calibration values"
+    - calibration value for each string is first and last numbers combined into a two digit number
+      -e.g. 'two1nine3' => 23
+      - if only one number in string, treat as both first and last number
+        - e.g. 'trebfiveuchet' => 55
+      - ignore any numbers that are not the first and last
+
+DATA STRUCTURES
+- input: array of strings
+
+  - hash
+    - keys are numeric characters and number words
+    - values are corresponding numeric characters
+      - {'1' => '1', ... 'one' => '1'}
+
+  - individual strings # '1ab3c2nine'
+    - array of all substrings # ['1', '1a', '1ab' . . .]
+    - array of only substrings that could be numbers # ['n', 'nin', 'nine' . . .]
+      - numeric characters: length 1
+      - number words: lengths 3, 4, 5
+      - exclude any other lengths
+    - array of only substrings that are numbers ['1', '3', '2', 'nine']
+
+    - two digit number (calibration value) # 12
+
+- output: integer: sum of all calibration values
+
+ALGORITHM
+- get calibration value for each string in input array
+  - iterate over input array
+    - transform each string into an array of characters
+      - get only the numeric characters
+      - get the first and last numeric characters
+      - convert those two characters into a two digit integer = calibration value
+- get sum of all calibration values
 =end
 
-number_words = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-numbers = ('1'..'9').to_a
-DIGITS = number_words.zip(numbers).to_h
-# {"one"=>"1", "two"=>"2", "three"=>"3", "four"=>"4", "five"=>"5", "six"=>"6", "seven"=>"7", "eight"=>"8", "nine"=>"9"}
+number_characters = ('1'..'9').to_a
+number_words = %w(one two three four five six seven eight nine)
+keys = number_characters + number_words
+values = number_characters + number_characters
+WORDS_TO_DIGITS = (keys).zip(values).to_h
 
-
-def calibration_value(values)
-  converted_values = convert_values(values)
-  # calibration_values = get_calibration_values(converted_values)
-  # calibration_values.sum
+def calibration_value2(values)
+  converted_values = get_converted_values(values)
+  calibration_values = get_calibration_values(converted_values)
+  calibration_values.sum
 end
 
-def convert_values(values)
-  substrings = get_substrings(values)
-
+def get_converted_values(values)
+  substrings = get_all_substrings(values)
+  num_substrings = get_num_substrings(substrings)
+  convert_values(num_substrings)
 end
 
-def get_substrings(array)
-  array.each_with_object([]) do |string, substrings|
-    max_index = string.size - 1
-    (0..max_index).each do |current_index|
+def get_all_substrings(array)
+  array.map do |string|
+    substrings = get_substrings(string)
+  end
+end
+
+def get_substrings(string)
+  max_index = string.size - 1
+
+    (0..max_index).each_with_object([]) do |current_index, substrings|
       max_length = string.size - current_index
       max_length = 5 if max_length > 5
+
       (1..max_length).each do |current_length|
+        next if current_length == 2
         substrings << string[current_index, current_length]
       end
     end
+end
+
+def get_num_substrings(array)
+  array.map do |subarray|
+    subarray.select { |string| WORDS_TO_DIGITS.include?(string) }
+  end
+end
+
+def convert_values(array)
+  array.map do |subarray|
+    subarray.map { |string| WORDS_TO_DIGITS[string] }
   end
 end
 
 def get_calibration_values(values)
-  digits = get_digits(values)
-  digits.map { |array| [array[0], array[-1]].join.to_i } 
+  values.map { |array| [array.first, array.last].join.to_i } 
 end
 
-def get_digits(array)
-  array.map do |string|
-    numbers = '0123456789'
-    string.chars.select { |char| numbers.include?(char) }
-  end
-end
-
-test_values = ['two1nine', 'eightwothree', 'abcone2threexyz', 'xtwone3four', '4nineeightseven2', 'zoneight234', '7pqrstsixteen']
-
-p calibration_value(test_values) #== 281
-
-# values = File.read('day01.txt').split(/\n/)
-# p calibration_value(values)
+values = File.read('day01.txt').split(/\n/)
+p calibration_value2(values)
 
 
 
@@ -85,54 +139,56 @@ Consider your entire calibration document. What is the sum of all of the calibra
 
 8:52
 PROBLEM / EXAMPLES
-input: array of strings
-  - strings contains alpha characters and digits
+input: array
+  - all elements are strings
+  - strings contains alpha and numeric characters
     - no spaces or non alphanumeric characters
-    - will contain at least one digit
+    - all contain at least one numeric character
 
 output: integer
-  - sum of all calibration values
-    - calibration value for each string is combination of first and last digits in the string into a two digit number
+  - sum of all "calibration values"
+    - calibration value for each string is first and last numeric characters combined into a two digit number
       -e.g. '1abc2' => 12
-      - if only one digit is in string, treat as both first and last digit
+      - if only one numeric character in string, treat as both first and last digit
         - e.g. 'treb7uchet' => 77
       - ignore any digits that are not the first and last digits
 
 DATA STRUCTURES
-- input: array
-  - strings
-    - array of characters
-    - array of only digits
-    - array of only first and last digits: calibration value
+- input: array of strings
+  - string # '1ab3c2'
+    - array of individual characters # ['1', 'a', 'b', '3', 'c', '2']
+    - array of only numeric characters # ['1', '3', '2']
+    - array of only first and last numeric characters # ['1', '2']
+    - two digit number (calibration value) # 12
 - output: integer: sum of all calibration values
 
 ALGORITHM
-- get calibration value for each string
+- get calibration value for each string in input array
   - iterate over input array
-    - separate each string into an array of characters
-      - select only the number characters from each array
-      - transform that array so it contains only the first and last number character
-      - transform each array into a two digit integer
+    - transform each string into an array of characters
+      - get only the numeric characters
+      - get the first and last numeric characters
+      - convert those two characters into a two digit integer = calibration value
 - get sum of all calibration values
 =end
 
-# def calibration_value(values)
-#   calibration_values = get_calibration_values(values)
-#   calibration_values.sum
-# end
+def calibration_value1(values)
+  calibration_values = get_calibration_values(values)
+  calibration_values.sum
+end
 
-# def get_calibration_values(values)
-#   digits = get_digits(values)
-#   digits.map { |array| [array[0], array[-1]].join.to_i } 
-# end
+def get_calibration_values(values)
+  digits = get_digits(values)
+  digits.map { |array| [array.first, array.last].join.to_i } 
+end
 
-# def get_digits(array)
-#   array.map do |string|
-#     numbers = '0123456789'
-#     string.chars.select { |char| numbers.include?(char) }
-#   end
-# end
+def get_digits(array)
+  array.map do |string|
+    numbers = '0123456789'
+    string.chars.select { |char| numbers.include?(char) }
+  end
+end
 
-# values = File.read('day01.txt').split(/\n/)
-# p calibration_value(values)
+values = File.read('day01.txt').split(/\n/)
+p calibration_value1(values)
 
