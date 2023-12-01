@@ -22,7 +22,7 @@ input: array
   - strings contains alpha and numeric characters
     - no spaces or non alphanumeric characters
     - may contain 'number words' (e.g. 'three')
-      - these are treated as numbers
+      - these will be treated as numbers
     - all strings contain at least one number (numeric character or number word)
 
 output: integer
@@ -41,26 +41,42 @@ DATA STRUCTURES
     - values are corresponding numeric characters
       - {'1' => '1', ... 'one' => '1'}
 
-  - individual strings # '1ab3c2nine'
+  - individual string # '1ab3c2nine'
     - array of all substrings # ['1', '1a', '1ab' . . .]
-    - array of only substrings that could be numbers # ['n', 'nin', 'nine' . . .]
-      - numeric characters: length 1
-      - number words: lengths 3, 4, 5
+    - array of only substrings that could be numbers
+      - numeric characters: length 1 # '1'
+      - number words: lengths 3, 4, 5 # 'one', 'five', 'three' . . .
       - exclude any other lengths
-    - array of only substrings that are numbers ['1', '3', '2', 'nine']
-
-    - two digit number (calibration value) # 12
+    - array of only substrings that actually are numbers # ['1', '3', '2', 'nine']
+    - array of those substrings converted to numeric characters only # ['1', '3', '2', '9']
+    - array of first and last numbers # ['1', '9']
+    - string # '19'
+    - two digit number (calibration value) # 19
 
 - output: integer: sum of all calibration values
 
 ALGORITHM
-- get calibration value for each string in input array
-  - iterate over input array
-    - transform each string into an array of characters
-      - get only the numeric characters
-      - get the first and last numeric characters
-      - convert those two characters into a two digit integer = calibration value
-- get sum of all calibration values
+- Create hash to convert number words to numeric characters
+
+- Get calibration value for each string in input array
+  - transform each string into array of numeric characters
+    - get all possible substrings that could be numbers
+      - transform each string into an array of substrings
+        - start at index 0, up to last index (length - 1)
+          - this tracks current index
+        - start at length 1, up to max length from that index (string length - current index)
+          - this tracks current length
+          - exclude substrings of length 2 or length > 5
+        - get substring from that current index and of that current length
+    - select only substrings that actually are numbers: numeric characters and number words
+      - check whether substring is one of the keys in the hash
+    - convert number words into numeric characters
+        - use hash
+  - transform array of numeric characters into calibration value
+    - concatenate first and last numeric characters
+    - convert to an integer
+
+- Get sum of all calibration values
 =end
 
 number_characters = ('1'..'9').to_a
@@ -71,6 +87,7 @@ WORDS_TO_DIGITS = (keys).zip(values).to_h
 
 def calibration_value2(values)
   converted_values = get_converted_values(values)
+
   calibration_values = get_calibration_values(converted_values)
   calibration_values.sum
 end
@@ -159,16 +176,19 @@ DATA STRUCTURES
     - array of individual characters # ['1', 'a', 'b', '3', 'c', '2']
     - array of only numeric characters # ['1', '3', '2']
     - array of only first and last numeric characters # ['1', '2']
+    - string # '12'
     - two digit number (calibration value) # 12
 - output: integer: sum of all calibration values
 
 ALGORITHM
 - get calibration value for each string in input array
   - iterate over input array
-    - transform each string into an array of characters
-      - get only the numeric characters
-      - get the first and last numeric characters
-      - convert those two characters into a two digit integer = calibration value
+    - transform each string into its calibration value
+      - separate string into an array of individual characters
+      - select only the numeric characters
+      - concatenate the first and last numeric character
+      - convert to an integer = calibration value
+
 - get sum of all calibration values
 =end
 
