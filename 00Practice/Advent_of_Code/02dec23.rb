@@ -9,7 +9,7 @@ def process_data(array)
   game_numbers = array.map { |string| string.split[1].delete(':') }
   games = array.map { |string| string.split('; ') }
   games_info = game_numbers.zip(games).to_h
-  games_info.each do |game_id, grabs_info|
+  games_info.each do ||
     
   end
 end
