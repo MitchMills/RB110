@@ -1,3 +1,6 @@
+
+
+# Part 1
 MAX_CUBES = {:red=>12, :green=>13, :blue=>14}
 
 def possible_games(games_data)
@@ -35,7 +38,7 @@ def assign_scores(words)
 end
 
 def get_possible_games(games_info)
-  games_info.select do |game_id, game_draws|
+  games_info.select do |_, game_draws|
    game_draws.all? do |draw|
       draw.all? do |color, count|
         count <= MAX_CUBES[color]
