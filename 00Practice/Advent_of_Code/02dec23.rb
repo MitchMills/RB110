@@ -34,17 +34,18 @@ def assign_scores(words)
 end
 
 def get_counts(games_info)
-  colors = [:red, :green, :blue]
-  counts = [[], [], []]
-  color_counts = colors.zip(counts).to_h
+  color_counts = {:red => [], :green => [], :blue => []}
 
-  games_info.values.each do |draws|
-    draws.each do |draw| # draw = {:red=>1, :green=>2, :blue=>6}
-      colors.each do |color|
-        color_counts[color] << (draw[color] || 0)
+  games_info.values.each do |game| # [{:red=>6, :blue=>1, :green=>3}, {:blue=>2, :red=>1, :green=>2}]
+    game.each do |draw| # {:red=>6, :blue=>1, :green=>3}
+      draw.each do |color, count| # :red=>6
+        color_counts.keys do |key|
+
+        end
       end
     end
   end
+  
   color_counts
 end
 
@@ -56,10 +57,10 @@ end
 # color_counts[:red] << 7
 # p color_counts
 
-{
-  :red=>[4, 1, 0, 0, 1, 0, 20, 4, 1, 3, 6, 14, 6, 1], 
-  :green=>[0, 2, 2, 2, 3, 1, 8, 13, 5, 1, 3, 3, 3, 2], 
-  :blue=>[3, 6, 0, 1, 4, 1, 6, 5, 0, 6, 0, 15, 1, 2]
+target = {
+  :red => [[4, 1, 0], [0, 1, 0]],
+  :green => [[0, 2, 2], [2, 3, 1]],
+  :blue => [[3, 6, 0], [1, 4, 1]]
 }
 
 
