@@ -62,7 +62,12 @@ ALGORITHM
 # p find_pairs([0, 0, 0, 0]) == 2
 # p find_pairs([0, 0, 0]) == 1
 
-
+# p find_pairs([1, 2, 5, 6, 5, 2]) == 2
+# p find_pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]) == 4
+# p find_pairs([0, 0, 0, 0, 0, 0, 0]) == 3
+# p find_pairs([1000, 1000]) == 1
+# p find_pairs([]) == 0
+# p find_pairs([54]) == 0
 
 
 ### COUNT LETTERS IN STRING
