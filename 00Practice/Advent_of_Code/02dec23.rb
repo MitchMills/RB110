@@ -63,6 +63,14 @@ target = {
   :blue => [[3, 6, 0], [1, 4, 1]]
 }
 
+game_id = '3'
+game = [{:green=>8, :blue=>6, :red=>20}, {:blue=>5, :red=>4, :green=>13}, {:green=>5, :red=>1}]
+
+
+draw = {:green=>8, :blue=>6, :red=>20}
+color = :green
+count = 8
+
 
 sample_data = {
   "1"=>[
