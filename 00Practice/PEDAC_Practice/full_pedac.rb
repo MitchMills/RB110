@@ -2,6 +2,69 @@
 
 
 
+
+### FIND ALL PAIRS
+=begin
+Find all pairs
+
+You are given array of integers, your task will be to count all pairs in that array and return their count.
+
+Notes:
+
+Array can be empty or contain only one value; in this case return 0
+If there are more pairs of a certain number, count each pair only once. E.g.: for [0, 0, 0, 0] the return value is 2 (= 2 pairs of 0s)
+Random tests: maximum array length is 1000, range of values in array is between 0 and 1000
+Examples
+[1, 2, 5, 6, 5, 2]  -->  2
+...because there are 2 pairs: 2 and 5
+
+[1, 2, 2, 20, 6, 20, 2, 6, 2]  -->  4
+...because there are 4 pairs: 2, 20, 6 and 2 (again)
+
+12:11
+PROBLEM / EXAMPLES
+input: array
+  - can be empty
+  - can contain only one value
+
+
+output: integer
+  - represents number of pairs in input array
+    - a pair is two of the same integer
+    - each integer can only be counted as part of one pair: [1, 1, 1, 1] => 2 pairs
+      - [2, 2, 2] => 1 pair
+  - if input array is empty or contains only one value, return 0
+
+DATA STRUCTURES
+- input: array
+  - hash: each integer and the number of times it occurs in input array
+- output: integer
+  - number of key-value pairs where count is 2 or greater
+
+ALGORITHM
+- count number of times each integer in input array occurs
+  - store in a hash
+    - keys are unique numbers in input array
+    - values are count of that number
+- count the number of pairs
+  - transform array of values
+    - each value divided by 2
+  - return sum of those transformed values
+=end
+
+# def find_pairs(numbers)
+#   counts = numbers.tally
+#   counts.values.map { |count| count / 2 }.sum
+# end
+
+# p find_pairs([1, 2, 5, 6, 5, 2]) == 2
+# p find_pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]) == 4
+# p find_pairs([0, 0, 0, 0]) == 2
+# p find_pairs([0, 0, 0]) == 1
+
+
+
+
 ### COUNT LETTERS IN STRING
 =begin
 In this kata, you've to count lowercase letters in a given string and return the letter count in a hash with 'letter' as key and count as 'value'. The key must be 'symbol' instead of string.
@@ -75,15 +138,15 @@ ALGORITHM
 ###
 
 ###
-def letter_count(string)
-  string.chars.sort.map(&:to_sym).tally
-end
+# def letter_count(string)
+#   string.chars.sort.map(&:to_sym).tally
+# end
 ###
 
 # p letter_count('codewars') == {:a=>1, :c=>1, :d=>1, :e=>1, :o=>1, :r=>1, :s=>1, :w=>1}
 # p letter_count('activity') == {:a=>1, :c=>1, :i=>2, :t=>2, :v=>1, :y=>1}
 # p letter_count('arithmetics') == {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2}
-p letter_count('this $h1.')
+# p letter_count('this $h1.')
 
 
 
