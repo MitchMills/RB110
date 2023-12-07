@@ -1,3 +1,65 @@
+### ALPHABET SYMMETRY
+=begin
+Alphabet symmetry
+Consider the word "abode". We can see that the letter a is in position 1 and b is in position 2. In the alphabet, a and b
+are also in positions 1 and 2. Notice also that d and e in abode occupy the positions they would occupy in the alphabet,
+which are positions 4 and 5.
+Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for each
+word. For example,
+solve(["abode","ABc","xyzD"]) = [4, 3, 1]
+See test cases for more examples.
+Input will consist of alphabet characters, both uppercase and lowercase. No spaces.
+
+p solve(["abode","ABc","xyzD"]) == [4,3,1]
+p solve(["abide","ABc","xyz"]) == [4,3,0]
+p solve(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"])== [6,5,7]
+p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+PROBLEM / EXAMPLES
+input: array
+  - contains strings
+    - strings contain only alphabetic characters
+      - upper and lowercase
+    - no spaces, symbols, numbers, etc
+
+output: array
+  - contains integers
+  - same number of elements as input array
+  - numbers represent the number of characters in each corresponding input array string that occupy their position in the alphabet (a, A = 1, b, B = 2, etc)
+    - case can be ignored
+  - number can be zero
+
+DATA STRUCTURES
+- input: array
+  - array of alphabetic characters
+  - separate strings
+    - both are zero-indexed: can compare by their indexes
+- output: array
+
+ALGORITHM
+- create an array of alphabetic characters
+- iterate over input array
+  - for each string, check whether the character at a given index matches the character at the same index in the alphabetic array
+    - count the number of characters for which this is true
+  - transform each input array element into that number
+  - return the transformed array
+=end
+
+def alphabet_symmetrty(words)
+  alphabet = ('a'..'z').to_a
+  words.map do |word|
+    (0...word.size).each.count { |index| word.downcase[index] == alphabet[index] }
+  end
+end
+
+p alphabet_symmetrty(["abode","ABc","xyzD"]) == [4,3,1]
+p alphabet_symmetrty(["abide","ABc","xyz"]) == [4,3,0]
+p alphabet_symmetrty(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"])== [6,5,7]
+p alphabet_symmetrty(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+
+
+
 ### SUBSTRING INSTANCE COUNT
 =begin
 Return substring instance count
