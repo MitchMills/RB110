@@ -6,10 +6,64 @@ Usage example:
 solution('aa_bb_cc_dd_bb_e', 'bb') # should return 2 since bb shows up twice
 solution('aaabbbcccc', 'bbb') # should return 1
 
+p solution('aa_bb_cc_dd_bb_e', 'bb') == 2
+p solution('aaabbbcccc', 'bbb') == 1
 p solution('abcdeb','b') == 2
 p solution('abcdeb', 'a') == 1
 p solution('abbc', 'bb') == 1
+p solution('abbBBc', 'bb') == 1
+p solution('abc', 'd') == 0
+
+7:58
+PROBLEM / EXAMPLES
+input: two strings
+  - first string is full text
+  - second string is search text
+
+output: integer
+  - represents the number of times the search text appears in the full text
+
+- Assumptions
+  - case matters
+  - if no matches, return 0
+
+DATA STRUCTURES
+- input: two strings # 'aaabbbcccc', 'bbb'
+  - array of substrings # ['aaa', 'aab', 'abb', . . .]
+    - from full text
+    - length of search text
+      - start at index 0
+      - finish at index (full text length - search text length)
+- output: integer
+
+ALGORITHM
+- get all eligible substrings form full text
+  - store in an array
+  - length will be search text length
+  - start index from 0 up to full text length - search text length
+- count the number of times search text appears in array
+- return that number
 =end
+
+# def solution(full_text, search_text)
+#   substrings = get_substrings(full_text, search_text)
+#   substrings.count(search_text)
+# end
+
+# def get_substrings (full_text, search_text)
+#   final_index = full_text.size - search_text.size
+#   (0..final_index).map do |start_index|
+#     full_text[start_index, search_text.size]
+#   end
+# end
+
+# p solution('aa_bb_cc_dd_bb_e', 'bb') == 2
+# p solution('aaabbbcccc', 'bbb') == 1
+# p solution('abcdeb','b') == 2
+# p solution('abcdeb', 'a') == 1
+# p solution('abbc', 'bb') == 1
+# p solution('abbBBc', 'bb') == 1
+# p solution('abc', 'd') == 0
 
 
 
