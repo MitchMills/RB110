@@ -1,3 +1,8 @@
+
+
+
+
+
 ### ALPHABET SYMMETRY
 =begin
 Alphabet symmetry
@@ -45,17 +50,18 @@ ALGORITHM
   - return the transformed array
 =end
 
-def alphabet_symmetrty(words)
-  alphabet = ('a'..'z').to_a
-  words.map do |word|
-    (0...word.size).each.count { |index| word.downcase[index] == alphabet[index] }
-  end
-end
+# def alphabet_symmetrty(words)
+#   alphabet = ('a'..'z').to_a
+#   words.map do |word|
+#     (0...word.size).each.count { |index| word.downcase[index] == alphabet[index] }
+#   end
+# end
 
-p alphabet_symmetrty(["abode","ABc","xyzD"]) == [4,3,1]
-p alphabet_symmetrty(["abide","ABc","xyz"]) == [4,3,0]
-p alphabet_symmetrty(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"])== [6,5,7]
-p alphabet_symmetrty(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+# p alphabet_symmetrty(["abode","ABc","xyzD"]) == [4,3,1]
+# p alphabet_symmetrty(["abide","ABc","xyz"]) == [4,3,0]
+# p alphabet_symmetrty(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"])== [6,5,7]
+# p alphabet_symmetrty(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
 
 
 
