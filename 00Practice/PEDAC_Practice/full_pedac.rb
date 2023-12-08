@@ -1,3 +1,21 @@
+### ODD SUBSTRINGS
+=begin
+Odd Substrings
+Given a string of integers, return the number of odd-numbered substrings that can be formed.
+For example, in the case of "1341", they are 1, 1, 3, 13, 41, 341, 1341, a total of 7 numbers.
+solve("1341") = 7. See test cases for more examples.
+
+p odd_substrings("1341") == 7
+p odd_substrings("1357") == 10
+p odd_substrings("13471") == 12
+p odd_substrings("134721") == 13
+p odd_substrings("1347231") == 20
+p odd_substrings("13472315") == 28
+=end
+
+
+
+
 ### LONGEST VOWEL CHAIN
 =begin
 Longest vowel chain
@@ -11,7 +29,94 @@ p solve("strengthlessnesses") == 1
 p solve("cuboideonavicuare") == 2
 p solve("chrononhotonthuooaos") == 5
 p solve("iiihoovaeaaaoougjyaw") == 8
+
+2:55
+PROBLEM / EXAMPLES
+input: string
+  - contains only lowercase alphabetic characters
+  - no spaces
+  - may contain vowels: aeiou
+
+output: integer
+  - represents length of longest substring consisting only of vowels
+  - only return greatest length, not substring itself: don't need to worry about ties
+  - presumably, return 0 if no vowels in input string
+
+DATA STRUCTURES
+- input: string
+  - array of all substrings
+  - array of only vowel substrings
+  - longest vowel substring
+- output: integer
+
+ALGORITHM
+- get all substrings from input string
+  - start at index 0, then 1, up to but not including input string length: current starting index
+    - start at length 1, then length 2, up to (input string length - current starting index): current length
+    - get slice of input string: [current starting index, current length]
+    - store all substrings in an array
+- select substrings that contain only vowels
+  - iterate over each character of each substring
+    - select substrings that only contain vowels
+- select longest vowel-only substring
+- return its length
+
+ALGORITHM 2
+- iterate over each character in the input string
+- replace non-vowels with a space
+- split resulting string into an array of words
+- return length of longest "word"
 =end
+
+###
+# def longest_vowel_substring(string)
+#   substrings = get_substrings(string)
+#   vowel_substrings = get_vowel_substrings(substrings)
+#   longest = vowel_substrings.max_by { |substring| substring.size } || ''
+#   longest.size
+# end
+
+# def get_substrings(string)
+#   last_index = string.size - 1
+#   (0..last_index).each_with_object([]) do |start_index, substrings|
+#     max_length = string.size - start_index
+#     (1..max_length).each do |current_length|
+#       substrings << string[start_index, current_length]
+#     end
+#   end
+# end
+
+# def get_vowel_substrings(substrings)
+#   vowels = 'aeiou'
+#   substrings.select do |substring|
+#     substring.chars.all? { |char| vowels.include?(char) }
+#   end
+# end
+
+###
+# def longest_vowel_substring(string)
+#   only_vowels = replace_consonants(string)
+#   vowel_substrings = only_vowels.split
+#   longest = vowel_substrings.max_by { |substring| substring.size } || ''
+#   longest.size
+# end
+
+# def replace_consonants(string)
+#   string.chars.map do |char|
+#     'aeiou'.include?(char) ? char : ' '
+#   end.join
+# end
+
+# p longest_vowel_substring("codewarriors") == 2
+# p longest_vowel_substring("suoidea") == 3
+# p longest_vowel_substring("iuuvgheaae") == 4
+# p longest_vowel_substring("ultrarevolutionariees") == 3
+# p longest_vowel_substring("strengthlessnesses") == 1
+# p longest_vowel_substring("cuboideonavicuare") == 2
+# p longest_vowel_substring("chrononhotonthuooaos") == 5
+# p longest_vowel_substring("iiihoovaeaaaoougjyaw") == 8
+# p longest_vowel_substring("bcdfg") == 0
+
 
 
 
