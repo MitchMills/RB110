@@ -1,3 +1,6 @@
+
+
+
 ### ODD SUBSTRINGS
 =begin
 Odd Substrings
@@ -11,18 +14,71 @@ p odd_substrings("13471") == 12
 p odd_substrings("134721") == 13
 p odd_substrings("1347231") == 20
 p odd_substrings("13472315") == 28
+p odd_substrings("222") == 0
+
+1:01
+PROBLEM / EXAMPLES
+input: string
+  - contains only integers
+  - assumption: no empty input strings
+
+output: integer
+  - represents the number of odd substrings that can be created
+    - do not need to be unique, i.e. duplicates count towards total
+  - substrings can be from size 1 up to size of input string
+
+DATA STRUCTURES
+- input: string
+  - array of all possible substrings
+  - array of substrings that are odd numbers
+- output: integer: size of array
+
+ALGORITHM
+- get all possible substrings
+  - start index: from 0 up to last index (one less than length of input string)
+    - length: from 1 up to length that can be created from that starting index
+      - 1 up to (input string length - current starting index)
+    - put each `string[start_index, length]` into an array
+- select substrings that represent odd numbers
+  - convert each substring into an integer
+  - select only odd integers into an array
+- return size of that array
 =end
 
-def odd_substrings(string)
+# def odd_substrings(string)
+#   all_substrings = get_all_substrings(string)
+#   odd_substrings = get_odd_substrings(all_substrings)
+#   odd_substrings.size
+# end
 
-end
+# def get_all_substrings(string)
+#   max_index = string.size - 1
+#   (0..max_index).each_with_object([]) do |current_index, substrings|
+#     substrings << get_substrings(string, current_index)
+#   end.flatten
+# end
 
-p odd_substrings("1341") #== 7
+# def get_substrings(string, current_index)
+#   max_length = string.size - current_index
+#   (1..max_length).map do |current_length|
+#     string[current_index, current_length]
+#   end
+# end
+
+# def get_odd_substrings(substrings)
+#   substrings.select do |substring|
+#     substring.to_i.odd?
+#   end
+# end
+
+# p odd_substrings("1341") == 7
 # p odd_substrings("1357") == 10
 # p odd_substrings("13471") == 12
 # p odd_substrings("134721") == 13
 # p odd_substrings("1347231") == 20
 # p odd_substrings("13472315") == 28
+# p odd_substrings("222") == 0
+
 
 
 
