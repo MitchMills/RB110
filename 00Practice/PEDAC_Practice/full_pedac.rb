@@ -13,6 +13,17 @@ p odd_substrings("1347231") == 20
 p odd_substrings("13472315") == 28
 =end
 
+def odd_substrings(string)
+
+end
+
+p odd_substrings("1341") #== 7
+# p odd_substrings("1357") == 10
+# p odd_substrings("13471") == 12
+# p odd_substrings("134721") == 13
+# p odd_substrings("1347231") == 20
+# p odd_substrings("13472315") == 28
+
 
 
 
