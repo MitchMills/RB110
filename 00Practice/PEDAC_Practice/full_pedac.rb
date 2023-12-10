@@ -1,6 +1,78 @@
 
 
 
+
+### NTH LETTER
+=begin
+Complete the function that takes an array of words.
+You must concatenate the nth letter from each word to construct a new word which should be returned as a string,
+where n is the position of the word in the list.
+For example:
+["yoda", "best", "has"] --> "yes"
+^ ^ ^
+n=0 n=1 n=2
+Note: Test cases contain valid input only - i.e. a string array or an empty array; and each word will have enough letters.
+
+p nth_char(['yoda', 'best', 'has']) == 'yes'
+p nth_char([]) == ''
+p nth_char(['X-ray']) == 'X'
+p nth_char(['No', 'No']) == 'No'
+p nth_char(['Chad', 'Morocco', 'India', 'Algeria', 'Botswana', 'Bahamas', 'Ecuador', 'Micronesia']) == 'Codewars
+
+7:08
+PROBLEM / EXAMPLES
+input: array
+  - each element is a "word": string with no spaces
+    - can contain non-alphabetic characters, e.g. 'X-ray'
+  - can be empty
+  - each word has a length of at least index + 1
+
+output: string
+  - composed of one letter from each string in the input array concatenated together
+    - letter is same index as index of the element in the input array
+      - for element at index n, get letter from that element from index n
+  - if input array is empty, return an empty string
+  - maintain case
+  - string has same number of letters as input array has elements
+
+DATA STRUCURES
+input: array of strings # ['yoda', 'best', 'has']]
+  - array of individual characters in each string # ['y', 'o', 'd', 'a']
+  - array of appropriate characters from each string # ['y', 'e', 's']
+
+output: string # 'yes'
+
+ALGORITHM
+- get appropriate character from each input string
+  - iterate over the indexes of the input array
+    - transform each index into the appropriate character
+      - use the index of the element to get the character at that index from the element
+- join these characters into a new string
+- return that string
+=end
+
+# def nth_char(words)
+#   letters = get_letters(words)
+#   letters.join
+# end
+
+# def get_letters(words)
+#   last_index = words.size - 1
+#   (0..last_index).map do |index|
+#     words[index][index]
+#   end
+# end
+
+# p nth_char(['yoda', 'best', 'has']) == 'yes'
+# p nth_char([]) == ''
+# p nth_char(['X-ray']) == 'X'
+# p nth_char(['No', 'No']) == 'No'
+# p nth_char(['Chad', 'Morocco', 'India', 'Algeria', 'Botswana', 'Bahamas', 'Ecuador', 'Micronesia']) == 'Codewars'
+
+
+
+
+
 ### ODD SUBSTRINGS
 =begin
 Odd Substrings
