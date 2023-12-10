@@ -2,6 +2,139 @@
 
 
 
+### REPEATED SUBSTRING
+=begin
+Repeated Substring
+For a given nonempty string s find a minimum substring t and the maximum number k, such that the entire string s is equal to t repeated k times. The input string consists of lowercase latin letters. Your function should return an array [t, k]
+
+Example #1:
+for string s = "ababab"
+the answer is ["ab", 3]
+
+Example #2:
+for string s = "abcde"
+the answer is ["abcde", 1] because for this string "abcde" the minimum substring t, such that s is t repeated k times, is itself.
+
+p repeated_substring("ababab") == ["ab", 3]
+p repeated_substring("abcde") == ["abcde", 1]
+
+9:41
+PROBLEM / EXAMPLES
+input: string
+  - contains only lowercase alphabetic characters
+  - is not empty
+
+output: array
+  - two elements: string and integer
+    - string is a substring of input string
+      - can be repeated to create the input string
+      - smallest substring that will meet the criteria
+      - can be the entire input string
+    - integer is the number of times substring must be repeated to create input string
+      - if substring is the entire input string, integer is 1
+      - integer is a multiple of the length of the input string
+        - substring length times integer equals input string length
+
+DATA STRUCTURES
+input: string
+  - array of all possible substrings?
+  - array  of all multiples of input string length
+    - array of all possible substrings of those lengths
+  - array of all substrings that can be repeated to produce input string
+  - shortest substring
+output: array: [substring, multiple]
+
+ALGORITHM
+- get all multiples of the input string length
+  - create a range from 2 up to input string length
+    - select numbers from range that divide evenly into input string length
+    - store in array
+- get all possible substrings of those lengths
+  - iterate over array of multiples
+    - for each multiple, get all possible substrings of that length
+      - lengths are multiples
+      - starting indexes: from 0 up to max index for that length
+        - max index: (string length - current length)
+    - store in an array
+- select substrings that can repeat to produce input string
+  - iterate over array of substrings
+    - select those for which substring length x (input string length / substring length) equals the input string
+    - store in an array
+- get shortest substring
+- return array of shortest substring and multiple
+  - multiple is (input string length / substring length)
+=end
+
+### solution 1
+# def repeated_substring(string)
+#   multiples = get_multiples(string.size)
+  
+#   substrings = get_substrings(string, multiples)
+#   repeaters = get_repeaters(string, substrings)
+
+#   smallest = repeaters.min_by { |string| string.size} || string
+#   multiple = (string.size / smallest.size)
+#   [smallest, multiple]
+# end
+
+# def get_multiples(number)
+#   max = number / 2
+#   (1..max).select do |num|
+#     number % num == 0
+#   end
+# end
+
+# def get_substrings(string, multiples)
+#   multiples.each_with_object([]) do |current_length, substrings|
+#     max_index = string.size - current_length
+#     (0..max_index).each do |start_index|
+#       substrings << string[start_index, current_length]
+#     end
+#   end.uniq
+# end
+
+# def get_repeaters(string, substrings)
+#   substrings.select do |substring|
+#     multiplier = string.size / substring.size
+#     substring * multiplier == string  
+#   end
+# end
+###
+
+### solution 2
+# def repeated_substring(string)
+#   substrings = get_substrings(string)
+#   counts = substrings.tally
+#   repeaters = get_repeaters(string, counts)
+
+#   smallest = repeaters.min_by { |string| string.size} || string
+#   multiple = (string.size / smallest.size)
+#   [smallest, multiple]
+# end
+
+# def get_substrings(string)
+#   max_length = string.size / 2
+#   (1..max_length).each_with_object([]) do |current_length, substrings|
+#     max_index = string.size - current_length
+#     (0..max_index).each do |start_index|
+#       substrings << string[start_index, current_length]
+#     end
+#   end
+# end
+
+# def get_repeaters(string, counts)
+#   counts.keys.select do |substring|
+#     substring * counts[substring] == string
+#   end
+# end
+###
+
+# p repeated_substring("ababab") == ["ab", 3]
+# p repeated_substring("abcde") == ["abcde", 1]
+# p repeated_substring("aaaa") == ["a", 4]
+
+
+
 ### NTH LETTER
 =begin
 Complete the function that takes an array of words.
