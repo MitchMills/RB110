@@ -33,7 +33,95 @@ p scramble_words('dcba.') == 'dbca.'
 p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's
 nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul
 neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+
+7:00
+PROBLEM / EXAMPLES
+input: string
+  - contains lowercase alphabetic characters
+  - can contain four non-alpha characters: - ' , .
+  - can be empty
+  - contains "words"
+    - words are separated by single spaces
+    - non-alpha characters do not separate words: e.g. 'tic-tac' is one word
+
+output: string
+  - contains same characters as input string
+  - contains same number of 'words' as input string
+  - all non-alpha characters remain in place
+  - first and last alpha characters remain in place
+   - if first or last character is non-alpha, it doesn't count as first alpha character
+      - e.g. '-dcba' => '-dbca'
+  - alpha characters between first and last positions should be alphabetized
+  - if input string contains only one, two, or three alpha characters, return input string
+  - if input string is empty, return empty string
+  - non-alpha characters do not separate words
+    - e.g 'card-carrying' => 'caac-dinrrryg'
+
+DATA STRUCTURES
+- input: string # "you've gotta"
+  - array of separate words in input string # ["you've", "gotta"]
+    - array of each character in each word # %w(y o u ' v e')
+      - array of middle characters %w(o u ' v')
+    - transformed array of each character # %w(y o u ' v e')
+  - array of transformed words # ["you've", "gotta"]
+- output: string
+
+ALGORITHM
+- separate input string into separate words
+- transform each word according to the criteria
+  - separate each word into its individual characters
+
+    - select middle characters
+      - find index of first and last alpha character
+        - take slice of array from (first index + 1) to (last index - 1)
+      - store indexes of non-alpha characters
+    - sort middle characters alphabetically
+      - re-insert non-alpha characters using stored indexes
+    - add back starting and ending characters
+    - join characters back into string
+
+- join separate words back into string
+- return that string
+
 =end
+
+ALPHABET = ('a'..'z').to_a
+
+def scramble_words(string)
+  words = string.split
+  # words.map do |word|
+  #   change_word(word)
+  # end
+  # words.join(' ')
+end
+
+def change_word(string)
+  characters = string.chars
+  middle_characters = get_middle_characters(characters)
+
+end
+
+def get_middle_characters(characters)
+  first_alpha = characters.find { |char| ALPHABET.include?(char) }
+  first_index = characters.index(first_alpha)
+
+  last_alpha = characters.reverse_each.find { |char| ALPHABET.include?(char) }
+  last_index = characters.index(last_alpha)
+
+end
+
+p get_middle_characters(%w(1 a c b c 1))
+  
+# p scramble_words('professionals') == 'paefilnoorsss'
+# p scramble_words('i') == 'i'
+# p scramble_words('') == ''
+# p scramble_words('me') == 'me'
+# p scramble_words('you') == 'you'
+p scramble_words('card-carrying') #== 'caac-dinrrryg'
+# p scramble_words("shan't") == "sahn't"
+# p scramble_words('-dcba') == '-dbca'
+# p scramble_words('dcba.') == 'dbca.'
+p scramble_words("you've gotta dance") # like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
 
 
 
