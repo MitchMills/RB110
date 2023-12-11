@@ -1,3 +1,6 @@
+
+
+
 ### TYPOGLYCEMIA GENERATOR
 =begin
 TYPOGLYCEMIA GENERATOR
@@ -85,54 +88,54 @@ ALGORITHM
 
 =end
 
-ALPHABET = ('a'..'z').to_a
+# ALPHABET = ('a'..'z').to_a
 
-def scramble_words(string)
-  words = string.split
-  # words.map do |word|
-  #   change_word(word)
-  # end
-  # words.join(' ')
-end
+# def scramble_words(string)
+#   words = string.split
+#   # words.map do |word|
+#   #   change_word(word)
+#   # end
+#   # words.join(' ')
+# end
 
-def change_word(string)
-  characters = string.chars
-  middle_characters = get_middle_characters(characters)
-  alphabetized = alphabetize_middle_characters(middle_characters)
-end
+# def change_word(string)
+#   characters = string.chars
+#   middle_characters = get_middle_characters(characters)
+#   alphabetized = alphabetize_middle_characters(middle_characters)
+# end
 
-def get_middle_characters(characters)
-  first_index = (1...characters.size).find do |index|
-    ALPHABET.include?(characters[index])
-  end
+# def get_middle_characters(characters)
+#   first_index = (1...characters.size).find do |index|
+#     ALPHABET.include?(characters[index])
+#   end
 
-  last_index = (1...characters.size).find do |index|
-    ALPHABET.include?(characters[-index])
-  end
+#   last_index = (1...characters.size).find do |index|
+#     ALPHABET.include?(characters[-index])
+#   end
 
-  characters[first_index .. (characters.size - last_index)]
-end
+#   characters[first_index .. (characters.size - last_index)]
+# end
 
-def alphabetize_middle_characters(array)
-  punctuation = array.each_index.select do |index|
-    %w(- ' , .).include?(array[index])
-  end
-  array.sort
+# def alphabetize_middle_characters(array)
+#   punctuation = array.each_index.select do |index|
+#     %w(- ' , .).include?(array[index])
+#   end
+#   array.sort
 
-end
+# end
 
-p alphabetize_middle_characters(%w(a c - ' , . b c))
+# p alphabetize_middle_characters(%w(a c - ' , . b c))
   
 # p scramble_words('professionals') == 'paefilnoorsss'
 # p scramble_words('i') == 'i'
 # p scramble_words('') == ''
 # p scramble_words('me') == 'me'
 # p scramble_words('you') == 'you'
-p scramble_words('card-carrying') #== 'caac-dinrrryg'
+# p scramble_words('card-carrying') #== 'caac-dinrrryg'
 # p scramble_words("shan't") == "sahn't"
 # p scramble_words('-dcba') == '-dbca'
 # p scramble_words('dcba.') == 'dbca.'
-p scramble_words("you've gotta dance") # like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+# p scramble_words("you've gotta dance") # like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
 
 
 
