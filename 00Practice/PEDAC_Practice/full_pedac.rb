@@ -98,19 +98,30 @@ end
 def change_word(string)
   characters = string.chars
   middle_characters = get_middle_characters(characters)
-
+  alphabetized = alphabetize_middle_characters(middle_characters)
 end
 
 def get_middle_characters(characters)
-  first_alpha = characters.find { |char| ALPHABET.include?(char) }
-  first_index = characters.index(first_alpha)
+  first_index = (1...characters.size).find do |index|
+    ALPHABET.include?(characters[index])
+  end
 
-  last_alpha = characters.reverse_each.find { |char| ALPHABET.include?(char) }
-  last_index = characters.index(last_alpha)
+  last_index = (1...characters.size).find do |index|
+    ALPHABET.include?(characters[-index])
+  end
+
+  characters[first_index .. (characters.size - last_index)]
+end
+
+def alphabetize_middle_characters(array)
+  punctuation = array.each_index.select do |index|
+    %w(- ' , .).include?(array[index])
+  end
+  array.sort
 
 end
 
-p get_middle_characters(%w(1 a c b c 1))
+p alphabetize_middle_characters(%w(a c - ' , . b c))
   
 # p scramble_words('professionals') == 'paefilnoorsss'
 # p scramble_words('i') == 'i'
