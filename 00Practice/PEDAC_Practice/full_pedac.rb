@@ -1,3 +1,6 @@
+
+
+
 ### TOP THREE WORDS
 =begin
 Top Three Words
@@ -68,47 +71,41 @@ ALGORITHM
 - return in an array
 =end
 
-VALID_CHARACTERS = ('a'..'z').to_a + ["'"]
+# ALPHA_CHARACTERS = ('a'..'z').to_a
+# VALID_CHARACTERS = ALPHA_CHARACTERS + ["'"]
 
-result = ["", "e", ""].select do |word|
-  word.chars.all? { |char| VALID_CHARACTERS.include?(char) }
-end
-p VALID_CHARACTERS.include?("")
+# def top_3_words(text)
+#   words = get_words(text)
+#   counts = get_word_counts(words)
+#   get_top_3(counts)
+# end
 
-def top_3_words(text)
-  words = get_words(text)
-  # counts = get_word_counts(words)
-  # counts.keys.take(3)
-end
+# def get_words(text)
+#   all_words = text.split.map(&:downcase)
+#   clean_words = all_words.map do |word|
+#     word.chars.select { |char| VALID_CHARACTERS.include?(char) }.join
+#   end
+#   clean_words.select do |word|
+#     word.chars.any? { |char| ALPHA_CHARACTERS.include?(char) }
+#   end
+# end
 
-def get_words(text)
-  all_words = text.split.map(&:downcase)
-  clean_words = all_words.map do |word|
-    word.chars.select { |char| VALID_CHARACTERS.include?(char) }.join
-  end
-  p clean_words
-  clean_words.select do |word|
-    word.chars.all? { |char| VALID_CHARACTERS.include?(char) }
-  end
-end
+# def get_word_counts(words)
+#   words.tally.sort_by { |word, count| [count, word] }.to_h
+# end
 
-def get_word_counts(words)
-  words.tally.sort_by { |word, count| [count, word] }.to_h
-end
+# def get_top_3(hash)
+#   hash.keys.reverse.take(3)
+# end
 
 # p top_3_words("a a a b c c d d d d e e e e e") == ["e", "d", "a"]
-# p top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") #== ["e", "ddd", "aa"]
+# p top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") == ["e", "ddd", "aa"]
 # p top_3_words(" //wont won't won't ") == ["won't", "wont"]
-# p top_3_words(" , e .. ") #== ["e"]
-# p top_3_words(" ... ") #== []
+# p top_3_words(" , e .. ") == ["e"]
+# p top_3_words(" ... ") == []
 # p top_3_words(" ' ") == []
 # p top_3_words(" ''' ") == []
-# p top_3_words("""In a village of La Mancha, the name of which I have no desire to call to
-# mind, there lived not long since one of those gentlemen that keep a lance
-# in the lance-rack, an old buckler, a lean hack, and a greyhound for
-# coursing. An olla of rather more beef than mutton, a salad on most
-# nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
-# on Sundays, made away with three-quarters of his income.""") == ["a", "of", "on"]
+# p top_3_words("""In a village of La Mancha, the name of which I have no desire to call to mind, there lived not long since one of those gentlemen that keep a lance in the lance-rack, an old buckler, a lean hack, and a greyhound for coursing. An olla of rather more beef than mutton, a salad on most nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra on Sundays, made away with three-quarters of his income.""") == ["a", "of", "on"]
 
 
 
