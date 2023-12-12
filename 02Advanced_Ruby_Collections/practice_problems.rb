@@ -1,3 +1,19 @@
+### TWELVE
+
+
+
+### ELEVEN
+# def multiples(array)
+#   array.map do |subarray|
+#     subarray.select { |num| num % 3 == 0 }
+#   end
+# end
+
+# array = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+# p multiples(array) == [[], [3, 12], [9], [15]]
+
+
+
 ### TEN
 # original = [
 #   {a: 1}, 
