@@ -1,5 +1,67 @@
-### TWELVE
+### SIXTEEN
 
+
+
+
+### FIFTEEN
+# def even_hashes(array)
+#   array.select do |hash|
+#     hash.each_value.all? do |value|
+#       value.all? { |num| num.even? }
+#     end
+#   end
+# end
+
+# array = [
+#   {a: [1, 2, 3]}, 
+#   {b: [2, 4, 6], c: [3, 6], d: [4]}, 
+#   {e: [8], f: [6, 10]}
+# ]
+# p even_hashes(array)
+
+
+### FOURTEEN
+# def colors_and_sizes(hash)
+#   hash.each_value.map do |info|
+#     case info[:type]
+#     when 'fruit' then (info[:colors]).map(&:capitalize)
+#     when 'vegetable' then info[:size].upcase
+#     end
+#   end
+# end
+
+# produce = {
+#   'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+#   'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+#   'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+#   'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+#   'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+# }
+# p colors_and_sizes(produce) == [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+
+
+### THIRTEEN
+# def odd_sort(array)
+#   array.sort_by do |subarray|
+#     subarray.select { |num| num.odd? }
+#   end
+# end
+
+# array = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+# p odd_sort(array) == [[1, 8, 3], [1, 5, 9], [6, 1, 7], [1, 6, 9]]
+
+
+
+### TWELVE
+# def hashify(array)
+#   array.each_with_object({}) do |subarray, hash|
+#     hash[subarray.first] = subarray.last
+#   end
+# end
+
+# array = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+# p hashify(array) == {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
 
 
 ### ELEVEN
