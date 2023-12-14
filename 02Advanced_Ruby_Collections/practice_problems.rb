@@ -1,6 +1,15 @@
 ### SIXTEEN
+SECTIONS = [8, 4, 4, 4, 12]
+HEXADECIMALS = ('0'..'9').to_a + ('a'..'f').to_a
 
+def generate_uuid
+  SECTIONS.map.with_object('') do |section, uuid|
+    section.times { |time| uuid << HEXADECIMALS.sample }
+    uuid << '-' unless section == 12
+  end
+end
 
+p generate_uuid
 
 
 ### FIFTEEN
