@@ -1,6 +1,8 @@
-# .rubocop.yml for RB101 Lessons 6 (17 Mar 2021)
+# .rubocop.yml for RB110 Lesson 3 (06 June 2023)
 
 AllCops:
+  # Enable all new cops
+  NewCops: enable
   # Display cop names
   DisplayCopNames: true
   # Display Extra details
@@ -354,4 +356,3 @@ Style/InverseMethods:
 Style/ZeroLengthPredicate:
   Description: 'empty? instead of length == 0'
   Enabled: false
-  
