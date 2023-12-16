@@ -1,6 +1,58 @@
 
 
 
+
+
+
+
+### DETECT PANGRAM
+=begin
+A pangram is a sentence that contains every single letter of the alphabet at least once. For example, the sentence "The quick brown fox jumps over the lazy dog" is a pangram, because it uses the letters A-Z at least once (case is irrelevant).
+Given a string, detect whether or not it is a pangram. Return True if it is, False if not. Ignore numbers and punctuation.
+
+p panagram?("The quick brown fox jumps over the lazy dog.") == true
+p panagram?("This is not a pangram.") == false
+
+7:47
+PROBLEM
+input: string
+
+output: boolean
+  - true if input string is a pangram, false if not
+  - pangram:
+    - contains one of every single letter of the alphabet at least once
+    - ignore case
+    - ignore non-alphabetic characters
+    - order is irrelevant
+
+EXAMPLES
+
+DATA STRUCTURES
+input: string
+  - string of alphabet (lowercase)
+
+output: boolean
+
+ALGORITHM
+- create a string that contains alphabetic characters (lowercase)
+- iterate over alphabet
+  - check if current letter is included in input string
+  - return true if all are included, else false
+=end
+
+# def pangram?(string)
+#   alphabet = ('a'..'z').to_a
+#   alphabet.all? { |letter| string.downcase.include?(letter) }
+# end
+
+# p pangram?("The quick brown fox jumps over the lazy dog.") == true
+# p pangram?("This is not a pangram.") == false
+
+
+
+
+
+
 ### TOP THREE WORDS
 =begin
 Top Three Words
