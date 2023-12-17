@@ -3,6 +3,83 @@
 
 
 
+### KEBABIZE
+=begin
+Modify the kebabize function so that it converts a camel case string into a kebab case.
+
+kebabize('camelsHaveThreeHumps') // camels-have-three-humps
+kebabize('camelsHave3Humps') // camels-have-humps
+
+Notes: the returned string should only contain lowercase letters
+
+p kebabize('myCamelCasedString') == 'my-camel-cased-string'
+p kebabize('myCamelHas3Humps') == 'my-camel-has-humps'
+
+8:00
+PROBLEM
+input: string
+  - one word (no spaces)
+  - in camel case
+    - first subword starts lowercase
+    - all other subwords start uppercase
+    - all other characters are lowercase (or non-alphabetic)
+
+output: string
+  - contains only the alphabetic characters from the first string
+    - non-alphabetic characters are removed
+  - in kebab case
+    - all lowercase
+    - a dash between each word
+
+EXAMPLES
+
+DATA STRUCTURES
+input: string
+  - array of all uppercase alphabetic characters (to determine where to add dashes)
+  - array of all alphabetic characters (to filter out non-alphabetic characters)
+  - array of characters in input string
+    - array of only alphabetic characters # ['m', 'y', 'C', 'a', ...]
+    - array of downcased characters with dashes added # ['m', 'y', '-c', 'a', ...]
+output: string
+
+ALGORITHM
+- create an array of uppercase alphabetic characters
+- create an array of all alphabetic characters
+- remove non-alphabetic characters from input string
+  - convert input string into an array of individual characters
+  - select only characters that are included in all alpha array
+- add dashes to uppercase characters
+  - transform array by prepending a dash to uppercase characters
+- downcase all characters
+- join array into a string
+- return string
+=end
+
+# UPPERCASE_ALPHABET = ('A'..'Z').to_a
+# ALPHABET = UPPERCASE_ALPHABET + ('a'..'z').to_a
+
+# def kebabize(string)
+#   only_alpha = get_only_alpha(string)
+#   dashed = add_dashes(only_alpha)
+#   dashed.join.downcase
+# end
+
+# def get_only_alpha(string)
+#   string.chars.select { |char| ALPHABET.include?(char) }
+# end
+
+# def add_dashes(array)
+#   array.map do |char|
+#     UPPERCASE_ALPHABET.include?(char) ? char.prepend('-') : char
+#   end
+# end
+
+# p kebabize('myCamelCasedString') == 'my-camel-cased-string'
+# p kebabize('myCamelHas3Humps') == 'my-camel-has-humps'
+
+
+
+
 
 
 ### DETECT PANGRAM
