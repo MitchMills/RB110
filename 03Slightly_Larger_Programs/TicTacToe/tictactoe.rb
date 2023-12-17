@@ -17,21 +17,44 @@ def display_board(board)
   puts "     |     |     "
 end
 
-def board_dimensions
-  # pattern = [5, 1, 5, 1, 5]
-  filler = [' ', '-']
-  vertex = ['|', '*']
+board = initialize_board
+display_board(board)
 
-  empty_row = get_row()
 
-  pattern.map do |segment|
+     |     |
+     |     |
+     |     |
+-----+-----+-----
+     |     |
+     |     |
+     |     |
+-----+-----+-----
+     |     |
+     |     |
+     |     |
 
-  end
-end
 
-def get_row(type)
 
-end
+pattern = [space, line, space, line, space]
+
+empty_row_multiples = [5, 1]
+space, line = [' ', '|']
+empty_row =   "     |     |     "
+
+space = [space, mark, space]
+marked_row_multiples = [2, 1]
+space, line = [' ', '|']
+marked_row =  "  X  |  X  |  X  "
+
+line_multiples = [5, 1]
+space, line = ['-', '+']
+line =        "-----+-----+-----"
+
+column_pattern = [empty_row, marked_row, empty_row]
+
+big_row = [column, line, column, line, column]
+
+board_pattern = [big_row, line, big_row, line, big_row]
 
 
 
