@@ -56,7 +56,7 @@ def computer_turn(board)
 end
 
 def game_over?(board)
-  board_full?(board) || winner?(board)
+  winner?(board) || board_full?(board)
 end
 
 def board_full?(board)
@@ -64,7 +64,21 @@ def board_full?(board)
 end
 
 def winner?(board)
-  false
+  !!detect_winner(board)
+end
+
+def detect_winner(board)
+  winning_lines = [
+    [1, 2, 3], [4, 5, 6], [7, 8, 9],  # across
+    [1, 4, 7], [2, 5, 8], [3, 6, 9],  # down
+    [1, 5, 9], [3, 5, 7]              # diagonal
+  ]
+
+  winning_lines.each do |line|        # [1, 2, 3]
+    line.each do |square|             # 1
+      board[square] == PLAYER_1_MARK
+    end
+  end
 end
 
 
