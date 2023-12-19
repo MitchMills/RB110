@@ -11,6 +11,7 @@ def initialize_board
 end
 
 def display_board(board)
+  system 'clear'
   puts
   puts "     |     |"
   puts "  #{board[1]}  |  #{board[2]}  |  #{board[3]}  "
@@ -24,6 +25,15 @@ def display_board(board)
   puts "  #{board[7]}  |  #{board[8]}  |  #{board[9]}  "
   puts "     |     |"
   puts
+end
+
+def update_board!(player, board, choice)
+  mark = (player == 'player1') ? PLAYER_1_MARK : PLAYER_2_MARK
+  board[choice] = mark
+end
+
+def empty_squares(board)
+  board.keys.select { |square| board[square] == EMPTY_MARK }
 end
 
 def player_turn(board)
@@ -40,19 +50,33 @@ def get_player_choice(board)
   end
 end
 
-def empty_squares(board)
-  board.keys.select { |square| board[square] == EMPTY_MARK }
+def computer_turn(board)
+  choice = empty_squares(board).sample
+  update_board!('player2', board, choice)
 end
 
-def update_board!(player, board, choice)
-  mark = player == 'player1' ? PLAYER_1_MARK : PLAYER_2_MARK
-  board[choice] = mark
+def game_over?(board)
+  board_full?(board) || winner?(board)
 end
+
+def board_full?(board)
+  empty_squares(board).empty?
+end
+
+def winner?(board)
+  false
+end
+
+
 
 # board = {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>" ", 6=>"O", 7=>" ", 8=>" ", 9=>" "}
 
 board = initialize_board
+display_board(board)
 
-display_board(board)
-player_turn(board)
-display_board(board)
+loop do
+  player_turn(board)
+  computer_turn(board)
+  display_board(board)
+  break if game_over?(board)
+end
