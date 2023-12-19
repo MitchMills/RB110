@@ -1,6 +1,11 @@
 EMPTY_MARK = ' '
 PLAYER_1_MARK = 'X'
 PLAYER_2_MARK = 'O'
+WINNING_LINES = [
+    [1, 2, 3], [4, 5, 6], [7, 8, 9],  # across
+    [1, 4, 7], [2, 5, 8], [3, 6, 9],  # down
+    [1, 5, 9], [3, 5, 7]              # diagonal
+  ]
 
 def prompt(message)
   puts "=> #{message}"
@@ -28,7 +33,7 @@ def display_board(board)
 end
 
 def update_board!(player, board, choice)
-  mark = (player == 'player1') ? PLAYER_1_MARK : PLAYER_2_MARK
+  mark = (player == :player1) ? PLAYER_1_MARK : PLAYER_2_MARK
   board[choice] = mark
 end
 
@@ -36,9 +41,11 @@ def empty_squares(board)
   board.keys.select { |square| board[square] == EMPTY_MARK }
 end
 
+
+
 def player_turn(board)
   choice = get_player_choice(board)
-  update_board!('player1', board, choice)
+  update_board!(:player1, board, choice)
 end
 
 def get_player_choice(board)
@@ -52,45 +59,50 @@ end
 
 def computer_turn(board)
   choice = empty_squares(board).sample
-  update_board!('player2', board, choice)
+  update_board!(:player2, board, choice)
 end
 
-def game_over?(board)
-  winner?(board) || board_full?(board)
+
+
+def game_over?(player, board)
+  winner?(player, board) || board_full?(board)
 end
 
 def board_full?(board)
   empty_squares(board).empty?
 end
 
-def winner?(board)
-  !!detect_winner(board)
+def winner?(player, board)
+  !!detect_winner(player, board)
 end
 
-def detect_winner(board)
-  winning_lines = [
-    [1, 2, 3], [4, 5, 6], [7, 8, 9],  # across
-    [1, 4, 7], [2, 5, 8], [3, 6, 9],  # down
-    [1, 5, 9], [3, 5, 7]              # diagonal
-  ]
-
-  winning_lines.each do |line|        # [1, 2, 3]
-    line.each do |square|             # 1
-      board[square] == PLAYER_1_MARK
-    end
+def detect_winner(player, board)
+  WINNING_LINES.each do |line|
+    return player if winning_line?(player, board, line)
   end
+  nil
+end
+
+def winning_line?(player, board, line)
+  mark = player == :player1 ? PLAYER_1_MARK : PLAYER_2_MARK
+  line.all? { |square| board[square] == mark }
 end
 
 
 
-# board = {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>" ", 6=>"O", 7=>" ", 8=>" ", 9=>" "}
+# board = {1=>" ", 2=>" ", 3=>" ", 4=>" ", 5=>" ", 6=>"O", 7=>" ", 8=>" ", 9=>" "}
+
 
 board = initialize_board
 display_board(board)
 
 loop do
   player_turn(board)
+  display_board(board)
+  break if game_over?(:player1, board)
   computer_turn(board)
   display_board(board)
-  break if game_over?(board)
+  break if game_over?(:player2, board)
 end
+
+puts "bye"
