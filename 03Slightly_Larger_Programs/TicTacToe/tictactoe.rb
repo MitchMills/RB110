@@ -26,14 +26,14 @@ def display_board(board)
   puts
 end
 
-def player_turn!(board)
+def player_turn(board)
   choice = get_player_choice(board)
-  board[choice] = PLAYER_1_MARK
+  update_board!('player1', board, choice)
 end
 
 def get_player_choice(board)
   loop do
-    prompt("Choose an empty square: #{empty_squares(board).join(', ')}")
+    prompt("Choose a square: #{empty_squares(board).join(', ')}")
     choice = gets.chomp.to_i
     return choice if empty_squares(board).include?(choice)
     prompt("I'm sorry, that's not a valid choice.")
@@ -41,11 +41,18 @@ def get_player_choice(board)
 end
 
 def empty_squares(board)
-  board.keys.select { |square| board[square] == ' ' }
+  board.keys.select { |square| board[square] == EMPTY_MARK }
 end
 
-board = initialize_board
-display_board(board)
+def update_board!(player, board, choice)
+  mark = player == 'player1' ? PLAYER_1_MARK : PLAYER_2_MARK
+  board[choice] = mark
+end
 
-player_turn!(board)
+# board = {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>" ", 6=>"O", 7=>" ", 8=>" ", 9=>" "}
+
+board = initialize_board
+
+display_board(board)
+player_turn(board)
 display_board(board)
