@@ -2,6 +2,64 @@
 
 
 
+### SPIN WORDS
+=begin
+SPIN WORDS
+Write a method that takes in a string of one or more words, and returns the same string, but with all five or more letter words reversed (Just like the name of this Kata). Strings passed in will consist of only letters and spaces. Spaces will be included only when more than one word is present.
+
+Examples: spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw"
+
+p spinWords("Hey fellow warriors") == "Hey wollef sroirraw"
+p spinWords("This is a test") == "This is a test"
+p spinWords("This is another test") == "This is rehtona test"
+P spinWords(‘test’) == ‘test’
+
+9:13
+PROBLEM
+input: string
+  - contains one or more words
+  - contains only letters and spaces
+    - no puncuation, special characters, etc
+  - spaces only occur between words
+
+output: string
+  - same characters as input string
+  - words with more than 4 characters should have characters reversed
+  - words stay in same place as in input string, regardless of whether they are reversed
+  - maintain case
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual words
+  - transformed array: eligible words are reversed
+- outuput: string
+
+ALGORITHM
+- separate input string into an array of individual words
+- transform this array
+  - if word length is >= 5, reverse
+  - else, leave as is
+- join transformed array into a string
+- return the string
+=end
+
+# def spin_words(string)
+#   words = string.split
+#   words.map do |word|
+#     word.size > 4 ? word.reverse : word
+#   end.join(' ')
+# end
+
+# p spin_words("Hey fellow warriors") == "Hey wollef sroirraw"
+# p spin_words("This is a test") == "This is a test"
+# p spin_words("This is another test") == "This is rehtona test"
+# p spin_words("test") == "test"
+
+
+
+
 ### TEN MINUTE WALK
 =begin
 You live in the city of Cartesia where all roads are laid out in a perfect grid. You arrived ten minutes too early to an appointment, so you decided to take the opportunity to go for a short walk. The city provides its citizens with a Walk Generating App on their phones -- everytime you press the button it sends you an array of one-letter strings representing directions to walk (eg. ['n', 's', 'w', 'e']). You always walk only a single block in a direction and you know it takes you one minute to traverse one city block, so create a function that will return true if the walk the app gives you will take you exactly ten minutes (you don't want to be early or late!) and will, of course, return you to your starting point.
