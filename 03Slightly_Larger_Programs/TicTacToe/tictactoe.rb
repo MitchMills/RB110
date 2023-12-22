@@ -100,9 +100,11 @@ loop do
   player_turn(board)
   display_board(board)
   break if game_over?(:player1, board)
+
   computer_turn(board)
   display_board(board)
   break if game_over?(:player2, board)
+  
 end
 
 puts "bye"
