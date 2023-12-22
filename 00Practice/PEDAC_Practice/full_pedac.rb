@@ -2,6 +2,62 @@
 
 
 
+### EXPANDED NUMBERS
+=begin
+EXPANDED NUMBER
+You will be given a number and you will need to return it as a string in Expanded Form.
+
+For example:
+expanded_form(12); # Should return '10 + 2'
+expanded_form(42); # Should return '40 + 2'
+expanded_form(70304); # Should return '70000 + 300 + 4'
+
+NOTE: All numbers will be whole numbers greater than 0.
+
+2:56
+PROBLEM
+input: integer
+  - whole number
+  - greater than 0 / positive
+
+output: string
+  - set of numbers that added together equal input integer
+    - 1s place, 10s place, etc
+    - in order from largest place to smallest place
+
+EXAMPLES
+
+DATA STRUCTURES
+input: integer # 70304
+  - integer converted to array of individual digits # [7, 0 ,3, 0, 4]
+  - transform
+    - digit * 10**(length - index - 1) [70000, 0, 300, 0, 4]
+  - select elements greater than 0, convert to string # [70000, 300, 4]
+outuput: string
+
+ALGORITHM
+- convert input integer into an array of digits
+- transform the array into component numbers
+  - digit * 10**(length - index - 1)
+- select elements greater than 0
+- convert into a string joined by '+'
+=end
+
+# def expanded_form(integer)
+#   digits = integer.digits.reverse
+#   expanded = digits.map.with_index do |digit, index|
+#     digit * 10**(digits.size - index - 1)
+#   end
+#   expanded.select { |element| element > 0 }.join(' + ')
+# end
+
+# p expanded_form(12) == '10 + 2'
+# p expanded_form(42) == '40 + 2'
+# p expanded_form(70304) == '70000 + 300 + 4'
+
+
+
+
 ### SPIN WORDS
 =begin
 SPIN WORDS
