@@ -1,11 +1,19 @@
 EMPTY_MARK = ' '
-PLAYER_1_MARK = 'X'
-PLAYER_2_MARK = 'O'
+PLAYER_MARK = 'X'
+COMPUTER_MARK = 'O'
+
+ALL_SQUARES = (1..9).to_a
+CORNER_SQUARES = [1, 3, 7, 9]
+CENTER_SQUARE = [5]
+
+MAX_GAMES = 5
 WINNING_LINES = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9],  # across
     [1, 4, 7], [2, 5, 8], [3, 6, 9],  # down
     [1, 5, 9], [3, 5, 7]              # diagonal
   ]
+
+  
 
 def prompt(message)
   puts "=> #{message}"
@@ -33,7 +41,7 @@ def display_board(board)
 end
 
 def update_board!(player, board, choice)
-  mark = (player == :player1) ? PLAYER_1_MARK : PLAYER_2_MARK
+  mark = (player == :player1) ? PLAYER_MARK : COMPUTER_MARK
   board[choice] = mark
 end
 
@@ -84,7 +92,7 @@ def detect_winner(player, board)
 end
 
 def winning_line?(player, board, line)
-  mark = player == :player1 ? PLAYER_1_MARK : PLAYER_2_MARK
+  mark = player == :player1 ? PLAYER_MARK : COMPUTER_MARK
   line.all? { |square| board[square] == mark }
 end
 
