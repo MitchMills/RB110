@@ -2,6 +2,71 @@
 
 
 
+### PERSISTANCE
+=begin
+PERSISTANCE
+Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence, which is the number of times you must multiply the digits in num until you reach a single digit.
+For example:
+persistence(39) # returns 3, because 3*9=27, 2*7=14, 1*4=4 # and 4 has only one digit
+persistence(999) # returns 4, because 9*9*9=729, 7*2*9=126, # 1*2*6=12, and finally 1*2=2
+persistence(4) # returns 0, because 4 is already a one-digit number
+
+7:17
+PROBLEM
+input: integer
+  - positive
+
+output: integer
+  - represents number of times to multiply individual digits with each other to reach a single digit number as the product
+  - return 0 if input integer is already a single digit number
+
+EXAMPLES
+
+DATA STRUCTURES
+input: integer
+  - counter to keep track of number of multiplications
+  - array of individual integers
+  - product of that array
+  - size of array
+outuput: integer
+  - counter
+
+ALGORITHM
+- set a counter to 0
+- set current_num to input integer
+- get the product of individual digits
+  - separate current_num into an array of individual digits
+  - if size = 1, return counter
+  - else get product
+  - set current_num to equal product
+  - increment counter by 1
+  - repeat
+- return counter
+=end
+
+# def persistence(number)
+#   counter = 0
+#   current_num = number
+
+#   loop do
+#     digits = current_num.digits
+#     break if digits.size == 1
+#     product = digits.inject(:*)
+#     current_num = product
+#     counter += 1
+#   end
+#   counter
+# end
+
+# p persistence(39) == 3
+# p persistence(4) == 0
+# p persistence(25) == 2
+# p persistence(999) == 4
+
+
+
+
+
 ### EXPANDED NUMBERS
 =begin
 EXPANDED NUMBER
