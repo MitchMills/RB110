@@ -116,3 +116,22 @@ loop do
 end
 
 puts "bye"
+
+
+
+
+def tic_tac_toe
+  intro
+  play_match
+  outro
+end
+
+def play_match
+  play_one_game
+  match_over?
+end
+
+def play_one_game
+  add_mark
+  game_over?
+end
