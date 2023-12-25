@@ -122,16 +122,24 @@ puts "bye"
 
 def tic_tac_toe
   intro
-  play_match
+  loop do
+    play_match
+    break unless another_match?
+  end
   outro
 end
 
 def play_match
-  play_one_game
-  match_over?
+  loop do
+    play_one_game
+    update_scores
+    break if match_over?
+  end
 end
 
 def play_one_game
-  add_mark
-  game_over?
+  loop do
+    add_mark
+    break if game_over?
+  end
 end
