@@ -1,4 +1,59 @@
+### TITLE CASE
+=begin
+TITLE CASE
+A string is considered to be in title case if each word in the string is either (a) capitalised (that is, only the first letter of the word is in upper case) or (b) considered to be an exception and put entirely into lower case unless it is the first word, which is always capitalised.
 
+Write a function that will convert a string into title case, given an optional list of exceptions (minor words). The list of minor words will be given as a string with each word separated by a space. Your function should ignore the case of the minor words string -- it should behave in the same way even if the case of the minor word string is changed.
+
+8:36
+PROBLEM
+input: one or two strings
+  - first string: to be converted
+  - second string (optional): exception words
+    - both contain words separated by spaces
+    - both may contain mix of upper and lowercase letters
+  
+output: string
+  - same words as first input string, but in title case
+  - title case:
+    - every word has first letter uppercase and rest of word lowercase
+    - UNLESS: word is in exception list AND is not first word
+      - then all lowercase
+  - if no exception list, put every word in title case
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two strings
+  - array of each word: ['a', 'clash', 'of', 'KINGS']
+  - transformed array: ['A', 'Clash', 'of', 'Kings']
+- output: string
+
+ALGORITHM
+- get an array of individual words from each input string
+  - if no second input string, create an empty array (default parameter)
+- transform each word in first array
+  - put first word in title case
+  - iterate over the rest of the words:
+    - if word is included in second array, downcase
+    - else title case
+- join first array into a string
+- return the string
+=end
+
+# def title_case(title, exceptions = '')
+#   words = title.split.map(&:capitalize)
+#   minor_words = exceptions.split.map(&:capitalize)
+#   words.map! do |word|
+#     minor_words.include?(word) ? word.downcase : word
+#   end
+#   words[0].capitalize!
+#   words.join(' ')
+# end
+
+# p title_case('a clash of KINGS', 'a an the of') == 'A Clash of Kings'
+# p title_case('THE WIND IN THE WILLOWS', 'The In') == 'The Wind in the Willows'
+# p title_case('the quick brown fox') == 'The Quick Brown Fox'
 
 
 
