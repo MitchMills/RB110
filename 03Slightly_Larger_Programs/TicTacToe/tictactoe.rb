@@ -140,6 +140,7 @@ end
 def play_one_game
   loop do
     add_mark
+    display_board
     break if game_over?
   end
 end
