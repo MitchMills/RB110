@@ -135,6 +135,7 @@ def play_match
     update_scores
     break if match_over?
   end
+  display_match_result
 end
 
 def play_one_game
@@ -143,4 +144,5 @@ def play_one_game
     display_board
     break if game_over?
   end
+  display_game_result
 end
