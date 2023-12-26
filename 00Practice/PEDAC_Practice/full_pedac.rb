@@ -1,3 +1,101 @@
+
+
+
+### OCCURRENCES
+=begin
+OCCURRENCES
+Write a method that takes a string as an argument and groups the number of times each character appears in the string as a hash sorted by the highest number of occurrences.
+
+The characters should be sorted alphabetically e.g:
+get_char_count("cba") => {1=>["a", "b", "c"]}
+
+You should ignore spaces, special characters and count uppercase letters as lowercase ones.
+
+9:01
+PROBLEM
+input: string
+  - contains upper and lowercase letters
+  - can contain spaces and non-letter characters
+
+output: hash
+  - keys are integers
+    - number of times the characters in the values array occur
+    - sorted from highest to lowest
+  - values are arrays
+    - each array contains the characters that occur that number of times
+      - each element is a single-character string
+      - elements should be in alphabetical order
+      - uppercase letters are counted as lowercase
+      - numbers come before letters
+      - ignore spaces and non-alphanumeric characters
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of downcased individual characters from string
+  - array of only the alpha-numeric characters from that array
+    - create an array of all alpha and numeric characters to use for selection
+  - separate arrays of characters with the same count
+- output: hash
+
+ALGORITHM
+- downcase string and separate into an array of individual characters
+- select only the characters that are alpha or numeric
+- create a hash with the count of each character as keys, characters with that count as values in an array
+  - iterate over the array of characters
+    - if the count of a character already exists as a key
+      - add that character to the array
+    - else create a key value pair for that count and character
+  - sort each array alphabetically
+- sort the hash by keys
+- return the hash
+=end
+
+# ALPHANUMERICS = ('0'..'9').to_a + ('a'..'z').to_a
+
+# def get_char_count(string)
+#   characters = string.downcase.chars
+#   letters = characters.select { |char| ALPHANUMERICS.include?(char) }
+  
+#   counts = {}
+#   letters.each do |letter|
+#     count = letters.count(letter)
+#     if counts[count]
+#       counts[count] << letter unless counts[count].include?(letter)
+#     else
+#       counts[count] = [letter]
+#     end
+#   end
+#   sorted_values = counts.each_value { |value| value.sort! }
+#   sorted_values.sort { |a, b| b <=> a }.to_h
+# end
+###
+
+# def get_char_count(string)
+#   characters = string.downcase.chars
+#   letters = characters.select { |char| ALPHANUMERICS.include?(char) }
+#   uniques = letters.uniq
+  
+#   counts = {}
+#   uniques.each do |letter|
+#     count = letters.count(letter)
+#     counts[count] ? counts[count] << letter : counts[count] = [letter]
+#   end
+#   sorted_values = counts.each_value { |value| value.sort! }
+#   sorted_values.sort { |a, b| b <=> a }.to_h
+# end
+###
+
+# p get_char_count("Mississippi") == {4=>["i", "s"], 2=>["p"], 1=>["m"]}
+# p get_char_count("Hello. Hello? HELLO!!") == {6=>["l"], 3=>["e", "h", "o"]}
+# p get_char_count("aaa...bb...c!") == {3=>["a"], 2=>["b"], 1=>["c"]}
+# p get_char_count("aaabbbccc") == {3=>["a", "b", "c"]}
+# p get_char_count("abc123") == {1=>["1", "2", "3", "a", "b", "c"]}
+
+
+
+
 ### TITLE CASE
 =begin
 TITLE CASE
