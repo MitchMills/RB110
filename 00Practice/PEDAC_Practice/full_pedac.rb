@@ -1,17 +1,62 @@
+
+
+
+
+
 ### FIND THE MINE
 =begin
 FIND THE MINE
 You've just discovered a square (NxN) field and you notice a warning sign. The sign states that there's a single bomb in the 2D grid-like field in front of you.
 
 Write a function that accepts a 2D array, and returns the location of the mine. The mine is represented as the integer 1 in the 2D array. Areas in the 2D array that are not the mine will be represented as 0s. The location returned should be an array (Tuple<int, int> in C#) where the first element is the row index, and the second element is the column index of the bomb location (both should be 0 based). All 2D arrays passed into your function will be square (NxN), and there will only be one mine in the array.
+
+7:05
+PROBLEM
+input: nested array
+  - square: outer array has same number of elements as each inner array
+  - each inner array contains 0s and maybe a 1
+    - only a single 1 is in one of the inner arrays
+    - all other inner array elements are 0s
+
+output: array
+  - first element is which inner array contains the 1
+  - second element is which element of that inner array is the 1
+
+EXAMPLES
+
+DATA STRUCTURES
+input: nested array
+  
+output: array
+
+ALGORITHM
+- find which inner array contains the 1
+  - iterate over each element in the outer array
+    - get the index of the element that includes a 1
+- find which element of that inner array contains the 1
+  - iterate over each element in the inner array
+    - get the index of the 1
+- return the index of each in an array
 =end
 
-p mine_location( [ [1, 0, 0], [0, 0, 0], [0, 0, 0] ] ) == [0, 0]
-p mine_location( [ [0, 0, 0], [0, 1, 0], [0, 0, 0] ] ) == [1, 1]
-p mine_location( [ [0, 0, 0], [0, 0, 0], [0, 1, 0] ] ) == [2, 1]
-p mine_location([ [1, 0], [0, 0] ]) == [0, 0]
-p mine_location([ [1, 0, 0], [0, 0, 0], [0, 0, 0] ]) == [0, 0]
-p mine_location([ [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0] ]) == [2, 2]
+# def mine_location(outer_array)
+#   outer_index = find_index(outer_array)
+#   inner_index = find_index(outer_array[outer_index])
+#   [outer_index, inner_index]
+# end
+
+# def find_index(array)
+#   array.each_with_index do |element, index|
+#     return index if [element].flatten.include?(1)    
+#   end
+# end
+
+# p mine_location( [ [1, 0, 0], [0, 0, 0], [0, 0, 0] ] ) == [0, 0]
+# p mine_location( [ [0, 0, 0], [0, 1, 0], [0, 0, 0] ] ) == [1, 1]
+# p mine_location( [ [0, 0, 0], [0, 0, 0], [0, 1, 0] ] ) == [2, 1]
+# p mine_location([ [1, 0], [0, 0] ]) == [0, 0]
+# p mine_location([ [1, 0, 0], [0, 0, 0], [0, 0, 0] ]) == [0, 0]
+# p mine_location([ [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0] ]) == [2, 2]
 
 
 
