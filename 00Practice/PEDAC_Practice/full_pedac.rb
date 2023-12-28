@@ -50,6 +50,26 @@ ALGORITHM
 #     return index if [element].flatten.include?(1)    
 #   end
 # end
+###
+
+# def mine_location(outer_array)
+#   last_index = outer_array.size - 1
+#   (0..last_index).each do |outer_index|
+#     (0..last_index).each do |inner_index|
+#       current_number = outer_array[outer_index][inner_index]
+#       return [outer_index, inner_index] if current_number == 1
+#     end
+#   end
+# end
+###
+
+# def mine_location(outer_array)
+#   outer_array.each_with_index do |inner_array, outer_index|
+#     inner_array.each_with_index do |number, inner_index|
+#       return [outer_index, inner_index] if number == 1
+#     end
+#   end
+# end
 
 # p mine_location( [ [1, 0, 0], [0, 0, 0], [0, 0, 0] ] ) == [0, 0]
 # p mine_location( [ [0, 0, 0], [0, 1, 0], [0, 0, 0] ] ) == [1, 1]
