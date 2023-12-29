@@ -1,6 +1,54 @@
 
 
 
+### SCRAMBLIES
+=begin
+SCRAMBLIES
+Complete the function scramble(str1, str2) that returns true if a portion of str1 characters can be rearranged to match str2, otherwise returns false.
+Notes: Only lower case letters will be used (a-z). No punctuation or digits will be included.
+
+8:02
+PROBLEM
+input: two strings
+  - contain only lowercase letters
+    - no punctuation or digits
+
+output: boolean
+  - true if second string can be created from (some) characters in second string
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+input: two strings
+  - array of each character in second string
+output: boolean
+
+ALGORITHM
+- remove characters from first string that don't occur in second string
+- sort both strings
+- create hashes with count of each character in each string
+- compare the two hashes
+  - if first string hash has same or greater counts as second string hash, return true
+=end
+
+# def scramble(string1, string2)
+#   letters = string1.chars.select { |char| string2.include?(char) }
+#   hash1 = letters.sort.tally
+#   hash2 = string2.chars.sort.tally
+
+#   return false unless hash2.keys.all? { |key| hash1.include?(key) }
+#   hash1.all? { |letter, count| hash1[letter] >= hash2[letter] }
+# end
+
+# p scramble('rkqodlw', 'world') == true
+# p scramble('cedewaraaossoqqyt', 'codewars') == true
+# p scramble('katas', 'steak') == false
+# p scramble('scriptjava', 'javascript') == true
+# p scramble('scriptjave', 'javascript') == false
+# p scramble('scriptingjava', 'javascript') == true
+
+
 
 
 ### FIND THE MINE
