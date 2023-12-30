@@ -1,3 +1,90 @@
+### LONGEST SUBSTRING
+=begin
+LONGEST SUBSTRING
+Find the longest substring in alphabetical order. The input will only consist of lowercase characters and will be at least one letter long. If there are multiple solutions, return the one that appears first.
+
+7:41
+PROBLEM
+input: string
+  - contains only lowercase letter characters
+  - at least 1 character in length
+
+outuput: string
+  - longest substring from input string that is in alphabetical order
+  - if multiple substrings, return one that occurs first
+  - substring can be entire input string
+  - will be at least 1 character in length
+  - repetitions of the same letter count
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of all possible substrings
+    - starting at each index: 0 up to (string length - 1)
+    - all possible sizes from that index (string length - current index)
+  - array of only alphabetical substrings
+    - select those that remain the same when sorted
+  - first longest string
+- output: string
+
+ALGORITHM
+- get all possible substrings
+  - iterate over input string
+    - start at index 0, up to last index (string length - 1)
+      - start at length 1, up to maximum length from that index (sting length - current index)
+- get only alphabetical substrings
+  - select substrings that are the same after begin sorted alphabetically
+- get first longest alphabetical substring
+  - find the length of longest substring(s)
+  - find the first occurence of a substring of that length
+- return that substring
+=end
+
+
+# def longest(string)
+#   substrings = get_all_substrings(string)
+#   alpha_substrings = get_alpha_substrings(substrings)
+#   max_length = get_max_length(alpha_substrings)
+#   get_first_longest(alpha_substrings, max_length)
+# end
+
+# def get_first_longest(substrings, longest)
+#   substrings.each do |substring|
+#     return substring if substring.size == longest
+#   end
+# end
+
+# def get_max_length(array)
+#   array.sort_by { |string| string.size }.last.size
+# end
+
+# def get_alpha_substrings(substrings)
+#   substrings.select do |substring|
+#     substring.chars.sort == substring.chars
+#   end.uniq
+# end
+
+# def get_all_substrings(string)
+#   substrings = []
+#   max_index = string.size - 1
+#   (0..max_index).each do |current_index|
+#     max_length = string.size - current_index
+#     (1..max_length).each do |current_length|
+#       substrings << string[current_index, current_length]
+#     end
+#   end
+#   substrings
+# end
+
+# p longest('asd') == 'as'
+# p longest('nab') == 'ab'
+# p longest('abcdeapbcdef') == 'abcde'
+# p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+# p longest('asdfbyfgiklag') =='fgikl'
+# p longest('z') == 'z'
+# p longest('zyba') == 'z'
+
 
 
 
