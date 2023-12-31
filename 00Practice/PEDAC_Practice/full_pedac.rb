@@ -1,3 +1,67 @@
+
+
+
+### PETE THE BAKER
+=begin
+Pete likes to bake some cakes. He has some recipes and ingredients. Unfortunately he is not good in maths. Can you help him to find out, how many cakes he could bake considering his recipes? Write a function cakes(), which takes the recipe (object) and the available ingredients (also an object) and returns the maximum number of cakes Pete can bake (integer). For simplicity there are no units for the amounts (e.g. 1 lb of flour or 200 g of sugar are simply 1 or 200). Ingredients that are not present in the objects, can be considered as 0.
+Examples:ß
+// must return 2
+cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200});
+// must return 0
+cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000});
+
+8:27
+PROBLEM
+input: two hashes
+  - first hash is recipe
+  - second hash is available ingredients
+  - keys are ingredients, values are amounts
+  - hash can be empty
+output: integer
+  - maximum number of times recipe can be made given available ingredients
+  - no units
+  - if an ingredient is not present in a hash, its amount is 0
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: hashes
+  - array of integers: divide available ingredients by recipe ingredients (integer division)
+  - output integer is smallest number from array
+- output: integer
+=end
+
+# def cakes(recipe, stock)
+#   results = []
+#   recipe.each do |ingredient, amount|
+#     result = stock[ingredient] ? stock[ingredient] / amount : 0
+#     results << result
+#   end
+#   results.min
+# end
+
+# def cakes(recipe, stock)
+#   recipe.map do |ingredient, amount|
+#     stock[ingredient] ? stock[ingredient] / amount : 0
+#   end.min
+# end
+
+# p cakes({"flour"=>500, "sugar"=>200, "eggs"=>1},
+# {"flour"=>1200, "sugar"=>1200, "eggs"=>5, "milk"=>200}) == 2
+# p cakes({"cream"=>200, "flour"=>300, "sugar"=>150, "milk"=>100, "oil"=>100},
+# {"sugar"=>1700, "flour"=>20000, "milk"=>20000, "oil"=>30000, "cream"=>5000}) == 11
+# p cakes({"apples"=>3, "flour"=>300, "sugar"=>150, "milk"=>100, "oil"=>100},
+# {"sugar"=>500, "flour"=>2000, "milk"=>2000}) == 0
+# p cakes({"apples"=>3, "flour"=>300, "sugar"=>150, "milk"=>100, "oil"=>100},
+# {"sugar"=>500, "flour"=>2000, "milk"=>2000, "apples"=>15, "oil"=>20}) == 0
+# p cakes({"eggs"=>4, "flour"=>400},{}) == 0
+# p cakes({"cream"=>1, "flour"=>3, "sugar"=>1, "milk"=>1, "oil"=>1, "eggs"=>1},
+# {"sugar"=>1, "eggs"=>1, "flour"=>3, "cream"=>1, "oil"=>1, "milk"=>1}) == 1
+
+
+
+
+
 ### LONGEST SUBSTRING
 =begin
 LONGEST SUBSTRING
