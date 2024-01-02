@@ -1,3 +1,64 @@
+
+
+### EXPONENTS
+=begin
+EXPONENTS
+Create a method called "power" that takes two integers and returns the value of the first argument raised to the power of the second. Return nil if the second argument is negative.
+
+Note: The ** operator has been disabled.
+
+
+PROBLEM
+input: two integers
+  - can be positive or negative or 0
+
+outuput: integer or nil
+  - if second input integer is negative, return nil
+  - otherwise return value of first integer raised to power of second
+  - if second integer is 0, return value should be 1
+  - if first integer is negative, return value will be negative if second integer is odd, positive if even
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two integers
+  - guard clause(s)?: if second integer is negative or 0
+  - array containing first integer the number of times of second integer
+- output: integer
+
+ALGORITHM
+- return nil if second integer is less than 0
+- return 1 if second integer is 0
+- create an array
+  - size is second integer
+  - each element is first integer
+- multiply all elements in array
+- return the product
+=end
+
+# def power(num1, num2)
+#   return nil if num2 < 0
+#   Array.new(num2, num1).inject(:*) || 1
+# end
+
+# def power(num1, num2)
+#   return nil if num2 < 0
+#   result = 1
+#   num2.times { result *= num1 }
+#   result
+# end
+
+# p power(2, 3) == 8
+# p power(10, 0) == 1
+# p power(-5, 3) == -125
+# p power(-4, 2) == 16
+# p power(3, 2) == 9
+# p power(-5, 3) == -125
+# p power(-4, 2) == 16
+# p power(8, -2) == nil
+
+
+
 ### MEAN SQUARE ERROR
 =begin
 Complete the function that accepts two integer arrays of equal length compares the value each member in one array to the corresponding member in the other squares the absolute value difference between those two values and returns the average of those squared absolute value difference between each member pair.
