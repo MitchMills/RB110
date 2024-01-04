@@ -1,14 +1,54 @@
+
+
+
 ### STRING PAIRS
 =begin
 STRING PAIRS
 Complete the solution so that it splits the string into pairs of two characters. If the string contains an odd number of characters then it should replace the missing second character of the final pair with an underscore ('_').
+
+2:20
+PROBLEM
+input: string
+  - can be empty
+output: array
+  - if input string is empty, return empty array
+  - contains strings
+    - each string contains two characters from input string
+      - strings are in order of input string
+      - if input string length is odd, last pair will end with an underscore
+    - array length is (input string length + 1)/ 2
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - empty array to contain pairs
+  - range from 0 up to string length # 'abc' => (0..2)
+- output: array
+
+ALGORITHM
+- get pairs
+  - get substrings 
+    - start at every other index, starting at first index
+      - start at index 0, then index 2 . . .
+      - length is always 2
+    - if substring is only one character, add underscore
+   - add each substring to empty array
+   - return the array
 =end
 
-p solution('abc') == ['ab', 'c_']
-p solution('abcdef') == ['ab', 'cd', 'ef']
-p solution("abcdef") == ["ab", "cd", "ef"]
-p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
-p solution("") == []
+# def solution(string)
+#   indexes = (0...string.size).step(2).to_a
+#   indexes.map do |index|
+#     pair = string[index, 2]
+#     pair.size < 2 ? pair + '_' : pair
+#   end
+# end
+
+# p solution('abc') == ['ab', 'c_']
+# p solution('abcdef') == ['ab', 'cd', 'ef']
+# p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
+# p solution("") == []
 
 
 
