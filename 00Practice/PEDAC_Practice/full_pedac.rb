@@ -1,6 +1,80 @@
 
 
 
+
+### ANAGRAM DIFFERENCE
+=begin
+ANAGRAM DIFFERENCE
+Given two words, how many letters do you have to remove from them to make them anagrams?
+Example
+First word : c od e w ar s (4 letters removed)
+Second word : ha c k er r a nk (6 letters removed)
+Result : 10
+Hints
+A word is an anagram of another word if they have the same letters (usually in a different order). Do not worry about case. All inputs will be lowercase.
+
+6:56
+PROBLEM
+input: two strings
+  - can be empty
+  - if not empty, contains only lowercase alpha characters
+
+output: integer
+  - number of letters that must be removed from either or both strings to make them anagrams
+  - anagram:
+    - same letters (type and count)
+    - can be in same or different order
+  - two empty strings are considered anagrams of each other
+  - if two strings contain no letters in common, all letters must be removed
+
+EXAMPLES
+
+DATA STRUCTURES
+input: two strings
+  - array of each character in shorter string # %w(c o d e w a r s)
+  - array with characters that don't appear in longer string removed #  %w(c e a r)
+  - differences in lengths # 8 - 4 = 4; 10 - 4 = 6
+output: integer (sum of length differences)
+
+ALGORITHM
+- determine which input string is shorter
+  - sort by length
+  - if same length, use first string
+- remove non-common characters from shorter string
+  - iterate over array of characters in shorter string
+    - select only characters that are included in longer string
+- get number of common characters in shorter string
+- get differences
+  - each string's length - number of common characters
+- add differences and return that number
+=end
+
+# def anagram_difference(string1, string2)
+#   shorter, longer = find_shorter_string(string1, string2)
+#   common_characters = find_common_characters(shorter, longer)
+#   removed = common_characters.size * 2
+#   (string1+ string2).size - removed
+# end
+
+# def find_shorter_string(string1, string2)
+#   [string1, string2].sort_by(&:size)
+# end
+
+# def find_common_characters(shorter, longer)
+#   shorter.chars.select { |char| longer.include?(char) }
+# end
+
+# p anagram_difference('', '') == 0
+# p anagram_difference('a', '') == 1
+# p anagram_difference('ab', 'a') == 1
+# p anagram_difference('ab', 'ba') == 0
+# p anagram_difference('ab', 'cd') == 4
+# p anagram_difference('aab', 'a') == 2
+# p anagram_difference('codewars', 'hackerrank') == 10
+
+
+
+
 ### STRING PAIRS
 =begin
 STRING PAIRS
@@ -39,16 +113,30 @@ ALGORITHM
 
 # def solution(string)
 #   indexes = (0...string.size).step(2).to_a
+#   p indexes
 #   indexes.map do |index|
 #     pair = string[index, 2]
 #     pair.size < 2 ? pair + '_' : pair
 #   end
 # end
 
+# def solution(string)
+#   index = 0
+#   pairs = []
+#   return [] if string.size == 0
+#   loop do
+#     pairs << string[index, 2]
+#     index += 2
+#     break if index >= string.size
+#   end
+#   pairs[-1] += '_' if pairs[-1].size < 2
+#   pairs
+# end
+
 # p solution('abc') == ['ab', 'c_']
-# p solution('abcdef') == ['ab', 'cd', 'ef']
+# p solution('abcdef') #== ['ab', 'cd', 'ef']
 # p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
-# p solution("") == []
+# p solution("") #== []
 
 
 
