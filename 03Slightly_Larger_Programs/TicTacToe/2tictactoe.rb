@@ -20,16 +20,16 @@ end
 
 # board display methods
 def display_board(board)
-  row(%w(1 2 3), board)
-  row(%w(4 5 6), board)
-  row(%w(7 8 9), board)
+  row([1, 2, 3], board)
+  row([4, 5, 6], board)
+  row([7, 8, 9], board)
 end
 
 def row(spaces, board)
   empty_line
   marked_line(spaces, board)
   empty_line
-  horizontal_line unless spaces.first.to_i > 6
+  horizontal_line unless spaces.first > 6
 end
 
 def empty_line
@@ -57,9 +57,9 @@ end
 # win?
 # outro
 
-# board = new_board
+board = new_board
 # p new_board
 
-board = {"1"=>"X", "2"=>"O", "3"=>" ", "4"=>" ", "5"=>" ", "6"=>" ", "7"=>" ", "8"=>"X", "9"=>" "}
+# board = {1=>"X", 2=>" ", 3=>" ", 4=>" ", 5=>" ", 6=>"O", 7=>" ", 8=>"X", 9=>" "}
 display_board(board)
 
