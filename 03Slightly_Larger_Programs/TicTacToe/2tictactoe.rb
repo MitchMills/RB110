@@ -20,25 +20,36 @@ end
 
 # board display methods
 def display_board(board)
-  row([1, 2, 3], board)
-  row([4, 5, 6], board)
-  row([7, 8, 9], board)
+  row(0, board)
+  row(1, board)
+  row(2, board)
 end
 
-def row(spaces, board)
+def row(row_number, board)
   empty_line
-  marked_line(spaces, board)
-  empty_line
-  horizontal_line unless spaces.first > 6
+  marked_line(row_number, board)
+  numbered_line(row_number, board)
+  horizontal_line unless row_number == 2
 end
 
 def empty_line
   puts "     |     |"
 end
 
-def marked_line(spaces, board)
-  marks = spaces.map { |space| board[space] }
+def marked_line(row_number, board)
+  marks = (1..3).map do |num|
+    square = num + (3 * row_number)
+    board[square]
+  end
   puts "  #{marks[0]}  |  #{marks[1]}  |  #{marks[2]}"
+end
+
+def numbered_line(row_number, board)
+  numbers = (1..3).map do |num|
+    square = num + (3 * row_number)
+    empty_squares(board).include?(square) ? square : ' '
+  end
+  puts "    #{numbers[0]}|    #{numbers[1]}|    #{numbers[2]}"
 end
 
 def horizontal_line
@@ -57,9 +68,7 @@ end
 # win?
 # outro
 
-board = new_board
-# p new_board
-
-# board = {1=>"X", 2=>" ", 3=>" ", 4=>" ", 5=>" ", 6=>"O", 7=>" ", 8=>"X", 9=>" "}
+# board = new_board
+board = {1=>"X", 2=>" ", 3=>" ", 4=>" ", 5=>" ", 6=>"O", 7=>" ", 8=>"X", 9=>" "}
 display_board(board)
 
