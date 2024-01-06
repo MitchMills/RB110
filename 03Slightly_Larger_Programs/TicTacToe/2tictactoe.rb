@@ -21,10 +21,6 @@ end
 # board display methods
 def display_board(board)
   (0..2).each { |row_number| row(row_number, board)}
-
-  # row(0, board)
-  # row(1, board)
-  # row(2, board)
 end
 
 def row(row_number, board)

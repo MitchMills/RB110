@@ -21,10 +21,29 @@ BOARD_ELEMENTS = {
 
 def subline(line_type, square_num)
   pattern = BOARD_ELEMENTS[line_type][:pattern]
-  subline = pattern.each_with_object('') do |type, string|
-    string << BOARD_ELEMENTS[line_type][type]
-  end
+  subline = pattern.map do |type|
+    BOARD_ELEMENTS[line_type][type]
+  end.join
   square_num % 3 == 0 ? subline : subline << BOARD_ELEMENTS[line_type][:limit]
+end
+
+def full_line(line_type)
+  (1..3).map { |square_number| subline(line_type, square_number) }.join
+end
+
+def row(row_number)
+  row = [:empty, :marked, :numbered].map do |line_type|
+    full_line(line_type)
+  end
+  row_number == 2 ? row : row << full_line(:lined)
+end
+
+def display_row(row_number)
+  row(row_number).each { |line| puts line }
+end
+
+def display_board
+  (0..2).each { |row_number| display_row(row_number) }
 end
 
 # game setup methods
@@ -32,9 +51,7 @@ def new_board
   ALL_SQUARES.map { |square| [square, EMPTY_MARK] }.to_h
 end
 
-p subline(:empty, 2)
-p subline(:marked, 2)
-p subline(:numbered, 2)
-p subline(:lined, 2)
+display_board
+#TODO: get board information into display methods (mark, square number)
 
 
