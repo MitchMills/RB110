@@ -2,6 +2,62 @@
 
 
 
+
+### ANAGRAM DETECTION
+=begin
+ANAGRAM DETECTION
+An anagram is the result of rearranging the letters of a word to produce a new word.
+Note: anagrams are case insensitive
+Complete the function to return true if the two arguments given are anagrams of each other; return false otherwise.
+Examples
+"foefet" is an anagram of "toffee"
+"Buckethead" is an anagram of "DeathCubeK"
+
+7:41
+PROBLEM
+input: two strings
+  - contain upper and lowercase letters
+
+output: boolean
+  - true if input strings are anagrams of each other, false otherwise
+  - anagram means all the same letters in same amounts as each other
+    - case insensitive
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: strings
+  - array of individual characters in each string
+    - downcased
+    - sorted
+    - compared
+- output: boolean
+
+ALGORITHM
+- get individual characters from each string
+  - create two arrays
+- downcase and sort characters
+- compare them
+  - return true if they are equal, false otherwise
+=end
+
+# def is_anagram?(string1, string2)
+#   letters1 = string1.downcase.chars.sort
+#   letters2 = string2.downcase.chars.sort
+#   letters1 == letters2
+# end
+
+# p is_anagram?('Creative', 'Reactive') == true
+# p is_anagram?("foefet", "toffee") == true
+# p is_anagram?("Buckethead", "DeathCubeK") == true
+# p is_anagram?("Twoo", "WooT") == true
+# p is_anagram?("dumble", "bumble") == false
+# p is_anagram?("ound", "round") == false
+# p is_anagram?("apple", "pale") == false
+
+
+
+
 ### ANAGRAM DIFFERENCE
 =begin
 ANAGRAM DIFFERENCE
