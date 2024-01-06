@@ -13,18 +13,18 @@ WINNING_LINES = [
 ]
 
 BOARD_ELEMENTS = {
-  empty:    {fill: '12', mark: 'X', limit: '|'},
-  marked:   ['fill', 'mark', 'fill', 'limit'],
-  numbered: ['fill', 'fill', 'mark', 'limit'],
-  line:     ['fill', 'mark', 'fill', 'limit']
+  empty:    {pattern: [:fill, :mark, :fill], fill: 'ee', mark: 'x', limit: '|'},
+  marked:   {pattern: [:fill, :mark, :fill], fill: 'mm', mark: 'X', limit: '|'},
+  numbered: {pattern: [:fill, :fill, :mark], fill: 'nn', mark: '#', limit: '|'},
+  lined:     {pattern: [:fill, :mark, :fill], fill: '--', mark: '-', limit: '+'}
 }
 
-def empty_square
-  pattern = [:fill, :mark, :fill, :limit]
-  square = pattern.each_with_object('') do |type, square|
-    square << BOARD_ELEMENTS[:empty][type]
+def subline(line_type, square_num)
+  pattern = BOARD_ELEMENTS[line_type][:pattern]
+  subline = pattern.each_with_object('') do |type, string|
+    string << BOARD_ELEMENTS[line_type][type]
   end
-  puts square
+  square_num % 3 == 0 ? subline : subline << BOARD_ELEMENTS[line_type][:limit]
 end
 
 # game setup methods
@@ -32,6 +32,9 @@ def new_board
   ALL_SQUARES.map { |square| [square, EMPTY_MARK] }.to_h
 end
 
-empty_square
+p subline(:empty, 2)
+p subline(:marked, 2)
+p subline(:numbered, 2)
+p subline(:lined, 2)
 
 
