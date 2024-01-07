@@ -1,3 +1,9 @@
+
+
+
+
+
+### HIGHEST SCORING WORD
 =begin
 HIGHEST SCORING WORD
 Given a string of words, you need to find the highest scoring word. Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, c = 3 etc. You need to return the highest scoring word as a string. If two words score the same, return the word that appears earliest in the original string. All letters will be lowercase and all inputs will be valid.
@@ -44,35 +50,54 @@ ALGORITHM
 - return first key in sorted hash
 =end
 
-ALPHABET = ('a'..'z').to_a.prepend(0)
-p ALPHABET
+# ALPHABET = ('a'..'z').to_a.prepend(0)
 
-def high(string)
-  words = string.split
-  scores = {}
+# def high(string)
+#   words = string.split
+#   scores = {}
 
-  words.each_with_index do |word, index|
-    scores[index] = get_score(word)
-  end
+#   words.each_with_index do |word, index|
+#     scores[index] = get_score(word)
+#   end
 
-  winner_index = scores.sort do |(index1, score1), (index2, score2)|
-    [score2, index1] <=> [score1, index2]
-  end.to_h.keys.first
+#   winner_index = scores.sort do |(index1, score1), (index2, score2)|
+#     [score2, index1] <=> [score1, index2]
+#   end.to_h.keys.first
 
-  words[winner_index]
-end
+#   words[winner_index]
+# end
 
-def get_score(word)
-  word.chars.map { |char| ALPHABET.index(char) }.sum
-end
+###
+# def high(string)
+#   words = string.split
+#   scores = get_scores(words)
+#   winner_index = get_winner_index(scores)
+#   words[winner_index]
+# end
 
-p high('man i need a taxi up to ubud') == 'taxi'
-p high('what time are we climbing up the volcano') == 'volcano'
-p high('take me to semynak') == 'semynak'
-p high('aaa b') == 'aaa'
-p high('aaa b c ba')
-p high('c b aaa ab')
-p high('z ya xb wc vd ue tf sg rh qi pj ok nl mm ln ko jp iq hr gs ft eu dv cw bx ay')
+# def get_scores(words)
+#   words.each_with_index.with_object({}) do |(word, index), scores|
+#     scores[index] = get_score(word)
+#   end
+# end
+
+# def get_score(word)
+#   word.chars.map { |char| ALPHABET.index(char) }.sum
+# end
+
+# def get_winner_index(scores)
+#   scores.sort do |(index1, score1), (index2, score2)|
+#     [score2, index1] <=> [score1, index2]
+#   end.to_h.keys.first 
+# end
+
+# p high('man i need a taxi up to ubud') == 'taxi'
+# p high('what time are we climbing up the volcano') == 'volcano'
+# p high('take me to semynak') == 'semynak'
+# p high('aaa b') == 'aaa'
+# p high('aaa b c ba')
+# p high('c b aaa ab')
+# p high('z ya xb wc vd ue tf sg rh qi pj ok nl mm ln ko jp iq hr gs ft eu dv cw bx ay')
 
 
 
