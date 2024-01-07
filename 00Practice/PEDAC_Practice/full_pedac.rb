@@ -1,3 +1,78 @@
+=begin
+HIGHEST SCORING WORD
+Given a string of words, you need to find the highest scoring word. Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, c = 3 etc. You need to return the highest scoring word as a string. If two words score the same, return the word that appears earliest in the original string. All letters will be lowercase and all inputs will be valid.
+
+7:01
+PROBLEM
+input: string
+  - contains words
+    - a word is a contiguous string of letters separated by whitespace
+  - contains only alpha characters
+    - all lowercase
+
+output: string
+  - highest scoring word
+    - score is determined by letters in word
+      - a = 1, b = 2, etc
+    - if tie, return earliest word in input string
+
+EXAMPLES
+
+DATA STRUCTURES
+input: string
+  - array of alphabetic characters in order to use for scoring
+    - add a 0 to the beginning so that index of a = 1, etc # [0, 'a', 'b', . . .]
+  - array of each word in input string # ['man', 'i', 'need', . . .]
+  - array of each character in each word ['m', 'a', 'n' . . .]
+  - array of each character converted to its score [13, 1, 14]
+  - array of sums: index of highest sum can be used to access original word?
+  - maybe: hash with words as keys and scores as values?
+output: string
+
+ALGORITHM
+- create an array of the alphabet in order, add a 0 in the first position
+- separate input string into array of individual words
+- iterate over words array
+  - get score for each word
+    - iterate over each letter in word
+    - transform each letter into index of that letter from alphabet array
+    - get sum of all indexes
+- create a hash
+  - keys are words
+  - values are scores
+- sort hash, first by scores (descending), then by place in original string
+- return first key in sorted hash
+=end
+
+ALPHABET = ('a'..'z').to_a.prepend(0)
+p ALPHABET
+
+def high(string)
+  words = string.split
+  scores = {}
+
+  words.each_with_index do |word, index|
+    scores[index] = get_score(word)
+  end
+
+  winner_index = scores.sort do |(index1, score1), (index2, score2)|
+    [score2, index1] <=> [score1, index2]
+  end.to_h.keys.first
+
+  words[winner_index]
+end
+
+def get_score(word)
+  word.chars.map { |char| ALPHABET.index(char) }.sum
+end
+
+p high('man i need a taxi up to ubud') == 'taxi'
+p high('what time are we climbing up the volcano') == 'volcano'
+p high('take me to semynak') == 'semynak'
+p high('aaa b') == 'aaa'
+p high('aaa b c ba')
+p high('c b aaa ab')
+p high('z ya xb wc vd ue tf sg rh qi pj ok nl mm ln ko jp iq hr gs ft eu dv cw bx ay')
 
 
 
