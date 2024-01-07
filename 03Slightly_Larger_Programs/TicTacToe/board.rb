@@ -12,37 +12,43 @@ WINNING_LINES = [
   [1, 5, 9], [3, 5, 7]              # diagonal
 ]
 
-LINE_TYPES = {
+LINES_DATA = {
   empty:    {pattern: [:fill, :mark, :fill], fill: (' ' * 2), mark: ' ', limit: '|'},
   marked:   {pattern: [:fill, :mark, :fill], fill: (' ' * 2), mark: '?', limit: '|'},
   numbered: {pattern: [:fill, :fill, :mark], fill: (' ' * 2), mark: '#', limit: '|'},
   lined:    {pattern: [:fill, :mark, :fill], fill: ('-' * 2), mark: '-', limit: '+'}
 }
 
-def sub_line(line_type, square_num, board)
-  elements = LINE_TYPES[line_type]
-  elements[:mark] = board[square_num] if line_type == :marked
-  elements[:mark] = square_num.to_s if line_type == :numbered
-  sub_line = elements[:pattern].map { |type| elements[type] }.join
-  square_num % 3 == 0 ? sub_line : sub_line << elements[:limit]
-end
-
-def full_line(line_type, squares, board)
-  squares.map { |square_number| sub_line(line_type, square_number, board) }.join
+# board display methods
+def display_board(board)
+  (0..2).each { |row_number| puts row(row_number, board) }
 end
 
 def row(row_number, board)
-  squares = case row_number
-            when 1 then [1, 2, 3]
-            when 2 then [4, 5, 6]
-            when 3 then [7, 8, 9]
-            end
-  row = [:empty, :marked, :numbered].map { |line_type| full_line(line_type, squares, board) }
-  row_number < 3 ? row << full_line(:lined, squares, board) : row
+  pattern  = [:empty, :marked, :numbered]
+  row = pattern.map { |line_type| full_line(line_type, row_number, board) }
+  row_number < 2 ? row << full_line(:lined, row_number, board) : row
 end
 
-def display_board(board)
-  (1..3).each { |row_number| puts row(row_number, board) } # could be (1..3)???
+def full_line(line_type, row_number, board)
+  all_squares = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+  row_squares = all_squares[row_number]
+  row_squares.map { |square_num| sub_line(line_type, square_num, board) }.join
+end
+
+def sub_line(line_type, square_num, board)
+  elements = LINES_DATA[line_type]
+  # {pattern: [:fill, :fill, :mark], fill: (' ' * 2), mark: '#', limit: '|'}
+
+  elements[:mark] = board[square_num] if line_type == :marked
+  
+  elements[:mark] = square_num if line_type == :numbered && 
+    empty_squares(board).include?(square_num)
+  
+  sub_line = elements[:pattern].map { |type| elements[type] }.join
+  square_num % 3 == 0 ? sub_line : sub_line << elements[:limit]
+
+  
 end
 
 # game setup methods
@@ -50,11 +56,19 @@ def new_board
   ALL_SQUARES.map { |square| [square, EMPTY_MARK] }.to_h
 end
 
-# board = new_board
-# p new_board
 
-board = {1=>"X", 2=>" ", 3=>" ", 4=>" ", 5=>" ", 6=>" ", 7=>" ", 8=>" ", 9=>" "}
+# gameplay methods
+def empty_squares(board)
+  board.select { |square, mark| mark == EMPTY_MARK }.keys
+end
+
+
+
+board = {1=>"X", 2=>"O", 3=>" ", 4=>" ", 5=>"O", 6=>"O", 7=>"X", 8=>" ", 9=>" "}
 display_board(board)
-#TODO: get board information into display methods (mark, square number)
-
-
+# p row(1, board)
+# p full_line(:numbered, 1, board)
+# p sub_line(:numbered, 5, board)
+# puts
+# p sub_line(:numbered, 6, board)
+p empty_squares(board)
