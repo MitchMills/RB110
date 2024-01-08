@@ -1,3 +1,56 @@
+### ALPHABET POSITION
+=begin
+ALPHABET POSITION
+In this kata you are required to, given a string, replace every letter with its position in the alphabet.
+If anything in the text isn't a letter, ignore it and don't return it.
+"a" = 1, "b" = 2, etc.
+Example
+alphabet_position("The sunset sets at twelve o' clock.")
+Should return "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11" (as a string)
+
+7:22
+PROBLEM
+input: string
+  - can contain alpha and non-alpha characters, upper and lowercase
+
+output: string
+  - each alpha character is replaced by number of its position in the alphabet
+    - score is same for upper and lowercase letters: a = 1, A = 1
+    - one space between each number (words are not preserved)
+  - non-alpha characters are removed
+
+ EXAMPLES
+ 
+ DATA STRUCTURES
+ - input: string
+  - array of all alpha characters in order
+    - add a non-letter character in first position so that index == position
+  - array of individual characters in downcased input string
+  - array of only alpha characters
+ - output: new string
+
+ ALGORITHM
+ - create an array of the alphabet, add a 0 in the first position
+ - replace letters with appropriate numbers in input string
+  - downcase the string
+  - create an array of individual characters
+  - remove all non-alpha characters
+    - if a character isn't included in the alphabet array, remove it
+  - transform each character into a number using the alphabet array
+  - join the numbers back together with a space in between each number
+=end
+
+# ALPHABET = ('a'..'z').to_a.prepend(0)
+
+# def alphabet_position(string)
+#   chars = string.downcase.chars
+#   letters = chars.select { |char| ALPHABET.include?(char) }
+#   letters.map { |letter| ALPHABET.index(letter) }.join(' ')
+# end
+
+# p alphabet_position('a1a2a BBB.')
+# p alphabet_position("The sunset sets at twelve o' clock.") == "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11"
+# p alphabet_position("-.-'") == ""
 
 
 
