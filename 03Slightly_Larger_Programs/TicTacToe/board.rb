@@ -13,11 +13,11 @@ WINNING_LINES = [
 ]
 
 BOARD_PARTS = {
-  row:              {pattern: [:empty_line, :marked_line, :numbered_line]},
-  empty_line:       {pattern: [:fill, :mark, :fill], fill: (' ' * 2), mark: ' ', limit: '|'},
-  marked_line:      {pattern: [:fill, :mark, :fill], fill: (' ' * 2), mark: '?', limit: '|'},
-  numbered_line:    {pattern: [:fill, :fill, :mark], fill: (' ' * 2), mark: ' ', limit: '|'},
-  horizontal_line:  {pattern: [:fill, :mark, :fill], fill: ('-' * 2), mark: '-', limit: '+'}
+  row:              {pattern: [:empty_line, :marked_line, :numbered_line, :horizontal_line]},
+  empty_line:       {pattern: [:fill, :mark, :fill, :limit], fill: (' ' * 2), mark: ' ', limit: '|'},
+  marked_line:      {pattern: [:fill, :mark, :fill, :limit], fill: (' ' * 2), mark: '?', limit: '|'},
+  numbered_line:    {pattern: [:fill, :fill, :mark, :limit], fill: (' ' * 2), mark: ' ', limit: '|'},
+  horizontal_line:  {pattern: [:fill, :mark, :fill, :limit], fill: ('-' * 2), mark: '-', limit: '+'}
 }
 
 # general methods ###
@@ -29,34 +29,38 @@ def blank_line
   puts
 end
 
+
 # board display methods ###
 def display_board(board)
   blank_line
-  (0..2).each { |row_number| puts row(row_number, board) }
+  (1..3).each { |row_number| puts row(row_number, board) }
   blank_line
 end
 
 def row(row_number, board)
   pattern  = BOARD_PARTS[:row][:pattern]
-  row = pattern.map { |line_type| full_line(line_type, row_number, board) }
-  row_number < 2 ? row << full_line(:horizontal_line, row_number, board) : row
+  pattern = row_number > 2 ? pattern.take(3) : pattern
+  pattern.map { |line_type| full_line(line_type, row_number, board) }
 end
 
 def full_line(line_type, row_number, board)
-  all_squares = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+  all_squares = {1=>[1, 2, 3], 2=>[4, 5, 6], 3=>[7, 8, 9]}
   row_squares = all_squares[row_number]
   row_squares.map { |square_num| sub_line(line_type, square_num, board) }.join
 end
 
 def sub_line(line_type, square_num, board)
   parts = BOARD_PARTS[line_type]
-  sub_line = parts[:pattern].map { |type| parts[type] }.join
+  pattern = square_num % 3 == 0 ? parts[:pattern].take(3) : parts[:pattern]
+  sub_line = pattern.map { |type| parts[type] }.join
 
   sub_line[2] = board[square_num] if line_type == :marked_line
   sub_line[3] = square_num.to_s if (line_type == :numbered_line) &&
     (empty_squares(board).include?(square_num))
-  square_num % 3 == 0 ? sub_line : sub_line << parts[:limit]
+  sub_line
 end
+
+
 
 # game setup methods ###
 def new_board
@@ -89,26 +93,27 @@ end
 
 
 
-
 # gameplay methods
 def empty_squares(board)
   board.select { |square, mark| mark == EMPTY_MARK }.keys
 end
 
-def move(player, board)
-  choice = player == :player ? get_player_move : get_computer_move
-  update_board( player, choice, board)
+def place_mark(player, game_stats, board)
+  choice = player == :user ? get_user_move(board) : get_computer_move(board)
+  update_board(player, choice.to_i, game_stats, board)
 end
 
-def get_player_move(board)
-
+def get_user_move(board)
+  prompt(:print, "Choose an empty square: #{empty_squares(board)}: ")
+  choice = gets.chomp
 end
 
 def get_computer_move(board)
 
 end
 
-def update_board(player, choice, board)
+def update_board(player, choice, game_stats, board)
+  player = game_stats.key(player)
   mark = player == :player1 ? PLAYER1_MARK : PLAYER2_MARK
   board[choice] = mark
 end
@@ -129,7 +134,8 @@ end
 
 
 board = {1=>"O", 2=>" ", 3=>" ", 4=>" ", 5=>"X", 6=>" ", 7=>" ", 8=>" ", 9=>"X"}
-game_status = {player1: :player, player2: :computer}
-# display_board(board)
-# update_board(:player1, 2, board)
-# display_board(board)
+game_stats = {player1: :user, player2: :computer}
+
+display_board(board)
+place_mark(:user, game_stats, board)
+display_board(board)
