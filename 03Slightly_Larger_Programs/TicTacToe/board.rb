@@ -67,7 +67,7 @@ def new_board
   ALL_SQUARES.map { |square| [square, EMPTY_MARK] }.to_h
 end
 
-def determine_first_player(game_status)
+def determine_first_player(game_stats)
   choice = nil
   loop do
     prompt("Choose who will go first:")
@@ -80,13 +80,13 @@ def determine_first_player(game_status)
     prompt("I'm sorry, that's not a valid choice")
     blank_line
   end
-  set_player_order(game_status, choice.to_i)
+  set_player_order(game_stats, choice.to_i)
 end
 
-def set_player_order(game_status, choice)
+def set_player_order(game_stats, choice)
   choice = [1, 2].sample if choice == 3
-  game_status[:player1] = choice == 1 ? :player : :computer
-  game_status[:player2] = choice == 1 ? :computer : :player
+  game_stats[:player1] = choice == 1 ? :user : :computer
+  game_stats[:player2] = choice == 1 ? :computer : :user
 end
 
 
@@ -98,17 +98,17 @@ def empty_squares(board)
   board.select { |square, mark| mark == EMPTY_MARK }.keys
 end
 
-def place_mark(player, game_stats, board)
-  choice = player == :user ? get_user_move(board) : get_computer_move(board)
+def place_mark!(player, game_stats, board)
+  choice = player == :user ? get_user_choice(board) : get_computer_choice(board)
   update_board(player, choice.to_i, game_stats, board)
 end
 
-def get_user_move(board)
+def get_user_choice(board)
   prompt(:print, "Choose an empty square: #{empty_squares(board)}: ")
   choice = gets.chomp
 end
 
-def get_computer_move(board)
+def get_computer_choice(board)
 
 end
 
@@ -134,8 +134,9 @@ end
 
 
 board = {1=>"O", 2=>" ", 3=>" ", 4=>" ", 5=>"X", 6=>" ", 7=>" ", 8=>" ", 9=>"X"}
-game_stats = {player1: :user, player2: :computer}
+game_stats = {player1: nil, player2: nil}
+get_user_choice(board)
 
-display_board(board)
-place_mark(:user, game_stats, board)
-display_board(board)
+# display_board(board)
+# place_mark(:user, game_stats, board)
+# display_board(board)

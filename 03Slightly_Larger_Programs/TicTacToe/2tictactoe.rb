@@ -67,7 +67,7 @@ def new_board
   ALL_SQUARES.map { |square| [square, EMPTY_MARK] }.to_h
 end
 
-def determine_first_player(game_status)
+def determine_first_player(game_stats)
   choice = nil
   loop do
     prompt("Choose who will go first:")
@@ -80,13 +80,13 @@ def determine_first_player(game_status)
     prompt("I'm sorry, that's not a valid choice")
     blank_line
   end
-  set_player_order(game_status, choice.to_i)
+  set_player_order(game_stats, choice.to_i)
 end
 
-def set_player_order(game_status, choice)
+def set_player_order(game_stats, choice)
   choice = [1, 2].sample if choice == 3
-  game_status[:player1] = choice == 1 ? :player : :computer
-  game_status[:player2] = choice == 1 ? :computer : :player
+  game_stats[:player1] = choice == 1 ? :user : :computer
+  game_stats[:player2] = choice == 1 ? :computer : :user
 end
 
 
@@ -94,3 +94,15 @@ end
 
 
 # gameplay methods
+
+
+
+
+
+board = {1=>"O", 2=>" ", 3=>" ", 4=>" ", 5=>"X", 6=>" ", 7=>" ", 8=>" ", 9=>"X"}
+game_stats = {player1: nil, player2: nil}
+
+
+# display_board(board)
+# place_mark(:user, game_stats, board)
+# display_board(board)
