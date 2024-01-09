@@ -1,3 +1,90 @@
+
+
+
+### SHERLOCK'S POCKETS
+=begin
+SHERLOCK'S POCKETS
+Sherlock has to find suspects on his latest case. He will use your method, dear Watson. Suspect in this case is a person which has something not allowed in his/her pockets.
+Allowed items are defined by array of numbers.
+Pockets contents are defined by map entries where key is a person and value is one or few things represented by an array of numbers (can be nil or empty array if empty).
+Example:
+pockets = {
+bob: [1],
+tom: [2, 5],
+jane: [7]
+}
+Write a method which helps Sherlock to find suspects. If no suspect is found or there are no pockets (pockets == nil), the method should return nil.
+
+7:05
+PROBLEM
+input: hash, array
+  - hash: people and items in their pockets
+    - keys are persons
+    - values are arrays
+      - arrays contain integers
+      - represent items in pockets
+        - if a number is not in array of allowed items, person is a suspect
+  - array: allowed items
+    - contains integers
+    - integers represent allowed items
+
+output: array or nil
+  - array contains persons who had a non-allowed item in their pocket
+    - pocket contains number that is not present in allowed array
+  - return nil if no suspects
+    - i.e. all items in all pockets are allowed
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: hash, array
+
+- output: array
+
+ALGORITHM
+- iterate over the values of each key in `pockets` hash
+  - if an integer is not present in the `allowed` array
+    - add key to a `suspects` array
+- return `suspects` array, or nil if `suspects` array is empty
+=end
+
+# def find_suspects(pockets, allowed_items)
+#   suspects = pockets.each_with_object([]) do |(person, contents), suspects|
+#     contents.each do |item|
+#       suspects << person unless allowed_items.include?(item)
+#     end
+#   end
+#   suspects.empty? ? nil : suspects.uniq
+# end
+
+# def find_suspects(pockets, allowed_items)
+# suspects = pockets.each_with_object([]) do |(person, contents), suspects|
+#   suspects << person unless contents.all? { |item| allowed_items.include?(item) }
+# end
+# suspects.empty? ? nil : suspects
+# end
+
+# def find_suspects(pockets, allowed_items)
+#   suspects = pockets.reject do |person, items|
+#     items.all? { |item| allowed_items.include?(item) }
+#   end.keys
+#   suspects.empty? ? nil : suspects
+# end
+
+# pockets = {
+# bob: [1],
+# tom: [2, 5],
+# jane: [7]
+# }
+# p find_suspects(pockets, [1, 2]) #== [:tom, :jane]
+# p find_suspects(pockets, [1, 7, 5, 2]) #== nil
+# p find_suspects(pockets, []) #== [:bob, :tom, :jane]
+# p find_suspects(pockets, [7]) #== [:bob, :tom]
+
+
+
+
+
 ### ALPHABET POSITION
 =begin
 ALPHABET POSITION
@@ -20,7 +107,7 @@ output: string
   - non-alpha characters are removed
 
  EXAMPLES
- 
+
  DATA STRUCTURES
  - input: string
   - array of all alpha characters in order
@@ -141,7 +228,7 @@ ALGORITHM
 # def get_winner_index(scores)
 #   scores.sort do |(index1, score1), (index2, score2)|
 #     [score2, index1] <=> [score1, index2]
-#   end.to_h.keys.first 
+#   end.to_h.keys.first
 # end
 
 # p high('man i need a taxi up to ubud') == 'taxi'
@@ -311,7 +398,7 @@ DATA STRUCTURES
 
 ALGORITHM
 - get pairs
-  - get substrings 
+  - get substrings
     - start at every other index, starting at first index
       - start at index 0, then index 2 . . .
       - length is always 2
@@ -724,7 +811,7 @@ EXAMPLES
 
 DATA STRUCTURES
 input: nested array
-  
+
 output: array
 
 ALGORITHM
@@ -745,7 +832,7 @@ ALGORITHM
 
 # def find_index(array)
 #   array.each_with_index do |element, index|
-#     return index if [element].flatten.include?(1)    
+#     return index if [element].flatten.include?(1)
 #   end
 # end
 ###
@@ -834,7 +921,7 @@ ALGORITHM
 # def get_char_count(string)
 #   characters = string.downcase.chars
 #   letters = characters.select { |char| ALPHANUMERICS.include?(char) }
-  
+
 #   counts = {}
 #   letters.each do |letter|
 #     count = letters.count(letter)
@@ -853,7 +940,7 @@ ALGORITHM
 #   characters = string.downcase.chars
 #   letters = characters.select { |char| ALPHANUMERICS.include?(char) }
 #   uniques = letters.uniq
-  
+
 #   counts = {}
 #   uniques.each do |letter|
 #     count = letters.count(letter)
@@ -887,7 +974,7 @@ input: one or two strings
   - second string (optional): exception words
     - both contain words separated by spaces
     - both may contain mix of upper and lowercase letters
-  
+
 output: string
   - same words as first input string, but in title case
   - title case:
@@ -1140,7 +1227,7 @@ input: array
   - each string contains one of four letters: n s e w
   - represents a 'walk'
     - each letter counts as a one minute walk in that direction
-    
+
 output: boolean
   - true if:
     - there are exactly ten elements in the input array
@@ -1165,7 +1252,7 @@ ALGORITHM
 # def valid_walk?(directions)
 #   counts = directions.tally
 #   counts.values.sum == 10 &&
-#   counts['n'] == counts['s'] && 
+#   counts['n'] == counts['s'] &&
 #   counts['e'] == counts['w']
 # end
 
@@ -1611,7 +1698,7 @@ ALGORITHM
 # end
 
 # p alphabetize_middle_characters(%w(a c - ' , . b c))
-  
+
 # p scramble_words('professionals') == 'paefilnoorsss'
 # p scramble_words('i') == 'i'
 # p scramble_words('') == ''
@@ -1692,7 +1779,7 @@ ALGORITHM
 ### solution 1
 # def repeated_substring(string)
 #   multiples = get_multiples(string.size)
-  
+
 #   substrings = get_substrings(string, multiples)
 #   repeaters = get_repeaters(string, substrings)
 
@@ -1720,7 +1807,7 @@ ALGORITHM
 # def get_repeaters(string, substrings)
 #   substrings.select do |substring|
 #     multiplier = string.size / substring.size
-#     substring * multiplier == string  
+#     substring * multiplier == string
 #   end
 # end
 ###
@@ -2349,7 +2436,7 @@ ALGORITHM
       - length 0 to length (array size - current index)
 
   - put each subarray (currentindex, current length) into a holding array
-  
+
 - sum all subarrays
   - transform each subarray into its sum
 - sort the list of sums
@@ -2424,7 +2511,7 @@ ALGORITHM
 - get all possible substrings from each input string, store in two arrays
   - get all length 2 substrings, then length 3, up to maximum length
     - start at length 2, up to string length
-    
+
     - start from first index, then second, up to last index that can create a substring of that length
       - start at index 0, up to index (input string length - current target length)
 
@@ -2669,7 +2756,7 @@ ALGORITHM
       - index 0 up to index (input array length - 2)
     - combine with each successive element
       - index (current index + 1) up to index (input array length - 1)
-  - store in an array (each element will be a two element subarray) 
+  - store in an array (each element will be a two element subarray)
 - sort these combos by difference between the two elements, then by order of appearance
   - for order of appearance, can use index of each combo in nested array
 - return the first combo from this sorted list
@@ -3263,7 +3350,7 @@ ALGORITHM
 #   end
 #   results.sort
 # end
-  
+
 # p multiply_all_pairs([3], [1, 3, 2]) == [3, 6, 9]
 # p multiply_all_pairs([1, 2], [3, 4]) == [3, 4, 6, 8]
 # p multiply_all_pairs([1, 2], [4, 3, 1, 2]) == [1, 2, 2, 3, 4, 4, 6, 8]
@@ -3294,7 +3381,7 @@ output: integer
   - same digits as input integer
   - should be next biggest number that can be formed from those digits
   - if no bigger number can be formed, return -1
-  
+
 
 DATA STRUCTURES
 - input: integer # 12345
@@ -3419,13 +3506,13 @@ output: integer
       - cannot contain any consonants
 
 EXAMPLES
-p count_vowel_substrings('abcde') == 0 # 
+p count_vowel_substrings('abcde') == 0 #
 p count_vowel_substrings('aeiou') == 1 # 'aeiou'
 p count_vowel_substrings('iaoue') == 1 # 'iaoue'
 p count_vowel_substrings('aeiogu') == 0 #
 p count_vowel_substrings('aeiouu') == 2 # 'aeiou', 'aeiouu'
 p count_vowel_substrings('aeiouuu') == 3 # 'aeiou', 'aeiouu', 'aeiouuu'
-p count_vowel_substrings('aaeeiioouu') == 4 
+p count_vowel_substrings('aaeeiioouu') == 4
 # 'aaeeiioou', 'aaeeiioouu', 'aeeiioou', 'aeeiioouu'
 
 DATA STRUCTURES
@@ -3477,7 +3564,7 @@ ALGORITHM
 #   end
 # end
 
-# p count_vowel_substrings('abcde') == 0 # 
+# p count_vowel_substrings('abcde') == 0 #
 # p count_vowel_substrings('aeiou') == 1 # 'aeiou'
 # p count_vowel_substrings('iaoue') == 1 # 'iaoue'
 # p count_vowel_substrings('aeiogu') == 0 #
@@ -3637,7 +3724,7 @@ DATA STRUCTURES
 input: two strings 'abbcbb', 'bb'
   - substrings 'ab', 'bb', 'bc' . . .
     - same length as second input string
-    - compare to second input string to see if match 
+    - compare to second input string to see if match
 output: integer
 
 ALGORITHM
@@ -3890,7 +3977,7 @@ output: positive integer
     - if sum of all integers in input array is less than input integer, return 0
     - we are returning the length, not the subarray itself. Therefore don't have to worry about ties
       - as soon as we find a subarray whose sum is >= to target sum, return the length
-    
+
 EXAMPLES
 
 DATA STRUCTURES
