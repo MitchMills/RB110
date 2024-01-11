@@ -71,17 +71,21 @@ end
 def determine_first_player(game_stats)
   choice = nil
   loop do
-    prompt("Choose who will go first:")
-    prompt("  Enter 1 to go first")
-    prompt("  Enter 2 to have the computer go first")
-    prompt("  Enter 3 to have the first player chosen randomly")
-    prompt(:print, "Enter your choice: ")
+    ask_for_first_player_choice
     choice = gets.chomp
     break if ['1', '2', '3'].include?(choice)
     prompt("I'm sorry, that's not a valid choice")
     blank_line
   end
   set_player_order(game_stats, choice.to_i)
+end
+
+def ask_for_first_player_choice
+  prompt("Choose who will go first:")
+  prompt("  Enter 1 to go first")
+  prompt("  Enter 2 to have the computer go first")
+  prompt("  Enter 3 to have the first player chosen randomly")
+  prompt(:print, "Enter your choice: ")
 end
 
 def set_player_order(game_stats, choice)
@@ -135,9 +139,9 @@ end
 
 
 board = {1=>"O", 2=>" ", 3=>" ", 4=>" ", 5=>"X", 6=>" ", 7=>" ", 8=>" ", 9=>"X"}
-game_stats = {player1: :user, player2: :computer}
-# get_user_choice(board)
+game_stats = {player1: nil, player2: nil}
+# game_stats = {player1: :user, player2: :computer}
+# game_stats = {player1: :computer, player2: :user}
 
-display_board(board)
-place_mark!(:user, game_stats, board)
-display_board(board)
+determine_first_player(game_stats)
+p game_stats
