@@ -1,3 +1,8 @@
+
+
+
+
+
 ### MEXICAN WAVE
 =begin
 MEXICAN WAVE
@@ -6,34 +11,74 @@ Rules
 1. The input string will always be lower case but may be empty.
 2. If the character in the string is whitespace then pass over it as if it was an empty seat.
 
-5:50
+7:16
 PROBLEM
 input: string
-  - contains only lowercase alpha characters and spaces
   - may be empty
+  - if not empty, contains only lowercase letters
+    - may also contain spaces
 
 output: array
   - if input string is empty, return empty array
-  - array has same number of elements (strings) as letters in input string (skip spaces)
-  - each string in array is the same word(s) as the input string
-    - one letter is capitalized
-    - first letter of first element, second of second, etc
-    - preserve spaces in input string but skip over them
+  - number of elements in array is same as number of letters in input string (ignore spaces)
+  - each array element contains the same letters as input string with one letter uppercase
+    - letter that is uppercased starts with first letter, then second, etc . . .
+    - spaces are preserved but ignored in terms of making letters uppercase
 
 EXAMPLES
+handlling spaces:
+  - "two words" => [...'twO words', 'two Words', . . .] # space between words is ignored
+    - i.e. NOT [...'twO words', 'two words', two Words', . . .]
+  - " gap " => [" Gap ", " gAp ", " gaP "]
 
 DATA STRUCTURES
 - input: string
-  - array of each word in input string # ['two', 'words']
-  -
+  - array of individual characters in string # ['t', 'w', 'o', ' ', 'w', 'o', 'r', 'd', 's']
+  - counter to track which letter to make uppercase
+    - skip spaces
+  - characters joined back into string and added to a results array
 - output: array
+
+ALGORITHM
+- create an empty array to store results
+- create an array of individual characters from input string
+- use this array to create words to add to results array
+  - iterate over array
+    - use a counter to track index of character to make uppercase, start at 0
+      - if character is a space skip to next character
+      - otherwise make character at that index uppercase
+      - join characters back into a string
+      - add that string to the results array
+      - proceed to next index
+- return results array
 =end
 
-p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
-p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
-p wave("") == []
-p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
-p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
+# def wave(string)
+#   results = []
+#   (0...string.size).each do |index|
+#     next if string[index] == ' '
+#     new_string = string.chars.map.with_index do |char, idx|
+#       idx == index ? char.upcase : char
+#     end.join
+#     results << new_string
+#   end
+#   results
+# end
+
+# def wave(string)
+#   (0...string.size).each_with_object([]) do |index, results|
+#     next if string[index] == ' '
+#     results << string.chars.map.with_index do |char, idx|
+#       idx == index ? char.upcase : char
+#     end.join
+#   end
+# end
+
+# p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+# p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
+# p wave("") == []
+# p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
+# p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
 
 
 
