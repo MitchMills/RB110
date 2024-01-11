@@ -32,8 +32,8 @@ end
 
 # board display methods ###
 def display_board(board)
-  row_positions = [:top, :middle, :bottom]
   blank_line
+  row_positions = [:top, :middle, :bottom]
   row_positions.each { |row_position| puts row(row_position, board) }
   blank_line
 end
@@ -98,7 +98,10 @@ end
 
 
 
-# gameplay methods
+# single game methods
+def play_one_game(board, game_stats)
+
+
 def empty_squares(board)
   board.select { |square, mark| mark == EMPTY_MARK }.keys
 end
@@ -151,4 +154,3 @@ board = {1=>"O", 2=>" ", 3=>"X", 4=>" ", 5=>"X", 6=>" ", 7=>"X", 8=>" ", 9=>"X"}
 game_stats = {player1: :computer, player2: :user}
 
 display_board(board)
-p detect_game_winner(board, game_stats)
