@@ -127,8 +127,15 @@ def game_winner?(board)
   !!detect_game_winner(board)
 end
 
-def detect_game_winner(board)
-
+def detect_game_winner(board, game_stats)
+  WINNING_LINES.each do |line|
+    if board.values_at(*line).count(PLAYER1_MARK) == 3
+      return game_stats[:player1]
+    elsif board.values_at(*line).count(PLAYER2_MARK) == 3
+      return game_stats[:player2]
+    end
+  end
+  nil
 end
 
 def board_full?(board)
@@ -138,10 +145,10 @@ end
 
 
 
-board = {1=>"O", 2=>" ", 3=>" ", 4=>" ", 5=>"X", 6=>" ", 7=>" ", 8=>" ", 9=>"X"}
-game_stats = {player1: nil, player2: nil}
+board = {1=>"O", 2=>" ", 3=>"X", 4=>" ", 5=>"X", 6=>" ", 7=>"X", 8=>" ", 9=>"X"}
+# game_stats = {player1: nil, player2: nil}
 # game_stats = {player1: :user, player2: :computer}
-# game_stats = {player1: :computer, player2: :user}
+game_stats = {player1: :computer, player2: :user}
 
-determine_first_player(game_stats)
-p game_stats
+display_board(board)
+p detect_game_winner(board, game_stats)
