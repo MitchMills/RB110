@@ -13,11 +13,26 @@ WINNING_LINES = [
 ]
 
 BOARD_PARTS = {
-  row:              {pattern: [:empty_line, :marked_line, :numbered_line, :horizontal_line]},
-  empty_line:       {pattern: [:fill, :mark, :fill, :limit], fill: (' ' * 2), mark: ' ', limit: '|'},
-  marked_line:      {pattern: [:fill, :mark, :fill, :limit], fill: (' ' * 2), mark: '?', limit: '|'},
-  numbered_line:    {pattern: [:fill, :fill, :mark, :limit], fill: (' ' * 2), mark: ' ', limit: '|'},
-  horizontal_line:  {pattern: [:fill, :mark, :fill, :limit], fill: ('-' * 2), mark: '-', limit: '+'}
+  row:              {
+    pattern: [:empty_line, :marked_line, :numbered_line, :horizontal_line],
+    positions: {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]}
+  },
+  empty_line:       {
+    pattern: [:fill, :mark, :fill, :limit],
+    fill: (' ' * 2), mark: ' ', limit: '|'
+  },
+  marked_line:      {
+    pattern: [:fill, :mark, :fill, :limit],
+    fill: (' ' * 2), mark: '?', limit: '|'
+  },
+  numbered_line:    {
+    pattern: [:fill, :fill, :mark, :limit],
+    fill: (' ' * 2), mark: ' ', limit: '|'
+  },
+  horizontal_line:  {
+    pattern: [:fill, :mark, :fill, :limit],
+    fill: ('-' * 2), mark: '-', limit: '+'
+  }
 }
 
 # general methods ###
@@ -33,8 +48,8 @@ end
 # board display methods ###
 def display_board(board)
   blank_line
-  row_positions = [:top, :middle, :bottom]
-  row_positions.each { |row_position| puts row(row_position, board) }
+  positions = BOARD_PARTS[:row][:positions].keys
+  positions.each { |row_position| puts row(row_position, board) }
   blank_line
 end
 
@@ -45,8 +60,7 @@ def row(row_position, board)
 end
 
 def full_line(line_type, row_position, board)
-  all_squares = {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]}
-  row_squares = all_squares[row_position]
+  row_squares = BOARD_PARTS[:row][:positions][row_position]
   row_squares.map { |square_num| sub_line(line_type, square_num, board) }.join
 end
 
@@ -101,6 +115,7 @@ end
 # single game methods
 def play_one_game(board, game_stats)
 
+end
 
 def empty_squares(board)
   board.select { |square, mark| mark == EMPTY_MARK }.keys
@@ -148,7 +163,7 @@ end
 
 
 
-board = {1=>"O", 2=>" ", 3=>"X", 4=>" ", 5=>"X", 6=>" ", 7=>"X", 8=>" ", 9=>"X"}
+board = {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "}
 # game_stats = {player1: nil, player2: nil}
 # game_stats = {player1: :user, player2: :computer}
 game_stats = {player1: :computer, player2: :user}
