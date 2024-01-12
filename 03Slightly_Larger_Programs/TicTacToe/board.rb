@@ -13,23 +13,23 @@ WINNING_LINES = [
 ]
 
 BOARD_PARTS = {
-  row:              {
-    pattern: [:empty_line, :marked_line, :numbered_line, :horizontal_line],
-    positions: {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]}
+  row: {
+    positions: {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]},
+    pattern: [:empty_line, :marked_line, :numbered_line, :horizontal_line]
   },
-  empty_line:       {
+  empty_line: {
     pattern: [:fill, :mark, :fill, :limit],
     fill: (' ' * 2), mark: ' ', limit: '|'
   },
-  marked_line:      {
+  marked_line: {
     pattern: [:fill, :mark, :fill, :limit],
     fill: (' ' * 2), mark: '?', limit: '|'
   },
-  numbered_line:    {
+  numbered_line: {
     pattern: [:fill, :fill, :mark, :limit],
     fill: (' ' * 2), mark: ' ', limit: '|'
   },
-  horizontal_line:  {
+  horizontal_line: {
     pattern: [:fill, :mark, :fill, :limit],
     fill: ('-' * 2), mark: '-', limit: '+'
   }
@@ -55,7 +55,7 @@ end
 
 def row(row_position, board)
   pattern  = BOARD_PARTS[:row][:pattern]
-  pattern = row_position == :bottom ? pattern.take(3) : pattern
+  pattern = (row_position == :bottom) ? pattern.take(3) : pattern
   pattern.map { |line_type| full_line(line_type, row_position, board) }
 end
 
@@ -66,7 +66,7 @@ end
 
 def sub_line(line_type, square_num, board)
   parts = BOARD_PARTS[line_type]
-  pattern = square_num % 3 == 0 ? parts[:pattern].take(3) : parts[:pattern]
+  pattern = (square_num % 3 == 0) ? parts[:pattern].take(3) : parts[:pattern]
   sub_line = pattern.map { |type| parts[type] }.join
 
   sub_line[2] = board[square_num] if line_type == :marked_line
@@ -104,8 +104,8 @@ end
 
 def set_player_order(game_stats, choice)
   choice = [1, 2].sample if choice == 3
-  game_stats[:player1] = choice == 1 ? :user : :computer
-  game_stats[:player2] = choice == 1 ? :computer : :user
+  game_stats[:player1] = (choice == 1) ? :user : :computer
+  game_stats[:player2] = (choice == 1) ? :computer : :user
 end
 
 
