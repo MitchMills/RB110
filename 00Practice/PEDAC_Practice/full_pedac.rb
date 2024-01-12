@@ -3,6 +3,60 @@
 
 
 
+### DELETE A DIGIT
+=begin
+DELETE A DIGIT
+Given an integer n, find the maximal number you can obtain by deleting exactly one digit of the given number.
+Constraints: 10 ≤ n ≤ 1000000.
+
+7:15
+PROBLEM
+input: integer
+  - at least two digits
+  - positive
+output: integer
+  - contains one less digit than input integer
+  - largest number that can be obtained by deleting one digit
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - array of digits
+  - array of all possible subarrays with one digit removed
+
+- outupt: integer
+
+ALGORITHM
+- create an array of the digits in the input integer, in same order
+- get all possible subarrays that can be created with one digit deleted
+  - start at each index from 0 up to last index
+    - create a subarray that contains all digits except the one at that index
+- find the largest number from those subarrays
+  - join subarrays into strings, convert to integers, sort
+- return it
+=end
+
+# def delete_digit(number)
+#   digits = number.digits.reverse
+#   subarrays = digits.each_index.map do |index|
+#     digits[0...index] + digits[(index + 1)..]
+#   end
+#   subarrays.map { |subarray| subarray.join.to_i }.sort.last
+# end
+
+# p delete_digit(10) == 1
+# p delete_digit(12) == 2
+# p delete_digit(123) == 23
+# p delete_digit(321) == 32
+# p delete_digit(12345) == 2345
+# p delete_digit(62345) == 6345
+# p delete_digit(791983) == 91983
+# p delete_digit(1001) == 101
+
+
+
+
 ### MEXICAN WAVE
 =begin
 MEXICAN WAVE
@@ -3156,8 +3210,8 @@ ALGORITHM
 
 
 ### DELETE A DIGIT
+# Write a method that takes an integer as an argument and returns the largest integer that can be obtained by deleting exactly one digit.
 =begin
-Write a method that takes an integer as an argument and returns the largest integer that can be obtained by deleting exactly one digit.
 
 Assume all input integers will contain at least two digits
 
