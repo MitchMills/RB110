@@ -103,29 +103,41 @@ end
 def determine_first_player(game_stats)
   choice = nil
   loop do
-    ask_for_first_player_choice
-    choice = gets.chomp
+    choice = get_first_player_choice
     break if ['1', '2', '3'].include?(choice)
     prompt("I'm sorry, that's not a valid choice")
     blank_line
   end
-  set_player_order(game_stats, choice.to_i)
+  set_player_order(game_stats, choice)
+  display_player_order(game_stats)
 end
 
-def ask_for_first_player_choice
+def get_first_player_choice
   prompt("Choose who will go first:")
   prompt("  Enter 1 to go first")
   prompt("  Enter 2 to have the computer go first")
   prompt("  Enter 3 to have the first player chosen randomly")
   prompt(:print, "Enter your choice: ")
+  gets.chomp
 end
 
 def set_player_order(game_stats, choice)
-  choice = [1, 2].sample if choice == 3
-  game_stats[:player1] = (choice == 1) ? :user : :computer
-  game_stats[:player2] = (choice == 1) ? :computer : :user
+  choice = ['1', '2'].sample if choice == '3'
+  game_stats[:player1] = (choice == '1') ? :user : :computer
+  game_stats[:player2] = (choice == '1') ? :computer : :user
 end
 
+def display_player_order(game_stats)
+  players = ["You", "The computer"]
+  players = players.reverse if game_stats[:player1] == :computer
+  order, marks = %w(first second), [PLAYER1_MARK, PLAYER2_MARK]
+
+  players.each_with_index do |player, index|
+   prompt("#{player} will go #{order[index]} and mark squares with '#{marks[index]}'")
+  end
+end
+
+# TODO: have player and computer keep same marks throughout match?
 
 
 
@@ -186,4 +198,5 @@ board = {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "}
 # game_stats = {player1: :user, player2: :computer}
 game_stats = {player1: :computer, player2: :user}
 
-display_board(board)
+# display_board(board)
+display_player_order(game_stats)
