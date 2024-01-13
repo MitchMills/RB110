@@ -2,6 +2,60 @@
 
 
 
+### MULTIPLES OF 3 & 5
+=begin
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is
+23.
+Finish the solution so that it returns the sum of all the multiples of 3 or 5 below the number passed in.
+Note: If the number is a multiple of both 3 and 5, only count it once.
+
+7:21
+PROBLEM
+input: integer
+  - positive
+output: integer
+  - sum of all unique multiples of 3 and 5 that are less than the input integer
+    - unique multiples: only count a number once
+    - less than input integer: don't count input integer
+
+EXAMPLES
+20: 3 6 9 12 15 18, 5 10
+
+DATA STRUCTURES
+- input: integer
+  - array of all multiples
+  - array of all unique multiples
+  - sum of all elements in that array
+- output: integer
+
+ALGORITHM
+- get multiples
+  - create an empty multiples array
+  - iterate over a range from 3 up to (input integer - 1)
+  - add numbers to multiples array if they are evenly divisible by 3 or 5
+- get unique multiples
+  - remove any duplicates
+- get sum of unique multiples
+- return sum
+=end
+
+# def solution(number)
+#   multiples = get_multiples(number)
+#   multiples.uniq.sum
+# end
+
+# def get_multiples(number)
+#   (3...number).each_with_object([]) do |num, multiples|
+#     multiples << num if (num % 3 == 0) || (num % 5 ==  0)
+#   end
+# end
+
+# p solution(10) == 23
+# p solution(20) == 78
+# p solution(200) == 9168
+
+
+
 
 ### DELETE A DIGIT
 =begin
