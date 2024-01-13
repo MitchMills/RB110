@@ -55,8 +55,10 @@ end
 
 def row(row_position, board)
   pattern  = BOARD_PARTS[:row][:pattern]
-  pattern = (row_position == :bottom) ? pattern.take(3) : pattern
-  pattern.map { |line_type| full_line(line_type, row_position, board) }
+  pattern.map do |line_type|
+    next if row_position == :bottom && line_type == :horizontal_line
+    full_line(line_type, row_position, board)
+  end
 end
 
 def full_line(line_type, row_position, board)
@@ -66,14 +68,17 @@ end
 
 def sub_line(line_type, square_num, board)
   parts = BOARD_PARTS[line_type]
-  pattern = (square_num % 3 == 0) ? parts[:pattern].take(3) : parts[:pattern]
-  sub_line = pattern.map { |type| parts[type] }.join
+  sub_line = parts[:pattern].map do |type|
+    next if type == :limit && (square_num % 3 == 0)
+    parts[type]
+  end.join
 
   sub_line[2] = board[square_num] if line_type == :marked_line
   sub_line[3] = square_num.to_s if (line_type == :numbered_line) &&
     (empty_squares(board).include?(square_num))
   sub_line
 end
+
 
 
 
