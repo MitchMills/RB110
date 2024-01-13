@@ -12,6 +12,8 @@ WINNING_LINES = [
   [1, 5, 9], [3, 5, 7]              # diagonal
 ]
 
+BOARD_SQUARE_SIZE = 7
+FILL_SIZE = BOARD_SQUARE_SIZE / 2
 BOARD_PARTS = {
   row: {
     positions: {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]},
@@ -19,19 +21,19 @@ BOARD_PARTS = {
   },
   empty_line: {
     pattern: [:fill, :mark, :fill, :limit],
-    fill: (' ' * 2), mark: ' ', limit: '|'
+    fill: (' ' * FILL_SIZE), mark: ' ', limit: '|'
   },
   marked_line: {
     pattern: [:fill, :mark, :fill, :limit],
-    fill: (' ' * 2), mark: '?', limit: '|'
+    fill: (' ' * FILL_SIZE), mark: '?', limit: '|'
   },
   numbered_line: {
     pattern: [:fill, :fill, :mark, :limit],
-    fill: (' ' * 2), mark: ' ', limit: '|'
+    fill: (' ' * FILL_SIZE), mark: ' ', limit: '|'
   },
   horizontal_line: {
     pattern: [:fill, :mark, :fill, :limit],
-    fill: ('-' * 2), mark: '-', limit: '+'
+    fill: ('-' * FILL_SIZE), mark: '-', limit: '+'
   }
 }
 
@@ -73,10 +75,21 @@ def sub_line(line_type, square_num, board)
     parts[type]
   end.join
 
-  sub_line[2] = board[square_num] if line_type == :marked_line
-  sub_line[3] = square_num.to_s if (line_type == :numbered_line) &&
+  add_mark(sub_line, square_num, board) if line_type == :marked_line
+  add_square_number(sub_line, square_num) if (line_type == :numbered_line) &&
     (empty_squares(board).include?(square_num))
+
   sub_line
+end
+
+def add_mark(sub_line, square_num, board)
+  center = FILL_SIZE
+  sub_line[center] = board[square_num]
+end
+
+def add_square_number(sub_line, square_num)
+  right_corner = BOARD_SQUARE_SIZE - 2
+  sub_line[right_corner] = square_num.to_s
 end
 
 
