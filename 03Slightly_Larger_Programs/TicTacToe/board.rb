@@ -218,7 +218,7 @@ def board_full?(board)
 end
 
 def switch_player(current_player)
-  current_player = (current_player == :player1) ? :player2 : :player1
+  current_player == :player1 ? :player2 : :player1
 end
 
 def display_game_result(board, game_stats)
