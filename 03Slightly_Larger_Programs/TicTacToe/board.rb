@@ -150,11 +150,13 @@ end
 # single game methods
 def play_one_game(game_stats)
   board = new_board
-  current_player = :player1
+  current_player = :player1 # TODO: need to switch between games in match
   loop do
+    display_board(board)
     place_mark!(current_player, game_stats, board)
-    break if game_winner?(board) || board_full?(board)
-    switch_player(current_player)
+    display_board(board)
+    break if game_winner?(board, game_stats) || board_full?(board)
+    current_player = switch_player(current_player)
   end
   display_game_result(game_stats)
 end
@@ -174,7 +176,7 @@ def get_user_choice(board)
 end
 
 def get_computer_choice(board)
-
+  empty_squares(board).sample
 end
 
 def update_board(player, choice, game_stats, board)
@@ -183,8 +185,8 @@ def update_board(player, choice, game_stats, board)
   board[choice] = mark
 end
 
-def game_winner?(board)
-  !!detect_game_winner(board)
+def game_winner?(board, game_stats)
+  !!detect_game_winner(board, game_stats)
 end
 
 def detect_game_winner(board, game_stats)
@@ -206,13 +208,16 @@ def switch_player(current_player)
   current_player = (current_player == :player1) ? :player2 : :player1
 end
 
+def display_game_result(game_stats)
+  p game_stats
+end
 
 
 
-board = {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "}
+
+# board = {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "}
 # game_stats = {player1: nil, player2: nil}
 # game_stats = {player1: :user, player2: :computer}
 game_stats = {player1: :computer, player2: :user}
 
-# display_board(board)
-display_player_order(game_stats)
+play_one_game(game_stats)
