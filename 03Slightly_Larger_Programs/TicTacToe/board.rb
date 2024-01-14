@@ -179,6 +179,7 @@ def computer_choice(board)
   empty_squares(board).sample
 end
 
+# computer choice methods
 def real_computer_choice(board) # TODO: code up all these methods
   if opportunities?(board, game_stats)
     get_opportunities(board, game_stats).sample
@@ -192,6 +193,21 @@ def real_computer_choice(board) # TODO: code up all these methods
     empty_squares(board).sample
   end
 end
+
+def get_opportunities(board, game_stats)
+  mark = (game_stats[:player1] == :computer) ? PLAYER1_MARK : PLAYER2_MARK
+  WINNING_LINES.each do |line|
+    if board.values_at(*line).count(mark) == 2 &&
+      board.values_at(*line).count(EMPTY_MARK) == 1
+      return
+    end
+  end
+end
+
+
+
+
+
 
 def update_board(player, choice, game_stats, board)
   mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
