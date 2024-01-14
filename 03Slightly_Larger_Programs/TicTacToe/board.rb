@@ -92,6 +92,10 @@ def add_square_number(sub_line, square_num)
   sub_line[right_corner] = square_num.to_s
 end
 
+def empty_squares(board)
+  board.select { |square, mark| mark == EMPTY_MARK }.keys
+end
+
 
 
 
@@ -133,7 +137,8 @@ def display_player_order(game_stats)
   order, marks = %w(first second), [PLAYER1_MARK, PLAYER2_MARK]
 
   players.each_with_index do |player, index|
-   prompt("#{player} will go #{order[index]} and mark squares with '#{marks[index]}'")
+   prompt("#{player} will go #{order[index]} and mark " +
+    "squares with '#{marks[index]}'")
   end
 end
 
@@ -143,16 +148,23 @@ end
 
 
 # single game methods
-def play_one_game(board, game_stats)
-
-end
-
-def empty_squares(board)
-  board.select { |square, mark| mark == EMPTY_MARK }.keys
+def play_one_game(game_stats)
+  board = new_board
+  current_player = :player1
+  loop do
+    place_mark!(current_player, game_stats, board)
+    break if game_winner?(board) || board_full?(board)
+    switch_player(current_player)
+  end
+  display_game_result(game_stats)
 end
 
 def place_mark!(player, game_stats, board)
-  choice = player == :user ? get_user_choice(board) : get_computer_choice(board)
+  choice =  if game_stats[player] == :user
+              get_user_choice(board)
+            else
+              get_computer_choice(board)
+            end
   update_board(player, choice.to_i, game_stats, board)
 end
 
@@ -188,6 +200,10 @@ end
 
 def board_full?(board)
   empty_squares(board).empty?
+end
+
+def switch_player(current_player)
+  current_player = (current_player == :player1) ? :player2 : :player1
 end
 
 
