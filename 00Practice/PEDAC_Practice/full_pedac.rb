@@ -2,6 +2,61 @@
 
 
 
+
+### STRING TRANSFORMER
+=begin
+STRING TRANSFORMER
+Given a string, return a new string that has transformed based on the input:
+Change case of every character, ie. lower case to upper case, upper case to lower case.
+Reverse the order of words from the input.
+Note: You will have to handle multiple spaces, and leading/trailing spaces.
+For example:
+"Example Input" ==> "iNPUT eXAMPLE"
+You may assume the input only contain English alphabet and spaces.
+
+7:09
+PROBLEM
+input: string
+  - contains only alpha characters and spaces
+    - may contain multiple spaces and leading/trailing spaces
+output: string
+  - same letters as input string but:
+    - every character has its case changed
+      - upper to lower, lower to upper
+    - word order is reversed
+      - "word" is a string of contiguous alpha characters separated by spaces
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual words
+  - reversed array of individual words
+  - array of individual characters in each word
+  - transformed array (swap cases of individual characters)
+- output: string
+
+ALGORITHM
+- create an array of individual words in input string
+- reverse the array
+- iterate over the array
+  - for each word, iterate over each character
+    - swap its case
+  - join characters back into words
+- join array back into string
+- return string
+=end
+
+# def transform(string)
+#   string.split.reverse.map { |word| word.swapcase }.join(' ')
+# end
+
+# p transform("Example Input") == "iNPUT eXAMPLE"
+
+
+
+
+
 ### MULTIPLES OF 3 & 5
 =begin
 If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is
