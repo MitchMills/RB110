@@ -4,7 +4,7 @@ EMPTY_MARK = ' '
 
 ALL_SQUARES = (1..9).to_a
 CORNER_SQUARES = [1, 3, 7, 9]
-CENTER_SQUARE = [5]
+CENTER_SQUARE = 5
 
 WINNING_LINES = [
   [1, 2, 3], [4, 5, 6], [7, 8, 9],  # horizontal
@@ -49,6 +49,7 @@ end
 
 # board display methods ###
 def display_board(board)
+  system('clear')
   blank_line
   positions = BOARD_PARTS[:row][:positions].keys
   positions.each { |row_position| puts row(row_position, board) }
@@ -137,8 +138,8 @@ def display_player_order(game_stats)
   order, marks = %w(first second), [PLAYER1_MARK, PLAYER2_MARK]
 
   players.each_with_index do |player, index|
-   prompt("#{player} will go #{order[index]} and mark " +
-    "squares with '#{marks[index]}'")
+   prompt("#{player} will go #{order[index]} and " +
+    "mark squares with '#{marks[index]}'")
   end
 end
 
@@ -153,35 +154,47 @@ def play_one_game(game_stats)
   current_player = :player1 # TODO: need to switch between games in match
   loop do
     display_board(board)
-    place_mark!(current_player, game_stats, board)
-    display_board(board)
+    player_places_mark!(current_player, game_stats, board)
     break if game_winner?(board, game_stats) || board_full?(board)
     current_player = switch_player(current_player)
   end
-  display_game_result(game_stats)
+  display_game_result(board, game_stats)
 end
 
-def place_mark!(player, game_stats, board)
-  choice =  if game_stats[player] == :user
-              get_user_choice(board)
-            else
-              get_computer_choice(board)
-            end
-  update_board(player, choice.to_i, game_stats, board)
+def player_places_mark!(player, game_stats, board) # player = :player1 or :player2
+  choice =  get_choice(player, game_stats, board)
+  update_board(player, choice, game_stats, board)
 end
 
-def get_user_choice(board)
+def get_choice(player, game_stats, board)
+  game_stats[player] == :user ? user_choice(board) : computer_choice(board)
+end
+
+def user_choice(board) # TODO: loop for entry validation
   prompt(:print, "Choose an empty square: #{empty_squares(board)}: ")
-  choice = gets.chomp
+  choice = gets.chomp.to_i
 end
 
-def get_computer_choice(board)
+def computer_choice(board)
   empty_squares(board).sample
 end
 
+def real_computer_choice(board) # TODO: code up all these methods
+  if opportunities?(board, game_stats)
+    get_opportunities(board, game_stats).sample
+  elsif threats?(board, game_stats)
+    get_threats(board, game_stats).sample
+  elsif center_square_empty?(board)
+    CENTER_SQUARE
+  elsif empty_corners?(board)
+    get_empty_corners(board).sample
+  else
+    empty_squares(board).sample
+  end
+end
+
 def update_board(player, choice, game_stats, board)
-  player = game_stats.key(player)
-  mark = player == :player1 ? PLAYER1_MARK : PLAYER2_MARK
+  mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
   board[choice] = mark
 end
 
@@ -208,8 +221,14 @@ def switch_player(current_player)
   current_player = (current_player == :player1) ? :player2 : :player1
 end
 
-def display_game_result(game_stats)
-  p game_stats
+def display_game_result(board, game_stats)
+  display_board(board)
+  result =  detect_game_winner(board, game_stats)
+  case result
+  when :user then prompt("You have won!")
+  when :computer then prompt("The computer has won!")
+  else prompt("It's a tie.")
+  end
 end
 
 
@@ -220,4 +239,4 @@ end
 # game_stats = {player1: :user, player2: :computer}
 game_stats = {player1: :computer, player2: :user}
 
-play_one_game(game_stats)
+# play_one_game(game_stats)
