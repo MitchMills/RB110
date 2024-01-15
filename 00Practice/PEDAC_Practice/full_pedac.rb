@@ -1,4 +1,64 @@
+### GREATEST PRODUCT
+=begin
+GREATEST PRODUCT
+Complete the greatest_product method so that it'll find the greatest product of five consecutive digits in the given string of digits.
+For example:
+greatestProduct("123834539327238239583") // should return 3240
+The input string always has more than five digits.
 
+8:37
+PROBLEM
+input: string
+  - consists only of numeric characters
+  - will always be at least six characters in length
+
+output: integer
+  - greatest product of five concsecutive digits in input string
+  - can be 0
+    - if a 0 appears in the string, the product will be 0
+      - have to deal with leading zeros
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters
+    - first as strings, then as integers
+  - array of all 5 character subarrays
+  - array of products
+- output: integer
+
+ALGORITHM
+- get all possible five-character substrings from the input string, store in an array
+  - start at index 0, up to index (length - 5)
+    - at each index, get a length 5 substring
+- convert each substring into a subarray of individual integers
+  - split each substring into individual characters
+  - convert each character into its corresponding integer
+- convert each subarray into its product
+- sort the products
+- return the highest product
+=end
+
+# def greatest_product(string)
+#   substrings = get_substrings(string)
+#   products = get_products(substrings)
+#   products.sort.last
+# end
+
+# def get_substrings(string)
+#   max_index = string.size - 5
+#   (0..max_index).map { |start_index| string[start_index, 5] }
+# end
+
+# def get_products(substrings)
+#   substrings.map { |substring| substring.chars.map(&:to_i).inject(:*) }
+# end
+
+# p greatest_product("123834539327238239583") == 3240
+# p greatest_product("395831238345393272382") == 3240
+# p greatest_product("92494737828244222221111111532909999") == 5292
+# p greatest_product("02494037820244202221011110532909999") == 0
 
 
 
