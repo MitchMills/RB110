@@ -182,21 +182,29 @@ end
 
 # computer choice methods
 def real_computer_choice(board) # TODO: code up all these methods
-  if opportunities?(board, game_stats)
-    get_opportunities(board, game_stats).sample
-  elsif threats?(board, game_stats)
-    get_threats(board, game_stats).sample
-  elsif center_square_empty?(board)
+  if targets?('opportunities', board, game_stats)
+    get_targets('opportunities', board, game_stats).sample
+  elsif targets?('threats',board, game_stats)
+    get_targets('threats', board, game_stats).sample
+  elsif targets?('center',board, game_stats)
     CENTER_SQUARE
-  elsif empty_corners?(board)
-    get_empty_corners(board).sample
+  elsif targets?('corners',board, game_stats)
+    get_targets('corners', board, game_stats).sample
   else
     empty_squares(board).sample
   end
 end
 
-def get_opportunities(board, game_stats)
-  mark = (game_stats[:player1] == :computer) ? PLAYER1_MARK : PLAYER2_MARK
+def get_targets(type, board, game_stats)
+  computer_mark = (game_stats[:player1] == :user) ? PLAYER2_MARK : PLAYER1_MARK
+  player_mark =   (game_stats[:player1] == :user) ? PLAYER1_MARK : PLAYER2_MARK
+
+  case type
+  when 'opportunities'
+  when 'threats'
+  when 'corners'
+  end
+
   WINNING_LINES.each do |line|
     if board.values_at(*line).count(mark) == 2 &&
       board.values_at(*line).count(EMPTY_MARK) == 1
