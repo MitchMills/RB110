@@ -179,6 +179,7 @@ def computer_choice(board)
   empty_squares(board).sample
 end
 
+
 # computer choice methods
 def real_computer_choice(board) # TODO: code up all these methods
   if opportunities?(board, game_stats)
