@@ -1,3 +1,74 @@
+
+
+
+
+
+### DUPLICATE ENCODER
+=begin
+DUPLICATE ENCODER
+The goal of this exercise is to convert a string to a new string where each character in the new string is "(" if that character appears only once in the original string, or ")" if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
+Examples
+"din" => "((("
+"recede" => "()()()"
+"Success" => ")())())"
+"(( @" => "))(("
+
+7:52
+PROBLEM
+input: string
+  - any type of character, including spaces
+
+output: string
+  - same number of characters as input string
+  - only '(' or ')'
+    - '(': character appears only once
+    - ')': character appears more than once
+  - ignore capitalization: 'a' == 'A'
+  - consider all characters, including spaces
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters
+  - hash of characters and frequencies
+  - transformed array: characters --> parantheses
+- output: string
+
+ALGORITHM
+- downcase string
+- convert to an array of individual characters
+- convert to a hash: keys are characters, values are counts
+- transform array of characters
+  - '(' if count is 1
+  - ')' if count is > 1
+- join array into string
+- return string
+=end
+
+# def duplicate_encode(string)
+#   characters = string.downcase.chars
+#   counts = characters.tally
+#   characters.map do |character|
+#     counts[character] == 1 ? '(' : ')'
+#   end.join
+# end
+
+# def duplicate_encode(string)
+#   characters = string.downcase.chars
+#   characters.map do |character|
+#     characters.count(character) == 1 ? '(' : ')'
+#   end.join
+# end
+
+# p duplicate_encode("din") == "((("
+# p duplicate_encode("recede") == "()()()"
+# p duplicate_encode("Success") == ")())())"
+# p duplicate_encode("(( @") == "))(("
+
+
+
+
 ### GREATEST PRODUCT
 =begin
 GREATEST PRODUCT
