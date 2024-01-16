@@ -1,6 +1,8 @@
 PLAYER1_MARK = 'X'
 PLAYER2_MARK = 'O'
 EMPTY_MARK = ' '
+# TODO: change to USER_MARK, COMPUTER_MARK ?
+# i.e. user is always x, computer o
 
 ALL_SQUARES = (1..9).to_a
 CORNER_SQUARES = [1, 3, 7, 9]
@@ -191,7 +193,7 @@ def real_computer_choice(board) # TODO: code up all these methods
   elsif targets?('corners',board, game_stats)
     get_targets('corners', board, game_stats).sample
   else
-    empty_squares(board).sample
+    get_targets('other', board, game_stats).sample
   end
 end
 
