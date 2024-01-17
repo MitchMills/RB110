@@ -16,11 +16,11 @@ WINNING_LINES = [
 BOARD_SQUARE_SIZE = 7
 FILL_SIZE = BOARD_SQUARE_SIZE / 2
 BOARD_PARTS = {
-  row: {
+  rows: {
     pattern: [:empty, :marked, :numbered, :horizontal],
     positions: {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]}
   },
-  sub_line: {
+  sub_lines: {
     pattern:     [:fill, :mark, :fill, :limit],
     inner:       {fill: (' ' * FILL_SIZE), mark: ' ', limit: '|'},
     horizontal:  {fill: ('-' * FILL_SIZE), mark: '-', limit: '+'}
@@ -41,13 +41,13 @@ end
 def display_board(game_status)
   system('clear')
   blank_line
-  positions = BOARD_PARTS[:row][:positions].keys # [:top, :middle, :bottom]
-  positions.each { |row_position| puts row(row_position, game_status) }
+  row_positions = BOARD_PARTS[:rows][:positions].keys
+  row_positions.each { |row_position| puts row(row_position, game_status) }
   blank_line
 end
 
 def row(row_position, game_status)
-  pattern  = BOARD_PARTS[:row][:pattern] # [:empty, :marked, :numbered, :horizontal]
+  pattern  = BOARD_PARTS[:rows][:pattern]
   pattern.map do |line_type|
     next if row_position == :bottom && line_type == :horizontal
     full_line(line_type, row_position, game_status)
@@ -55,20 +55,20 @@ def row(row_position, game_status)
 end
 
 def full_line(line_type, row_position, game_status)
-  row_squares = BOARD_PARTS[:row][:positions][row_position] # [1, 2, 3] . . .
+  row_squares = BOARD_PARTS[:rows][:positions][row_position]
   row_squares.map do |square_number|
     sub_line(line_type, square_number, game_status)
   end.join
 end
 
 def sub_line(line_type, square_number, game_status)
-  data = BOARD_PARTS[:sub_line]
+  data = BOARD_PARTS[:sub_lines]
+  pattern = data[:pattern]
   parts = line_type == :horizontal ? data[:horizontal] : data[:inner]
-  pattern = data[:pattern] #
 
-  sub_line = pattern.map do |type| # [:fill, :mark, :fill, :limit]
-    next if type == :limit && (square_number % 3 == 0)
-    parts[type]
+  sub_line = pattern.map do |part_type|
+    next if part_type == :limit && (square_number % 3 == 0)
+    parts[part_type]
   end.join
 
   add_info(sub_line, square_number, line_type, game_status)
@@ -77,30 +77,14 @@ end
 def add_info(sub_line, square_number, line_type, game_status)
   center_point = BOARD_SQUARE_SIZE / 2
   case line_type
-  when :marked then add_mark(sub_line, square_number, game_status)
-  when :numbered then add_square_number(sub_line, square_number, game_status)
+  when :marked
+    sub_line[center_point] = game_status[:board][square_number]
+  when :numbered
+    sub_line[center_point] = square_number.to_s if
+      empty_squares(game_status).include?(square_number)
   end
   sub_line
 end
-
-
-
-
-### TODO: make this one method?
-def add_mark(sub_line, square_number, game_status)
-  center_point = FILL_SIZE
-  sub_line[center_point] = game_status[:board][square_number]
-end
-
-def add_square_number(sub_line, square_number, game_status)
-  center_point = FILL_SIZE
-  sub_line[center_point] = square_number.to_s if
-    empty_squares(game_status).include?(square_number)
-end
-#####
-
-
-
 
 def empty_squares(game_status)
   board = game_status[:board]
