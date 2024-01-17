@@ -75,7 +75,7 @@ def sub_line(line_type, square_number, game_status)
 end
 
 def add_info(sub_line, square_number, line_type, game_status)
-  center_point = FILL_SIZE
+  center_point = BOARD_SQUARE_SIZE / 2
   case line_type
   when :marked then add_mark(sub_line, square_number, game_status)
   when :numbered then add_square_number(sub_line, square_number, game_status)
