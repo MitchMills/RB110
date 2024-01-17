@@ -1,5 +1,52 @@
+### BACKSPACES
+=begin
+BACKSPACES
+Assume "#" is like a backspace in string. This means that string "a#bc#d" actually is "bd"
+Your task is to process a string with "#" symbols.
+Examples
+"abc#d##c" ==> "ac"
+"abc##d######" ==> ""
+"#######" ==> ""
+"" ==> ""
 
+8:16
+PROBLEM
+input: string
+  - may be empty
+output: string
+  - has same characters as input string except:
+    - characters followed by '#' have been removed
+    - if all characters get removed, return empty string
+    - string is processed one character at a time
+      - i.e. later '#'s can remove earlier characters
+  - if input string is empty, return empty string
 
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters in string, with indexes
+- output: string
+
+ALGORITHM
+- create an array of individual character in order from input string
+- iterate over this array, with indexes
+  - if character after current character is '#'
+    - transform current character into nil
+  - if current character is '#'
+    - transform current character into nil
+- remove all nil values from array
+- create a string from this array, and return it
+
+=end
+
+def clean_string(string)
+  characters = string.chars
+
+end
+
+p clean_string('abc#d##c') #== "ac"
+p clean_string('abc####d##c#') #== ""
 
 
 
