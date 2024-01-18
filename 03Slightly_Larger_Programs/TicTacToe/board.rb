@@ -178,8 +178,8 @@ def computer_choice(game_data)
 end
 
 
-# computer choice methods
-def real_computer_choice(game_data) # change name back to `computer_choice` when working
+# computer choice methods # # # # # in progress
+def real_computer_choice(game_data) # change name back to `computer_choice` when it works
   targets = get_targets(game_data)
   targets.each_value do |target_squares|
     return target_squares.sample if target_squares.size > 0
@@ -193,8 +193,10 @@ def get_targets(game_data)
   end
 end
 
+
+# # # # # # #
 def get_target_squares(type, game_data)
-  players = game_data[:players]
+  players = game_data[:players] # {player1: :user, player2: :computer}
   computer_mark = (players[:player1] == :user) ? PLAYER2_MARK : PLAYER1_MARK
   player_mark =   (players[:player1] == :user) ? PLAYER1_MARK : PLAYER2_MARK
 
@@ -207,7 +209,7 @@ def get_target_squares(type, game_data)
   end
 end
 
-#############
+############# from old program
 def get_opportunities(brd)
   opportunities = []
   WINNING_LINES.each do |line|
@@ -246,14 +248,19 @@ end
 def detect_game_winner(game_data)
   board, players = game_data[:board], game_data[:players]
   WINNING_LINES.each do |line|
-    if board.values_at(*line).count(PLAYER1_MARK) == 3 # TODO: helper method here?
-      return players[:player1]
-    elsif board.values_at(*line).count(PLAYER2_MARK) == 3
-      return players[:player2]
+    players.keys.each do |player|
+      return players[player] if detect_win(board, line, player)
     end
   end
   nil
 end
+
+def detect_win(board, line, player)
+  player_mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
+  board.values_at(*line).count(player_mark) == 3
+end
+
+
 
 def board_full?(game_data)
   empty_squares(game_data).empty?
@@ -275,8 +282,8 @@ end
 
 
 game_data = {
-  board: {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "},
+  board: {1=>"X", 2=>"X", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "},
   players: {player1: :user, player2: :computer}
 }
 
-display_player_order(game_data)
+p detect_game_winner(game_data)
