@@ -63,10 +63,9 @@ end
 
 def sub_line(line_type, square_number, game_data)
   data = BOARD_PARTS[:sub_lines]
-  pattern = data[:pattern]
   parts = (line_type == :horizontal) ? data[:horizontal] : data[:inner]
 
-  sub_line = pattern.map do |part_type|
+  sub_line = data[:pattern].map do |part_type|
     next if (part_type == :limit) && (square_number % 3 == 0)
     parts[part_type]
   end.join
@@ -282,8 +281,8 @@ end
 
 
 game_data = {
-  board: {1=>"X", 2=>"X", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "},
+  board: {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "},
   players: {player1: :user, player2: :computer}
 }
 
-p detect_game_winner(game_data)
+display_board(game_data)
