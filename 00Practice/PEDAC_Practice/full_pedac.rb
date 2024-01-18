@@ -1,3 +1,8 @@
+
+
+
+
+
 ### BACKSPACES
 =begin
 BACKSPACES
@@ -25,28 +30,29 @@ EXAMPLES
 
 DATA STRUCTURES
 - input: string
-  - array of individual characters in string, with indexes
+  - empty string to add and subtract characters from
 - output: string
 
 ALGORITHM
-- create an array of individual character in order from input string
-- iterate over this array, with indexes
-  - if character after current character is '#'
-    - transform current character into nil
-  - if current character is '#'
-    - transform current character into nil
-- remove all nil values from array
-- create a string from this array, and return it
-
+- create an empty string to return at the end
+- iterate over each character of the input string
+  - if the character is '#', remove a character from the return string
+  - otherwise add the character to the return string
+- return the string
 =end
 
-def clean_string(string)
-  characters = string.chars
+# def clean_string(string)
+#   string.each_char.with_object([]) do |character, result|
+#     character == '#' ? result.pop : result.push(character)
+#   end.join
+# end
 
-end
+# p clean_string('abc#d##c') == 'ac'
+# p clean_string('abc####d##c#') == ''
+# p clean_string('abc##d######') == ''
+# p clean_string('#######') == ''
+# p clean_string('') == ''
 
-p clean_string('abc#d##c') #== "ac"
-p clean_string('abc####d##c#') #== ""
 
 
 
