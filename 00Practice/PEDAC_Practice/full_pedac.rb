@@ -3,6 +3,46 @@
 
 
 
+### 42 SORT ARRAYS
+=begin
+42 SORT ARRAYS
+Sort the given strings in alphabetical order, case insensitive.
+For example:
+["Hello", "there", "I'm", "fine"] --> ["fine", "Hello", "I'm", "there"]
+["C", "d", "a", "B"]) --> ["a", "B", "C", "d"]
+
+7:20
+PROBLEM
+input: array
+  - contains strings
+    - strings contain upper and lowercase characters (plus apostrophes, etc)
+
+output: array
+  - same strings as input array, sorted alphabetically but case insensitive
+
+EXAMPLES
+
+DATA STRUCTURES
+input: array
+
+output: array
+
+ALGORITHM
+- sort input array by downcased elements
+=end
+
+# def sort_me(words)
+#   words.sort_by { |word| word.downcase }
+# end
+
+# p sort_me(["Hello", "there", "I'm", "fine"]) == ["fine", "Hello", "I'm", "there"]
+# p sort_me(["C", "d", "a", "Ba", "be"]) == ["a", "Ba", "be", "C", "d"]
+# p sort_me(["CodeWars"]) == ["CodeWars"]
+
+
+
+
+
 ### BACKSPACES
 =begin
 BACKSPACES
