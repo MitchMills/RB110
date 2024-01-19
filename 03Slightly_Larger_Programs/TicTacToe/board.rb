@@ -187,32 +187,41 @@ end
 def get_all_targets(game_data)
   target_types = [:opportunities, :threats, :center, :corners, :other]
   target_types.each_with_object(Hash.new([])) do |type, targets|
-    targets[type] = get_target_squares(type, game_data)
+    targets[type] = get_target_list(type, game_data)
   end
 end
 
-def get_target_squares(type, game_data)
-  players = game_data[:players]
-  computer_mark = (players[:player1] == :user) ? PLAYER2_MARK : PLAYER1_MARK
-  user_mark =   (players[:player1] == :user) ? PLAYER1_MARK : PLAYER2_MARK
+def get_target_list(type, game_data)
+  marks = [PLAYER1_MARK, PLAYER2_MARK]
+  marks = marks.reverse if game_data[:players][:player1] == :computer
+  user_mark, computer_mark = marks
 
-  case type
-  when :opportunities then target_squares(computer_mark, game_data)
-  when :threats then target_squares(user_mark, game_data)
-  when :center then CENTER_SQUARE.intersection(empty_squares(game_data))
-  when :corners then CORNER_SQUARES.intersection(empty_squares(game_data))
-  when :other then OTHER_SQUARES.intersection(empty_squares(game_data))
+  target =  case type
+            when :opportunities then computer_mark
+            when :threats then user_mark
+            when :center then CENTER_SQUARE
+            when :corners then CORNER_SQUARES
+            when :other then OTHER_SQUARES
+            end
+  target_list(target, game_data)
+end
+
+def target_list(target, game_data)
+  if target == PLAYER1_MARK || target == PLAYER2_MARK
+    get_list(target, game_data)
+  else
+    target.intersection(empty_squares(game_data))
   end
 end
 
-def target_squares(mark, game_data)
-  WINNING_LINES.each_with_object([]) do |line, target_squares|
-    target_squares << target_square(line, game_data, mark) if
-      target_square?(line, game_data, mark)
+def get_list(mark, game_data)
+  WINNING_LINES.each_with_object([]) do |line, list|
+    list << target_square(line, mark, game_data) if
+      target_square?(line, mark, game_data)
   end
 end
 
-def target_square(line, game_data, mark)
+def target_square(line, mark, game_data)
   board = game_data[:board]
   if (board.values_at(*line).count(mark) == 2) &&
      (board.values_at(*line).count(EMPTY_MARK) == 1)
@@ -221,8 +230,8 @@ def target_square(line, game_data, mark)
   nil
 end
 
-def target_square?(line, game_data, mark)
-  !!target_square(line, game_data, mark)
+def target_square?(line, mark, game_data)
+  !!target_square(line, mark, game_data)
 end
 
 
@@ -278,10 +287,10 @@ end
 
 game_data = {
   board: {
-    1=>"O", 2=>" ", 3=>" ",
-    4=>" ", 5=>"X", 6=>"O",
-    7=>" ", 8=>" ", 9=>" "},
-  players: {player1: :user, player2: :computer}
+    1=>"O", 2=>" ", 3=>"O",
+    4=>" ", 5=>"X", 6=>" ",
+    7=>"O", 8=>" ", 9=>" "},
+  players: {player1: :computer, player2: :user}
 }
 
 # display_board(game_data)
