@@ -3,6 +3,72 @@
 
 
 
+### 43 CLOSEST PRIME
+=begin
+43 CLOSEST PRIME
+Given a List [] of n integers , find the minimum number to be inserted in a list, so that the sum of all elements of the list should equal the closest prime number .
+Notes
+List size is at least 2 .
+List's numbers will only have positives (n > 0) .
+Repetition of numbers in the list could occur .
+The newer list's sum should equal the closest prime number .
+
+7:19
+PROBLEM
+input: array
+  - contains at least two positive integers
+  - can contain the same integer more than once
+
+output: integer
+  - represents the smallest positive integer that can be added to list so that sum equals the closest prime number
+  - can be 0
+
+EXAMPLES
+
+DATA STRUCTURES
+input: array
+  - sum of input array
+  - loop to find next largest prime number
+output: integer
+
+ALGORITHM
+- find next largest prime number
+  - get sum of input array
+    - if prime, return 0
+  - otherwise, increment by 1 and test for primeness (helper method)
+    - if prime return, difference between it and input array sum
+    - else continue
+
+- test if number is prime
+  - create a range from 2 up to number / 2
+  - get modulo of number for each number in range
+  - if modulo is never 0, number is prime
+=end
+
+# def minimum_number(numbers)
+#   sum = numbers.sum
+#   current_number = sum
+#   loop do
+#     break if is_prime?(current_number)
+#     current_number += 1
+#   end
+#   current_number - sum
+# end
+
+# def is_prime?(number)
+#   max = Integer.sqrt(number)
+#   (2..max).all? { |divisor| number % divisor != 0 }
+# end
+
+# p minimum_number([3,1,2]) == 1
+# p minimum_number([5,2]) == 0
+# p minimum_number([1,1,1]) == 0
+# p minimum_number([2,12,8,4,6]) == 5
+# p minimum_number([50,39,49,6,17,28]) == 2
+
+
+
+
 ### 42 SORT ARRAYS
 =begin
 42 SORT ARRAYS
