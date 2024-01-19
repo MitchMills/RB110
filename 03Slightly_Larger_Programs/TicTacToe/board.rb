@@ -3,7 +3,7 @@ PLAYER2_MARK = 'O'
 EMPTY_MARK = ' '
 
 ALL_SQUARES = (1..9).to_a
-CENTER_SQUARE = 5
+CENTER_SQUARE = [5]
 CORNER_SQUARES = [1, 3, 7, 9]
 OTHER_SQUARES = [2, 4, 6, 8]
 
@@ -172,64 +172,60 @@ def user_choice(game_data) # TODO: loop for entry validation
   choice = gets.chomp.to_i
 end
 
+
+
+
+
+# computer choice methods
 def computer_choice(game_data)
-  empty_squares(game_data).sample
-end
-
-
-# computer choice methods # # # # # in progress
-def real_computer_choice(game_data) # change name back to `computer_choice` when it works
-  targets = get_targets(game_data)
+  targets = get_all_targets(game_data)
   targets.each_value do |target_squares|
     return target_squares.sample if target_squares.size > 0
   end
 end
 
-def get_targets(game_data)
+def get_all_targets(game_data)
   target_types = [:opportunities, :threats, :center, :corners, :other]
   target_types.each_with_object(Hash.new([])) do |type, targets|
     targets[type] = get_target_squares(type, game_data)
   end
 end
 
-
-# # # # # # #
 def get_target_squares(type, game_data)
-  players = game_data[:players] # {player1: :user, player2: :computer}
+  players = game_data[:players]
   computer_mark = (players[:player1] == :user) ? PLAYER2_MARK : PLAYER1_MARK
-  player_mark =   (players[:player1] == :user) ? PLAYER1_MARK : PLAYER2_MARK
+  user_mark =   (players[:player1] == :user) ? PLAYER1_MARK : PLAYER2_MARK
 
   case type
-  when :opportunities
-  when :threats
-  when :center
-  when :corners
-  when :other
+  when :opportunities then target_squares(computer_mark, game_data)
+  when :threats then target_squares(user_mark, game_data)
+  when :center then CENTER_SQUARE.intersection(empty_squares(game_data))
+  when :corners then CORNER_SQUARES.intersection(empty_squares(game_data))
+  when :other then OTHER_SQUARES.intersection(empty_squares(game_data))
   end
 end
 
-############# from old program
-def get_opportunities(brd)
-  opportunities = []
-  WINNING_LINES.each do |line|
-    opportunities << get_target_square(line, brd, COMPUTER_MARK) if
-      target_square?(line, brd, COMPUTER_MARK)
+def target_squares(mark, game_data)
+  WINNING_LINES.each_with_object([]) do |line, target_squares|
+    target_squares << target_square(line, game_data, mark) if
+      target_square?(line, game_data, mark)
   end
-  opportunities
 end
 
-def get_target_square(line, brd, mark)
-  if (brd.values_at(*line).count(mark) == 2) &&
-     (brd.values_at(*line).count(INITIAL_MARK) == 1)
-    return line.intersection(empty_squares(brd)).first
+def target_square(line, game_data, mark)
+  board = game_data[:board]
+  if (board.values_at(*line).count(mark) == 2) &&
+     (board.values_at(*line).count(EMPTY_MARK) == 1)
+     return line.intersection(empty_squares(game_data)).first
   end
   nil
 end
 
-def target_square?(line, brd, mark)
-  !!get_target_square(line, brd, mark)
+def target_square?(line, game_data, mark)
+  !!target_square(line, game_data, mark)
 end
-#############
+
+
 
 
 
@@ -281,8 +277,13 @@ end
 
 
 game_data = {
-  board: {1=>" ", 2=>" ", 3=>"X", 4=>" ", 5=>"O", 6=>" ", 7=>"X", 8=>" ", 9=>" "},
+  board: {
+    1=>"O", 2=>" ", 3=>" ",
+    4=>" ", 5=>"X", 6=>"O",
+    7=>" ", 8=>" ", 9=>" "},
   players: {player1: :user, player2: :computer}
 }
 
-display_board(game_data)
+# display_board(game_data)
+p get_all_targets(game_data)
+p computer_choice(game_data)
