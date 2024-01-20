@@ -230,6 +230,7 @@ end
 # computer choice methods
 def computer_choice(game_data)
   targets = get_all_targets(game_data)
+  p targets
   targets.each_value do |target_squares|
     return target_squares.sample if target_squares.size > 0
   end
@@ -237,9 +238,16 @@ end
 
 def get_all_targets(game_data)
   target_types = [:opportunities, :threats, :center, :chances, :corners, :other]
-  target_types.each_with_object(Hash.new([])) do |type, targets|
-    targets[type] = get_target_list(type, game_data).flatten.uniq
+  all_targets = target_types.each_with_object(Hash.new([])) do |type, targets|
+    targets[type] = get_target_list(type, game_data)
   end
+  all_targets[:chances] = better_chances(all_targets[:chances], game_data)
+  all_targets
+end
+
+def better_chances(chances, game_data)
+  empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
+  chances.intersection(empty_corners).empty? ? chances : chances.intersection(empty_corners)
 end
 
 def get_target_list(type, game_data)
@@ -268,12 +276,12 @@ end
 
 def get_list(mark, type, game_data)
   WINNING_LINES.each_with_object([]) do |line, list|
-    if target_square?(line, mark, game_data)
+    if target_square?(line, mark, type, game_data)
       list << target_square(line, mark, game_data)
     elsif chances_squares?(line, mark, type, game_data)
       list << chances_squares(line, mark, type, game_data)
     end
-  end
+  end.flatten.uniq
 end
 
 def target_square(line, mark, game_data)
@@ -284,28 +292,21 @@ def target_square(line, mark, game_data)
   nil
 end
 
-def target_square?(line, mark, game_data)
+def target_square?(line, mark, type, game_data)
+  [:opportunities, :threats].include?(type) &&
   !!target_square(line, mark, game_data)
 end
 
-
-
-# # # # # #  FIX
 def chances_squares(line, mark, type, game_data)
-  all_chances = if (game_data[:board].values_at(*line).count(mark) == 1) &&
+  if (game_data[:board].values_at(*line).count(mark) == 1) &&
     (game_data[:board].values_at(*line).count(EMPTY_MARK) == 2)
     line.intersection(empty_squares(game_data))
   end
-
-  empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
-  better_chances = line.intersection(empty_corners)
-  chances = (better_chances.size > 0) ? better_chances : all_chances
 end
 
 def chances_squares?(line, mark, type, game_data)
   type == :chances && !!chances_squares(line, mark, type, game_data)
 end
-# # # # # # #  FIX
 
 
 
@@ -317,7 +318,4 @@ game_data = {
   players: {player1: :computer, player2: :user}
 }
 
-display_board(game_data)
-p chances_squares([1, 5, 9], 'X', :chances, game_data)
-p get_all_targets(game_data)
-p computer_choice(game_data)
+play_one_game(game_data)
