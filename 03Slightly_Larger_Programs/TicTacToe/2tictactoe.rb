@@ -42,6 +42,11 @@ def display_board(game_data)
   row_positions = BOARD_PARTS[:rows][:positions].keys
   row_positions.each { |row_position| puts row(row_position, game_data) }
   blank_line
+
+  marks = [PLAYER1_MARK, PLAYER2_MARK]
+  marks.reverse! if game_data[:players][:player1] == :computer
+  user_mark, computer_mark = marks
+  prompt("You are #{user_mark}. The computer is #{computer_mark}")
 end
 
 def row(row_position, game_data)
@@ -128,7 +133,7 @@ end
 
 def display_player_order(game_data)
   players = ["You", "The computer"]
-  players = players.reverse if game_data[:players][:player1] == :computer
+  players.reverse! if game_data[:players][:player1] == :computer
   order, marks = %w(first second), [PLAYER1_MARK, PLAYER2_MARK]
 
   players.each_with_index do |player, index|
@@ -139,8 +144,6 @@ end
 
 # TODO: have player and computer keep same marks throughout match?
 # TODO: add player / mark info to board display
-
-
 
 
 # single game methods
@@ -167,9 +170,6 @@ def get_choice(current_player, game_data)
   player == :user ? user_choice(game_data) : computer_choice(game_data)
 end
 
-
-
-
 def user_choice(game_data)
   choice = nil
   loop do
@@ -181,9 +181,6 @@ def user_choice(game_data)
   end
   choice
 end
-
-
-
 
 def update_board(player, choice, game_data)
   mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
@@ -277,8 +274,8 @@ end
 
 def target_square(line, mark, game_data)
   if (game_data[:board].values_at(*line).count(mark) == 2) &&
-     (game_data[:board].values_at(*line).count(EMPTY_MARK) == 1)
-     return line.intersection(empty_squares(game_data)).first
+    (game_data[:board].values_at(*line).count(EMPTY_MARK) == 1)
+    return line.intersection(empty_squares(game_data)).first
   end
   nil
 end
@@ -292,16 +289,12 @@ end
 
 
 
-
-
-
-
 game_data = {
   board: {
     1=>" ", 2=>" ", 3=>" ",
     4=>" ", 5=>" ", 6=>" ",
     7=>" ", 8=>" ", 9=>" "},
-  players: {player1: :user, player2: :computer}
+  players: {player1: :computer, player2: :user}
 }
 
 play_one_game(game_data)
