@@ -61,10 +61,9 @@ end
 
 def sub_line(line_type, square_number, game_data)
   data = BOARD_PARTS[:sub_lines]
-  pattern = data[:inner].keys
   parts = (line_type == :horizontal) ? data[:horizontal] : data[:inner]
 
-  sub_line = pattern.map do |part_type|
+  sub_line = parts.keys.map do |part_type|
     next if (part_type == :limit) && (square_number % 3 == 0)
     parts[part_type]
   end.join
@@ -153,6 +152,7 @@ def play_one_game(game_data)
     player_places_mark!(current_player, game_data)
     break if game_winner?(game_data) || board_full?(game_data)
     current_player = switch_player(current_player)
+    sleep(0.3)
   end
   display_game_result(game_data)
 end
@@ -167,10 +167,23 @@ def get_choice(current_player, game_data)
   player == :user ? user_choice(game_data) : computer_choice(game_data)
 end
 
-def user_choice(game_data) # TODO: loop for entry validation
-  prompt(:print, "Choose an empty square: #{empty_squares(game_data)}: ")
-  choice = gets.chomp.to_i
+
+
+
+def user_choice(game_data)
+  choice = nil
+  loop do
+    prompt(:print, "Choose an empty square: #{empty_squares(game_data)}: ")
+    choice = gets.chomp.to_i
+    break if empty_squares(game_data).include?(choice)
+    prompt("I'm sorry, that's not a valid choice.")
+    blank_line
+  end
+  choice
 end
+
+
+
 
 def update_board(player, choice, game_data)
   mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
@@ -209,9 +222,9 @@ def display_game_result(game_data)
   display_board(game_data)
   result =  detect_game_winner(game_data)
   case result
-  when :user then prompt("You have won!")
-  when :computer then prompt("The computer has won!")
-  else prompt("It's a tie.")
+  when :user then prompt("You won this game!")
+  when :computer then prompt("The computer won this game!")
+  else prompt("This game is a tie.")
   end
 end
 
@@ -263,9 +276,8 @@ def get_list(mark, game_data)
 end
 
 def target_square(line, mark, game_data)
-  board = game_data[:board]
-  if (board.values_at(*line).count(mark) == 2) &&
-     (board.values_at(*line).count(EMPTY_MARK) == 1)
+  if (game_data[:board].values_at(*line).count(mark) == 2) &&
+     (game_data[:board].values_at(*line).count(EMPTY_MARK) == 1)
      return line.intersection(empty_squares(game_data)).first
   end
   nil
@@ -286,12 +298,10 @@ end
 
 game_data = {
   board: {
-    1=>"O", 2=>" ", 3=>"O",
-    4=>" ", 5=>"X", 6=>" ",
-    7=>"O", 8=>" ", 9=>" "},
-  players: {player1: :computer, player2: :user}
+    1=>" ", 2=>" ", 3=>" ",
+    4=>" ", 5=>" ", 6=>" ",
+    7=>" ", 8=>" ", 9=>" "},
+  players: {player1: :user, player2: :computer}
 }
 
-display_board(game_data)
-p get_all_targets(game_data)
-p computer_choice(game_data)
+play_one_game(game_data)
