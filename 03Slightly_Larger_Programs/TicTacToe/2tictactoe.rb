@@ -139,6 +139,7 @@ def display_player_order(game_data)
 end
 
 # TODO: have player and computer keep same marks throughout match?
+# TODO: add player / mark info to board display
 
 
 
@@ -171,7 +172,48 @@ def user_choice(game_data) # TODO: loop for entry validation
   choice = gets.chomp.to_i
 end
 
+def update_board(player, choice, game_data)
+  mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
+  game_data[:board][choice] = mark
+end
 
+def game_winner?(game_data)
+  !!detect_game_winner(game_data)
+end
+
+def detect_game_winner(game_data)
+  board = game_data[:board]
+  players = game_data[:players]
+  WINNING_LINES.each do |line|
+    players.keys.each do |player|
+      return players[player] if detect_win(board, line, player)
+    end
+  end
+  nil
+end
+
+def detect_win(board, line, player)
+  player_mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
+  board.values_at(*line).count(player_mark) == 3
+end
+
+def board_full?(game_data)
+  empty_squares(game_data).empty?
+end
+
+def switch_player(current_player)
+  current_player == :player1 ? :player2 : :player1
+end
+
+def display_game_result(game_data)
+  display_board(game_data)
+  result =  detect_game_winner(game_data)
+  case result
+  when :user then prompt("You have won!")
+  when :computer then prompt("The computer has won!")
+  else prompt("It's a tie.")
+  end
+end
 
 
 
@@ -239,49 +281,7 @@ end
 
 
 
-def update_board(player, choice, game_data)
-  mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
-  game_data[:board][choice] = mark
-end
 
-def game_winner?(game_data)
-  !!detect_game_winner(game_data)
-end
-
-def detect_game_winner(game_data)
-  board, players = game_data[:board], game_data[:players]
-  WINNING_LINES.each do |line|
-    players.keys.each do |player|
-      return players[player] if detect_win(board, line, player)
-    end
-  end
-  nil
-end
-
-def detect_win(board, line, player)
-  player_mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
-  board.values_at(*line).count(player_mark) == 3
-end
-
-
-
-def board_full?(game_data)
-  empty_squares(game_data).empty?
-end
-
-def switch_player(current_player)
-  current_player == :player1 ? :player2 : :player1
-end
-
-def display_game_result(game_data)
-  display_board(game_data)
-  result =  detect_game_winner(game_data)
-  case result
-  when :user then prompt("You have won!")
-  when :computer then prompt("The computer has won!")
-  else prompt("It's a tie.")
-  end
-end
 
 
 game_data = {
