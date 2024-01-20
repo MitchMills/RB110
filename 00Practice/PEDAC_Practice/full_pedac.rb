@@ -3,6 +3,80 @@
 
 
 
+### 44 COUNTING DUPLICATES
+=begin
+44 COUNTING DUPLICATES
+Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits.
+Examples
+"abcde" -> 0 # no characters repeats more than once
+"aabbcde" -> 2 # 'a' and 'b'
+"aabBcde" -> 2 # 'a' occurs twice and 'b' twice (`b` and `B`)
+"indivisibility" -> 1 # 'i' occurs six times
+"Indivisibilities" -> 2 # 'i' occurs seven times and 's' occurs twice
+"aA11" -> 2 # 'a' and '1'
+"ABBA" -> 2 # 'A' and 'B' each occur twice
+
+7:06
+PROBLEM
+input: string
+  - contains only alpha and numeric characters
+    - alpha characters can be upper or lower case
+    - no spaces or other types of characters
+  - can be empty
+
+output: integer
+  - represents the number of characters that occur more than once
+    - for alpha characters, ignore case ('a' == 'A')
+  - only need to return count, not which letters are duplicated
+  - if input string is empty, return 0
+  - if no duplicates, return 0
+  - integer will always be 0 or positive
+
+EXAMPLES
+
+DATA STRUCTURES
+input: string
+  - array of unique individual characters
+  - count of characters that occur more than once
+output: integer
+
+ALGORITHM
+- create an array of unique individual characters from the input string
+  - downcase string first
+- set a counter to 0
+- iterate over the array
+  - for each element, count how many times it occurs in input string
+  - if a unique character occurs more than once, add 1 to the counter
+- return counter
+=end
+
+# def duplicate_count(string)
+#   unique_characters = string.downcase.chars.uniq
+#   duplicates = 0
+#   unique_characters.each do |character|
+#     duplicates += 1 if string.downcase.count(character) > 1
+#   end
+#   duplicates
+# end
+
+# def duplicate_count(string)
+#   characters = string.downcase.chars
+#   counts = characters.tally
+#   counts.select { |character, count| count > 1 }.size
+# end
+
+# def duplicate_count(string)
+#   string.downcase.chars.tally.select { |character, count| count > 1 }.size
+# end
+
+# p duplicate_count("") == 0
+# p duplicate_count("abcde") == 0
+# p duplicate_count("abcdeaa") == 1
+# p duplicate_count("abcdeaB") == 2
+# p duplicate_count("Indivisibilities") == 2
+
+
+
 ### 43 CLOSEST PRIME
 =begin
 43 CLOSEST PRIME
