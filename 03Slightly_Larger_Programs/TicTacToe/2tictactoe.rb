@@ -14,16 +14,14 @@ WINNING_LINES = [
 ]
 
 BOARD_SQUARE_SIZE = 7
-FILL_SIZE = BOARD_SQUARE_SIZE / 2
 BOARD_PARTS = {
   rows: {
     pattern: [:empty, :marked, :numbered, :horizontal],
     positions: {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]}
   },
   sub_lines: {
-    pattern:     [:fill, :mark, :fill, :limit],
-    inner:       {fill: (' ' * FILL_SIZE), mark: ' ', limit: '|'},
-    horizontal:  {fill: ('-' * FILL_SIZE), mark: '-', limit: '+'}
+    inner:       {fill: (' ' * BOARD_SQUARE_SIZE), limit: '|'},
+    horizontal:  {fill: ('-' * BOARD_SQUARE_SIZE), limit: '+'}
   }
 }
 
@@ -63,9 +61,10 @@ end
 
 def sub_line(line_type, square_number, game_data)
   data = BOARD_PARTS[:sub_lines]
+  pattern = data[:inner].keys
   parts = (line_type == :horizontal) ? data[:horizontal] : data[:inner]
 
-  sub_line = data[:pattern].map do |part_type|
+  sub_line = pattern.map do |part_type|
     next if (part_type == :limit) && (square_number % 3 == 0)
     parts[part_type]
   end.join
@@ -74,12 +73,12 @@ def sub_line(line_type, square_number, game_data)
 end
 
 def add_info(sub_line, square_number, line_type, game_data)
-  center_point = BOARD_SQUARE_SIZE / 2
+  center = BOARD_SQUARE_SIZE / 2
   case line_type
   when :marked
-    sub_line[center_point] = game_data[:board][square_number]
+    sub_line[center] = game_data[:board][square_number]
   when :numbered
-    sub_line[center_point] = square_number.to_s if
+    sub_line[center] = square_number.to_s if
       empty_squares(game_data).include?(square_number)
   end
   sub_line
@@ -193,7 +192,7 @@ end
 
 def get_target_list(type, game_data)
   marks = [PLAYER1_MARK, PLAYER2_MARK]
-  marks = marks.reverse if game_data[:players][:player1] == :computer
+  marks.reverse! if game_data[:players][:player1] == :computer
   user_mark, computer_mark = marks
 
   target =  case type
@@ -207,7 +206,7 @@ def get_target_list(type, game_data)
 end
 
 def target_list(target, game_data)
-  if target == PLAYER1_MARK || target == PLAYER2_MARK
+  if [PLAYER1_MARK, PLAYER2_MARK].include?(target)
     get_list(target, game_data)
   else
     target.intersection(empty_squares(game_data))
@@ -293,6 +292,6 @@ game_data = {
   players: {player1: :computer, player2: :user}
 }
 
-# display_board(game_data)
+display_board(game_data)
 p get_all_targets(game_data)
 p computer_choice(game_data)
