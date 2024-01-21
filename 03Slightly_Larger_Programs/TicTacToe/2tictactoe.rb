@@ -143,7 +143,7 @@ def display_player_order(game_data)
 end
 
 # TODO: have player and computer keep same marks throughout match?
-# TODO: add player / mark info to board display
+
 
 
 # single game methods
@@ -173,13 +173,24 @@ end
 def user_choice(game_data)
   choice = nil
   loop do
-    prompt(:print, "Choose an empty square: #{empty_squares(game_data)}: ")
+    prompt(:print, "Choose an empty square#{join_choices(empty_squares(game_data))}: ")
     choice = gets.chomp.to_i
     break if empty_squares(game_data).include?(choice)
     prompt("I'm sorry, that's not a valid choice.")
     blank_line
   end
   choice
+end
+
+def join_choices(array, delimiter = ', ', word = 'or')
+  case array.size
+  when 0 then ''
+  when 1 then " (#{array.first})"
+  when 2 then " (#{array.join(" #{word} ")})"
+  else
+    array[-1] = "#{word} #{array.last}"
+    " (#{array.join(delimiter)})"
+  end
 end
 
 def update_board(player, choice, game_data)
@@ -230,7 +241,6 @@ end
 # computer choice methods
 def computer_choice(game_data)
   targets = get_all_targets(game_data)
-  p targets
   targets.each_value do |target_squares|
     return target_squares.sample if target_squares.size > 0
   end
@@ -315,7 +325,7 @@ game_data = {
     1=>" ", 2=>" ", 3=>" ",
     4=>" ", 5=>" ", 6=>" ",
     7=>" ", 8=>" ", 9=>" "},
-  players: {player1: :computer, player2: :user}
+  players: {player1: :user, player2: :computer}
 }
 
 play_one_game(game_data)
