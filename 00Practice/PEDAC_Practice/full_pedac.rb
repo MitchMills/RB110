@@ -3,6 +3,60 @@
 
 
 
+### 45 ALPHABETIZED
+=begin
+45 ALPHABETIZED
+Re-order the characters of a string, so that they are concatenated into a new string in "case-insensitively-alphabetical-order-of-appearance" order. Whitespace and punctuation shall simply be removed! The input is restricted to contain no numerals and only words containing the english alphabet letters.
+Example:
+alphabetized("The Holy Bible") # "BbeehHilloTy"
+
+7:04
+PROBLEM
+input: string
+  - contains only alpha characters, plus may contain punctuation and whitespace
+  - may contain upper and lowercase letters
+  - may be empty or contain only whitespace
+output: string
+  - whitespace and non-alpha characters removed
+  - in case-insensitive alphabetical order: 'AbBa' => 'AabB'
+    - upper and lower case versions of same letter should appear in order they appear in string
+  - if string is empty or contains no alpha characters, return an empty string
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - clean string: whitespace and non-alpha characters removed
+    - can use an array of all alpha characters (upper and lower case) to select
+  - sort using alphabet and index
+- output: string
+
+ALGORITHM
+- create an array of all upper and lowercase alpha characters
+- create a new string with all whitespace and non-alpha charactters removed
+- sort that string by alphabet and index
+=end
+
+# ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+
+# def alphabetized(string)
+#   clean_string = string.chars.select { |char| ALPHABET.include?(char) }.join
+#   clean_string.chars.sort_by.with_index do |char, index|
+#     [char.downcase, index]
+#   end.join
+# end
+
+# p alphabetized("") == ""
+# p alphabetized(" ") == ""
+# p alphabetized(" a") == "a"
+# p alphabetized("a ") == "a"
+# p alphabetized(" a ") == "a"
+# p alphabetized("A b B a") == "AabB"
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+
+
+
+
 ### 44 COUNTING DUPLICATES
 =begin
 44 COUNTING DUPLICATES
