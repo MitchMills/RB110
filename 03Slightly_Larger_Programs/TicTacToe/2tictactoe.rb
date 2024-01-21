@@ -25,6 +25,8 @@ BOARD_PARTS = {
   }
 }
 
+GAMES_IN_MATCH = 5
+
 # general methods ###
 def prompt(type = :puts, message)
   type == :print ? print("=> #{message}") : puts("=> #{message}")
