@@ -36,6 +36,11 @@ end
 
 
 # board display methods ###
+
+def new_board
+  ALL_SQUARES.map { |square_number| [square_number, EMPTY_MARK] }.to_h
+end
+
 def display_board(game_data)
   system('clear')
   blank_line
@@ -96,17 +101,37 @@ end
 
 
 
+# match methods ###
+def play_match(game_data)
+  system('clear')
+  game_data[:match_score] = {player1: 0, player2: 0, ties: 0}
 
+  match_intro
+  determine_first_player(game_data)
+  loop do
+    play_one_game(game_data)
+    update_score(game_data)
+    break if match_over?(game_data)
+  end
+  display_match_results(game_data)
+end
 
-# game setup methods ###
-def new_board
-  ALL_SQUARES.map { |square_number| [square_number, EMPTY_MARK] }.to_h
+def game_number(game_data)
+  game_data[:match_scores].values.sum + 1
+end
+
+def match_intro
+  prompt("You will play against the computer.")
+  prompt("The player who wins the most games out of five wins the match.")
+  prompt("Enter any key when you are ready to start the match.")
+  gets
 end
 
 def determine_first_player(game_data)
   choice = nil
   loop do
     choice = get_first_player_choice
+    blank_line
     break if ['1', '2', '3'].include?(choice)
     prompt("I'm sorry, that's not a valid choice")
     blank_line
@@ -116,7 +141,8 @@ def determine_first_player(game_data)
 end
 
 def get_first_player_choice
-  prompt("Choose who will go first:")
+  system('clear')
+  prompt("Choose who will go first for this match:")
   prompt("  Enter 1 to go first")
   prompt("  Enter 2 to have the computer go first")
   prompt("  Enter 3 to have the first player chosen randomly")
@@ -126,9 +152,8 @@ end
 
 def set_player_order(game_data, choice)
   choice = ['1', '2'].sample if choice == '3'
-  players = game_data[:players]
-  players[:player1] = (choice == '1') ? :user : :computer
-  players[:player2] = (choice == '1') ? :computer : :user
+  game_data[:players][:player1] = (choice == '1') ? :user : :computer
+  game_data[:players][:player2] = (choice == '1') ? :computer : :user
 end
 
 def display_player_order(game_data)
@@ -138,22 +163,27 @@ def display_player_order(game_data)
 
   players.each_with_index do |player, index|
    prompt("#{player} will go #{order[index]} and " +
-    "mark squares with '#{marks[index]}'")
+    "mark squares with '#{marks[index]}'.")
   end
+  blank_line
+  prompt("The first player will alternate for each new game of this match.")
+  prompt("The marks you use will stay the same throughout the match.")
+  prompt("Enter any key when you are ready to start the first game.")
+  gets
 end
 
-# TODO: have player and computer keep same marks throughout match?
+
 
 
 
 # single game methods
 def play_one_game(game_data)
   game_data[:board] = new_board
-  current_player = :player1 # TODO: need to switch between games in match
+  current_player = game_number(game_data).odd? ? :player1 : :player2
   loop do
     display_board(game_data)
     player_places_mark!(current_player, game_data)
-    break if game_winner?(game_data) || board_full?(game_data)
+    break if game_over?(game_data)
     current_player = switch_player(current_player)
     sleep(0.4)
   end
@@ -198,6 +228,10 @@ def update_board(player, choice, game_data)
   game_data[:board][choice] = mark
 end
 
+def game_over?(game_data)
+  game_winner?(game_data) || board_full?(game_data)
+end
+
 def game_winner?(game_data)
   !!detect_game_winner(game_data)
 end
@@ -207,13 +241,13 @@ def detect_game_winner(game_data)
   players = game_data[:players]
   WINNING_LINES.each do |line|
     players.keys.each do |player|
-      return players[player] if detect_win(board, line, player)
+      return players[player] if detect_game_win(board, line, player)
     end
   end
   nil
 end
 
-def detect_win(board, line, player)
+def detect_game_win(board, line, player)
   player_mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
   board.values_at(*line).count(player_mark) == 3
 end
@@ -228,8 +262,8 @@ end
 
 def display_game_result(game_data)
   display_board(game_data)
-  result =  detect_game_winner(game_data)
-  case result
+  game_winner =  detect_game_winner(game_data)
+  case game_winner
   when :user then prompt("You won this game!")
   when :computer then prompt("The computer won this game!")
   else prompt("This game is a tie.")
@@ -325,7 +359,8 @@ game_data = {
     1=>" ", 2=>" ", 3=>" ",
     4=>" ", 5=>" ", 6=>" ",
     7=>" ", 8=>" ", 9=>" "},
-  players: {player1: :user, player2: :computer}
+  players: {player1: :user, player2: :computer},
+  match_scores: {player1: 0, player2: 0, ties: 0}
 }
 
-play_one_game(game_data)
+determine_first_player(game_data)
