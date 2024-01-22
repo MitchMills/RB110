@@ -123,8 +123,7 @@ def game_number(game_data)
 end
 
 def match_intro
-  prompt("You will play against the computer.")
-  prompt("The player who wins the most games out of five wins the match.")
+  prompt("The player who wins the most games out of #{GAMES_IN_MATCH} wins the match.")
   prompt("Enter any key when you are ready to start the match.")
   gets
 end
@@ -172,6 +171,19 @@ def display_player_order(game_data)
   prompt("The marks you use will stay the same throughout the match.")
   prompt("Enter any key when you are ready to start the first game.")
   gets
+end
+
+def update_score(game_data)
+  game_winner = detect_game_winner
+  case game_winner
+  when :user then
+  when :computer then
+  else
+  end
+end
+
+def match_over?(game_data)
+
 end
 
 
