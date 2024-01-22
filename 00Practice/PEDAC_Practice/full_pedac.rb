@@ -3,6 +3,51 @@
 
 
 
+### 46 DIGITAL ROOT
+=begin
+DIGITAL ROOT
+In this kata, you must create a digital root function. A digital root is the recursive sum of all the digits in a number. Given n, take the sum of the digits of n. If that value has more than one digit, continue reducing in this way until a single-digit number is produced. This is only applicable to the natural numbers.
+
+7:28
+PROBLEM
+input: integer
+  - positive
+  - contains at least two digits
+output: integer
+  - single digit
+  - equals recursive sum of individual digits of input integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - array of individual digits
+- output: integer
+
+ALGORITHM
+- create an array of individual digits from the input integer
+- if array size is 1, return that digit
+- otherwise, sum all the digits
+- repeat until array size is 1
+=end
+
+# def digital_root(number)
+#   loop do
+#     digits = number.digits
+#     return digits.first if digits.size == 1
+#     number = digits.sum
+#   end
+# end
+
+# p digital_root(16) == 7
+# p digital_root(456) == 6
+# p digital_root(942) == 6
+# p digital_root(132189) == 6
+# p digital_root(493193) == 2
+
+
+
+
 ### 45 ALPHABETIZED
 =begin
 45 ALPHABETIZED
