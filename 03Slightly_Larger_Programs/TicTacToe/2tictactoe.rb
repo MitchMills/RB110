@@ -202,13 +202,17 @@ def match_over?(game_data)
   insurmountable_lead?(game_data)
 end
 
-def insurmountable_lead?(game_data)
-  games_left = GAMES_IN_MATCH - game_number(game_data) # TODO: off by one?
-  game_data[:match_scores].each do |player, score|
-    next if player == :ties
-    return true if score > 2 || games_left - score < 2 # TODO: FIX!
+def detect_insurmountable_lead(game_data)
+  games_left = GAMES_IN_MATCH - game_data[:match_scores].values.sum # TODO: off by one?
+  [:user, :computer].each do |player|
+    return player if games_data[:match_score][player] > (games_left / 2) ||
+    (games_data[:match_score][player] - )
   end
-  false
+  nil
+end
+
+def insurmountable_lead?(game_data)
+  !!detect_insurmountable_lead(game_data)
 end
 
 
