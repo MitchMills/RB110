@@ -46,14 +46,28 @@ end
 def display_board(game_data)
   system('clear')
   blank_line
+  display_match_info(game_data)
+  draw_board(game_data)
+  display_marks_info(game_data)
+end
+
+def display_match_info(game_data)
+  user_score, computer_score, ties = game_data[:match_scores].values
+  puts("MATCH SCORES")
+  puts(" Game #{game_number(game_data)}")
+  puts(" You: #{user_score}, Computer: #{computer_score}, Ties: #{ties}")
+end
+
+def draw_board(game_data)
   row_positions = BOARD_PARTS[:rows][:positions].keys
   row_positions.each { |row_position| puts row(row_position, game_data) }
-  blank_line
+end
 
+def display_marks_info(game_data)
   marks = [PLAYER1_MARK, PLAYER2_MARK]
   marks.reverse! if game_data[:players][:player1] == :computer
   user_mark, computer_mark = marks
-  prompt("You are #{user_mark}. The computer is #{computer_mark}")
+  puts("You are '#{user_mark}'. The computer is '#{computer_mark}'")
 end
 
 def row(row_position, game_data)
@@ -80,10 +94,10 @@ def sub_line(line_type, square_number, game_data)
     parts[part_type]
   end.join
 
-  add_info(sub_line, square_number, line_type, game_data)
+  add_marks(sub_line, square_number, line_type, game_data)
 end
 
-def add_info(sub_line, square_number, line_type, game_data)
+def add_marks(sub_line, square_number, line_type, game_data)
   center = BOARD_SQUARE_SIZE / 2
   case line_type
   when :marked
@@ -103,16 +117,17 @@ end
 
 
 
+
 # match methods ###
 def play_match(game_data)
   system('clear')
   game_data[:match_score] = {player1: 0, player2: 0, ties: 0}
 
   match_intro
-  determine_first_player(game_data)
+  determine_player_order(game_data)
   loop do
     play_one_game(game_data)
-    update_score(game_data)
+    update_match_score(game_data)
     break if match_over?(game_data)
   end
   display_match_results(game_data)
@@ -128,7 +143,7 @@ def match_intro
   gets
 end
 
-def determine_first_player(game_data)
+def determine_player_order(game_data)
   choice = nil
   loop do
     choice = get_first_player_choice
@@ -173,17 +188,27 @@ def display_player_order(game_data)
   gets
 end
 
-def update_score(game_data)
-  game_winner = detect_game_winner
+def update_match_score(game_data)
+  game_winner = detect_game_winner(game_data)
   case game_winner
-  when :user then
-  when :computer then
-  else
+  when :user then game_data[:match_scores][:user] += 1
+  when :computer then game_data[:match_scores][:computer] += 1
+  else game_data[:match_scores][:ties] += 1
   end
 end
 
 def match_over?(game_data)
+  game_data[:match_scores].values >= GAMES_IN_MATCH ||
+  insurmountable_lead?(game_data)
+end
 
+def insurmountable_lead?(game_data)
+  games_left = GAMES_IN_MATCH - game_number(game_data) # TODO: off by one?
+  game_data[:match_scores].each do |player, score|
+    next if player == :ties
+    return true if score > 2 || games_left - score < 2 # TODO: FIX!
+  end
+  false
 end
 
 
@@ -370,11 +395,11 @@ end
 
 game_data = {
   board: {
-    1=>" ", 2=>" ", 3=>" ",
-    4=>" ", 5=>" ", 6=>" ",
-    7=>" ", 8=>" ", 9=>" "},
+    1=>"O", 2=>"X", 3=>"X",
+    4=>" ", 5=>"O", 6=>" ",
+    7=>" ", 8=>" ", 9=>"O"},
   players: {player1: :user, player2: :computer},
-  match_scores: {player1: 0, player2: 0, ties: 0}
+  match_scores: {user: 0, computer: 0, ties: 0}
 }
 
-determine_first_player(game_data)
+p insurmountable_lead?(game_data)
