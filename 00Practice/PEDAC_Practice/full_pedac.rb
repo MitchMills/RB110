@@ -1,4 +1,54 @@
-### 48
+### 49
+
+
+
+
+### 48 FIND PARENT
+=begin
+48 FIND PARENT
+Mothers arranged a dance party for the children in school. At that party, there are only mothers and their children. All are having great fun on the dance floor when suddenly all the lights went out. It's a dark night and no one can see each other. But you were flying nearby and you can see in the dark and have ability to teleport people anywhere you want.
+Legend:
+-Uppercase letters stands for mothers, lowercase stand for their children, i.e. "A" mother's children are "aaaa".
+-Function input: String contains only letters, uppercase letters are unique.
+Task:
+Place all people in alphabetical order where Mothers are followed by their children, i.e. "aAbaBb" => "AaaBbb".
+
+8:26
+PROBLEM
+input: string
+  - contain only upper and lower case alpha characters
+    - contain only one instance of any uppercase letter
+    - may contain multiple instances of lowercase letters
+  - uppercase: "mothers" ; lowercase: "children"
+  - may be empty
+
+
+output: string
+  - same characters as input string, sorted alphabetically
+    - uppercase instance of any given letter should appear first, followed by every instance of its lowercase version
+  - if input string is empty, return empty string
+
+EXAMPLES
+
+DATA STRUCTURES
+input: string
+
+output: string
+
+ALGORITHM
+- sort input string by downcased letter, then by original letter
+=end
+
+# def find_children(string)
+#   string.chars.sort_by { |char| [char.downcase, char] }.join
+# end
+
+# p find_children("abBA") == "AaBb"
+# p find_children("AaaaaZazzz") == "AaaaaaZzzz"
+# p find_children("CbcBcbaA") == "AaBbbCcc"
+# p find_children("xXfuUuuF") == "FfUuuuXx"
+# p find_children("") == ""
+
 
 
 
