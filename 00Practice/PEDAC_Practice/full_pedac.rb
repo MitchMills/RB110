@@ -1,3 +1,51 @@
+### 48
+
+
+
+
+### 47 ARRAY DIFFERENCE
+=begin
+ARRAY DIFFERENCE
+Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result. It should remove all values from list a, which are present in list b.
+array_diff([1,2],[1]) == [2]
+If a value is present in b, all of its occurrences must be removed from the other:
+array_diff([1,2],[1]) == [2]
+
+8:16
+PROBLEM
+input: two arrays
+
+output: array
+- contains the elements of first input array minus every instance of the elements in the second array
+
+EXAMPLES
+
+DATA STRUCTURES
+input: two arrays
+
+output: array
+
+ALGORITHM
+- iterate over the first input array
+  - select only elements that do not appear in second array
+- return result
+=end
+
+# def array_diff(array1, array2)
+#   array1.select do |element|
+#     !array2.include?(element)
+#   end
+# end
+
+# def array_diff(array1, array2)
+#   array1 - array2
+# end
+
+# p array_diff([1,2], [1]) == [2]
+# p array_diff([1,2,2], [1]) == [2,2]
+# p array_diff([1,2,2], [2]) == [1]
+# p array_diff([1,2,2], []) == [1,2,2]
+# p array_diff([], [1,2]) == []
 
 
 
