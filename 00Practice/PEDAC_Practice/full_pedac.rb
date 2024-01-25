@@ -69,9 +69,19 @@ ALGORITHM
 
 # def get_sums(array)
 #   array.each_index.map do |index|
-#     [array.take(index).sum, array[(index + 1)..-1].sum]
+#     [array.take(index).sum, array.reverse.take(array.size - index - 1).sum]
+#     # [array.take(index).sum, array[(index + 1)..-1].sum]
 #   end
 # end
+
+# [0, 1, 2, 3, 4, 5, 6]
+# 0 []                  [1, 2, 3, 4, 5, 6]
+# 1 [0]                 [2, 3, 4, 5, 6]
+# 2 [0, 1]              [3, 4, 5, 6]
+# 3 [0, 1, 2]           [4, 5, 6]
+# 4 [0, 1, 2, 3]        [5, 6]
+# 5 [0, 1, 2, 3, 4]     [6]
+# 6 [0, 1, 2, 3, 4, 5]  []
 
 # p find_even_index([1,2,3,4,3,2,1]) == 3
 # p find_even_index([1,100,50,-51,1,1]) == 1
