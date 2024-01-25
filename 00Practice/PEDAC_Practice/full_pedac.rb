@@ -1,3 +1,8 @@
+### 49
+
+
+
+
 ### 50 EQUAL SIDES OF AN ARRAY
 =begin
 You are going to be given an array of integers. Your job is to take that array and find an index N where the sum of the integers to the left of N is equal to the sum of the integers to the right of N. If there is no index that would make this happen, return -1.
@@ -54,19 +59,21 @@ ALGORITHM
 - if no index meets conditions, return -1
 =end
 
-def find_even_index(array)
-  return 0 if array.sum == 0
-  subarrays = get_subarrays(array)
-end
+# def find_even_index(array)
+#   sums = get_sums(array)
+#   sums.each_with_index.select do |sum, index|
+#     return index if sum.first == sum.last
+#   end
+#   -1
+# end
 
-def get_subarrays(array)
-  last_index = array.size - 1
-  (1..last_index).map do |index|
-    [array[0..(index - 1)], array[(index + 1)..last_index]]
-  end
-end
+# def get_sums(array)
+#   array.each_index.map do |index|
+#     [array.take(index).sum, array[(index + 1)..-1].sum]
+#   end
+# end
 
-p find_even_index([1,2,3,4,3,2,1]) #== 3
+# p find_even_index([1,2,3,4,3,2,1]) == 3
 # p find_even_index([1,100,50,-51,1,1]) == 1
 # p find_even_index([1,2,3,4,5,6]) == -1
 # p find_even_index([20,10,30,10,10,15,35]) == 3
@@ -77,14 +84,7 @@ p find_even_index([1,2,3,4,3,2,1]) #== 3
 # p find_even_index([-1,-2,-3,-4,-3,-2,-1]) == 3
 # p find_even_index(Array(-100..-1)) == -1
 
-[
-  [[1, 2, 3, 4, 3, 2, 1], [2, 3, 4, 3, 2, 1]],
-  [[1], [3, 4, 3, 2, 1]],
-  [[1, 2], [4, 3, 2, 1]],
-  [[1, 2, 3], [3, 2, 1]],
-  [[1, 2, 3, 4], [2, 1]],
-  [[1, 2, 3, 4, 3], [1]],
-  [[1, 2, 3, 4, 3, 2], []]]
+
 
 
 
