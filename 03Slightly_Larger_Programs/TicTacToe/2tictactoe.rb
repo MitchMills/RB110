@@ -203,9 +203,10 @@ def match_over?(game_data)
   insurmountable_lead?(game_data)
 end
 
+def insurmountable_lead?(game_data)
+  !!detect_insurmountable_lead(game_data)
+end
 
-
-# # # # #
 def detect_insurmountable_lead(game_data)
   scores = game_data[:match_scores]
   games_left = GAMES_IN_MATCH - scores.values.sum
@@ -217,11 +218,25 @@ def detect_insurmountable_lead(game_data)
   nil
 end
 
-def insurmountable_lead?(game_data)
-  !!detect_insurmountable_lead(game_data)
+
+
+
+
+# # # # #
+def display_match_results(game_data)
+  results = get_match_results(game_data) # TODO
+  reason = get_win_reason(game_data) # TODO
 end
 
+def get_match_results(game_data)
 
+end
+
+def get_win_reason(game_data)
+
+end
+
+# # # # #
 
 
 
