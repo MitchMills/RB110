@@ -135,7 +135,7 @@ end
 
 def game_number(game_data)
   game_number = game_data[:match_scores].values.sum + 1
-  game_number > GAMES_IN_MATCH ? GAMES_IN_MATCH : game_number
+  game_number = game_number > GAMES_IN_MATCH ? GAMES_IN_MATCH : game_number
 end
 
 def match_intro
@@ -267,7 +267,7 @@ end
 def user_choice(game_data)
   choice = nil
   loop do
-    prompt(:print, "Choose an empty square#{join_choices(empty_squares(game_data))}: ")
+    prompt(:print, "Choose an empty square#{format_choices(empty_squares(game_data))}: ")
     choice = gets.chomp.to_i
     break if empty_squares(game_data).include?(choice)
     prompt("I'm sorry, that's not a valid choice.")
@@ -276,7 +276,7 @@ def user_choice(game_data)
   choice
 end
 
-def join_choices(array, delimiter = ', ', word = 'or')
+def format_choices(array, delimiter = ', ', word = 'or')
   case array.size
   when 0 then ''
   when 1 then " (#{array.first})"
