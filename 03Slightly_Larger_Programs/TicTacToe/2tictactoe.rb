@@ -25,7 +25,7 @@ BOARD_PARTS = {
   }
 }
 
-GAMES_IN_MATCH = 5
+GAMES_IN_MATCH = 7
 
 # general methods ###
 def prompt(type = :puts, message)
@@ -121,13 +121,13 @@ end
 # match methods ###
 def play_match(game_data)
   system('clear')
-  game_data[:match_score] = {player1: 0, player2: 0, ties: 0}
+  game_data[:match_scores] = {player1: 0, player2: 0, ties: 0}
 
   match_intro
   determine_player_order(game_data)
   loop do
     play_one_game(game_data)
-    update_match_score(game_data)
+    update_match_scores(game_data)
     break if match_over?(game_data)
   end
   display_match_results(game_data)
@@ -189,7 +189,7 @@ def display_player_order(game_data)
   gets
 end
 
-def update_match_score(game_data)
+def update_match_scores(game_data)
   game_winner = detect_game_winner(game_data)
   case game_winner
   when :user then game_data[:match_scores][:user] += 1
@@ -207,10 +207,12 @@ end
 
 # # # # #
 def detect_insurmountable_lead(game_data)
-  games_left = GAMES_IN_MATCH - game_data[:match_scores].values.sum # TODO: off by one?
+  scores = game_data[:match_scores]
+  games_left = GAMES_IN_MATCH - scores.values.sum
   [:user, :computer].each do |player|
-    return player if games_data[:match_score][player] > (games_left / 2) ||
-    (games_data[:match_score][player] - )
+    other_player = player == :user ? :computer : :user
+    return player if scores[player] > (GAMES_IN_MATCH / 2) ||
+    scores[player] - scores[other_player] > games_left
   end
   nil
 end
@@ -407,7 +409,7 @@ game_data = {
     4=>" ", 5=>"O", 6=>" ",
     7=>" ", 8=>" ", 9=>"O"},
   players: {player1: :user, player2: :computer},
-  match_scores: {user: 0, computer: 0, ties: 0}
+  match_scores: {user: 2, computer: 3, ties: 1}
 }
 
-p insurmountable_lead?(game_data)
+p detect_insurmountable_lead(game_data)
