@@ -1,4 +1,80 @@
+### 51.2
+=begin
+51.2 DECIPHER THIS
+You are given a secret message you need to decipher. Here are the things you need to know to decipher it:
+For each word:
+the second and the last letter is switched (e.g. Hello becomes Holle)
+the first letter is replaced by its character code (e.g. H becomes 72)
+Note: there are no special characters used, only letters and spaces
+Examples
+decipherThis('72olle 103doo 100ya'); // 'Hello good day'
+decipherThis('82yade 115te 103o'); // 'Ready set go'
 
+6:56
+PROBLEM
+input: string
+  - contains only alphanumeric characters and spaces
+  - contains 'words': alphanumeric characters surrounded by whitespace
+
+output: string
+  - decoded version of input string
+    - 2nd and last letter are swapped (indexes 1 and (string length - 1))
+    - first 'letter' in input string is output letter's character code
+      - can be multiple digits
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual words
+  - array of numeric characters to use to identify first 'letter'
+- output: string
+
+ALGORITHM
+- create an array of numeric characters from '0' to '9' (strings, not integers)
+- separate input string into an array of 'words'
+- identify the first 'letter' and convert it to it's alpha character equivalent
+  - iterate over each character in the word, with indexes
+  - if the character is included in the numeric array, continue
+  - if not, stop and use the index to identify the first 'letter': index 0 to stop index
+  - convert that 'letter' into an integer and then into an alpha character
+- swap the second and last characters
+  - indexes 1 and (string length - 1)
+- join array words into a string and return it
+
+=end
+NUMBERS = ('0'..'9').to_a
+
+def decipher_this(string)
+  words = string.split
+  words2 = words.map do |word|
+    stop_index = get_stop_index(word)
+    word[0..stop_index] = (word[0..stop_index]).to_i.chr
+    word
+  end
+
+  words2.map do |word2|
+    if word2.size > 1
+      word2[1], word2[-1] = word2[-1], word2[1]
+      word2
+    else
+      word2
+    end
+  end.join(' ')
+end
+
+def get_stop_index(word)
+  word.chars.each_with_index do |char, index|
+    return (index - 1) if !NUMBERS.include?(char)
+  end
+  word.size - 1
+end
+
+p decipher_this("65 119esi 111dl 111lw 108dvei 105n 97n 111ka") == "A wise old owl lived in an oak"
+p decipher_this("84eh 109ero 104e 115wa 116eh 108sse 104e 115eokp") == "The more he saw the less he spoke"
+p decipher_this("84eh 108sse 104e 115eokp 116eh 109ero 104e 104dare") == "The less he spoke the more he heard"
+p decipher_this("87yh 99na 119e 110to 97ll 98e 108eki 116tah 119esi 111dl 98dri") == "Why can we not all be like that wise old bird"
+p decipher_this("84kanh 121uo 80roti 102ro 97ll 121ruo 104ple") == "Thank you Piotr for all your help"
 
 
 
