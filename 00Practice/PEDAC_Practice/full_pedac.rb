@@ -1,3 +1,8 @@
+
+
+
+
+
 ### 51.2
 =begin
 51.2 DECIPHER THIS
@@ -41,40 +46,48 @@ ALGORITHM
 - swap the second and last characters
   - indexes 1 and (string length - 1)
 - join array words into a string and return it
-
 =end
-NUMBERS = ('0'..'9').to_a
 
-def decipher_this(string)
-  words = string.split
-  words2 = words.map do |word|
-    stop_index = get_stop_index(word)
-    word[0..stop_index] = (word[0..stop_index]).to_i.chr
-    word
-  end
+# NUMBERS = ('0'..'9').to_a
 
-  words2.map do |word2|
-    if word2.size > 1
-      word2[1], word2[-1] = word2[-1], word2[1]
-      word2
-    else
-      word2
-    end
-  end.join(' ')
-end
+# def decipher_this(string)
+#   words = string.split
+#   firsts = change_first_letters(words)
+#   swapped = swap_letters(firsts)
+#   swapped.join(' ')
+# end
 
-def get_stop_index(word)
-  word.chars.each_with_index do |char, index|
-    return (index - 1) if !NUMBERS.include?(char)
-  end
-  word.size - 1
-end
+# def change_first_letters(words)
+#   words.map do |word|
+#     stop_index = get_stop_index(word)
+#     word[0..stop_index] = (word[0..stop_index]).to_i.chr
+#     word
+#   end
+# end
 
-p decipher_this("65 119esi 111dl 111lw 108dvei 105n 97n 111ka") == "A wise old owl lived in an oak"
-p decipher_this("84eh 109ero 104e 115wa 116eh 108sse 104e 115eokp") == "The more he saw the less he spoke"
-p decipher_this("84eh 108sse 104e 115eokp 116eh 109ero 104e 104dare") == "The less he spoke the more he heard"
-p decipher_this("87yh 99na 119e 110to 97ll 98e 108eki 116tah 119esi 111dl 98dri") == "Why can we not all be like that wise old bird"
-p decipher_this("84kanh 121uo 80roti 102ro 97ll 121ruo 104ple") == "Thank you Piotr for all your help"
+# def get_stop_index(word)
+#   word.chars.each_with_index do |char, index|
+#     return (index - 1) if !NUMBERS.include?(char)
+#   end
+#   word.size - 1
+# end
+
+# def swap_letters(words)
+#   words.map do |word|
+#     if word.size > 1
+#       word[1], word[-1] = word[-1], word[1]
+#       word
+#     else
+#       word
+#     end
+#   end
+# end
+
+# p decipher_this("65 119esi 111dl 111lw 108dvei 105n 97n 111ka") == "A wise old owl lived in an oak"
+# p decipher_this("84eh 109ero 104e 115wa 116eh 108sse 104e 115eokp") == "The more he saw the less he spoke"
+# p decipher_this("84eh 108sse 104e 115eokp 116eh 109ero 104e 104dare") == "The less he spoke the more he heard"
+# p decipher_this("87yh 99na 119e 110to 97ll 98e 108eki 116tah 119esi 111dl 98dri") == "Why can we not all be like that wise old bird"
+# p decipher_this("84kanh 121uo 80roti 102ro 97ll 121ruo 104ple") == "Thank you Piotr for all your help"
 
 
 
