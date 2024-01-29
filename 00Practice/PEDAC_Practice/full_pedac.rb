@@ -3,6 +3,84 @@
 
 
 
+### 52 BOUNCING BALLS
+=begin
+52 BOUNCING BALLS
+A child is playing with a ball on the nth floor of a tall building. The height of this floor, h, is known.
+He drops the ball out of the window. The ball bounces (for example), to two-thirds of its height (a bounce of 0.66).
+His mother looks out of a window 1.5 meters from the ground.
+How many times will the mother see the ball pass in front of her window (including when it's falling and bouncing?
+
+Three conditions must be met for a valid experiment:
+  1. Float parameter "h" in meters must be greater than 0
+  2. Float parameter "bounce" must be greater than 0 and less than 1
+  3. Float parameter "window" must be less than h.
+
+If all three conditions above are fulfilled, return a positive integer, otherwise return -1.
+Note:
+The ball can only be seen if the height of the rebounding ball is strictly greater than the window parameter.
+Example:
+- h = 3, bounce = 0.66, window = 1.5, result is 3
+- h = 3, bounce = 1, window = 1.5, result is -1
+(Condition 2) not fulfilled).
+
+4:26
+PROBLEM
+  input: three floats
+    - height: height from which ball is dropped
+      - must be greater than 0
+    - bounce: percentage of initial height ball bounces to
+      - must be between 0 and 1 (not inclusive)
+    - window: height at which ball is viewed
+      - must be less than height
+
+
+  output: positive integer or -1
+    - return -1 if any of three input criteria are not met
+    - otherwise return positive integer
+      - represents number of times ball is seen through window
+      - both falling and ascending
+      - ball height must be strictly greater than window height
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: three floats
+  - counter to keep track of times ball is seen
+  - OR array storing bounce heights, number of elements can be returned
+  - loop with break condition: bounce height < window height
+- output: integer
+=end
+
+# def bouncing_ball(height, bounce, window)
+#   return -1 unless valid_inputs?(height, bounce, window)
+#   bounces = []
+#   current_height = height
+#   until current_height <= window do
+#     current_height *= bounce
+#     bounces << current_height
+#   end
+#   (bounces.size * 2) - 1
+# end
+
+# def valid_inputs?(height, bounce, window)
+#   height > 0 &&
+#   (0 < bounce && bounce < 1) &&
+#   window < height
+# end
+
+# p bouncing_ball(3, 0.66, 1.5) == 3
+# p bouncing_ball(30, 0.66, 1.5) == 15
+# p bouncing_ball(30, 0.75, 1.5) == 21
+# p bouncing_ball(30, 0.4, 10) == 3
+# p bouncing_ball(1, 0.66, 0.66) == 1
+# p bouncing_ball(40, 1, 10) == -1
+# p bouncing_ball(-5, 0.66, 1.5) == -1
+# p bouncing_ball(1, 0.66, 1) == -1
+
+
+
+
 ### 51.2
 =begin
 51.2 DECIPHER THIS
