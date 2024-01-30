@@ -47,14 +47,14 @@ def display_board(game_data)
   system('clear')
   display_match_info(game_data)
   draw_board(game_data)
-  display_marks_info(game_data)
+  display_game_info(game_data)
 end
 
 def display_match_info(game_data)
   blank_line
   user_score, computer_score, ties = game_data[:match_scores].values
-  puts("MATCH SCORES: Game #{game_number(game_data)}")
-  puts(" You: #{user_score}, Computer: #{computer_score}, Ties: #{ties}")
+  puts("MATCH SCORES:")
+  puts(" You: #{user_score},  Computer: #{computer_score},  Ties: #{ties}")
   blank_line
 end
 
@@ -63,7 +63,10 @@ def draw_board(game_data)
   row_positions.each { |row_position| puts row(row_position, game_data) }
 end
 
-def display_marks_info(game_data)
+def display_game_info(game_data)
+  game_number = game_number(game_data) # TODO: keep from showing next game # right after win
+  puts("Game #{game_number}")
+
   marks = [PLAYER1_MARK, PLAYER2_MARK]
   marks.reverse! if game_data[:players][:player1] == :computer
   user_mark, computer_mark = marks
@@ -127,7 +130,6 @@ def play_match(game_data)
   determine_player_order(game_data)
   loop do
     play_one_game(game_data)
-    update_match_scores(game_data)
     break if match_over?(game_data)
   end
   display_match_results(game_data)
@@ -251,7 +253,10 @@ def play_one_game(game_data)
     current_player = switch_player(current_player)
     sleep(0.4)
   end
+  update_match_scores(game_data)
   display_game_result(game_data)
+  prompt("Enter any key to continue.")
+  gets
 end
 
 def player_places_mark!(current_player, game_data) # player = :player1 or :player2
@@ -426,7 +431,8 @@ game_data = {
     4=>" ", 5=>" ", 6=>" ",
     7=>" ", 8=>" ", 9=>" "},
   players: {player1: :user, player2: :computer},
-  match_scores: {user: 0, computer: 0, ties: 0}
+  match_scores: {user: 0, computer: 0, ties: 0},
+  game_number: 1
 }
 
 play_match(game_data)
