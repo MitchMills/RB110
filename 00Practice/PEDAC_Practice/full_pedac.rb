@@ -3,6 +3,73 @@
 
 
 
+### 53 WEIRD STRING CASE
+=begin
+53 WEIRD STRING CASE
+Write a function that accepts a string, and returns the same string with all even indexed characters in each word upper cased, and all odd indexed characters in each word lower cased. The indexing just explained is zero based, so the zero-ith index is even, therefore that character should be upper cased.
+
+The passed in string will only consist of alphabetical characters and spaces(' '). Spaces will only be present if there are multiple words. Words will be separated by a single space(' ').
+
+7:38
+PROBLEM
+input: string
+  - contains only alpha characters and spaces
+    - upper and lowercase
+  - spaces are only between words
+    - only single spaces
+
+output: string
+  - same letters as input string
+    - even index letters are uppercase
+      - 0 is considered even
+    - odd index letters are lowercase
+
+EXAMPLES
+
+DATA STRUCTURES
+input: string
+  - array of each individual character
+  - transformed array
+output: string
+
+ALGORITHM
+- create an array of each individual character in input string (including spaces)
+- iterate over a range from 0 up to last index (string length - 1)
+  - if number is even, upcase letter at that index
+  - else dowcase letter at that index
+- join characters into a string and return it
+=end
+
+# def weird_case(string)
+#   (0...string.size).map do |index|
+#     index.even? ? string[index].upcase : string[index].downcase
+#   end.join
+# end
+
+# def weird_case(string)
+#   string.chars.each_index.map do |index|
+#     index.even? ? string[index].upcase : string[index].downcase
+#   end.join
+# end
+
+# def weird_case(string)
+#   string.each_char.with_index.map do |char, index|
+#     index.even? ? char.upcase : char.downcase
+#   end.join
+# end
+
+# def weird_case(string)
+#   string.chars.each_with_index.map do |char, index|
+#     index.even? ? char.upcase : char.downcase
+#   end.join
+# end
+
+# p weird_case( "String" ) == "StRiNg"
+# p weird_case( "Weird string case" ) == "WeIrD StRiNg cAsE"
+
+
+
+
 ### 52 BOUNCING BALLS
 =begin
 52 BOUNCING BALLS
