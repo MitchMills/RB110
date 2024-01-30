@@ -45,17 +45,17 @@ end
 
 def display_board(game_data)
   system('clear')
-  blank_line
   display_match_info(game_data)
   draw_board(game_data)
   display_marks_info(game_data)
 end
 
 def display_match_info(game_data)
+  blank_line
   user_score, computer_score, ties = game_data[:match_scores].values
-  puts("MATCH SCORES")
-  puts(" Game #{game_number(game_data)}")
+  puts("MATCH SCORES: Game #{game_number(game_data)}")
   puts(" You: #{user_score}, Computer: #{computer_score}, Ties: #{ties}")
+  blank_line
 end
 
 def draw_board(game_data)
@@ -121,7 +121,7 @@ end
 # match methods ###
 def play_match(game_data)
   system('clear')
-  game_data[:match_scores] = {player1: 0, player2: 0, ties: 0}
+  game_data[:match_scores] = {user: 0, computer: 0, ties: 0}
 
   match_intro
   determine_player_order(game_data)
@@ -199,7 +199,7 @@ def update_match_scores(game_data)
 end
 
 def match_over?(game_data)
-  game_data[:match_scores].values >= GAMES_IN_MATCH ||
+  game_data[:match_scores].values.sum >= GAMES_IN_MATCH ||
   insurmountable_lead?(game_data)
 end
 
@@ -211,7 +211,7 @@ def detect_insurmountable_lead(game_data)
   scores = game_data[:match_scores]
   games_left = GAMES_IN_MATCH - scores.values.sum
   [:user, :computer].each do |player|
-    other_player = player == :user ? :computer : :user
+    other_player = (player == :user) ? :computer : :user
     return player if scores[player] > (GAMES_IN_MATCH / 2) ||
     scores[player] - scores[other_player] > games_left
   end
@@ -355,7 +355,8 @@ end
 
 def better_chances(chances, game_data)
   empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
-  chances.intersection(empty_corners).empty? ? chances : chances.intersection(empty_corners)
+  corner_chances = chances.intersection(empty_corners)
+  corner_chances.empty? ? chances : corner_chances
 end
 
 def get_target_list(type, game_data)
@@ -410,6 +411,7 @@ def chances_squares(line, mark, type, game_data)
     (game_data[:board].values_at(*line).count(EMPTY_MARK) == 2)
     line.intersection(empty_squares(game_data))
   end
+  nil
 end
 
 def chances_squares?(line, mark, type, game_data)
@@ -420,11 +422,11 @@ end
 
 game_data = {
   board: {
-    1=>"O", 2=>"X", 3=>"X",
-    4=>" ", 5=>"O", 6=>" ",
-    7=>" ", 8=>" ", 9=>"O"},
+    1=>" ", 2=>" ", 3=>" ",
+    4=>" ", 5=>" ", 6=>" ",
+    7=>" ", 8=>" ", 9=>" "},
   players: {player1: :user, player2: :computer},
-  match_scores: {user: 2, computer: 3, ties: 1}
+  match_scores: {user: 0, computer: 0, ties: 0}
 }
 
-p detect_insurmountable_lead(game_data)
+play_match(game_data)
