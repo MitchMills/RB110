@@ -1,4 +1,80 @@
+### 55
 
+
+
+
+### 54 SQUARED ARRAYS
+=begin
+SQUARED ARRAYS
+Given two arrays a and b write a function comp(a, b) that checks whether the two arrays have the "same" elements, with the same multiplicities. "Same" means, here, that the elements in b are the elements in a squared, regardless of the order.
+Examples
+Valid arrays
+a = [121, 144, 19, 161, 19, 144, 19, 11]
+b = [121, 14641, 20736, 361, 25921, 361, 20736, 361]
+comp(a, b) returns true because in b 121 is the square of 11, 14641 is the square of 121, 20736 the square of 144, 361
+the square of 19, 25921 the square of 161, and so on. It gets obvious if we write b's elements in terms of squares:
+a = [121, 144, 19, 161, 19, 144, 19, 11]
+b = [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]
+Invalid arrays
+If we change the first number to something else, comp may not return true anymore:
+a = [121, 144, 19, 161, 19, 144, 19, 11]
+b = [132, 14641, 20736, 361, 25921, 361, 20736, 361]
+comp(a,b) returns false because in b 132 is not the square of any number of a.
+a = [121, 144, 19, 161, 19, 144, 19, 11]
+b = [121, 14641, 20736, 36100, 25921, 361, 20736, 361]
+comp(a,b) returns false because in b 36100 is not the square of any number of a.
+Remarks
+a or b might be [] (all languages except R, Shell).
+a or b might be nil or null or None or nothing (except in Haskell, Elixir, C++, Rust, R, Shell, PureScript).
+If a or b are nil (or null or None), the problem doesn't make sense so return false.
+Note for C
+The two arrays have the same size (> 0) given as parameter in function comp.
+
+3:42
+PROBLEM
+input: two arrays
+  - contains integers
+  - can be empty
+  - can be nil
+
+outuput: boolean
+  - true if every element in second input array is the square of a corresponding element in first input array
+    - regardless of order
+  - otherwise false
+    - if one array is nil
+    - if arrays are different sizes
+    - if either array contains an element that is not a square root or square of element in other array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two arrays
+  - sorted arrays
+- output: boolean
+
+ALGORITHM
+- sort both input arrays
+- iterate over first array with indexes
+  - compare current element squared to element at that index in second array
+  - return false if they are not equal
+- else return true
+=end
+
+# def comp(array1, array2)
+#   return false if [array1, array2].any? { |array| array == nil }
+#   return false unless array1.size == array2.size
+#   sorted1, sorted2 = [array1, array2].map(&:sort)
+#   sorted1.each_with_index do |number, index|
+#     return false unless number ** 2 == sorted2[index]
+#   end
+#   true
+# end
+
+# p comp([121, 144, 19, 161, 19, 144, 19, 11], [121, 14641, 20736, 361, 25921, 361, 20736, 361]) == true
+# p comp([121, 144, 19, 161, 19, 144, 19, 11] , [132, 14641, 20736, 361, 25921, 361, 20736, 361]) == false
+# p comp(nil, [1, 2, 3]) == false
+# p comp([1, 2], []) == false
+# p comp([1, 2], [1, 4, 4]) == false
 
 
 
