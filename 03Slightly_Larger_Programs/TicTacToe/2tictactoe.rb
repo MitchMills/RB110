@@ -25,7 +25,7 @@ BOARD_PARTS = {
   }
 }
 
-GAMES_IN_MATCH = 7
+GAMES_IN_MATCH = 5
 
 # general methods ###
 def prompt(type = :puts, message)
@@ -64,7 +64,7 @@ def draw_board(game_data)
 end
 
 def display_game_info(game_data)
-  puts("Game #{game_data[:game_number]}")
+  puts("Game #{game_number(game_data)}")
   marks = [PLAYER1_MARK, PLAYER2_MARK]
   marks.reverse! if game_data[:players][:player1] == :computer
   user_mark, computer_mark = marks
@@ -120,24 +120,25 @@ end
 
 
 # match methods ###
-def play_match(game_data)
+def play_match
   system('clear')
-  game_data[:match_scores] = {user: 0, computer: 0, ties: 0}
-  game_data[:game_number] = 1
-
+  game_data = set_game_data
   match_intro
   determine_player_order(game_data)
   loop do
     play_one_game(game_data)
+    update_game_data(game_data)
     break if match_over?(game_data)
   end
   display_match_results(game_data)
 end
 
-# def game_number(game_data)
-#   game_number = game_data[:match_scores].values.sum + 1
-#   game_number = game_number > GAMES_IN_MATCH ? GAMES_IN_MATCH : game_number
-# end
+def set_game_data
+  game_data = Hash.new({})
+  game_data[:match_scores] = {user: 0, computer: 0, ties: 0}
+  game_data[:game_number] = 1
+  game_data
+end
 
 def match_intro
   prompt("The player who wins the most games out of #{GAMES_IN_MATCH} wins the match.")
@@ -190,6 +191,19 @@ def display_player_order(game_data)
   gets
 end
 
+def update_game_data(game_data)
+  update_match_scores(game_data)
+  display_game_result(game_data)
+  game_data[:game_number] += 1
+  prompt("Enter any key to continue to game #{game_number(game_data)}.") # TODO: don't display if match over
+  gets
+end
+
+def game_number(game_data)
+  game_number = game_data[:game_number]
+  game_number > GAMES_IN_MATCH ? GAMES_IN_MATCH : game_number
+end
+
 def update_match_scores(game_data)
   game_winner = detect_game_winner(game_data)
   case game_winner
@@ -200,7 +214,7 @@ def update_match_scores(game_data)
 end
 
 def match_over?(game_data)
-  game_data[:match_scores].values.sum >= GAMES_IN_MATCH ||
+  game_data[:game_number] > GAMES_IN_MATCH ||
   insurmountable_lead?(game_data)
 end
 
@@ -252,11 +266,6 @@ def play_one_game(game_data)
     current_player = switch_player(current_player)
     sleep(0.4)
   end
-  update_match_scores(game_data)
-  display_game_result(game_data)
-  prompt("Enter any key to continue.")
-  gets
-  game_data[:game_number] += 1
 end
 
 def player_places_mark!(current_player, game_data) # player = :player1 or :player2
@@ -435,4 +444,4 @@ game_data = {
   game_number: 1
 }
 
-play_match(game_data)
+play_match
