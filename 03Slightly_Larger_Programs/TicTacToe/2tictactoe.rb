@@ -195,7 +195,8 @@ def update_game_data(game_data)
   update_match_scores(game_data)
   display_game_result(game_data)
   game_data[:game_number] += 1
-  prompt("Enter any key to continue to game #{game_number(game_data)}.") # TODO: don't display if match over
+  return if match_over?(game_data)
+  prompt("Enter any key to continue to game #{game_number(game_data)}.")
   gets
 end
 
@@ -382,7 +383,7 @@ def get_target_list(type, game_data)
             when :opportunities then computer_mark
             when :threats then user_mark
             when :center then CENTER_SQUARE
-            when :chances then computer_mark
+            when :chances then computer_mark # TODO: fix better chances algorithm
             when :corners then CORNER_SQUARES
             when :other then OTHER_SQUARES
             end
