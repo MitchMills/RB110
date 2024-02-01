@@ -1,5 +1,56 @@
-### 55
 
+
+
+
+
+### 55 GROUP AND COUNT
+=begin
+55 GROUP & COUNT
+Your goal is to write the group_and_count method, which should receive an array as a unique parameter and return a hash. Empty or nil input must return nil instead of a hash. This hash returned must contain as keys the unique values of the array, and as values the counting of each value.
+Example usage:
+input = [1,1,2,2,2,3]
+group_and_count(input)# == {1=>2, 2=>3, 3=>1}
+The following methods were disabled:
+Array#count
+Array#length
+
+12:55
+PROBLEM
+input: array
+  - may be empty
+  - may be nil
+  - otherwise, contains integers (positive and negative)
+output: hash or nil
+  - keys are unique elements in input array
+  - values are number of occurences of each unique element
+  - if input array is empty or nil, return nil
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  empty hash: keys and values are added as input array is iterated over
+- output: hash
+
+ALGORITHM
+- return nil if input array is empty or nil
+- create an empty hash with a default value of 0
+- iterate over input array
+  - for each element, increment that key by 1
+- return the hash
+=end
+
+# def group_and_count(array)
+#   return nil if array == nil || array.empty?
+#   array.each_with_object(Hash.new(0)) do |number, result|
+#     result[number] += 1
+#   end
+# end
+
+# p group_and_count([1,1,2,2,2,3]) == {1=>2, 2=>3, 3=>1}
+# p group_and_count([]) == nil
+# p group_and_count(nil) == nil
+# p group_and_count([1, 7, 5, -1]) == {1=>1, 7=>1, 5=>1, -1=>1}
 
 
 
