@@ -116,6 +116,17 @@ def empty_squares(game_data)
 end
 
 
+# main game loop
+def main_game_loop
+  system('clear')
+  main_intro
+  loop do
+    play_match
+    again?
+  end
+  outro
+end
+
 
 
 
@@ -463,5 +474,3 @@ game_data = {
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
-
-play_match
