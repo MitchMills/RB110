@@ -437,12 +437,15 @@ end
 
 game_data = {
   board: {
-    1=>" ", 2=>" ", 3=>" ",
+    1=>" ", 2=>"X", 3=>" ",
     4=>" ", 5=>" ", 6=>" ",
     7=>" ", 8=>" ", 9=>" "},
-  players: {player1: :user, player2: :computer},
+  players: {player1: :computer, player2: :user},
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
 
-play_match
+p get_all_targets(game_data)
+p get_target_list(:chances, game_data)
+p target_list('X', :chances, game_data)
+p get_list('X', :chances, game_data)
