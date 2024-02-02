@@ -241,12 +241,20 @@ end
 
 # # # # #
 def display_match_results(game_data)
-  results = get_match_results(game_data) # TODO
+  winner = get_match_winner(game_data)
   reason = get_win_reason(game_data) # TODO
 end
 
-def get_match_results(game_data)
-
+def get_match_winner(game_data)
+  user_score = game_data[:match_scores][:user]
+  computer_score = game_data[:match_scores][:computer]
+  if user_score > computer_score
+    :user
+  elsif computer_score > user_score
+    :computer
+  else
+    :tie
+  end
 end
 
 def get_win_reason(game_data)
@@ -324,7 +332,7 @@ def detect_game_winner(game_data)
       return players[player] if detect_game_win(board, line, player)
     end
   end
-  nil
+  :tie
 end
 
 def detect_game_win(board, line, player)
