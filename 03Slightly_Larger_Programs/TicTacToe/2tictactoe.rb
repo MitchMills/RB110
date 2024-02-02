@@ -127,11 +127,10 @@ def play_match
   determine_player_order(game_data)
   loop do
     play_one_game(game_data)
-    sleep(0.4)
     update_game_data(game_data)
     break if match_over?(game_data)
   end
-  display_match_results(game_data)
+  display_match_result(game_data)
 end
 
 def set_game_data
@@ -235,14 +234,19 @@ def detect_insurmountable_lead(game_data)
   nil
 end
 
-
-
-
-
-# # # # #
-def display_match_results(game_data)
+def display_match_result(game_data)
   winner = get_match_winner(game_data)
-  reason = get_win_reason(game_data) # TODO
+  reason = get_win_reason(game_data)
+  case winner
+  when :user
+    prompt("You are the winner of the match!")
+    prompt("You #{reason}.")
+  when :computer
+    prompt("The computer is the winner of the match!")
+    prompt("The computer #{reason}.")
+  else
+    prompt("This match has ended in a tie.")
+  end
 end
 
 def get_match_winner(game_data)
@@ -258,10 +262,12 @@ def get_match_winner(game_data)
 end
 
 def get_win_reason(game_data)
-
+  if insurmountable_lead?(game_data)
+    "had an insurmountable lead"
+  else
+    "won the most games"
+  end
 end
-
-# # # # #
 
 
 
@@ -332,7 +338,7 @@ def detect_game_winner(game_data)
       return players[player] if detect_game_win(board, line, player)
     end
   end
-  :tie
+  nil
 end
 
 def detect_game_win(board, line, player)
