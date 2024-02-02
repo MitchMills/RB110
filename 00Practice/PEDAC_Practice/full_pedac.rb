@@ -1,5 +1,61 @@
+### 57
 
 
+
+
+### 56 NEXUS
+=begin
+56 NEXUS
+Complete the method that takes a hash/object/directory/association list of users, and find the nexus: the user whose rank is the closest is equal to his honor. Return the rank of this user. For each user, the key is the rank and the value is the honor.
+If nobody has an exact rank/honor match, return the rank of the user who comes closest. If there are several users who come closest, return the one with the lowest rank (numeric value). The hash will not necessarily contain consecutive rank numbers; return the best match from the ranks provided.
+Example
+rank honor
+users = { 1 => 93,
+10 => 55,
+15 => 30,
+20 => 19, <--- nexus
+23 => 11,
+30 => 2 }
+
+7:24
+PROBLEM
+input: hash
+  - keys represents 'rank'
+    - positive integer
+  - values represent 'honor'
+    - positive integer
+  - key can be greater than value or vice versa
+
+output: integer
+  - rank (key) of key-value pair with smallest difference between key and value
+    - if ties, return lowest rank
+    - use absolute value of difference (key or value can be greater)
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: hash
+  - hash with values as absolute difference between key and value of input hash
+    - sorted by values and then by keys
+- output: integer
+
+ALGORITHM
+- transform input hash into a new hash
+  - key stays the same
+  - value = difference between key and value
+- sort the new hash by value and then by key (lowest to highest)
+- return the key of the first element
+=end
+
+# def nexus(hash)
+#   differences = hash.map { |rank, honor| [rank, (rank - honor).abs] }.to_h
+#   sorted = differences.sort_by { |rank, difference| [difference, rank] }.to_h
+#   sorted.keys.first
+# end
+
+# p nexus({1 => 3, 3 => 3, 5 => 1}) == 3
+# p nexus({1 => 10, 2 => 6, 3 => 4, 5 => 1}) == 3
+# p nexus({4 => 10, 2 => 3, 1 => 2, 3 => 4, 5 => 1}) == 1
 
 
 
