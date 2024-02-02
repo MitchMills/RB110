@@ -127,6 +127,7 @@ def play_match
   determine_player_order(game_data)
   loop do
     play_one_game(game_data)
+    sleep(0.4)
     update_game_data(game_data)
     break if match_over?(game_data)
   end
@@ -263,9 +264,9 @@ def play_one_game(game_data)
   loop do
     display_board(game_data)
     player_places_mark!(current_player, game_data)
+    sleep(0.4)
     break if game_over?(game_data)
     current_player = switch_player(current_player)
-    sleep(0.4)
   end
 end
 
@@ -449,4 +450,4 @@ game_data = {
   game_number: 1
 }
 
-p get_all_targets(game_data)
+play_match
