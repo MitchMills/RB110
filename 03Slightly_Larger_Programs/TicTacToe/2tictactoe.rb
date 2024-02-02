@@ -368,12 +368,6 @@ def get_all_targets(game_data)
   all_targets
 end
 
-def better_chances(chances, game_data)
-  empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
-  corner_chances = chances.intersection(empty_corners)
-  corner_chances.empty? ? chances : corner_chances
-end
-
 def get_target_list(type, game_data)
   marks = [PLAYER1_MARK, PLAYER2_MARK]
   marks.reverse! if game_data[:players][:player1] == :computer
@@ -383,7 +377,7 @@ def get_target_list(type, game_data)
             when :opportunities then computer_mark
             when :threats then user_mark
             when :center then CENTER_SQUARE
-            when :chances then computer_mark # TODO: fix better chances algorithm
+            when :chances then computer_mark
             when :corners then CORNER_SQUARES
             when :other then OTHER_SQUARES
             end
@@ -405,7 +399,7 @@ def get_list(mark, type, game_data)
     elsif chances_squares?(line, mark, type, game_data)
       list << chances_squares(line, mark, type, game_data)
     end
-  end.flatten.uniq
+  end.flatten
 end
 
 def target_square(line, mark, game_data)
@@ -423,8 +417,8 @@ end
 
 def chances_squares(line, mark, type, game_data)
   if (game_data[:board].values_at(*line).count(mark) == 1) &&
-    (game_data[:board].values_at(*line).count(EMPTY_MARK) == 2)
-    line.intersection(empty_squares(game_data))
+     (game_data[:board].values_at(*line).count(EMPTY_MARK) == 2)
+      return line.intersection(empty_squares(game_data))
   end
   nil
 end
@@ -433,11 +427,21 @@ def chances_squares?(line, mark, type, game_data)
   type == :chances && !!chances_squares(line, mark, type, game_data)
 end
 
+def better_chances(chances, game_data)
+  better_chances = chances.select { |square| chances.count(square) > 1 }.uniq
+  better_chances = better_chances.empty? ? chances : better_chances
+  empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
+  corner_chances = better_chances.intersection(empty_corners)
+  corner_chances.empty? ? better_chances : corner_chances
+end
+
+
+
 
 
 game_data = {
   board: {
-    1=>" ", 2=>"X", 3=>" ",
+    1=>" ", 2=>" ", 3=>" ",
     4=>" ", 5=>" ", 6=>" ",
     7=>" ", 8=>" ", 9=>" "},
   players: {player1: :computer, player2: :user},
@@ -446,6 +450,3 @@ game_data = {
 }
 
 p get_all_targets(game_data)
-p get_target_list(:chances, game_data)
-p target_list('X', :chances, game_data)
-p get_list('X', :chances, game_data)
