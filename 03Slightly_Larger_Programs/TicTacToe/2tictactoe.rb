@@ -456,40 +456,38 @@ end
 def better_chances(chances, game_data)
   better_chances = chances.select { |square| chances.count(square) > 1 }.uniq
   better_chances = better_chances.empty? ? chances : better_chances
-  empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
-  corner_chances = better_chances.intersection(empty_corners)
-  corner_chances.empty? ? better_chances : corner_chances
+  # empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
+  # corner_chances = better_chances.intersection(empty_corners)
+  # corner_chances.empty? ? better_chances : corner_chances
 end
-
-
-
-
 
 game_data = {
   board: {
-    1=>"X", 2=>" ", 3=>" ",
-    4=>" ", 5=>"O", 6=>" ",
-    7=>" ", 8=>" ", 9=>"X"},
+    1=>" ", 2=>" ", 3=>" ",
+    4=>" ", 5=>" ", 6=>" ",
+    7=>" ", 8=>" ", 9=>" "},
   players: {player1: :user, player2: :computer},
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
 
-marks = game_data[:board].select { |space, mark| mark == PLAYER1_MARK }.keys
-p marks
+# marks = game_data[:board].select { |space, mark| mark == PLAYER1_MARK }.keys
+# p marks
 
-opps = WINNING_LINES.select do |line|
-  line.any? { |space| marks.include?(space) }
-end
-p opps
-# [[1, 2, 3], [7, 8, 9], [1, 4, 7], [3, 6, 9], [1, 5, 9]] 357
+# opps = WINNING_LINES.select do |line|
+#   line.any? { |space| marks.include?(space) }
+# end
+# p opps
+# # [[1, 2, 3], [7, 8, 9], [1, 4, 7], [3, 6, 9], [1, 5, 9]] 357
 
-spaces = opps.map do |line|
-  line.select do |space|
-    game_data[:board][space] == EMPTY_MARK
-  end
-end.flatten
+# spaces = opps.map do |line|
+#   line.select do |space|
+#     game_data[:board][space] == EMPTY_MARK
+#   end
+# end.flatten
 
-p spaces
+# p spaces
 
-p get_all_targets(game_data)
+# p get_all_targets(game_data)
+
+play_match
