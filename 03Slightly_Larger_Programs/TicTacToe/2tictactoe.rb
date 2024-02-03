@@ -390,8 +390,8 @@ def get_all_targets(game_data)
   all_targets = target_types.each_with_object(Hash.new([])) do |type, targets|
     targets[type] = get_target_list(type, game_data)
   end
-  # all_targets[:chances] = better_chances(all_targets[:chances], game_data)
-  # all_targets
+  all_targets[:chances] = better_chances(all_targets[:chances], game_data)
+  all_targets
 end
 
 def get_target_list(type, game_data)
@@ -456,9 +456,6 @@ end
 def better_chances(chances, game_data)
   better_chances = chances.select { |square| chances.count(square) > 1 }.uniq
   better_chances = better_chances.empty? ? chances : better_chances
-  # empty_corners = CORNER_SQUARES.intersection(empty_squares(game_data))
-  # corner_chances = better_chances.intersection(empty_corners)
-  # corner_chances.empty? ? better_chances : corner_chances
 end
 
 game_data = {
