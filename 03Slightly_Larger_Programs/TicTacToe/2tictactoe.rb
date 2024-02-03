@@ -467,10 +467,18 @@ end
 
 game_data = {
   board: {
-    1=>" ", 2=>" ", 3=>" ",
+    1=>"X", 2=>" ", 3=>" ",
     4=>" ", 5=>" ", 6=>" ",
-    7=>" ", 8=>" ", 9=>" "},
+    7=>" ", 8=>" ", 9=>"X"},
   players: {player1: :computer, player2: :user},
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
+
+marks = game_data[:board].select { |space, mark| mark == PLAYER1_MARK }.keys
+p marks
+
+opps = WINNING_LINES.select do |line|
+  line.any? { |space| marks.include?(space) }
+end
+p opps
