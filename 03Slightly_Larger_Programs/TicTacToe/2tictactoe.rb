@@ -390,8 +390,8 @@ def get_all_targets(game_data)
   all_targets = target_types.each_with_object(Hash.new([])) do |type, targets|
     targets[type] = get_target_list(type, game_data)
   end
-  all_targets[:chances] = better_chances(all_targets[:chances], game_data)
-  all_targets
+  # all_targets[:chances] = better_chances(all_targets[:chances], game_data)
+  # all_targets
 end
 
 def get_target_list(type, game_data)
@@ -468,9 +468,9 @@ end
 game_data = {
   board: {
     1=>"X", 2=>" ", 3=>" ",
-    4=>" ", 5=>" ", 6=>" ",
+    4=>" ", 5=>"O", 6=>" ",
     7=>" ", 8=>" ", 9=>"X"},
-  players: {player1: :computer, player2: :user},
+  players: {player1: :user, player2: :computer},
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
@@ -482,3 +482,14 @@ opps = WINNING_LINES.select do |line|
   line.any? { |space| marks.include?(space) }
 end
 p opps
+# [[1, 2, 3], [7, 8, 9], [1, 4, 7], [3, 6, 9], [1, 5, 9]] 357
+
+spaces = opps.map do |line|
+  line.select do |space|
+    game_data[:board][space] == EMPTY_MARK
+  end
+end.flatten
+
+p spaces
+
+p get_all_targets(game_data)
