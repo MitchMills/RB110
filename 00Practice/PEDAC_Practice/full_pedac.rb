@@ -3,6 +3,80 @@
 
 
 
+### 58 TRIPLE DOUBLE
+=begin
+58 TRIPLE DOUBLE
+Write a function that takes 2 numbers and returns 1 if there is a straight triple of a number at any place in the first number and also a straight double of the same number in the second number.
+If this isn't the case, return 0
+Examples
+triple_double(451999277, 41177722899) == 1
+  num1 has straight triple 999s and num2 has straight double 99s
+triple_double(1222345, 12345) == 0
+  num1 has straight triple 2s but num2 has only a single 2
+
+8:26
+PROBLEM
+input: two integers
+
+output: 0 or 1
+  - output 1 if:
+    - first number has three of the same digit in a row AND
+    - second number has two of that same digit in a row
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two integers
+  - numbers converted to strings
+  - array of substrings
+    - length 3 for first integer, length 2 for second integer
+  - array of triples from first substring array, of doubles from second substring array
+- output: 0 or 1
+
+ALGORITHM
+- for each input integer, create an array of all substrings that are appropriate length (3 or 2)
+  - convert integer to a string
+  - iterate from index 0 up to string length - substring length (3 or 2)
+  - get a substring of appropriate length (3 or 2) from each index
+  - store substrings in an array
+- from each substring array, select only those substrings where all characters are the same
+- compare these two arrays and return 1 if any triple matches a double
+  - iterate over first array and return 1 if second array includes a double of that triple
+    - for each element in first array, compare index 0 to 1 against each element in second array
+- return 0 otherwise
+=end
+
+# def triple_double(number1, number2)
+#   string1, string2 = [number1, number2].map(&:to_s)
+#   threes = get_substrings(string1, 3)
+#   twos = get_substrings(string2, 2)
+
+#   triples = get_multiples(threes)
+#   doubles = get_multiples(twos)
+
+#   triples.each do |triple|
+#     return 1 if doubles.include?(triple[0, 2])
+#   end
+#   0
+# end
+
+# def get_substrings(string, length)
+#   last_index = string.size - length
+#   (0..last_index).map { |index| string[index, length]}
+# end
+
+# def get_multiples(array)
+#   array.select do |string|
+#     string.chars.all? { |char| char == string[0] }
+#   end
+# end
+
+# p triple_double(12345, 12345) == 0
+# p triple_double(667789, 1234566777) == 1
+
+
+
+
 ### 57 COUNT LETTERS
 =begin
 57 COUNT LETTERS
