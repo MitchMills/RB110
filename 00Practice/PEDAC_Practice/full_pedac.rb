@@ -1,4 +1,48 @@
-### 57
+
+
+
+
+
+### 57 COUNT LETTERS
+=begin
+57 COUNT LETTERS
+Write a method to count lowercase letters in a given string and return the letter count in a hash with 'letter' as key and count as 'value'. The key must be 'symbol' instead of string in Ruby.
+
+8:10
+PROBLEM
+input: string
+  - contains only lowercase letters
+output: hash
+  - keys are unique letters in input string represented as a symbol
+    - in alphabetical order
+  - values are number of occurences of that letter
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - empty hash with default value of 0
+- output: hash, sorted by key
+
+ALGORITHM
+- create an empty hash with a default value of 0
+- iterate over each character of the input string
+  - for each letter, increment the value of the key-value pair with the key being that letter as a symbol by 1
+- sort the hash by key
+- return the hash
+=end
+
+# def letter_count(string)
+#   string.chars.each_with_object(Hash.new(0)) do |char, counts|
+#     counts[char.to_sym] += 1
+#   end.sort_by { |letter, count| letter }.to_h
+# end
+
+# def letter_count(string)
+#   string.chars.map(&:to_sym).tally.sort.to_h
+# end
+
+# p letter_count('arithmetics') == {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2}
 
 
 
