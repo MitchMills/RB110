@@ -3,6 +3,70 @@
 
 
 
+### 59 WHICH ARE IN?
+=begin
+59 WHICH ARE IN?
+Given two arrays of strings a1 and a2 return a sorted array r in lexicographical order of the strings of a1 which are substrings of strings of a2.
+#Example 1: a1 = ["arp", "live", "strong"]
+a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+returns ["arp", "live", "strong"]
+#Example 2: a1 = ["tarp", "mice", "bull"]
+a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+returns []
+Notes:
+Arrays are written in "general" notation. See "Your Test Cases" for examples in your language.
+In Shell bash a1 and a2 are strings. The return is a string where words are separated by commas.
+Beware: r must be without duplicates.
+Don't mutate the inputs.
+
+7:52
+PROBLEM
+input: two arrays
+  - both contain strings
+  - first array contains possible substrings of strings in second array
+output: array
+  - strings from first array that are substrings of strings in second array
+  - no duplicates
+  - should be in alphabetical order
+  - input arrays should not be mutated
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two arrays
+  - empty array to hold successful matches
+    - remove duplicates
+    - sort in alphabetical order
+- output: array
+
+ALGORITHM
+- iterate over first array
+  - select elements if they are a substring of any word in second array
+    - iterate over second array
+      - check whether string in first array is a substring in second array
+  - sort result alphabetically
+- return array
+=end
+
+# def find_substrings(array1, array2)
+#   array1.select { |word1| substring?(word1, array2) }.sort
+# end
+
+# def substring?(word1, array)
+#   array.any? { |word2| word2.include?(word1) }
+# end
+
+# a1 = ["live", "arp", "strong"]
+# a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+# p find_substrings(a1, a2) == ["arp", "live", "strong"]
+
+# b1 = ["tarp", "mice", "bull"]
+# b2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+# p find_substrings(b1, b2) == []
+
+
+
+
 ### 58 TRIPLE DOUBLE
 =begin
 58 TRIPLE DOUBLE
