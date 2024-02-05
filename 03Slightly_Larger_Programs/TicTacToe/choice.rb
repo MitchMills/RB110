@@ -66,4 +66,4 @@ p open_lines(game_data)
 p select_lines(game_data, WINNING_LINES, EMPTY_MARK)
 
 p marked_lines(game_data)
-p select_lines(game_data, WINNING_LINES, PLAYER2_MARK)
+p select_lines(game_data, open_lines(game_data), PLAYER2_MARK)
