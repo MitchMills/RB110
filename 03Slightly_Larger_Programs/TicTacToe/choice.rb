@@ -25,12 +25,12 @@ end
 # choice methods
 def empty_squares(game_data)
   board = game_data[:board]
-  board.keys.select { |square_number| board[square_number] ==  EMPTY_MARK }
+  board.keys.select { |square| board[square] ==  EMPTY_MARK }
 end
 
 def open_lines(game_data)
   WINNING_LINES.select do |line|
-    line.any? { |square| empty_squares(game_data).include?(square) }
+    game_data[:board].values_at(*line).include?(EMPTY_MARK)
   end
 end
 
@@ -38,21 +38,16 @@ def marked_lines(game_data)
   players = game_data[:players]
   computer_mark = players[:player1] == :computer ? PLAYER1_MARK : PLAYER2_MARK
   open_lines(game_data).select do |line|
-    game_data[:board].values_at(*line).count(computer_mark) > 0
+    game_data[:board].values_at(*line).include?(computer_mark)
   end
 end
 
-def select_lines(game_data, mark, quantity)
-  open_lines(game_data).select do |line|
-    game_data[:board].values_at(*line).count(mark) == quantity
+def select_lines(game_data, lines, mark)
+  lines.select do |line|
+    game_data[:board].values_at(*line).include?(mark)
   end
 end
 
-def empties(game_data, quantity)
-  open_lines(game_data).select do |line|
-    game_data[:board].values_at(*line).count(EMPTY_MARK) == quantity
-  end
-end
 
 # game data
 game_data = {
@@ -68,5 +63,7 @@ game_data = {
 p empty_squares(game_data)
 
 p open_lines(game_data)
+p select_lines(game_data, WINNING_LINES, EMPTY_MARK)
 
 p marked_lines(game_data)
+p select_lines(game_data, WINNING_LINES, PLAYER2_MARK)
