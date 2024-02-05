@@ -3,6 +3,92 @@
 
 
 
+### 60 FORMAT NAMES
+=begin
+60 FORMAT NAMES
+Given: an array containing hashes of names
+Return: a string formatted as a list of names separated by commas except for the last two names, which should be
+separated by an ampersand.
+Example:
+list([ {name: 'Bart'}, {name: 'Lisa'}, {name: 'Maggie'} ])
+# returns 'Bart, Lisa & Maggie'
+list([ {name: 'Bart'}, {name: 'Lisa'} ])
+# returns 'Bart & Lisa'
+list([ {name: 'Bart'} ])
+# returns 'Bart'
+list([])
+# returns ''
+Note: all the hashes are pre-validated and will only contain A-Z, a-z, '-' and '.'.
+
+8:04
+PROBLEM
+input: array
+  - contains hashes
+    - each key is the symbol :name
+    - each value is a string
+output: string
+  - contains all values from every hash in the input array
+  - values are separated by commas, except last two, which are separated by an ampersand
+  - if only two values, separate with an ampersand
+  - if only one value, return the value
+  - if input array is empty, return empty string
+
+EXAMPLES
+
+DATA STRUCTURES
+input: array of hashes
+  - array of all values from every hash
+    - use indexes to control separator
+output: string
+
+ALGORITHM
+- iterate over the input array
+- transform it into an array of all values from every hash
+- iterate over this array, with indexes
+  - add each element to a string, followed by the appropriate separator
+    - if index is (length - 2), separator = ' & '
+    - if index is (length - 1), separator = ''
+    - otherwise, separator = ', '
+- return the string
+=end
+
+# def list(array)
+#   names = array.map { |hash| hash[:name] }
+#   result = ''
+#   names.each_with_index do |name, index|
+#     separator = get_separator(names.size, index)
+#     result << name << separator
+#   end
+#   result
+# end
+
+# def list(array)
+#   names = array.map { |hash| hash[:name] }
+#   format_names(names)
+# end
+
+# def format_names(names)
+#   names.map.with_index do |name, index|
+#     separator = get_separator(names.size, index)
+#     name << separator
+#   end.join
+# end
+
+# def get_separator(size, index)
+#   case index
+#   when (size - 2) then ' & '
+#   when (size - 1) then ''
+#   else ', '
+#   end
+# end
+
+# p list([ {name: 'Bart'}, {name: 'Lisa'}, {name: 'Maggie'} ]) == 'Bart, Lisa & Maggie'
+# p list([ {name: 'Bart'}, {name: 'Lisa'} ]) == 'Bart & Lisa'
+# p list([ {name: 'Bart'} ]) == 'Bart'
+# p list([]) == ''
+
+
+
 ### 59 WHICH ARE IN?
 =begin
 59 WHICH ARE IN?
