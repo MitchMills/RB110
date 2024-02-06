@@ -1,5 +1,53 @@
+### 62
 
 
+
+
+### 61
+=begin
+61 MISSING LETTER
+Write a method that takes an array of consecutive (increasing) letters as input and that returns the missing letter in the array.
+You will always get a valid array, and it will always have exactly one letter missing. The length of the array will always be at least 2. The array will always contain only letters, in only one case. The only letters used will be the stqndard 26 from the English alphabet.
+
+8:49
+PROBLEM
+input: array
+  - contains only strings
+    - all strings are single letters from the English alphabet
+    - all strings are in the same case
+  - minimum array size is 2
+  - strings are in an alphabetic sequence, with one letter missing
+  - missing letter is in the middle of the sequence
+    - i.e. it's not before or after first or last element
+output: string
+  - single letter
+    - the missing letter from the sequence in input array
+
+EXAMPLES
+
+DATA STRUCTURES
+  - array of characters from first letter of input array to last letter of input array
+    - ('a'..'f').to_a
+    - ('O'..'S').to_a
+
+ALGORITHM
+- create an array of the 'complete' sequence
+  - get the first letter and last letter from the input array
+  - create a range from the first to last letter
+  - convert the range into an array
+- find the character that is missing from the input sequence
+  - subtract the input array from the complete array
+- return that character
+  - return the first element of the array
+=end
+
+# def find_missing_letter(sequence)
+#   complete_sequence = (sequence.first..sequence.last).to_a
+#   missing_letter = (complete_sequence - sequence).first
+# end
+
+# p find_missing_letter(['a', 'b', 'c', 'd', 'f']) == 'e'
+# p find_missing_letter(['O', 'Q', 'R', 'S']) == 'P'
 
 
 
