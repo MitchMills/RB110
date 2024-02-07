@@ -1,9 +1,74 @@
-### 62
+### 63
 
 
 
 
-### 61
+### 62 WHO LIKES IT?
+=begin
+62 WHO LIKES IT?
+You probably know the "like" system from Facebook and other pages. People can "like" blog posts, pictures or other items. We want to create the text that should be displayed next to such an item.
+Implement a function likes :: [String] -> String, which must take in input array, containing the names of people who like an item. It must return the display text as shown in the examples
+
+5:15
+PROBLEM
+input: array
+  - contains strings
+    - string are names
+  - may be empty
+output: string
+  - if 0 names: 'no one likes this'
+  - if 1 name: 'NAME likes this'
+  - if 2 names: 'NAME1 and NAME2 like this'
+  - if 3 names: 'NAME 1, NAME2 and NAME3 like this'
+  - if > 3 names: 'NAME 1, NAME 2 and NUMBER others like this'
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - transformed array, with appropriate separators added to names ?
+  - case statement based on array size *
+- output: string
+
+ALGORITHM
+- create a case statement based on size of input array
+  - if 0 names: 'no one likes this'
+  - if 1 name: 'NAME likes this'
+  - if 2 names: 'NAME1 and NAME2 like this'
+  - if 3 names: 'NAME 1, NAME2 and NAME3 like this'
+  - if > 3 names: 'NAME 1, NAME 2 and (array size - 2) others like this'
+=end
+
+# def likes(names)
+#   case names.size
+#   when 0 then 'no one likes this'
+#   when 1 then "#{names.first} likes this"
+#   when 2 then "#{names.first} and #{names.last} like this"
+#   when 3 then "#{names[0]}, #{names[1]} and #{names[2]} like this"
+#   else "#{names[0]}, #{names[1]} and #{names.size - 2} others like this"
+#   end
+# end
+
+# def likes(names)
+#   ending = names.size > 1 ? 'like this' : 'likes this'
+#   names = names.empty? ? ['no one'] : names
+#   case names.size
+#   when (0..1) then "#{names[0]} #{ending}"
+#   when 2 then "#{names.join(' and ')} #{ending}"
+#   when 3 then "#{names[0]}, #{names[1]} and #{names[2]} #{ending}"
+#   else "#{names[0]}, #{names[1]} and #{names.size - 2} others #{ending}"
+#   end
+# end
+
+# p likes([]) == "no one likes this"
+# p likes(["Peter"]) == "Peter likes this"
+# p likes(["Jacob", "Alex"]) == "Jacob and Alex like this"
+# p likes(["Max", "John", "Mark"]) == "Max, John and Mark like this"
+# p likes(["Alex", "Jacob", "Mark", "Max"]) == "Alex, Jacob and 2 others like this"
+
+
+
+### 61 MISSING LETTER
 =begin
 61 MISSING LETTER
 Write a method that takes an array of consecutive (increasing) letters as input and that returns the missing letter in the array.
