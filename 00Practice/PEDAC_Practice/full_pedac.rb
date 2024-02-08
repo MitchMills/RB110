@@ -1,4 +1,107 @@
-### 63
+### 65 REVERSE & COMBINE
+=begin
+65 REVERSE AND COMBINE
+Your task is to Reverse and Combine Words.
+Input: String containing different "words" separated by spaces
+1. More than one word? Reverse each word and combine first with second, third with fourth and so on...
+(odd number of words => last one stays alone, but has to be reversed too)
+2. Start it again until there's only one word without spaces
+3. Return your result…
+
+=end
+
+p reverse_and_combine("abc def") == "cbafed"
+p reverse_and_combine("abc def ghi jkl") == "defabcjklghi"
+p reverse_and_combine("dfghrtcbafed") == "dfghrtcbafed"
+p reverse_and_combine("234hh54 53455 sdfqwzrt rtteetrt hjhjh lllll12 44") == "trzwqfdstrteettr45hh4325543544hjhjh21lllll"
+p reverse_and_combine("sdfsdf wee sdffg 342234 ftt") == "gffds432243fdsfdseewttf"
+
+
+
+### 64 INTEGER ARRAY
+=begin
+64 INTEGER ARRAY
+Write a method that takes an array as an argument and returns true if the array is empty or if every element in the array is an integer or a float with no decimals. Return false otherwise.
+
+8:08
+PROBLEM
+input: array
+  - may be empty
+  - may contain any type of element
+output: boolean
+  - true if array is empty
+  - true if every element in the array is an integer or a float with no decimals
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+
+- output: boolean
+
+ALGORITHM
+- return true if input array is empty
+- iterate over each element in the array
+  - if every element is an integer or float with no decimals, return true
+  - otherwise return false
+=end
+
+# def is_int_array?(array)
+#   array.all? { |element| is_int?(element) }
+# end
+
+# def is_int?(element)
+#   element.class == Integer || element == element.to_i
+# end
+
+# p is_int_array?([]) == true
+# p is_int_array?([1, 2, 3]) == true
+# p is_int_array?([1.0, 2.0, 3]) == true
+# p is_int_array?([1.1, 2.0, 3]) == false
+# p is_int_array?(['a', 2, 3]) == false
+
+
+
+### 63 OUTLIER
+=begin
+63 OUTLIER
+You are given an array (which will have a length of at least 3, but could be very large) containing integers. The array is either entirely comprised of odd integers or entirely comprised of even integers except for a single integer N. Write a method that takes the array as an argument and returns this "outlier" N.
+
+7:53
+PROBLEM
+input: array
+  - will contain at least 3 elements
+  - contains only integers
+    - positive or negative or 0
+  - contains all odd or all even integers plus a single even or odd integer
+  - different integer can be at any position
+output: integer
+  - the single even or odd integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - two arrays: one all odd, one all even
+    - sorted by length
+- output: string
+  - shortest of the two arrays
+    - single element
+
+ALGORITHM
+- separate input array into two arrays: odd numbers and even numbers
+- sort two arrays by length
+- return the single element of the shortest array
+=end
+
+# def find_outlier(numbers)
+#   evens, odds = numbers.partition { |number| number.even? }
+#   evens.size == 1 ? evens.first : odds.first
+# end
+
+# p find_outlier([2, 4, 0, 100, 4, 11, 2602, 36]) == 11
+# p find_outlier([160, 3, 1719, 19, 11, 13, -21]) == 160
 
 
 
