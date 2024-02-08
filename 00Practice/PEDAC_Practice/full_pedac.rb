@@ -1,3 +1,8 @@
+### 66
+
+
+
+
 ### 65 REVERSE & COMBINE
 =begin
 65 REVERSE AND COMBINE
@@ -8,13 +13,58 @@ Input: String containing different "words" separated by spaces
 2. Start it again until there's only one word without spaces
 3. Return your result…
 
+11:32
+PROBLEM
+input: string
+  - contains 'words' separated by spaces
+  - may contain one or multiple words
+output: string
+  - if only one word in input string (i.e. no spaces):
+    - return input string
+  - if more than one word:
+    - reverse every word
+    - combine first with second, third with fourth, etc
+      - if odd number of words, last word is not combined with anything
+    - repeat until only one word is left, and return that
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual words
+  - transformed array: words reversed
+  - two arrays of words with even indexes and words with odd indexes?
+- output: string
+
+ALGORITHM
+- if only one word in input string, return input string
+- otherwise, create an array of individual words
+- loop
+  - reverse each word
+  - create two-element subarrays
+    - start at index 0, then index 2, etc
+      - length = 2
+  - join each subarray into a single string
+  - repeat until only one string is left
+- return that single string
 =end
 
-p reverse_and_combine("abc def") == "cbafed"
-p reverse_and_combine("abc def ghi jkl") == "defabcjklghi"
-p reverse_and_combine("dfghrtcbafed") == "dfghrtcbafed"
-p reverse_and_combine("234hh54 53455 sdfqwzrt rtteetrt hjhjh lllll12 44") == "trzwqfdstrteettr45hh4325543544hjhjh21lllll"
-p reverse_and_combine("sdfsdf wee sdffg 342234 ftt") == "gffds432243fdsfdseewttf"
+# def reverse_and_combine(string)
+#   words = string.split
+#   until words.size == 1
+#     results = []
+#     reversed = words.map(&:reverse)
+#     (0...words.size).step(2) { |index| results << reversed[index, 2] }
+#     words = results.map(&:join)
+#   end
+#   words.first
+# end
+
+# p reverse_and_combine("abc def") == "cbafed"
+# p reverse_and_combine("abc def ghi jkl") == "defabcjklghi"
+# p reverse_and_combine("dfghrtcbafed") == "dfghrtcbafed"
+# p reverse_and_combine("234hh54 53455 sdfqwzrt rtteetrt hjhjh lllll12 44") == "trzwqfdstrteettr45hh4325543544hjhjh21lllll"
+# p reverse_and_combine("sdfsdf wee sdffg 342234 ftt") == "gffds432243fdsfdseewttf"
 
 
 
