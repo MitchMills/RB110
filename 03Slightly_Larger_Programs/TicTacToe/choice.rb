@@ -42,9 +42,10 @@ def marked_lines(game_data)
   end
 end
 
+
 def select_lines(game_data, lines, mark)
   lines.select do |line|
-    game_data[:board].values_at(*line).include?(mark)
+    p game_data[:board].values_at(*line).include?(mark)
   end
 end
 
@@ -60,10 +61,11 @@ game_data = {
   game_number: 1
 }
 
-p empty_squares(game_data)
+# open_lines = select_lines(game_data, WINNING_LINES, EMPTY_MARK)
+# p open_lines
 
-p open_lines(game_data)
-p select_lines(game_data, WINNING_LINES, EMPTY_MARK)
+# x_lines = select_lines(game_data, open_lines, PLAYER1_MARK)
+# p x_lines
 
-p marked_lines(game_data)
-p select_lines(game_data, open_lines(game_data), PLAYER2_MARK)
+line = [1, 2, 3]
+(*line).include?('X')
