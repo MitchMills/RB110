@@ -22,6 +22,8 @@ def blank_line
   puts
 end
 
+
+
 # choice methods
 def empty_squares(game_data)
   board = game_data[:board]
@@ -43,9 +45,15 @@ def marked_lines(game_data)
 end
 
 
-def select_lines(game_data, lines, mark)
+# def select_lines(game_data, lines, mark)
+#   lines.select do |line|
+#     game_data[:board].values_at(*line).include?(mark)
+#   end
+# end
+
+def select_lines(game_data, lines, mark, count)
   lines.select do |line|
-    p game_data[:board].values_at(*line).include?(mark)
+    game_data[:board].values_at(*line).count(mark) > count
   end
 end
 
@@ -53,7 +61,7 @@ end
 # game data
 game_data = {
   board: {
-    1=>" X", 2=>" ", 3=>"O",
+    1=>"X", 2=>" ", 3=>"O",
     4=>" ", 5=>"O", 6=>" ",
     7=>" ", 8=>" ", 9=>"X"},
   players: {player1: :user, player2: :computer},
@@ -61,11 +69,8 @@ game_data = {
   game_number: 1
 }
 
-# open_lines = select_lines(game_data, WINNING_LINES, EMPTY_MARK)
-# p open_lines
+open_lines = select_lines(game_data, WINNING_LINES, EMPTY_MARK, 0)
+p open_lines
 
-# x_lines = select_lines(game_data, open_lines, PLAYER1_MARK)
-# p x_lines
-
-line = [1, 2, 3]
-(*line).include?('X')
+threats = select_lines(game_data, open_lines, PLAYER2_MARK, 1)
+p x_lines
