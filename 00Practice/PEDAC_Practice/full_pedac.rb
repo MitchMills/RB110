@@ -25,21 +25,13 @@ DATA STRUCTURES
     - length = string.size - second input integer
     - sorted by value, so that lowest can be picked
 - output: string
-# 123056:
-#   12, 13, 10, 15, 16    0 + (1, 2, 3, 4, 5)
-#   23, 20, 25, 26        1 + (2, 3, 4, 5)
-#   30, 35, 36            2 + (3, 4, 5)
-#   05, 06                3 + (4, 5)
-#   56                    4 + (5)
 
 ALGORITHM
 - convert first input integer into a string
 - get target length of output string
   - string length - second input integer
 - get all possible substrings of target length
-  - start at index 0, up to (string length - target length)
-    - at each index, get strings that start at that index and include (target length - 1) more characters
-      - second index: from current index + 1 up to last index (string length - 1)
+
 
 =end
 
