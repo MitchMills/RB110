@@ -1,4 +1,51 @@
-### 66
+### 66 INTEGER REDUCTION
+=begin
+66 INTEGER REDUCTION
+In this Kata, you will be given two integers n and k and your task is to remove k-digits from n and return the lowest number possible, without changing the order of the digits in n. Return the result as a string.
+
+Let's take an example of solve(123056, 4). We need to remove 4 digits from 123056 and return the lowest possible number. The best digits to remove are (1,2,3,6) so that the remaining digits are '05'. Therefore, solve(123056,4) = '05'. Note also that the order of the numbers in n does not change: solve(1284569, 2) = '12456', because we have removed 8 and 9.
+
+8:32
+PROBLEM
+input: two integers
+  - second integer represents number of digits to remove from first integer
+output: string
+  - smallest possible number after removing second input integer digits from first input integer
+  - order of digits is unchanged
+  - result stays a string; can have leading zeros
+  - digits removed do not have to be contiguous
+  - string size = first integer size - second integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two integers
+  - string version of first input integer
+  - array of all possible substrings of appropriate length
+    - length = string.size - second input integer
+    - sorted by value, so that lowest can be picked
+- output: string
+# 123056:
+#   12, 13, 10, 15, 16    0 + (1, 2, 3, 4, 5)
+#   23, 20, 25, 26        1 + (2, 3, 4, 5)
+#   30, 35, 36            2 + (3, 4, 5)
+#   05, 06                3 + (4, 5)
+#   56                    4 + (5)
+
+ALGORITHM
+- convert first input integer into a string
+- get target length of output string
+  - string length - second input integer
+- get all possible substrings of target length
+  - start at index 0, up to (string length - target length)
+    - at each index, get strings that start at that index and include (target length - 1) more characters
+      - second index: from current index + 1 up to last index (string length - 1)
+
+=end
+
+# p reduce_integer(123056, 4) == '05'
+# p reduce_integer(1284569, 2) == '12456'
+
 
 
 
@@ -54,7 +101,19 @@ ALGORITHM
 #   until words.size == 1
 #     results = []
 #     reversed = words.map(&:reverse)
-#     (0...words.size).step(2) { |index| results << reversed[index, 2] }
+#     (0...words.size).step(2).map do |index|
+#       results << reversed[index, 2]
+#     end
+#     words = results.map(&:join)
+#   end
+#   words.first
+# end
+
+# def reverse_and_combine(string)
+#   words = string.split
+#   until words.size == 1
+#     reversed = words.map(&:reverse)
+#     results = (0...words.size).step(2).map { |index| reversed[index, 2] }
 #     words = results.map(&:join)
 #   end
 #   words.first
