@@ -1,3 +1,61 @@
+
+
+
+
+
+### ED1 CONVERT TO ARRAY
+=begin
+ED 1 CONVERT TO ARRAY
+Write a function that converts an object into an array, where each element represents a key-value pair in the form of an array.
+
+8:22
+PROBLEM
+input: hash
+  - may be empty
+
+output: array
+  - each key-value pair of input hash is a two-element subarray within the output array
+    - key is first element, value is second element
+    - number of k-v pairs in input hash = number of subarrays in output array
+    - if key is a symbol, change it to a string
+  - if input hash is empty, return an empty array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: hash
+  - array to hold subarrays
+- output: array
+
+ALGORITHM
+- create an empty array for output
+- for each key-value pair in the input hash:
+  - create a two element subarray
+    - change the key to a string and make it the first element
+    - make the value the second element
+  - place each subarray into the output array
+- return the output array
+=end
+
+# def to_array(hash)
+#   hash.each_with_object([]) do |(key, value), result|
+#     result << [key.to_s, value]
+#   end
+# end
+
+# def to_array(hash)
+#   hash.keys.map do |key|
+#     [key.to_s, hash[key]]
+#   end
+# end
+
+# p to_array({ a: 1, b: 2 }) == [["a", 1], ["b", 2]]
+# p to_array({ shrimp: 15, tots: 12 }) == [["shrimp", 15], ["tots", 12]]
+# p to_array({}) == []
+
+
+
+
 ### 66 INTEGER REDUCTION
 =begin
 66 INTEGER REDUCTION
