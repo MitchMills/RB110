@@ -3,6 +3,47 @@
 
 
 
+### ED2 HOW MANY VOWELS
+=begin
+ED2 HOW MANY VOWELS?
+Create a function that takes a string and returns the number (count) of vowels contained within it.
+a, e, i, o, u are considered vowels (not y).
+All test cases are one word and only contain letters.
+
+PROBLEM
+input: string
+  - contains only letter characters and no spaces
+  - upper and lowercase
+output: integer
+  - number of vowels in input string
+    - vowels = a, e, i, o, u
+    - upper and lowercase
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters
+  - array of only vowels
+  - size
+- output: integer
+
+ALGORITHM
+- create an array of individual characters in the input strings
+- select only the vowels
+- return the number of vowels
+=end
+
+# def count_vowels(string)
+#   string.chars.select { |char| 'aeiou'.include?(char.downcase) }.size
+# end
+
+# p count_vowels("CElebration") == 5
+# p count_vowels("Palm") == 1
+# p count_vowels("Prediction") == 4
+
+
+
 ### ED1 CONVERT TO ARRAY
 =begin
 ED 1 CONVERT TO ARRAY
