@@ -25,10 +25,10 @@ end
 
 
 # choice methods
-def empty_squares(game_data)
-  board = game_data[:board]
-  board.keys.select { |square| board[square] == EMPTY_MARK }
-end
+# def empty_squares(game_data)
+#   board = game_data[:board]
+#   board.keys.select { |square| board[square] == EMPTY_MARK }
+# end
 
 def select_lines(game_data, lines, mark, count)
   lines.select do |line|
@@ -55,8 +55,8 @@ game_data = {
 open_lines = select_lines(game_data, WINNING_LINES, EMPTY_MARK, 0)
 p open_lines
 
-threat_lines = select_lines(game_data, open_lines, PLAYER2_MARK, 1)
-p threat_lines
+# threat_lines = select_lines(game_data, open_lines, PLAYER2_MARK, 1)
+# p threat_lines
 
-targets = target_squares(game_data, threat_lines)
+open_squares = target_squares(game_data, open_lines)
 p targets

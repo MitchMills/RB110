@@ -460,31 +460,10 @@ end
 
 game_data = {
   board: {
-    1=>" ", 2=>" ", 3=>" ",
+    1=>" ", 2=>" ", 3=>"O",
     4=>" ", 5=>" ", 6=>" ",
-    7=>" ", 8=>" ", 9=>" "},
+    7=>" ", 8=>"O", 9=>" "},
   players: {player1: :user, player2: :computer},
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
-
-# marks = game_data[:board].select { |space, mark| mark == PLAYER1_MARK }.keys
-# p marks
-
-# opps = WINNING_LINES.select do |line|
-#   line.any? { |space| marks.include?(space) }
-# end
-# p opps
-# # [[1, 2, 3], [7, 8, 9], [1, 4, 7], [3, 6, 9], [1, 5, 9]] 357
-
-# spaces = opps.map do |line|
-#   line.select do |space|
-#     game_data[:board][space] == EMPTY_MARK
-#   end
-# end.flatten
-
-# p spaces
-
-# p get_all_targets(game_data)
-
-play_match
