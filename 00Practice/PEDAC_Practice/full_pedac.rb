@@ -1,5 +1,46 @@
+### ED4
 
 
+
+### ED3 TRIANGULAR NUMBER SEQUENCE
+=begin
+ED3 TRIANGULAR NUMBER SEQUENCE
+This Triangular Number Sequence is generated from a pattern of dots that form a triangle. The first 5 numbers of the sequence, or dots, are:
+
+1, 3, 6, 10, 15
+
+This means that the first triangle has just one dot, the second one has three dots, the third one has 6 dots and so on.
+
+Write a function that returns the number of dots when given its corresponding triangle number of the sequence.
+
+7:40
+PROBLEM
+input: integer
+  - represents place in sequence
+output: integer
+  - represents number of dots needed to make a triangle at that place in the sequence
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  1 * (1 + 1) / 2 = 1
+  2 * (2 + 1) / 2 = 3
+  3 * (3 + 1) / 2 = 6
+- output: integer
+
+ALGORITHM
+- multiply input integer by (input integer + 1) then divide by 2
+- return that number
+=end
+
+# def triangle(place)
+#   place * (place + 1) / 2
+# end
+
+# p triangle(1) == 1
+# p triangle(6) == 21
+# p triangle(215) == 23220
 
 
 
