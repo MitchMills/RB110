@@ -1,4 +1,37 @@
-### ED4
+### ED5
+
+
+
+
+### ED4 REPEATING LETTERS
+=begin
+ED4 REPEATING LETTERS
+Create a method that takes a string and returns a string in which each character is repeated once.
+All test cases contain valid strings. Don't worry about spaces, special characters or numbers. They're all considered valid characters.
+
+3:46
+PROBLEM
+input: string
+  - may contain letters, spaces, special characters, numbers
+output: string
+  - each character in input string is repeated once
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters
+  - transformed array where each individual character is doubled
+- output: string
+=end
+
+# def double_char(string)
+#   string.chars.map { |char| char * 2 }.join
+# end
+
+# p double_char("String") == "SSttrriinngg"
+# p double_char("Hello World!") == "HHeelllloo  WWoorrlldd!!"
+# p double_char("1234!_ ") == "11223344!!__  "
 
 
 
