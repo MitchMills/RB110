@@ -36,7 +36,7 @@ def select_lines(game_data, lines, mark, count)
   end
 end
 
-def target_squares(game_data, lines)
+def select_squares(game_data, lines)
   lines.flatten.intersection(empty_squares(game_data))
 end
 
@@ -58,5 +58,5 @@ p open_lines
 # threat_lines = select_lines(game_data, open_lines, PLAYER2_MARK, 1)
 # p threat_lines
 
-open_squares = target_squares(game_data, open_lines)
-p targets
+open_squares = select_squares(game_data, open_lines)
+p open_squares
