@@ -1,4 +1,51 @@
-### ED5
+### ED6
+
+
+
+
+### ED5 COUNT POTATOES
+=begin
+ED5 COUNT POTATOES
+Create a function to return the amount of potatoes there are in a string.
+
+PROBLEM
+input: input string, target string
+  - first string is the string to be searched
+  - second string is the target to be counter
+output: integer
+  - number of times the target string occurs in the input string
+  - case sensitive
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two strings
+  - array of all substrings in input string that are same length as target string
+- output: integer
+
+ALGORITHM
+- create an array of all substrings in input string that are same length as target string
+  - get length of target string
+  - start at index 1, up to index (input string length - targhet string length)
+  - length is constant
+- return the number of occurrences of target string within that array
+=end
+
+# def count_word(string, target)
+#   substrings = get_substrings(string, target.size)
+#   substrings.count(target)
+# end
+
+# def get_substrings(string, target_length)
+#   final_index = string.size - target_length
+#   (0..final_index).map do |start_index|
+#     string[start_index, target_length]
+#   end
+# end
+
+# p count_word('potato', 'potato') == 1
+# p count_word('potatopotato', 'potato') == 2
+# p count_word('potatoapple', 'potato') == 1
 
 
 
