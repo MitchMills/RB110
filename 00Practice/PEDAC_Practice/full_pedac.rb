@@ -1,4 +1,106 @@
+### ED10
 
+
+
+
+### ED9 FIRST VOWEL
+=begin
+ED9 FIRST VOWEL
+Create a function that returns the index of the first vowel in a string.
+Input will be single words.
+Characters in words will be upper or lower case.
+"y" is not considered a vowel.
+Input always contains a vowel.
+
+5:19
+PROBLEM
+input: string
+  - contains a single word: no whitespace
+  - upper and lower case alpha characters
+  - will contain at least one vowel
+output: integer
+  - index of first vowel in input string, regardless of case
+  - vowels: aeiouAEIOU
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of each individual character
+- output: integer
+
+ALGORITHM
+- create an array of the individual characters in the input string
+- examine each character in turn
+  - if it is a vowel, return the index of the character
+  - else go to the next character
+=end
+
+# def first_vowel(string)
+#   vowels = 'AEIOUaeiou'
+#   string.chars.each_with_index do |char, index|
+#     return index if vowels.include?(char)
+#   end
+# end
+
+# p first_vowel("apple") == 0
+# p first_vowel("hello") == 1
+# p first_vowel("STRAWBERRY") == 3
+# p first_vowel("pInEaPPLe") == 1
+
+
+
+### ED8 REMOVE ZEROES
+=begin
+ED8 REMOVE ZEROES
+Create a function that takes in a number as a string and returns the number without trailing and leading zeros.
+
+Trailing Zeros are the zeros after a decimal point which don't affect the value (e.g. the last three zeros in 3.4000 and 3.04000).
+Leading Zeros are the zeros before a whole number which don't affect the value (e.g. the first three zeros in 000234 and 000230).
+
+If you get a number with .0 on the end, return the integer value (e.g. return "4" rather than "4.0").
+If the number is 0, 0.0, 000, 00.00, etc... return "0".
+
+4:58
+PROBLEM
+input: string
+  - represents a number
+  - contains only numeric characters plus may include a decimal point
+output: string
+  - should represent the same number but with leading and trailing zeroes removed
+    - trailing zeroes: zeroes after a decimal point which don't affect the value
+    - leading zeroes: zeroes before a whole number which don't affect the value
+  - if input number is a float but has .0 on the end, return the integer value
+  - if input number contains only zeroes, or zeroes and a decimal point, return '0'
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - string converted to a float or integer
+- output: string
+
+ALGORITHM
+- convert string to a float
+- if the float converted to an integer is equal to the float
+  - convert float to integer then to string
+- else convert float to string
+=end
+
+# def remove_zeroes(string)
+#   float = string.to_f
+#   float_integer?(float) ? float.to_i.to_s : float.to_s
+# end
+
+# def float_integer?(float)
+#   float == float.to_i
+# end
+
+# p remove_zeroes("230.000") == "230"
+# p remove_zeroes("00402") == "402"
+# p remove_zeroes("03.1400") == "3.14"
+# p remove_zeroes("30") == "30"
+# p remove_zeroes('00.00') == '0'
 
 
 
