@@ -1,5 +1,42 @@
-### ED6
+### ED7
 
+
+
+
+### ED6 RETURN FACTORIAL
+=begin
+Create a function that takes an integer and returns the factorial of that integer. That is, the integer multiplied by all positive lower integers. Assume all inputs are greater than or equal to 0.
+
+12:21
+PROBLEM
+input: integer
+  - greater than or equal to 0
+output: integer
+  - product of input integer multiplied by all lower positive integers
+
+EXAMPLES
+3 -> 6 (3 * 2 * 1)
+5 -> 120 (5 * 4 * 3 * 2 * 1)
+
+DATA STRUCTURES
+- input: integer
+  - array of all integers between 2 and input integer (range -> array)
+- output: integer
+
+ALGORITHM
+- create a range from 2 up to the input integer
+- convert it into an array
+- get the product of all elements multiplied together
+- return that product
+=end
+
+# def factorial(number)
+#   (2..number).to_a.inject(:*)
+# end
+
+# p factorial(3) == 6
+# p factorial(5) == 120
+# p factorial(13) == 6227020800
 
 
 
