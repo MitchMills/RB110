@@ -1,4 +1,54 @@
-### ED7
+
+
+
+
+
+### ED7 REMOVE VOWELS
+=begin
+ED7 REMOVE VOWELS
+Create a function that takes a string and returns a new string with all vowels removed. Vowels are a, e, i, o, and u.
+
+12:36
+PROBLEM
+input: string
+  - contains upper and lower case letters, spaces, non-letter characters
+output: string
+  - all vowels removed
+    - vowels: a e i o u (upper or lower case)
+  - all other characters unchanged
+    - spaces remain, even if at the beginning or end of string
+    - there can be two or more spaces in a row: 'build a wall' -> 'bld  wll'
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - string containing all vowels: 'AEIOUaeiou'
+  - empty string
+    - non-vowel characters added
+- output: string
+
+ALGORITHM
+- create a string containing all vowels
+- delete those vowels from the input string
+- return result
+=end
+
+# def remove_vowels(string)
+#   vowels = 'aeiouAEIOU'
+#   string.delete(vowels)
+# end
+
+# def remove_vowels(string)
+#   vowels = 'AEIOUaeiou'
+#   string.each_char.with_object('') do |char, result|
+#     result << char unless vowels.include?(char)
+#   end
+# end
+
+# p remove_vowels("I have never seen a thin person drinking Diet Coke.") == " hv nvr sn  thn prsn drnkng Dt Ck."
+# p remove_vowels("We're gonna build a wall!") == "W'r gnn bld  wll!"
+# p remove_vowels("Happy Thanksgiving to all--even the haters and losers!") == "Hppy Thnksgvng t ll--vn th htrs nd lsrs!"
 
 
 
