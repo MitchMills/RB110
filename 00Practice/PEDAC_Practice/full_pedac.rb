@@ -1,5 +1,139 @@
-### ED15
+### ED18
 
+
+
+
+### ED17 OMNIPRESENT VALUE
+=begin
+ED17 OMNIPRESENT VALUE
+A value is omnipresent if it exists in every subarray inside the main array.
+
+To illustrate:
+[[3, 4], [8, 3, 2], [3], [9, 3], [5, 3], [4, 3]]
+# 3 exists in every element inside this array, so is omnipresent.
+
+Create a function that determines whether an input value is omnipresent for a given array.
+Sub-arrays can be any length.
+
+1:50
+PROBLEM
+input: array, integer
+  - array contains subarrays
+output: boolean
+  - return true if input integer is present in every subarray of input array
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: nested array, integer
+
+- output: boolean
+
+ALGORITHM
+- examine each subarray in input array
+  - if input integer is present in all, return true
+  - else return false
+=end
+
+# def is_omnipresent?(array, target)
+#   array.all? { |subarray| subarray.include?(target) }
+# end
+
+# def is_omnipresent?(array, target)
+#   array.each do |subarray|
+#     return false unless subarray.include?(target)
+#   end
+#   true
+# end
+
+# p is_omnipresent?([[1, 1], [1, 3], [5, 1], [6, 1]], 1) == true
+# p is_omnipresent?([[1, 1], [1, 3], [5, 1], [6, 1]], 6) == false
+# p is_omnipresent?([[5], [5], [5], [6, 5]], 5) == true
+# p is_omnipresent?([[5], [5], [5], [6, 5]], 6) == false
+
+
+
+### ED16 LEFT INTEGER
+=begin
+ED16 LEFT INTEGER
+Write a function that takes a string as an argument and returns the left most digit in the string.
+Each string will have at least two numbers.
+Return the result as an integer.
+
+1:40
+PROBLEM
+input: string
+  - contains all types of characters
+  - contains at least two numeric characters
+output: integer
+  - the leftmost numeric character from the string, converted to an integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of all numeric characters
+  - array of individual characters
+- output: integer
+
+ALGORITHM
+- create an array of all numeric characters (0 to 9)
+- look at each individual character in input string, starting from left and moving right
+  - when a numeric character is found, convert it into an integer and return it
+=end
+
+# def left_digit(string)
+#   numbers = ('0'..'9').to_a
+#   string.each_char { |char| return char.to_i if numbers.include?(char) }
+# end
+
+# p left_digit("TrAdE2W1n95!") == 2
+# p left_digit("V3r1ta$") == 3
+# p left_digit("U//DertHe1nflu3nC3") == 1
+# p left_digit("J@v@5cR1PT") == 5
+
+
+
+### ED15 MISSING NUMBER
+=begin
+ED15 MISSING NUMBER
+Create a function that takes an array of numbers between 1 and 10 (excluding one number) and returns the missing number.
+The array of numbers will be unsorted (not in order).
+Only one number will be missing.
+
+1:28
+PROBLEM
+input: array
+  - elements are integers between 1 and 10
+    - each integer appears only once
+    - one (and only one) integer is missing
+  - contains 9 elements
+  - integers are not necessarily in order
+output: integer
+  - the 'missing' integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - sum of integers from 1 to 10 (55)
+- output: integer
+
+ALGORITHM
+- get the sum of all the integers in the input array
+- subtract that sum from 55 and return the result
+=end
+
+# def missing_num(array)
+#   first, last = array.minmax
+#   total = (first..last).sum
+#   total - array.sum
+# end
+
+# p missing_num([1, 2, 3, 4, 6, 7, 8, 9, 10]) == 5
+# p missing_num([7, 2, 3, 6, 5, 10, 1, 4, 8]) == 9
+# p missing_num([10, 5, 1, 2, 4, 6, 8, 3, 9]) == 7
 
 
 
