@@ -1,5 +1,56 @@
-### ED12
+### ED13
 
+
+
+
+### ED12 SUM SLICE
+=begin
+ED12 SUM SLICE
+Given an array and an integer n, return the sum of the first n numbers in the array.
+
+Worked Example:
+sum_first_n_nums([9, 8, 7, 6], 3) ➞ 24
+# The parameter n is specified as 3.
+# The first 3 numbers in the list are 9, 8 and 7.
+# The sum of these 3 numbers is 24 (9 + 8 + 7).
+# Return the answer.
+
+If n is larger than the length of the array, return the sum of the whole array.
+
+8:04
+PROBLEM
+input: array, integer
+  - array:
+    - contains integers
+  -integer:
+    - 0 or positive
+output: integer
+  - sum of a slice of elements in input array
+    - size of slice is input integer
+    - if input integer is larger than length of input array, return sum of whole array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array, integer
+  - slice of input array
+- output: integer
+
+ALGORITHM
+- create a subarray from the input array
+  - length is input integer
+  - elements are same as elements of input array up to that length
+- sum the elements in that array
+- return the sum
+=end
+
+# def slice_sum(array, length)
+#   array.take(length).sum
+# end
+
+# p slice_sum([1, 3, 2], 2) == 4
+# p slice_sum([4, 2, 5, 7], 4) == 18
+# p slice_sum([3, 6, 2], 0) == 0
 
 
 
