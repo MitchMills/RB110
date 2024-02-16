@@ -1,5 +1,86 @@
-### ED13
+### ED15
 
+
+
+
+### ED14 HISTOGRAM
+=begin
+ED14 HISTOGRAM
+Build a function that creates histograms. Every bar needs to be on a new line and its length corresponds to the numbers in the array passed as an argument. The second argument of the function represents the character that needs to be used.
+
+histogram(lst, char) -> str
+
+8:31
+PROBLEM
+input: array, string
+  - array is pattern
+    - contains integers
+  - string is character that pattern is applied to
+output: string
+  - character repeated according to pattern
+  - each part of pattern should be on a new line
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array, string
+  - transformed array
+    - each integer in input array becomes string * integer
+- output: string
+
+ALGORITHM
+- transform input array
+  - each element becomes a string: input string * element
+- join elements of transformed array into a string, separated by new lines
+- return that string
+=end
+
+# def histogram(pattern, character)
+#   pattern.map { |number| character * number }.join("\n")
+# end
+
+# p histogram([1, 3, 4], "#") == "#\n###\n####"
+# p histogram([6, 2, 15, 3], "=") == "======\n==\n===============\n==="
+# p histogram([1, 10], "+") == "+\n++++++++++"
+
+
+
+### ED13 MIRROR ARRAY
+=begin
+ED13 MIRROR ARRAY
+Given an integer array, transform it into a mirror. Do not repeat the last item of the given array.
+
+8:18
+PROBLEM
+input: array
+
+output: array
+  - contains elements of first array plus all but last element of first array in reverse order
+    - first array + (indexes 0 to -2 reversed)
+  - length is (input array length * 2) - 1
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - array of all but last element of input array, reversed
+- output: array
+
+ALGORITHM
+- create an array from input array: indexes 0 up to -2
+- reverse this array
+- combined input array and reversed array
+- return that array
+=end
+
+# def mirror(array)
+#   array + array.take(array.size - 1).reverse
+#   # array + array[0..-2].reverse
+# end
+
+# p mirror([0, 2, 4, 6]) == [0, 2, 4, 6, 4, 2, 0]
+# p mirror([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5, 4, 3, 2, 1]
+# p mirror([3, 5, 6, 7, 8]) == [3, 5, 6, 7, 8, 7, 6, 5, 3]
 
 
 
@@ -132,7 +213,6 @@ ALGORITHM
 # p multiply([4, 5]) == [[4, 4], [5, 5]]
 # p multiply(["*", "%", "$"]) == [["*", "*", "*"], ["%", "%", "%"], ["$", "$", "$"]]
 # p multiply(["A", "B", "C", "D", "E"]) == [["A", "A", "A", "A", "A"], ["B", "B", "B", "B", "B"], ["C", "C", "C", "C", "C"], ["D", "D", "D", "D", "D"], ["E", "E", "E", "E", "E"]]
-
 
 
 
