@@ -1,4 +1,44 @@
-### ED10
+### ED11
+
+
+
+
+### ED10 ARRAY MULTIPLIER
+=begin
+ED10 ARRAY MULTIPLIER
+Create a function that takes an array as an argument and returns a new nested array for each element in the original array. The nested array must be filled with the corresponding element (string or number) in the original array and each nested array has the same amount of elements as the original array. The given array contains numbers or strings.
+
+7:00
+PROBLEM
+input: array
+  - contains numbers or strings
+output: array
+  - nested
+    - number of subarrays = number of elements in input array
+    - size of each subarray = size of input array
+    - elements of each subarray are element at that index in input array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - size of input array
+- output: nested array
+
+ALGORITHM
+- transform input array
+  - each element transformed into an array
+    - element * input array length
+- return transformed array
+=end
+
+# def multiply(array)
+#   array.map { |element| [element] * array.size }
+# end
+
+# p multiply([4, 5]) == [[4, 4], [5, 5]]
+# p multiply(["*", "%", "$"]) == [["*", "*", "*"], ["%", "%", "%"], ["$", "$", "$"]]
+# p multiply(["A", "B", "C", "D", "E"]) == [["A", "A", "A", "A", "A"], ["B", "B", "B", "B", "B"], ["C", "C", "C", "C", "C"], ["D", "D", "D", "D", "D"], ["E", "E", "E", "E", "E"]]
 
 
 
