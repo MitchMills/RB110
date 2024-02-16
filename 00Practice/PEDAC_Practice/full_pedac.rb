@@ -1,5 +1,66 @@
-### ED18
+### ED19
 
+
+
+
+### ED18 FIBONACCI NUMBER
+=begin
+ED18 FIBONACCI NUMBER
+Create a function that, given a number, returns the corresponding value of that index in the Fibonacci series.
+
+The Fibonacci Sequence is the series of numbers:
+
+1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+
+The next number is found by adding the two numbers before it:
+
+    The 2 is found by adding the two numbers before it (1+1).
+    The 3 is found by adding the two numbers before it (1+2).
+    The 5 is (2+3), and so on!
+
+The first number in the sequence starts at 1 (not 0).
+
+4:03
+PROBLEM
+input: integer
+  - represents the index of a number in the Fibonacci series
+    - 0-indexed
+    - will be >= 0
+output: integer
+  - the value of the number at that index
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - array of two previous numbers in series
+- output: integer
+
+ALGORITHM
+- guard clause? (for index 0 and 1)
+- initialize two variables: first number and second number
+  - first number = 1, second number = 1
+- next number = first number + second number
+- iterate over a range: 2 up to input integer
+  - on each iteration:
+    - first number, second number = second number, next number
+- return second number
+=end
+
+# def fibonacci(index)
+#   first_number, second_number = [1, 1]
+#   (2..index).each do |index|
+#     first_number, second_number = second_number, first_number + second_number
+#   end
+#   second_number
+# end
+
+# p fibonacci(3) == 3
+# p fibonacci(7) == 21
+# p fibonacci(12) == 233
+# p fibonacci(0) == 1
+# p fibonacci(1) == 1
+# p fibonacci(2) == 2
 
 
 
