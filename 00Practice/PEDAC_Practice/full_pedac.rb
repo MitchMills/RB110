@@ -1,5 +1,47 @@
-### ED11
+### ED12
 
+
+
+
+### ED11 SECRET SOCIETY
+=begin
+ED11 SECRET SOCIETY
+A group of friends have decided to start a secret society. The name will be the first letter of each of their names, sorted in alphabetical order.
+
+Create a function that takes in an array of names and returns the name of the secret society. The secret society's name should be entirely uppercased.
+
+7:54
+PROBLEM
+input: array
+  - each element is a string representing a name
+output: string
+  - consists of first letter of each name in input array
+    - sorted into alphabetical order
+    - all uppercase
+  - number of elements in input array = number of letters in output string
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - transformed array: first letter of each element
+  - sorted array
+- output: string
+
+ALGORITHM
+- transform input array
+  - each element becomes its first letter, upcased
+- sort the transformed array
+- join elements into string and return it
+=end
+
+# def society_name(names)
+#   names.map { |name| name[0].upcase }.sort.join
+# end
+
+# p society_name(["Adam", "Sarah", "Malcolm"]) == "AMS"
+# p society_name(["Harry", "Newt", "Luna", "Cho"]) == "CHLN"
+# p society_name(["Phoebe", "Chandler", "Rachel", "Ross", "Monica", "Joey"]) == "CJMPRR"
 
 
 
