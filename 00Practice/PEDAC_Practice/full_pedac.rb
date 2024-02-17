@@ -1,5 +1,70 @@
-### ED20
+### ED21
 
+
+
+
+### ED20
+=begin
+ED20 LARGEST PRIME
+Given two integers as arguments, create a function that finds the largest prime within the range of the two integers.
+All numbers will be positive integers.
+
+11:31
+PROBLEM
+input: two integers
+  - positive
+  - represent beginning and end of a range (inclusive)
+    - first number may be greater than second
+output: integer
+  - the largest prime number within that range
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two integers
+  - range (from highest to lowest)
+- output: integer
+
+ALGORITHM
+- create a range from higher number down to lower number
+- examine each number in that range
+  - if it is a prime number, return it
+    - create a range from 2 up to the integer square root of the number
+    - if no number in the range divides evenly into the original number, it is a prime number
+  - else proceed to the next lower number in the range
+=end
+
+# def fat_prime(number1, number2)
+#   numbers = [number1, number2]
+#   higher, lower = number1 > number2 ? numbers : numbers.reverse
+#   higher.downto(lower) { |number| return number if is_prime?(number) }
+#   nil
+# end
+
+# def is_prime?(number)
+#   limit = Integer.sqrt(number)
+#   (2..limit).all? { |divisor| number % divisor != 0 }
+# end
+
+# def is_prime?(number)
+#   limit = Integer.sqrt(number)
+#   (2..limit).any? { |divisor| number % divisor == 0 } ? false : true
+# end
+
+# def is_prime?(number)
+#   limit = Integer.sqrt(number)
+#   (2..limit).each { |divisor| return false if number % divisor == 0 }
+#   true
+# end
+
+# def is_prime?(number)
+#   limit = Integer.sqrt(number)
+#   (2..limit).select { |divisor| number % divisor == 0 }.empty?
+# end
+
+# p fat_prime(2, 10) == 7
+# p fat_prime(10, 2) == 7
+# p fat_prime(4, 24) == 23
 
 
 
