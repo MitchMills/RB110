@@ -1,4 +1,54 @@
-### ED19
+### ED20
+
+
+
+
+### ED19 HACKER SPEAK
+=begin
+ED19 HACKER SPEAK
+Create a function that takes a string as an argument and returns a coded (h4ck3r 5p34k) version of the string.
+In order to work properly, the function should replace all "a"s with 4, "e"s with 3, "i"s with 1, "o"s with 0, and "s"s with 5.
+
+8:15
+PROBLEM
+input: string
+  - contains only lowercase alpha characters and spaces
+output: string
+  - some characters are replaced with numeric characters
+    - a -> 4
+    - e -> 3
+    - i -> 1
+    - o -> 0
+    - s -> 5
+  - same number of characters as input string
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters
+  - transformed array
+- output: string
+
+ALGORITHM
+- create a hash with a e i o s as keys, 4 3 1 0 5 as values
+- create an array of individual characters in input string
+- transform this array
+  - if hash keys include the current character, change it to the appropriate value
+- join the array into a string and return it
+=end
+
+# CODE = %w(a e i o s).zip([4, 3, 1, 0, 5]).to_h
+
+# def hacker_speak(string)
+#   string.chars.map do |letter|
+#     CODE.include?(letter) ? CODE[letter] : letter
+#   end.join
+# end
+
+# p hacker_speak("javascript is cool") == "j4v45cr1pt 15 c00l"
+# p hacker_speak("programming is fun") == "pr0gr4mm1ng 15 fun"
+# p hacker_speak("become a coder") == "b3c0m3 4 c0d3r"
 
 
 
@@ -53,6 +103,14 @@ ALGORITHM
 #     first_number, second_number = second_number, first_number + second_number
 #   end
 #   second_number
+# end
+
+# def fibonacci(index)
+#   current_pair = [1, 1]
+#   (2..index).each do |_|
+#     current_pair = [current_pair.last, current_pair.sum]
+#   end
+#   current_pair.last
 # end
 
 # p fibonacci(3) == 3
