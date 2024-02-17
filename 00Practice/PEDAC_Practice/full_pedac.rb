@@ -1,9 +1,70 @@
-### ED21
+### ED22
 
 
 
 
-### ED20
+### ED21 DAILY STREAK
+=begin
+ED21 DAILY STREAK
+Create a function that takes an array of booleans that represent whether or not a player has logged into a game that day. Output the longest streak of consecutive logged in days.
+Return your output as an integer.
+If a given array is all false, return 0 (see example #2).
+
+2:05
+PROBLEM
+input: array
+  - array elements are booleans
+
+output: integer
+  - represents longest streak of consecutive trues in input array
+  - return 0 if all elements are false
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - count of number of consecutive trues
+  - array holding these counts
+- output: integer
+
+ALGORITHM
+- set a variable `count` to 0
+- create an empty array: `streaks`
+- examine each element in the input array
+  - if the element is true, add 1 to the count variable
+  - if the element is false
+    - add value of count to `streaks` array
+    - reset count variable to 0
+- if the `streaks` array is empty, return 0
+- else return the largest integer in the `streaks` array
+=end
+
+# def daily_streak(array)
+#   count = 0
+#   streaks = []
+#   array.each_with_index do |login, index|
+#     if login == true && (index == (array.size - 1))
+#       count += 1
+#       streak = count
+#       streaks << streak
+#     elsif login == true
+#       count += 1
+#     else
+#       streak = count
+#       streaks << streak
+#       count = 0
+#     end
+#   end
+#   streaks.max
+# end
+
+# p daily_streak([true, true, false, true]) == 2
+# p daily_streak([false, false, false]) == 0
+# p daily_streak([true, true, true, false, true, true]) == 3
+
+
+
+### ED20 LARGEST PRIME
 =begin
 ED20 LARGEST PRIME
 Given two integers as arguments, create a function that finds the largest prime within the range of the two integers.
