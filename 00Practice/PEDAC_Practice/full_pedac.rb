@@ -58,6 +58,26 @@ ALGORITHM
 #   streaks.max
 # end
 
+# def daily_streak(array)
+#   array << false
+#   count = 0
+#   streaks = []
+#   array.each do |login|
+#     if login == true
+#       count += 1
+#     else
+#       streak = count
+#       streaks << streak
+#       count = 0
+#     end
+#   end
+#   streaks.max
+# end
+
+# def daily_streak(array)
+#   array.join.split('false').map {|string| string.size / 4 }.max || 0
+# end
+
 # p daily_streak([true, true, false, true]) == 2
 # p daily_streak([false, false, false]) == 0
 # p daily_streak([true, true, true, false, true, true]) == 3
