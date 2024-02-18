@@ -1,5 +1,149 @@
-### ED27
+### ED30
 
+
+
+
+### ED29 PIZZA POINTS
+=begin
+ED29 PIZZA POINTS
+Google is launching a network of autonomous pizza delivery drones and wants you to create a flexible rewards system (Pizza Points™) that can be tweaked in the future. The rules are simple: if a customer has made at least N orders of at least Y price, they get a FREE pizza!
+
+Create a function that takes a dictionary of customers, a minimum number of orders and a minimum order price. Return a list of customers that are eligible for a free pizza. Sort the returned array of customer names in alphabetical order.
+
+2:51
+PROBLEM
+input: hash, two integers
+  - hash keys are strings
+    - customer names
+  - hash values are arrays
+    - arrays contain positive integers
+    - customer order totals
+  - first integer is minimum number of orders
+  - second integer is minimum price
+output: array
+  - array contains keys from hash that meet criteria
+    - criteria: at least minimum orders at minimum price
+  - sorted alphabetically
+
+EXAMPLES
+
+DATA STRUCTURES
+- inputs: hash, integer, integer
+  - array of orders over minimum amount
+- output: array
+
+ALGORITHM
+- for each key-value pair
+  - select orders that are >= minimum price
+  - get number of orders
+    - if greater than minimum number of orders, select that name
+- sort the list of names and return it
+=end
+
+# customers = {
+#   "Spider-Man": [5, 17, 30, 33, 40, 22, 26, 10, 11, 45],
+#   "Batman": [22, 30, 11, 17, 15, 52, 27, 12]
+# }
+
+# def pizza_points(customers, min_orders, min_price)
+#   eligible_orders = customers.select do |customer, orders|
+#     orders.select { |price| price >= min_price }.size >= min_orders
+#   end
+#   eligible_orders.keys.map(&:to_s).sort
+# end
+
+# p pizza_points(customers, 5, 20) == ["Spider-Man"]
+# p pizza_points(customers, 3, 10) == ["Batman", "Spider-Man"]
+# p pizza_points(customers, 5, 100) == []
+
+
+
+### ED28 EARNED RUN AVERAGE
+=begin
+ED28 EARNED RUN AVERAGE
+Create a function that returns an Earned Run Average (ERA). An ERA is calculated by multiplying 9 by the quotient of Earned Runs Allowed er divided by ip Innings Pitched.
+
+In baseball statistics, innings are represented with a fractional part of .1 (1/3) or .2 (2/3) to represent the number of outs in an inning. A whole number or a number with a fractional part of .0 represents a full inning with three outs. Check the Resources tab for a deeper explanation.
+
+ERA is represented with a scale of 2: 2.08
+For 1/3 and 2/3, use a scale of 2.
+
+2:22
+PROBLEM
+input: integer, float
+  - integer is earned runs allowed
+  - float is innings pitched
+    - convert .1 to .33 and .2 to .67
+output: float
+  - 9 * earned runs / innings pitched
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer, float
+
+- output: float
+
+ALGORITHM
+- convert innings pitched
+- divide era by innings pitched
+- multiply by 9
+- round result to two decimal places
+=end
+
+# def era(earned_runs, innings_pitched)
+#   innings_pitched = convert_ip(innings_pitched)
+#   ((earned_runs / innings_pitched) * 9).round(2)
+# end
+
+# def convert_ip(innings_pitched)
+#   parts = innings_pitched.to_f.to_s.split('.')
+#   case parts.last
+#   when '0' then innings_pitched.to_f
+#   when '1' then "#{parts.first}.#{33}".to_f
+#   when '2' then "#{parts.first}.#{66}".to_f
+#   end
+# end
+
+# p era(22, 99) == 2.0
+# p era(23, 99.1) == 2.08
+# p era(24, 99.2) == 2.17
+
+
+
+### ED27 SECOND LARGEST
+=begin
+ED27 SECOND LARGEST
+Create a function that takes an array of numbers and returns the second largest number.
+There will be at least two numbers in the array.
+
+2:14
+PROBLEM
+input: array
+  - contains only integers
+  - contains at least two integers
+output: integer
+  - the second largest integer in input array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - sorted array
+- output: integer
+
+ALGORITHM
+- sort the input array
+- return the element that is second from last
+=end
+
+# def second_largest(numbers)
+#   numbers.sort[-2]
+# end
+
+# p second_largest([10, 40, 30, 20, 50]) == 40
+# p second_largest([25, 143, 89, 13, 105]) == 105
+# p second_largest([54, 23, 11, 17, 10]) == 23
 
 
 
