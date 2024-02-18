@@ -1,5 +1,87 @@
-### ED25
+### ED27
 
+
+
+
+### ED26 JACKPOT
+=begin
+ED26 JACKPOT
+Create a function that takes an array (slot machine outcome) and returns true if all elements in the array are identical, and false otherwise. The array will contain 4 elements.
+The elements must be exactly identical for there to be a jackpot.
+
+10:32
+PROBLEM
+input: array
+  - contains strings
+    - strings include letters and symbols
+  - 4 elements
+output: boolean
+  - true if all 4 elements are exactly identical
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+
+- output: boolean
+
+ALGORITHM
+- examine first element in the input array
+- compare it to three remaining elements
+- return true if it is identical to all three
+- otherwise return false
+=end
+
+# def test_jackpot(array)
+#   array.all? { |element| element == array[0] }
+# end
+
+# p test_jackpot(["@", "@", "@", "@"]) == true
+# p test_jackpot(["abc", "abc", "abc", "abc"]) == true
+# p test_jackpot(["SS", "SS", "SS", "SS"]) == true
+# p test_jackpot(["&&", "&", "&&&", "&&&&"]) == false
+# p test_jackpot(["SS", "SS", "SS", "Ss"]) == false
+
+
+
+### ED25 FACTORIZE
+=begin
+ED25 FACTORIZE
+Create a function that takes a number as its argument and returns an array of all its factors.
+The input integer will be positive.
+A factor is a number that evenly divides into another number without leaving a remainder. The second example is a factor of 12, because 12 / 2 = 6, with remainder 0.
+
+10:25
+PROBLEM
+input: integer
+  - positive
+output: array
+  - all factors of input integer
+    - no repeats
+    - ordered from lowest to highest
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - array of all integers from 1 up to input integer
+  - filtered array
+- output: array
+
+ALGORITHM
+- create an array of all integers from 1 up to input integer
+- select integers from this array that divide evenly into input integer
+- return selected integers in an array
+=end
+
+# def factorize(number)
+#   (1..number).to_a.select { |divisor| number % divisor == 0 }
+# end
+
+# p factorize(12) == [1, 2, 3, 4, 6, 12]
+# p factorize(4) == [1, 2, 4]
+# p factorize(17) == [1, 17]
 
 
 
