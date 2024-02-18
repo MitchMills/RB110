@@ -1,5 +1,49 @@
-### ED24
+### ED25
 
+
+
+
+### ED24 COMBINATIONS
+=begin
+ED24 COMBINATIONS
+Create a function that takes a variable number of arguments, each argument representing the number of items in a group. The function should return the number of permutations (combinations) of choices you would have if you selected one item from each group.
+Input may include the number zero.
+
+9:04
+PROBLEM
+input: array
+  - elements are all positive integers
+  - can be 0
+output: integer
+  - number of possible combinations
+    - product of all elements (except 0)
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+
+- output: integer
+
+ALGORITHM
+- set a variable `combinations` equal to 1
+- for each number in the input array
+  - if it is 0, go to the next number
+  - else multiply `combinations` by that number
+- return `combinations`
+=end
+
+# def combinations(*options)
+#   options.inject(1) do |total, option|
+#     option = 1 if option == 0
+#     option * total
+#   end
+# end
+
+# p combinations(2, 3) == 6
+# p combinations(3, 7, 4) == 84
+# p combinations(2, 3, 4, 5) == 120
+# p combinations(0, 2, 4, 6) == 48
 
 
 
@@ -45,8 +89,6 @@ ALGORITHM
 # p filter_primes([7, 9, 3, 9, 10, 11, 27]) == [7, 3, 11]
 # p filter_primes([10007, 1009, 1007, 27, 147, 77, 1001, 70]) == [10007, 1009]
 # p filter_primes([1009, 10, 10, 10, 3, 33, 9, 4, 1, 61, 63, 69, 1087, 1091, 1093, 1097]) == [1009, 3, 61, 1087, 1091, 1093, 1097]
-
-
 
 
 
