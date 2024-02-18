@@ -1,5 +1,122 @@
-### ED22
+### ED24
 
+
+
+
+### ED23 FILTER PRIMES
+=begin
+Create a function that takes an array and returns a new array containing only prime numbers.
+New array must maintain the order of primes as they first appear in the original array.
+
+8:22
+PROBLEM
+input: array
+  - all elements are positive integers
+  - no particular order
+output: new array
+  - only elements from input array that are prime numbers
+  - must maintain original order from input array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - range from 2 up to integer square root of current element (factors)
+- output: array
+
+ALGORITHM
+- examine each number in the input array
+  - divide that number by every number from 2 up to the integer square root of that number
+  - if none of those divide evenly, put that number in the results array
+  - otherwise go to next number
+- return the results array
+=end
+
+# def filter_primes(numbers)
+#   numbers.select { |number| is_prime?(number) }
+# end
+
+# def is_prime?(number)
+#   return false unless number > 1
+#   limit = Integer.sqrt(number)
+#   (2..limit).all? { |divisor| number % divisor != 0 }
+# end
+
+# p filter_primes([7, 9, 3, 9, 10, 11, 27]) == [7, 3, 11]
+# p filter_primes([10007, 1009, 1007, 27, 147, 77, 1001, 70]) == [10007, 1009]
+# p filter_primes([1009, 10, 10, 10, 3, 33, 9, 4, 1, 61, 63, 69, 1087, 1091, 1093, 1097]) == [1009, 3, 61, 1087, 1091, 1093, 1097]
+
+
+
+
+
+### ED22 ADDING LETTERS
+=begin
+ED22 ADDING LETTERS
+Create a function add_letters that takes a list/array of letters a, and returns the "sum" of them.
+
+To add two letters, take their number value, add them together, and convert it back together. For example, a would be 1, b would be 2, etc. So to add b and c, take 2 + 3 = 5, and then get the fifth letter of the alphabet (e).
+
+So then d + e + f would be 4 + 5 + 6 = 15, and the fifteenth letter is o, so that's what you return.
+
+Letters can also wrap. Like with y + c, that's 25 + 3 = 28, which doesn't exist. Consider that the 27th letter just wraps around and ends back up at a. With this logic, y + c = b. Don't just do 27 = 1 though, because you could end up with a much higher sum like 70.
+
+Don't forget to return the result.
+An empty array should return z. The logic behind this is that if you get a sum of 0, then wrap it all the way around backwards (since the 0th letter doesn't exist), giving you 26 which = z.
+All letters given will be lowercase.
+
+7:51
+PROBLEM
+input: array
+  - each element is a one-character string
+    - only lowercase alpha characters
+
+output: string
+  - single lowercase alpha character
+    - based on 'score' of input array
+      - each element is worth its place in the alphabet: a = 1, b = 2, etc
+      - combined score of all elements in input array, converted back into a letter
+      - if score is greater than 26 ('z'), wrap: 27 = 'a', 28 - 'b', etc
+  - if input array is empty, return 'z'
+
+ EXAMPLES
+
+ DATA STRUCTURES
+ - input: array
+  - hash: keys are letters, values are positions: { 'a' => 1, ... }
+ - output: string
+
+ALGORITHM
+- create a hash with letters as keys and positions as values
+- transform the input array into each letter's score using the hash
+- get the sum of that array
+- if sum is less than 27, convert into a letter using the hash and return
+- if sum is greater than 26, keep subtracting 26 until it is less than 27, then return letter
+=end
+
+# ALPHA_SCORES = ('a'..'z').to_a.zip((1..26).to_a).to_h
+
+# def add_letters(letters)
+#   return 'z' if letters.empty?
+#   score = letters.map { |letter| ALPHA_SCORES[letter] }.sum
+#   score = normalize(score) if score > 26
+#   ALPHA_SCORES.key(score)
+# end
+
+# def normalize(score)
+#   score -= 26 until score < 26
+#   score
+# end
+
+# p add_letters(["a"]) == "a"
+# p add_letters(["a", "b"]) == "c"
+# p add_letters(["a", "b", "c"]) == "f"
+# p add_letters(["a", "b", "c", "d", "e", "f"]) == "u"
+# p add_letters(["y", "a"]) == "z"
+# p add_letters(["y", "c"]) == "b"
+# p add_letters(["z", "a"]) == "a"
+# p add_letters(["x", "y", "z"]) == "w"
+# p add_letters([]) == "z"
 
 
 
