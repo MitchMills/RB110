@@ -1,5 +1,104 @@
-### ED30
+### ED31 COIN COMBOS
+=begin
+ED31 COIN COMBOS
+Given an amount of money and an array of coins denominations, create a function that counts how many different ways you can make change with the given money.
+Order of coins does not matter (i.e. 1+1+2 == 2+1+1).
+You have an infinite amount of coins.
 
+5:22
+PROBLEM
+input: integer, array
+  - integer: amount of money
+  - array: coin denominations
+output: integer
+  - number of possible ways to create amount with given denominations
+  - amount of coins in unlimited
+  - order of coins does not matter / different orders of same coins is counted as only one combo
+
+EXAMPLES
+5 + 5, 5 + 2 + 3, 2 + 3 + 2 + 3, 2 + 2 + 2 + 2 + 2
+
+DATA STRUCTURES
+- input: integer, array
+  - list of factors of target sum
+    e.g. 4: 1, 2, 4
+- output: integer
+
+ALGORITHM
+- sort the input array from lowest to highest: [2, 3, 5]
+- divide the target number by the lowest number: 10 / 2 = 5
+- for each number in a range from 1 to that quotient:
+  -
+=end
+
+p coins_combinations(4, [1, 2]) == 3
+# 1+1+1+1 = 4
+# 1+1+2 = 4
+# 2+2 = 4
+p coins_combinations(10, [5, 2, 3]) == 4
+p coins_combinations(11, [5, 7]) == 0
+
+
+
+### ED30 BUILD NUMBERS
+=begin
+ED30 BUILD NUMBERS
+You are given an array representing the number of 0s, 1s, 2s, ..., 9s you have. The function will look like:
+
+can_build([#0s, #1s, #2s, ..., #9s], [num1, num2, ...])
+
+Write a function that returns true if you can build the following numbers using only the digits you have.
+
+4:53
+PROBLEM
+input: 2 arrays
+  - both contain only integers
+  - array 1: available numbers of digits corresponding to index
+  - array 2: target numbers to build
+
+output: boolean
+  - true if all array 2 numbers can be built using array 1 digits
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array1, array2
+  - array of all digits from 0 to 9
+  - count of each digit in numbers of array2
+- output: boolean
+
+ALGORITHM
+- create an array of digits from 0 to 9
+- for each number in array2, get a cumulative count of occurences of each digit
+  - transform digits array into counts for that digit
+    - for each digit:
+      - get a count for each number in array2 and add them together
+- compare these counts to array1
+- return true if all counts are <= corresponding numbers in array1, false otherwise
+=end
+
+# def can_build(digits, numbers)
+#   counts = get_counts(numbers)
+#   (0..9).all? { |index| digits[index] >= counts[index] }
+# end
+
+# def get_counts(numbers)
+#   (0..9).map do |digit|
+#     numbers.map { |number| number.digits.count(digit) }.sum
+#   end
+# end
+
+# def get_counts(numbers)
+#   ('0'..'9').map { |digit| numbers.join.count(digit) }
+# end
+
+# p can_build([0, 1, 2, 2, 3, 0, 0, 0, 1, 1], [123, 444, 92]) #== true
+# 	# You have: one 1, two 2s, two 3s, three 4s, one 8 and one 9
+# 	# Using only these digits, you can build 123, 444, and 92
+# p can_build([10, 2, 3, 8, 5, 8, 5, 5, 3, 1], [11, 2, 22, 49, 444, 998, 87, 44]) == false
+# p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []) == true
+# p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [3]) == false
 
 
 
