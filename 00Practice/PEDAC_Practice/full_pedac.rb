@@ -27,8 +27,13 @@ DATA STRUCTURES
 ALGORITHM
 - sort the input array from lowest to highest: [2, 3, 5]
 - divide the target number by the lowest number: 10 / 2 = 5
-- for each number in a range from 1 to that quotient:
-  -
+- for each number in a range from that quotient down to 1: 5..1
+  - create one or more arrays of that size
+    - 5: [2, 2, 2, 2, 2]
+    - 4: [2, 2, 2, 3], [2, 2, 2, 5], [2, 2, 3, 3]
+    - 3: [2, 2, 5], [2, 3, 5]
+    - 2: [5, 5]
+    - 1: []
 =end
 
 p coins_combinations(4, [1, 2]) == 3
