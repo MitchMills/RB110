@@ -1,3 +1,51 @@
+### ED 33
+
+
+
+
+### ED32 ARRAY SORT
+=begin
+ED32 ARRAY SORT
+Create a function that takes an array of numbers or strings and returns an array with the items from the original array stored into subarrays. Items of the same value should be in the same subarray.
+The subarrays should be returned in the order of each element's first appearance in the given array.
+
+7:07
+PROBLEM
+input: array
+  - contains elements all of the same type: integers, strings
+
+output: nested array
+  - contains subarrays
+    - each subarray contains all the elements with the same value from the input array
+    - order of subarrays is based on order of each element's first appearance in input array
+    - number of subarrays is equal to the number of unique elements in the input array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array # [5, 4, 5, 5, 4, 3]
+  - array of unique values # [5, 4, 3]
+  - transformed array: [[5, 5, 5], [4, 4], [3]]
+    - individual subarray based on count of each element
+- output: nested array
+
+ALGORITHM
+- create an array of the unique values in the input array
+- transform this array
+  - for each element, transform into a subarray based on the number of occurrences of that element in the input array
+- return this transformed array
+=end
+
+# def advanced_sort(array)
+#   array.uniq.map { |element| [element] * array.count(element) }
+# end
+
+# p advanced_sort([2, 1, 2, 1]) == [[2, 2], [1, 1]]
+# p advanced_sort([5, 4, 5, 5, 4, 3]) == [[5, 5, 5], [4, 4], [3]]
+# p advanced_sort(["b", "a", "b", "a", "c"]) == [["b", "b"], ["a", "a"], ["c"]]
+
+
+
 ### ED31 COIN COMBOS
 =begin
 ED31 COIN COMBOS
@@ -36,12 +84,12 @@ ALGORITHM
     - 1: []
 =end
 
-p coins_combinations(4, [1, 2]) == 3
+# p coins_combinations(4, [1, 2]) == 3
 # 1+1+1+1 = 4
 # 1+1+2 = 4
 # 2+2 = 4
-p coins_combinations(10, [5, 2, 3]) == 4
-p coins_combinations(11, [5, 7]) == 0
+# p coins_combinations(10, [5, 2, 3]) == 4
+# p coins_combinations(11, [5, 7]) == 0
 
 
 
