@@ -1,4 +1,61 @@
-### ED34
+### ED35
+
+
+
+
+### ED34 MAJOR SUM
+=begin
+ED34 MAJOR SUM
+Create a function that takes an integer array and return the biggest between positive sum, negative sum, or 0s count. The major is understood as the greatest absolute.
+All numbers are integers.
+There aren't empty arrays.
+All tests are made to return only one value.
+
+l = [1,2,3,4,0,0,-3,-2], the function has to return 10, because:
+    Positive sum = 1+2+3+4 = 10
+    Negative sum = (-3)+(-2) = -5
+    0s count = 2 (there are two zeros in array)
+
+8:01
+PROBLEM
+input: array
+  - contains only integers
+    - can be positive, negative, or 0
+  - will not be empty
+output: integer
+  - greatest absolute value of:
+    - sum of positive integers
+    - sum of negative integers
+    - number of 0s in input array
+  - tests contain only one right value
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - hash
+    - keys: positives, negatives, zeros
+    - values: sum, sum, count
+- output: integer
+
+ALGORITHM
+- create a hash
+  - keys: positive, negative, zeros
+  - values: sum, sum, count
+- return the highest value from the hash (based on absolute value)
+=end
+
+# def major_sum(numbers)
+#   totals = {}
+#   totals[:positive] = numbers.select { |number| number > 0 }.sum
+#   totals[:negative] = numbers.select { |number| number < 0 }.sum
+#   totals[:zeros] = numbers.count(0)
+#   totals.values.max_by { |value| value.abs }
+# end
+
+# p major_sum([1, 2, 3, 4, 0, 0, -3, -2]) == 10
+# p major_sum([-4, -8, -12, -3, 4, 7, 1, 3, 0, 0, 0, 0]) == -27
+# p major_sum([0, 0, 0, 0, 0, 1, 2, -3]) == 5 # Because -3 < 1+2 < 0sCount = 5
 
 
 
@@ -104,7 +161,7 @@ ALGORITHM
 
 
 
-### ED31 COIN COMBOS
+###XXX ED31 COIN COMBOS
 =begin
 ED31 COIN COMBOS
 Given an amount of money and an array of coins denominations, create a function that counts how many different ways you can make change with the given money.
