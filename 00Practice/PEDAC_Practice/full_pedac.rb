@@ -1,5 +1,58 @@
-### ED35
+### ED36
 
+
+
+
+### ED35 VOWEL FAMILIES
+=begin
+ED35 VOWEL FAMILIES
+Write a function that selects all words that have all the same vowels (in any order and/or number) as the first word, including the first word.
+Words will contain only lowercase letters, and may contain whitespaces.
+Frequency does not matter (e.g. if the first word is "loopy", then you can include words with any number of o's, so long as they only contain o's, and not any other vowels).
+
+8:19
+PROBLEM
+input: array
+  - contain only strings
+    - contain only lowercase letter characters
+    - may contain whitespace
+output: array
+  - all the words from the input array that contain all the same vowels as the first word
+    - include first word
+    - vowels = aeiou, not y
+    - order and number do not matter
+    - cannot include other vowels if they do not appear in the first word
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - array of all vowels that appear in first word
+  - array of vowels that do NOT appear in first word
+- output: array
+
+ALGORITHM
+- create an array of all vowels
+- create an array of vowels that appear in the first word
+- create an array of vowels that do not appear in first word
+- examine every word in input array, select a word if
+  - it contains all the vowels from the first word AND
+  - does not contain any other vowels
+- return this list of selected words
+=end
+
+# def same_vowel_group(words)
+#   good_vowels = words.first.chars.select { |char| 'aeiou'.include?(char) }
+#   bad_vowels = %w(a e i o u) - good_vowels
+#   words.select do |word|
+#     good_vowels.all? { |vowel| word.include?(vowel) } &&
+#     !bad_vowels.any? { |vowel| word.include?(vowel) }
+#   end
+# end
+
+# p same_vowel_group(["toe", "ocelot", "maniac"]) == ["toe", "ocelot"]
+# p same_vowel_group(["many", "carriage", "emit", "apricot", "animal"]) == ["many"]
+# p same_vowel_group(["hoops", "chuff", "bot", "bottom"]) == ["hoops", "bot", "bottom"]
 
 
 
