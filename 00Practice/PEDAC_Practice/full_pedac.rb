@@ -1,5 +1,92 @@
-### ED36
+### EDM 1
 
+
+
+
+### ED36 CAP FAMILIES
+=begin
+ED36 CAP FAMILIES
+Write a function that groups words by the number of capital letters and returns a dictionary of object entries whose keys are the number of capital letters and the values are the groups.
+The object entries have to be sorted by the number of capital letters.
+The groups will be arrays of all words sharing the same number of capital letters.
+The groups have to be sorted alphabetically (ignoring case).
+Words will be unique.
+
+9:56
+PROBLEM
+input: array
+  - contains strings
+    - contain upper and lowercase letter characters
+  - strings are words
+    - words are unique
+
+output: hash
+  - keys are number of capital letters for a group
+    - values are words that have that number of capital letters
+  - keys sorted from smallest to largest key
+    - within a key-value pair, values sorted alphabetically ignoring case
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - array of all uppercase letters?
+- output: hash
+
+ALGORITHM
+- create an array of only uppercase letters
+- create an empty hash with a default value of an empty array
+- examine each word in the input array
+  - count the number of capital letters in the word
+    - create an array of all characters in the word
+    - select only letters that are included in the uppercase letters array
+    - return the size of the resulting array
+  - place the word in the appropriate key value pair within the hash
+    - key[value] << word
+- return the hash
+=end
+
+# UPPERCASE = ('A'..'Z').to_a
+
+# def grouping(words)
+#   groups = get_groups(words)
+#   sort_groups(groups)
+# end
+
+# def get_groups(words)
+#   words.each_with_object(Hash.new([])) do |word, groups|
+#     capital_count = get_capital_count(word)
+#     groups[capital_count] += [word]
+#   end
+# end
+
+# def get_capital_count(word)
+#   word.chars.select { |char| UPPERCASE.include?(char) }.size
+# end
+
+# def sort_groups(groups)
+#   groups.map do |count, words|
+#     sorted_words = words.sort_by { |word| word.downcase }
+#     [count, sorted_words]
+#   end.sort.to_h
+# end
+
+# p grouping(["HaPPy", "mOOdy", "yummy", "mayBE"]) == {
+#   0 => ["yummy"],
+#   2 => ["mayBE", "mOOdy"],
+#   3 => ["HaPPy"]
+# }
+
+# p grouping(["eeny", "meeny", "miny", "moe"]) == {
+#   0 => ["eeny", "meeny", "miny", "moe"]
+# }
+
+# p grouping(["FORe", "MoR", "bOR", "tOR", "sOr", "lor"]) == {
+#   0=>["lor"],
+#   1=>["sOr"],
+#   2=>["bOR", "MoR", "tOR"],
+#   3=>["FORe"]
+# }
 
 
 
