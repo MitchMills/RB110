@@ -1,4 +1,62 @@
-### ED 33
+### ED34
+
+
+
+
+### ED33 HIGHEST PAIR
+=begin
+ED33 HIGHEST PAIR
+You will be given a collection of five cards (representing a player's hand in poker). If your hand contains at least one pair, return an array of two elements: true and the card number of the highest pair (trivial if there only exists a single pair). Else, return false.
+Hands with three or more of the same card still count as containing a pair (see the last example).
+
+7:27
+PROBLEM
+input: array
+  - contains five elements
+    - represent card values
+      - ace is high
+output: array or false
+  - return false if there are no repeated elements (pairs)
+  - return an array otherwise
+    - contains two elements
+      - first element is true
+      - second element is card value of highest pair
+        - string if ace or face card
+        - integer otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - array of all elements with at least two occurences
+  - array of card values in order [A, K, Q, J, 10 . . .] to use for sorting
+- output: array or false
+
+ALGORITHM
+- create an array of card faces in order of value (highest to lowest)
+- create a list of elements in the input array that occur more than once
+- if list is empty, return false
+- otherwise sort the list according to card face value
+- return an array with true as the first element and the highest face value as the second
+=end
+
+# CARD_VALUES = %w(A K Q J) + ('2'..'10').to_a.reverse
+
+# def highest_pair(hand)
+#   pairs = hand.select { |card| hand.count(card) > 1 }
+#   return false if pairs.empty?
+#   sorted = pairs.sort_by { |value| CARD_VALUES.index(value) }
+#   sorted.map! do |value|
+#     value.to_i.to_s == value ? value.to_i : value
+#   end
+#   [true, sorted.first]
+# end
+
+# p highest_pair(["J", "J", "Q", "Q", "6" ]) == [true, "Q"]
+# p highest_pair(["J", "6", "3", "10", "8"]) == false
+# p highest_pair(["K", "7", "3", "9", "3"]) == [true, 3]
+# p highest_pair(["K", "9", "10", "J", "Q"]) == false
+# p highest_pair(["3", "5", "5", "5", "5"]) == [true, 5]
 
 
 
