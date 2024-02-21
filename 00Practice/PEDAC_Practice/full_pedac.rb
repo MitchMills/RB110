@@ -47,7 +47,7 @@ DATA STRUCTURES
 - output: subarray
 
 ALGORITHM
-- get all 3 element subarrays from input array
+- get all 3-element subarrays from input array
   - start from index 0 up to (array size - 3)
     - length is always 3
 - select only boomerangs from these subarrays
