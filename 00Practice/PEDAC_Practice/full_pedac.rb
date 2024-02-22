@@ -1,4 +1,55 @@
-### EDM2
+### EDM2 COLLISION DETECTION
+=begin
+EDM2 COLLISION DETECTION
+Create a function that returns true if the given circles are intersecting, otherwise return false. The circles are given as two arrays containing the values in the following order:
+
+    Radius of the circle.
+    Center position on the x-axis.
+    Center position on the y-axis.
+
+You can expect useable input and positive radii.
+The given coordinates are the centers of the circles.
+We are looking for intersecting areas, not intersection outlines.
+
+*****
+Distance between centres C1 and C2 is calculated as
+
+     C1C2 = sqrt((x1 – x2)**2 + (y1 – y2)**2).
+
+There are three conditions that arise.
+
+    If C1C2 <= R1 – R2: Circle B is inside A.
+    If C1C2 <= R2 – R1: Circle A is inside B.
+    If C1C2 < R1 + R2: Circle intersects each other.
+    If C1C2 == R1 + R2: Circle A and B are in touch with each other.
+    Otherwise, Circle A and B do not overlap
+*****
+
+PROBLEM
+input: two arrays
+  - for each array
+    - first element is radius for that circle
+    - second and third elements are x and y axis positions of circle's center
+  - all inputs are usable, with positive radii
+output: boolean
+  - true if circles overlap, false otherwise
+    - Distance between centers: sqrt((x1 – x2)**2 + (y1 – y2)**2).
+      (- If distance <= radius1 - radius2, then circle2 is inside circle1
+       - If distance <= radius2 - radius1, then circle1 is inside circle2)
+      - If distance < radius1 + radius2, then circles overlap *****
+      - If distance == radius1 + radius2, then circles touch
+      - Otherwise, circles do not overlap
+=end
+
+# def circle_collision?(circle1, circle2)
+#   radius1, x1, y1 = circle1
+#   radius2, x2, y2 = circle2
+#   distance = Math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+#   distance < radius1 + radius2
+# end
+
+# p circle_collision?([10, 0, 0], [10, 10, 10]) == true
+# p circle_collision?([1, 0, 0], [1, 10, 10]) == false
 
 
 
@@ -74,7 +125,6 @@ ALGORITHM
 # p count_boomerangs([9, 5, 9, 5, 1, 1, 1]) == 2
 # p count_boomerangs([5, 6, 6, 7, 6, 3, 9]) == 1
 # p count_boomerangs([4, 4, 4, 9, 9, 9, 9]) == 0
-
 
 
 
