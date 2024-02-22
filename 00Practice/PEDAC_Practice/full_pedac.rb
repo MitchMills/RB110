@@ -1,3 +1,53 @@
+### EDM5
+
+
+
+
+### EDM4 LOST ELEMENT
+=begin
+EDM4 WHO LEFT ARRAY
+You are given two arrays. The elements in arr1 threw a party and started to mix around. However, one of the elements got lost! Your task is to return the element which was lost.
+Assume that the first array always contains 1 or more elements.
+Elements are always lost.
+An element can also have duplicates.
+
+1:44
+PROBLEM
+input: two arrays
+  - first array always contains one or more elements
+  - second array always has a 'lost' element
+    - can have a different order than first array
+  - elements can have duplicates
+  - elements can be any data type
+output: 'lost' element
+  - element in array 1 that is not present in array 2
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: two arrays
+
+- output: object
+
+ALGORITHM
+- examine each element in array 1
+  - return element if it is not included in array 2
+=end
+
+# def missing(array1, array2)
+#   array1.each do |element|
+#     return element unless array1.count(element) == array2.count(element)
+#   end
+# end
+
+# p missing([1, 2, 3, 4, 5, 6, 7, 8], [1, 3, 4, 5, 6, 7, 8]) == 2
+# p missing([true, true, false, false, true], [false, true, false, true]) == true
+# p missing(["Jane", "is", "pretty", "ugly"], ["Jane", "is", "pretty"]) == "ugly"
+# p missing(["different", "types", "5", 5, [5], {5 => nil}], ["5", "different", [5], "types", 5]) == {5 => nil}
+# p missing([5, 5, 5], [5, 5]) == 5
+
+
+
 ### EDM3 SUBARRAYS
 =begin
 EDM3 SUBARRAYS
@@ -35,16 +85,15 @@ ALGORITHM
 - return the array
 =end
 
-def matrix(subarrays, instances, element)
-  subarrays.times.map do |subarray|
-    [element] * instances
-  end
-end
+# def matrix(subarrays, instances, element)
+#   subarrays.times.map do |subarray|
+#     [element] * instances
+#   end
+# end
 
-p matrix(3, 2, 3) == [[3, 3], [3, 3], [3, 3]]
-p matrix(2, 1, "edabit") == [["edabit"], ["edabit"]]
-p matrix(3, 2, 0) == [[0, 0], [0, 0], [0, 0]]
-
+# p matrix(3, 2, 3) == [[3, 3], [3, 3], [3, 3]]
+# p matrix(2, 1, "edabit") == [["edabit"], ["edabit"]]
+# p matrix(3, 2, 0) == [[0, 0], [0, 0], [0, 0]]
 
 
 
