@@ -1,3 +1,53 @@
+### EDM3 SUBARRAYS
+=begin
+EDM3 SUBARRAYS
+Write a function that takes three arguments (x, y, z) and returns an array containing x subarrays (e.g. [[], [], []]), each containing y number of item z.
+
+    x Number of subarrays contained within the main array.
+    y Number of items contained within each subarray.
+    z Item contained within each subarray.
+
+The first two arguments will always be integers.
+The third argument is either a string or an integer.
+
+1:30
+PROBLEM
+input: 3 arguments
+  - 1st: integer: number of subarrays
+  - 2nd: integer: number of elements in each subarray
+  - 3rd: string or integer: element in each subarray
+output: nested array
+  - contains subarrays (# is based on 1st argument)
+    - each subarray contains elements (# is based on 2nd argument)
+      - elements are based on 3rd argument
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer, integer, string or integer
+  - empty array to add subarrays to
+- output: array
+
+ALGORITHM
+- create an empty array
+  - add appropriate number of subarrays
+    - fill each subarray with the appropriate number of the given element
+- return the array
+=end
+
+def matrix(subarrays, instances, element)
+  subarrays.times.map do |subarray|
+    [element] * instances
+  end
+end
+
+p matrix(3, 2, 3) == [[3, 3], [3, 3], [3, 3]]
+p matrix(2, 1, "edabit") == [["edabit"], ["edabit"]]
+p matrix(3, 2, 0) == [[0, 0], [0, 0], [0, 0]]
+
+
+
+
 ### EDM2 COLLISION DETECTION
 =begin
 EDM2 COLLISION DETECTION
@@ -50,7 +100,6 @@ output: boolean
 
 # p circle_collision?([10, 0, 0], [10, 10, 10]) == true
 # p circle_collision?([1, 0, 0], [1, 10, 10]) == false
-
 
 
 
