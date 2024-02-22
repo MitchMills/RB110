@@ -160,7 +160,7 @@ end
 def determine_player_order(game_data)
   choice = nil
   loop do
-    choice = get_first_player_choice
+    choice = choose_first_player
     blank_line
     break if ['1', '2', '3'].include?(choice)
     prompt("I'm sorry, that's not a valid choice")
@@ -170,7 +170,7 @@ def determine_player_order(game_data)
   display_player_order(game_data)
 end
 
-def get_first_player_choice
+def choose_first_player
   system('clear')
   prompt("Choose who will go first for this match:")
   prompt("  Enter 1 to go first")
