@@ -1,3 +1,164 @@
+### EDM9
+
+
+
+
+### EDM8 SUBSTRINGS REPS
+=begin
+EDM8 SUBSTRING REPS
+Create a function that takes a string as an argument and tells the number of repetitions of a substring. It is exactly vice versa to repeating a string function (i.e. if a string "k" is given and asked to make a larger string "z" such that "k" is repated "n' times).
+
+In this scenario, we do the opposite. Given the final string, and ask the number of times the substring is repeated.
+Assume that the substring length is always greater than 1.
+Assume that the string length is always greater than 1.
+Assume that the substring is not always the same.
+
+11:30
+PROBLEM
+input: string
+  - length is greater than 1
+
+output: integer
+ - maximum number of times a substring is repeated to create the input string
+  - substring length is always greater than 1
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of substrings
+    - size 2 up to length of input string
+      - index 0 up to (length - current size)
+- output: integer
+
+ALGORITHM
+- create an array of all possible substrings for a given length
+  - length 2 up to input string length
+    - start index from 0 up to input string length minus current length
+  - return the length of that array if all substrings are the same
+
+=end
+
+# def number_of_repeats(string)
+#   (2..string.size).map do |current_size|
+#     limit = string.size - current_size
+#     subs = (0..limit).step(current_size).map do |start_index|
+#       string[start_index, current_size]
+#     end
+#     return subs.size if subs.all? { |sub| sub == subs.first }
+#   end
+# end
+
+# p number_of_repeats("abcabcabcabc") == 4
+# p number_of_repeats("bcbcbc") == 3
+# p number_of_repeats("llbllbllbllbllbllb") == 6
+# p number_of_repeats("kc") == 1
+
+
+
+### EDM7 DIAMOND ARRAY
+=begin
+EDM7 DIAMOND ARRAY
+Create a function that returns an array that expands by 1 from 1 to the value of the input, and then reduces back to 1. Items in the lists will be the same as the length of the lists.
+
+11:09
+PROBLEM
+input: integer
+  - positive
+
+output: nested array
+ - number of elements = (2 * input integer) - 1
+ - each element is a subarray
+  - each subarray contains integers
+    - count from 1 up to input integer, then back down to 1
+    - number of elements in subarray = current integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - range from 1 up to input integer
+  - range from (input integer - 1) down to 1
+- output: array
+
+ALGORITHM
+- create an array of integers from 1 up to input integer
+  - transform this array
+    - each integer becomes a subarray
+      - number of elements in subarray is current integer
+- create an array of integers form (input integer - 1) down to 1
+  - transform into subarrays as above
+- add the two transformed arrays together and return it
+=end
+
+# def diamond_arrays(size)
+#   front = 1.upto(size).map { |number| [number] * number }
+#   back = (size - 1).downto(1).map { |number| [number] * number }
+#   front + back
+# end
+
+# def diamond_arrays(size)
+#   pattern = (1..size).to_a + (size - 1).downto(1).to_a
+#   pattern.map { |number| [number] * number }
+# end
+
+# p diamond_arrays(1) == [[1]]
+# p diamond_arrays(2) == [[1], [2, 2], [1]]
+# p diamond_arrays(5) == [[1], [2, 2], [3, 3, 3], [4, 4, 4, 4], [5, 5, 5, 5, 5], [4, 4, 4, 4], [3, 3, 3], [2, 2], [1]]
+
+
+
+### EDM6 BEST TEST
+=begin
+EDM6 BEST TEST
+Given a hash with students and the grades that they made on the tests that they took, determine which student has the best Test Average. The key will be the student's name and the value will be an array of their grades. You will only have to return the student's name. You do not need to return their Test Average.
+All students in a hash will have the same amount of test scores. So no student will have taken more tests than another.
+
+10:56
+PROBLEM
+input: hash
+  - keys are strings: studet names
+  - values are arrays
+    - elements are integers: test scores
+    - every value in hash has same number of elements
+output: string
+  - key of pair with highest test score average
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: hash
+  - sum of each test scores array
+- output: string
+
+ALGORITHM
+- transform hash into a nested array:
+  - first element in each subarray is name
+  - second element is test score sum
+- sort array by test score sum
+- return first element of last subarray
+=end
+
+# def get_best_student(test_scores)
+#   test_scores.sort_by { |name, scores| scores.sum }.last.first
+# end
+
+# p get_best_student({
+#   "John" => [100, 90, 80],
+#   "Bob" => [100, 70, 80]
+# }) == "John"
+
+# # John's avg = 90
+# # Bob's avg = 83.33
+
+# p get_best_student({
+#   "Susan" => [67, 84, 75, 63],
+#   "Mike" => [87, 98, 64, 71],
+#   "Jim" => [90, 58, 73, 86]
+# }) == "Mike"
+
+
+
 ### EDM5 FREQUENCY DISTRIBUTION
 =begin
 EDM5 FREQUENCY DISTRIBUTION
