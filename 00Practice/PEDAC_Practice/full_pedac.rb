@@ -1,4 +1,58 @@
-### EDM5
+### EDM5 FREQUENCY DISTRIBUTION
+=begin
+EDM5 FREQUENCY DISTRIBUTION
+Create a function that returns the frequency distribution of an array. This function should return a hash, where the keys are the unique elements and the values are the frequency in which those elements occur.
+If given an empty array, return an empty hash (see example #4).
+The object should be in the same order as in the input array.
+
+8:02
+PROBLEM
+input: array
+  - can be empty
+
+output: hash
+  - keys: unique elements in input array
+    - should be in same order as in input array
+    - can be any object type
+  - values: integers, number of occurrences of that element
+  - if input array is empty, return empty hash
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - array of unique values from input array
+  - empty hash with a default value of 0
+- output: hash
+
+ALGORITHM
+- create an array of unique values in input array
+- create an empty hash
+- for each unique value, create a key in the hash
+  - value is number of occurences of that value in the input array
+- return the hash
+
+- create an empty hash with a default value of 0
+- for each element in the input array, increment the value of the hash pair with that key
+- return the hash
+=end
+
+# def get_frequencies(array)
+#   array.uniq.each_with_object({}) do |key, frequencies|
+#     frequencies[key] = array.count(key)
+#   end
+# end
+
+# def get_frequencies(array)
+#   array.each_with_object(Hash.new(0)) do |key, frequencies|
+#     frequencies[key] += 1
+#   end
+# end
+
+# p get_frequencies(["A", "B", "A", "A", "A"]) == { "A"=>4, "B"=>1 }
+# p get_frequencies([1, 2, 3, 3, 2]) == { 1=>1, 2=>2, 3=>2 }
+# p get_frequencies([true, false, true, false, false]) == { true=>2, false=>3 }
+# p get_frequencies([]) == {}
 
 
 
