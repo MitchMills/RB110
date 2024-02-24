@@ -1,5 +1,141 @@
-### EDM9
+### EDH2
 
+
+
+
+### EDH1 DELETE EXTRAS
+=begin
+EDH1 DELETE EXTRAS
+Create a function that takes two arguments: an array arr and a number num. If an element occurs in arr more than num times, remove the extra occurrence(s) and return the result.
+Do not alter the order of the original array.
+
+2:43
+PROBLEM
+input: array and integer
+
+output: array
+  - contains same elements as input array except:
+    - if an element occurs more times than input integer, extras should not be in input array
+      - i.e. only include any element the input integer or less times
+  - elements should be in same order as input array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array, integer
+  - empty array to add elements to
+- output: array
+
+ALGORITHM
+- create an empty array to return results
+- examine each element in input array
+  - add to results array unless the count of that element in the results array is > input integer
+- return the array
+=end
+
+# def delete_occurrences(array, max)
+#   array.each_with_object([]) do |element, results|
+#     results << element unless results.count(element) >= max
+#   end
+# end
+
+# p delete_occurrences([1, 1, 1, 1], 2) == [1, 1]
+# p delete_occurrences([13, true, 13, nil], 1) == [13, true, nil]
+# p delete_occurrences([true, true, true], 3) == [true, true, true]
+
+
+
+### EDM10 COMMON ELEMENTS
+=begin
+EDM10 COMMON ELEMENTS
+Create a function that takes two lists of numbers sorted in ascending order and returns an array of numbers which are common to both the input arrays.
+Lists are sorted.
+
+2:21
+PROBLEM
+input: two arrays
+  - both contain integers in ascending order
+output: array
+  - integers that are common to both input arrays
+  - return empty array if no common elements
+  - only unique elements?
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: 2 arrays
+  -
+- output: array
+
+ALGORITHM
+- examine every element in the first input array
+  - select if it is included in the second input array
+- return the resulting array
+=end
+
+# def common_elements(array1, array2)
+#   array1.select { |number| array2.include?(number) }.uniq
+# end
+
+# def common_elements(array1, array2)
+#   start, stop = array1.minmax
+#   (start..stop).select do |number|
+#     array1.include?(number) && array2.include?(number)
+#   end
+# end
+
+# p common_elements([-1, 3, 4, 6, 7, 9], [1, 3]) #== [3]
+# p common_elements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]) #== [1, 3, 4, 7]
+# p common_elements([1, 2, 2, 2, 3, 4, 5], [1, 2, 4, 5]) #== [1, 2, 4, 5]
+# p common_elements([1, 2, 3, 4, 5], [10, 12, 13, 15]) #== []
+
+
+
+
+
+### EDM9 FRONT CAPS
+=begin
+EDM9 FRONT CAPS
+Create a function that moves all capital letters to the front of a word.
+Keep the original relative order of the upper and lower case letters the same.
+
+2:07
+PROBLEM
+input: string
+  - contains upper and lowercase characters
+output: string
+  - same characters as input string, but with uppercase letters moved to the front
+    - original relative order maintained
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - array of individual characters
+  - array of only uppercase characters
+  - array of only lowercase characters
+- output: string
+
+ALGORITHM
+- create an array of the individual characters in input string
+- select only the uppercase characters into an array
+  - if character converted to uppercase == character
+- select only the lowercase characters into an array
+  - if character converted to lowercase == character
+- convert both arrays back into strings
+- concatenate these two strings and return
+=end
+
+# def cap_to_front(string)
+#   chars = string.chars
+#   uppercase = chars.select { |char| char.upcase == char }
+#   lowercase = chars.select { |char| char.downcase == char }
+#   (uppercase + lowercase).join
+# end
+
+# p cap_to_front("hApPy") == "APhpy"
+# p cap_to_front("moveMENT") == "MENTmove"
+# p cap_to_front("shOrtCAKE") == "OCAKEshrt"
 
 
 
