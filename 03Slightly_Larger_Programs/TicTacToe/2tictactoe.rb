@@ -292,7 +292,7 @@ def play_one_game(game_data)
   end
 end
 
-def player_places_mark!(current_player, game_data) # player = :player1 or :player2
+def player_places_mark!(current_player, game_data)
   choice =  get_choice(current_player, game_data)
   update_board(current_player, choice, game_data)
 end
@@ -305,7 +305,8 @@ end
 def user_choice(game_data)
   choice = nil
   loop do
-    prompt(:print, "Choose an empty square#{format_choices(empty_squares(game_data))}: ")
+    options = format_options(empty_squares(game_data))
+    prompt(:print, "Choose an empty square#{options}: ")
     choice = gets.chomp.to_i
     break if empty_squares(game_data).include?(choice)
     prompt("I'm sorry, that's not a valid choice.")
@@ -314,7 +315,7 @@ def user_choice(game_data)
   choice
 end
 
-def format_choices(array, delimiter = ', ', word = 'or')
+def format_options(array, delimiter = ', ', word = 'or')
   case array.size
   when 0 then ''
   when 1 then " (#{array.first})"
@@ -464,7 +465,3 @@ game_data = {
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
-
-p game_data[:match_scores]
-update_match_scores(game_data)
-p game_data[:match_scores]
