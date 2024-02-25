@@ -217,12 +217,9 @@ def game_number(game_data)
 end
 
 def update_match_scores(game_data)
-  game_winner = detect_game_winner(game_data)
-  case game_winner
-  when :user then game_data[:match_scores][:user] += 1
-  when :computer then game_data[:match_scores][:computer] += 1
-  else game_data[:match_scores][:ties] += 1
-  end
+  winner = detect_game_winner(game_data)
+  scores = game_data[:match_scores]
+  scores.keys.include?(winner) ? scores[winner] += 1 : scores[:ties] += 1
 end
 
 def match_over?(game_data)
@@ -461,9 +458,13 @@ end
 game_data = {
   board: {
     1=>" ", 2=>" ", 3=>"O",
-    4=>" ", 5=>" ", 6=>" ",
-    7=>" ", 8=>"O", 9=>" "},
+    4=>" ", 5=>"O", 6=>" ",
+    7=>"O", 8=>" ", 9=>" "},
   players: {player1: :user, player2: :computer},
   match_scores: {user: 0, computer: 0, ties: 0},
   game_number: 1
 }
+
+p game_data[:match_scores]
+update_match_scores(game_data)
+p game_data[:match_scores]
