@@ -1,5 +1,104 @@
-### EDH2
+### EDH3 DIGIT SUM PRODUCT
+=begin
+EDH3 DIGIT SUM PRODUCT
+Create a function that takes one, two or more numbers as arguments and adds them together to get a new number. The function then repeatedly multiplies the digits of the new number by each other, yielding a new number, until the product is only 1 digit long. Return the final product.
+The input of the function is at least one number.
 
+8:13
+PROBLEM
+input: array
+  - contains one or more integers
+output: integer
+  - sum of all input numbers
+  - then digits are multiplied together until product is only one digit in length
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - sum of array elements
+  - sum converted to array of digits
+  - product of all digits in array
+- output: integer
+
+ALGORITHM
+- get the sum of all input numbers
+- convert the sum into an array of individual digits
+  - get the product of this array
+  - repeat until length of array of digits is 1
+- return the number
+=end
+
+# def sum_dig_prod(*numbers)
+#   sum = numbers.sum
+#   digits = sum.digits
+#   loop do
+#     break if digits.size == 1
+#     product = digits.inject(:*)
+#     digits = product.digits
+#   end
+#   digits.first
+# end
+
+# p sum_dig_prod(16, 28) == 6
+# # 16 + 28 = 44
+# # 4 * 4 =  16
+# # 1 * 6 = 6
+# p sum_dig_prod(0) == 0
+# p sum_dig_prod(1, 2, 3, 4, 5, 6) == 2
+
+
+
+### EDH2 NEAREST VOWEL
+=begin
+EDH2 NEAREST VOWEL
+Given a letter, create a function which returns the nearest vowel to the letter. If two vowels are equidistant to the given letter, return the earlier vowel.
+All letters will be given in lowercase.
+There will be no alphabet wrapping involved, meaning the closest vowel to "z" should return "u", not "a".
+
+7:58
+PROBLEM
+input: string
+  - contains a single lowercase letter
+output: string
+  - nearest vowel to input letter
+    - vowels are a e i o u (not y)
+    - can be before or after input letter
+    - if two vowels are equidistant, return the earlier vowel
+    - alphabet does not wrap
+    - if input letter is a vowel, return input letter
+
+EXAMPlES
+
+DATA STRUCTURES
+- input: string
+  - array of all lowercase alphabetic characters in order
+  - array of all lowercase vowels
+  - array of distances to each vowel from input letter
+- output: string
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters
+- create an array of all vowels
+- transform vowel array into distance to input letter
+  - absolute value of vowel index - letter index
+- return the vowel at the same index as the lowest number
+=end
+
+# ALPHABET = ('a'..'z').to_a
+# VOWELS = %w(a e i o u)
+
+# def nearest_vowel(letter)
+#   distances = VOWELS.map do |vowel|
+#     (ALPHABET.index(vowel) - ALPHABET.index(letter)).abs
+#   end
+#   VOWELS[distances.index(distances.min)]
+# end
+
+# p nearest_vowel("b") == "a"
+# p nearest_vowel("s") == "u"
+# p nearest_vowel("c") == "a"
+# p nearest_vowel("i") == "i"
 
 
 
@@ -29,7 +128,7 @@ DATA STRUCTURES
 ALGORITHM
 - create an empty array to return results
 - examine each element in input array
-  - add to results array unless the count of that element in the results array is > input integer
+  - add to results array unless the count of that element in the results array is >= input integer
 - return the array
 =end
 
