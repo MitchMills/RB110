@@ -1,3 +1,81 @@
+
+
+
+
+
+### EDH4 TRACK ROBOT
+=begin
+EDH4 TRACK ROBOT
+This robot roams around a 2D grid. It starts at (0, 0) facing North. After each time it moves, the robot rotates 90 degrees clockwise. Given the amount the robot has moved each time, you have to calculate the robot's final position. Each movement is an integer (whole number).
+
+To illustrate, if the robot is given the movements 20, 30, 10, 40 then it will move:
+
+    20 steps North, now at (0, 20)
+    30 steps East, now at (30, 20)
+    10 steps South. now at (30, 10)
+    40 steps West, now at (-10, 10)
+
+...and will end up at coordinates (-10, 10).
+
+8:25
+PROBLEM
+input: array
+  - contains only integers
+  - can be empty
+  - numbers represent steps taken in a direction
+    - first number is north, second is east, then south, then west
+      - can wrap?
+    - can be negative
+output: array
+  - contains two integers
+    - represents position on y and x axes respectively
+    - robot starts at [0, 0]
+  - if input array is empty, robot stays at [0, 0]
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - array of north, south, east, west as strings / symbols
+  - hash with north, south, east, and west as keys, steps as value
+    - sums of (north steps - south steps) and (east steps - west steps)
+- output: array
+
+ALGORITHM
+- create an empty hash with a default value of 0
+- create an array of north, south, east, and west as symbols
+- for each number in input array, create a key-value pair in hash using directions array
+  - index of number % 4 = index of key
+- return an array of two elements
+  - first element is (east steps - west steps), second is (north steps - south steps)
+=end
+
+# DIRECTIONS = [:north, :east, :south, :west]
+
+# def track_robot(*all_steps)
+#   direction_steps = get_direction_steps(all_steps)
+#   x_position = direction_steps[:east] - direction_steps[:west]
+#   y_position = direction_steps[:north] - direction_steps[:south]
+#   [x_position, y_position]
+# end
+
+# def get_direction_steps(all_steps)
+#   direction_steps = Hash.new(0)
+#   all_steps.each_with_index do |steps, index|
+#     normalized_index = index % 4
+#     direction_steps[DIRECTIONS[normalized_index]] += steps
+#   end
+#   direction_steps
+# end
+
+# p track_robot(20, 30, 10, 40) == [-10, 10]
+# p track_robot() == [0, 0]
+#   # No movement means the robot stays at (0, 0).
+# p track_robot(-10, 20, 10) == [20, -20]
+#   # The amount to move can be negative.
+
+
+
 ### EDH3 DIGIT SUM PRODUCT
 =begin
 EDH3 DIGIT SUM PRODUCT
