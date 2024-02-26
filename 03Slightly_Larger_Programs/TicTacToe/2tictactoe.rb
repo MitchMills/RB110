@@ -473,6 +473,7 @@ end
 
 main_game_loop
 
+# fake game data for testing:
 # game_data = {
 #   :players=>{:player1=>:computer, :player2=>:user},
 #   :match_scores=>{:user=>0, :computer=>0, :ties=>0},
