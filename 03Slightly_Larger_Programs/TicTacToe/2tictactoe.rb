@@ -421,7 +421,7 @@ def get_list(mark, type, game_data)
     if target_square?(line, mark, type, game_data)
       list << target_square(line, mark, game_data)
     elsif chances_squares?(line, mark, type, game_data)
-      list << chances_squares(line, mark, type, game_data)
+      list << chances_squares(line, mark, game_data)
     end
   end.flatten
 end
@@ -439,7 +439,7 @@ def target_square?(line, mark, type, game_data)
   !!target_square(line, mark, game_data)
 end
 
-def chances_squares(line, mark, type, game_data)
+def chances_squares(line, mark, game_data)
   if (game_data[:board].values_at(*line).count(mark) == 1) &&
      (game_data[:board].values_at(*line).count(EMPTY_MARK) == 2)
       return line.intersection(empty_squares(game_data))
@@ -448,7 +448,7 @@ def chances_squares(line, mark, type, game_data)
 end
 
 def chances_squares?(line, mark, type, game_data)
-  type == :chances && !!chances_squares(line, mark, type, game_data)
+  type == :chances && !!chances_squares(line, mark, game_data)
 end
 
 def better_chances(chances, game_data)
