@@ -17,18 +17,18 @@ BOARD_SQUARE_SIZE = 7
 BOARD_PARTS = {
   rows: {
     pattern: [:empty, :marked, :numbered, :horizontal],
-    positions: {top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9]}
+    positions: { top: [1, 2, 3], middle: [4, 5, 6], bottom: [7, 8, 9] }
   },
   sub_lines: {
-    inner:       {fill: (' ' * BOARD_SQUARE_SIZE), limit: '|'},
-    horizontal:  {fill: ('-' * BOARD_SQUARE_SIZE), limit: '+'}
+    inner: { fill: (' ' * BOARD_SQUARE_SIZE), limit: '|' },
+    horizontal: { fill: ('-' * BOARD_SQUARE_SIZE), limit: '+' }
   }
 }
 
 GAMES_IN_MATCH = 5
 
 # general methods ###
-def prompt(type = :puts, message)
+def prompt(message, type = :puts)
   type == :print ? print("=> #{message}") : puts("=> #{message}")
 end
 
@@ -58,7 +58,7 @@ def again?
   blank_line
   prompt("If you would like to play again, enter 'y'.")
   prompt("Enter any other key to exit the program.")
-  again = gets.chomp
+  gets.chomp
 end
 
 def outro
@@ -80,14 +80,16 @@ def play_match
 end
 
 def set_game_data
-  game_data = Hash.new({})
-  game_data[:match_scores] = {user: 0, computer: 0, ties: 0}
+  game_data = {}
+  game_data[:players] = {}
+  game_data[:match_scores] = { user: 0, computer: 0, ties: 0 }
   game_data[:game_number] = 1
   game_data
 end
 
 def match_intro
-  prompt("The player who wins the most games out of #{GAMES_IN_MATCH} wins the match.")
+  prompt("The player who wins the most games out of #{GAMES_IN_MATCH} \
+wins the match.")
   prompt("Enter any key when you are ready to start the match.")
   gets
 end
@@ -111,24 +113,25 @@ def choose_first_player
   prompt("  Enter 1 to go first")
   prompt("  Enter 2 to have the computer go first")
   prompt("  Enter 3 to have the first player chosen randomly")
-  prompt(:print, "Enter your choice: ")
+  prompt("Enter your choice: ", :print)
   gets.chomp
 end
 
 def set_player_order(game_data, choice)
   choice = ['1', '2'].sample if choice == '3'
-  game_data[:players][:player1] = (choice == '1') ? :user : :computer
-  game_data[:players][:player2] = (choice == '1') ? :computer : :user
+  game_data[:players][:player1] = choice == '1' ? :user : :computer
+  game_data[:players][:player2] = choice == '1' ? :computer : :user
 end
 
 def display_player_order(game_data)
   players = ["You", "The computer"]
   players.reverse! if game_data[:players][:player1] == :computer
-  order, marks = %w(first second), [PLAYER1_MARK, PLAYER2_MARK]
+  order = %w(first second)
+  marks = [PLAYER1_MARK, PLAYER2_MARK]
 
   players.each_with_index do |player, index|
-   prompt("#{player} will go #{order[index]} and " +
-    "mark squares with '#{marks[index]}'.")
+    prompt("#{player} will go #{order[index]} and \
+mark squares with '#{marks[index]}'.")
   end
   blank_line
   prompt("The first player will alternate for each new game of this match.")
@@ -147,8 +150,7 @@ def update_game_data(game_data)
 end
 
 def game_number(game_data)
-  game_number = game_data[:game_number]
-  game_number > GAMES_IN_MATCH ? GAMES_IN_MATCH : game_number
+  [game_data[:game_number], GAMES_IN_MATCH].min
 end
 
 def update_match_scores(game_data)
@@ -159,7 +161,7 @@ end
 
 def match_over?(game_data)
   game_data[:match_scores].values.sum >= GAMES_IN_MATCH ||
-  insurmountable_lead?(game_data)
+    insurmountable_lead?(game_data)
 end
 
 def insurmountable_lead?(game_data)
@@ -170,9 +172,11 @@ def detect_insurmountable_lead(game_data)
   scores = game_data[:match_scores]
   games_left = GAMES_IN_MATCH - scores.values.sum
   [:user, :computer].each do |player|
-    other_player = (player == :user) ? :computer : :user
-    return player if scores[player] > (GAMES_IN_MATCH / 2) ||
-    scores[player] > scores[other_player] + games_left
+    other_player = player == :user ? :computer : :user
+    if scores[player] > (GAMES_IN_MATCH / 2) ||
+       scores[player] > scores[other_player] + games_left
+      return player
+    end
   end
   nil
 end
@@ -226,7 +230,7 @@ def play_one_game(game_data)
 end
 
 def player_places_mark!(current_player, game_data)
-  choice =  get_choice(current_player, game_data)
+  choice = get_choice(current_player, game_data)
   update_board(current_player, choice, game_data)
 end
 
@@ -239,7 +243,7 @@ def user_choice(game_data)
   choice = nil
   loop do
     options = format_options(empty_squares(game_data))
-    prompt(:print, "Choose an empty square#{options}: ")
+    prompt("Choose an empty square#{options}: ", :print)
     choice = gets.chomp.to_i
     break if empty_squares(game_data).include?(choice)
     prompt("I'm sorry, that's not a valid choice.")
@@ -260,7 +264,7 @@ def format_options(array, delimiter = ', ', word = 'or')
 end
 
 def update_board(player, choice, game_data)
-  mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
+  mark = player == :player1 ? PLAYER1_MARK : PLAYER2_MARK
   game_data[:board][choice] = mark
 end
 
@@ -284,7 +288,7 @@ def detect_game_winner(game_data)
 end
 
 def detect_game_win(board, line, player)
-  player_mark = (player == :player1) ? PLAYER1_MARK : PLAYER2_MARK
+  player_mark = player == :player1 ? PLAYER1_MARK : PLAYER2_MARK
   board.values_at(*line).count(player_mark) == 3
 end
 
@@ -298,7 +302,7 @@ end
 
 def display_game_result(game_data)
   display_board(game_data)
-  game_winner =  detect_game_winner(game_data)
+  game_winner = detect_game_winner(game_data)
   case game_winner
   when :user then prompt("You won this game!")
   when :computer then prompt("The computer won this game!")
@@ -319,32 +323,35 @@ def get_all_targets(game_data)
   all_targets = target_types.each_with_object(Hash.new([])) do |type, targets|
     targets[type] = get_target_list(type, game_data)
   end
-  all_targets[:chances] = better_chances(all_targets[:chances], game_data)
+  all_targets[:chances] = better_chances(all_targets[:chances])
   all_targets
 end
 
 def get_target_list(type, game_data)
-  marks = [PLAYER1_MARK, PLAYER2_MARK]
-  marks.reverse! if game_data[:players][:player1] == :computer
-  user_mark, computer_mark = marks
-
-  target =  case type
-            when :opportunities then computer_mark
-            when :threats then user_mark
-            when :center then CENTER_SQUARE
-            when :chances then computer_mark
-            when :corners then CORNER_SQUARES
-            when :other then OTHER_SQUARES
-            end
-  target_list(target, type, game_data)
-end
-
-def target_list(target, type, game_data)
+  target = get_target(type, game_data)
   if [PLAYER1_MARK, PLAYER2_MARK].include?(target)
     get_list(target, type, game_data)
   else
     target.intersection(empty_squares(game_data))
   end
+end
+
+def get_target(type, game_data)
+  user_mark, computer_mark = get_marks(game_data)
+  case type
+  when :opportunities, :chances then computer_mark
+  when :threats then user_mark
+  when :center then CENTER_SQUARE
+  # when :chances then computer_mark
+  when :corners then CORNER_SQUARES
+  when :other then OTHER_SQUARES
+  end
+end
+
+def get_marks(game_data)
+  marks = [PLAYER1_MARK, PLAYER2_MARK]
+  marks.reverse! if game_data[:players][:player1] == :computer
+  marks
 end
 
 def get_list(mark, type, game_data)
@@ -359,7 +366,7 @@ end
 
 def target_square(line, mark, game_data)
   if (game_data[:board].values_at(*line).count(mark) == 2) &&
-    (game_data[:board].values_at(*line).count(EMPTY_MARK) == 1)
+     (game_data[:board].values_at(*line).count(EMPTY_MARK) == 1)
     return line.intersection(empty_squares(game_data)).first
   end
   nil
@@ -367,13 +374,13 @@ end
 
 def target_square?(line, mark, type, game_data)
   [:opportunities, :threats].include?(type) &&
-  !!target_square(line, mark, game_data)
+    !!target_square(line, mark, game_data)
 end
 
 def chances_squares(line, mark, game_data)
   if (game_data[:board].values_at(*line).count(mark) == 1) &&
      (game_data[:board].values_at(*line).count(EMPTY_MARK) == 2)
-      return line.intersection(empty_squares(game_data))
+    return line.intersection(empty_squares(game_data))
   end
   nil
 end
@@ -382,9 +389,9 @@ def chances_squares?(line, mark, type, game_data)
   type == :chances && !!chances_squares(line, mark, game_data)
 end
 
-def better_chances(chances, game_data)
+def better_chances(chances)
   better_chances = chances.select { |square| chances.count(square) > 1 }.uniq
-  better_chances = better_chances.empty? ? chances : better_chances
+  better_chances.empty? ? chances : better_chances
 end
 
 # board display methods
@@ -421,7 +428,7 @@ def display_game_info(game_data)
 end
 
 def row(row_position, game_data)
-  pattern  = BOARD_PARTS[:rows][:pattern]
+  pattern = BOARD_PARTS[:rows][:pattern]
   pattern.map do |line_type|
     next if row_position == :bottom && line_type == :horizontal
     full_line(line_type, row_position, game_data)
@@ -437,7 +444,7 @@ end
 
 def sub_line(line_type, square_number, game_data)
   data = BOARD_PARTS[:sub_lines]
-  parts = (line_type == :horizontal) ? data[:horizontal] : data[:inner]
+  parts = line_type == :horizontal ? data[:horizontal] : data[:inner]
 
   sub_line = parts.keys.map do |part_type|
     next if (part_type == :limit) && (square_number % 3 == 0)
@@ -461,7 +468,18 @@ end
 
 def empty_squares(game_data)
   board = game_data[:board]
-  board.keys.select { |square_number| board[square_number] ==  EMPTY_MARK }
+  board.keys.select { |square_number| board[square_number] == EMPTY_MARK }
 end
 
 main_game_loop
+
+# game_data = {
+#   :players=>{:player1=>:computer, :player2=>:user},
+#   :match_scores=>{:user=>0, :computer=>0, :ties=>0},
+#   :game_number=>1,
+#   :board=>{
+#     1=>"X", 2=>"O", 3=>"X",
+#     4=>" ", 5=>"O", 6=>" ",
+#     7=>" ", 8=>" ", 9=>"X"
+#   }
+# }
