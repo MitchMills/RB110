@@ -37,7 +37,7 @@ def select_lines(game_data, lines, mark, count)
 end
 
 def select_squares(game_data, lines)
-  lines.flatten.intersection(empty_squares(game_data))
+  lines.flatten.select { |square| game_data[:board][square] == EMPTY_MARK }.uniq
 end
 
 

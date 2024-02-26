@@ -36,101 +36,36 @@ def blank_line
   puts
 end
 
-
-# board display methods ###
-
-def new_board
-  ALL_SQUARES.map { |square_number| [square_number, EMPTY_MARK] }.to_h
-end
-
-def display_board(game_data)
-  system('clear')
-  display_match_info(game_data)
-  draw_board(game_data)
-  display_game_info(game_data)
-end
-
-def display_match_info(game_data)
-  blank_line
-  user_score, computer_score, ties = game_data[:match_scores].values
-  puts("MATCH SCORES:")
-  puts(" You: #{user_score},  Computer: #{computer_score},  Ties: #{ties}")
-  blank_line
-end
-
-def draw_board(game_data)
-  row_positions = BOARD_PARTS[:rows][:positions].keys
-  row_positions.each { |row_position| puts row(row_position, game_data) }
-end
-
-def display_game_info(game_data)
-  puts("Game #{game_number(game_data)}")
-  marks = [PLAYER1_MARK, PLAYER2_MARK]
-  marks.reverse! if game_data[:players][:player1] == :computer
-  user_mark, computer_mark = marks
-  puts("You are '#{user_mark}'. The computer is '#{computer_mark}'")
-end
-
-def row(row_position, game_data)
-  pattern  = BOARD_PARTS[:rows][:pattern]
-  pattern.map do |line_type|
-    next if row_position == :bottom && line_type == :horizontal
-    full_line(line_type, row_position, game_data)
-  end
-end
-
-def full_line(line_type, row_position, game_data)
-  row_squares = BOARD_PARTS[:rows][:positions][row_position]
-  row_squares.map do |square_number|
-    sub_line(line_type, square_number, game_data)
-  end.join
-end
-
-def sub_line(line_type, square_number, game_data)
-  data = BOARD_PARTS[:sub_lines]
-  parts = (line_type == :horizontal) ? data[:horizontal] : data[:inner]
-
-  sub_line = parts.keys.map do |part_type|
-    next if (part_type == :limit) && (square_number % 3 == 0)
-    parts[part_type]
-  end.join
-
-  add_marks(sub_line, square_number, line_type, game_data)
-end
-
-def add_marks(sub_line, square_number, line_type, game_data)
-  center = BOARD_SQUARE_SIZE / 2
-  case line_type
-  when :marked
-    sub_line[center] = game_data[:board][square_number]
-  when :numbered
-    sub_line[center] = square_number.to_s if
-      empty_squares(game_data).include?(square_number)
-  end
-  sub_line
-end
-
-def empty_squares(game_data)
-  board = game_data[:board]
-  board.keys.select { |square_number| board[square_number] ==  EMPTY_MARK }
-end
-
-
-# main game loop
+# main game loop methods
 def main_game_loop
   system('clear')
   main_intro
   loop do
     play_match
-    again?
+    break unless again? == 'y'
   end
   outro
 end
 
+def main_intro
+  prompt("Welcome to Tic Tac Toe!")
+  prompt("You will play matches against the computer.")
+  prompt("Enter any key to start your first match.")
+  gets
+end
 
+def again?
+  blank_line
+  prompt("If you would like to play again, enter 'y'.")
+  prompt("Enter any other key to exit the program.")
+  again = gets.chomp
+end
 
+def outro
+  prompt("Thank you for playing Tic Tac Toe. See you later!")
+end
 
-# match methods ###
+# match methods
 def play_match
   system('clear')
   game_data = set_game_data
@@ -223,7 +158,7 @@ def update_match_scores(game_data)
 end
 
 def match_over?(game_data)
-  game_data[:game_number] > GAMES_IN_MATCH ||
+  game_data[:match_scores].values.sum >= GAMES_IN_MATCH ||
   insurmountable_lead?(game_data)
 end
 
@@ -237,14 +172,14 @@ def detect_insurmountable_lead(game_data)
   [:user, :computer].each do |player|
     other_player = (player == :user) ? :computer : :user
     return player if scores[player] > (GAMES_IN_MATCH / 2) ||
-    scores[player] - scores[other_player] > games_left
+    scores[player] > scores[other_player] + games_left
   end
   nil
 end
 
 def display_match_result(game_data)
   winner = get_match_winner(game_data)
-  reason = get_win_reason(game_data)
+  reason = get_match_win_reason(game_data)
   case winner
   when :user
     prompt("You are the winner of the match!")
@@ -269,15 +204,13 @@ def get_match_winner(game_data)
   end
 end
 
-def get_win_reason(game_data)
-  if insurmountable_lead?(game_data)
-    "had an insurmountable lead"
-  else
+def get_match_win_reason(game_data)
+  if game_data[:match_scores].values.sum >= 5
     "won the most games"
+  else
+    "had an insurmountable lead"
   end
 end
-
-
 
 # single game methods
 def play_one_game(game_data)
@@ -373,8 +306,6 @@ def display_game_result(game_data)
   end
 end
 
-
-
 # computer choice methods
 def computer_choice(game_data)
   targets = get_all_targets(game_data)
@@ -456,12 +387,81 @@ def better_chances(chances, game_data)
   better_chances = better_chances.empty? ? chances : better_chances
 end
 
-game_data = {
-  board: {
-    1=>" ", 2=>" ", 3=>"O",
-    4=>" ", 5=>"O", 6=>" ",
-    7=>"O", 8=>" ", 9=>" "},
-  players: {player1: :user, player2: :computer},
-  match_scores: {user: 0, computer: 0, ties: 0},
-  game_number: 1
-}
+# board display methods
+def new_board
+  ALL_SQUARES.map { |square_number| [square_number, EMPTY_MARK] }.to_h
+end
+
+def display_board(game_data)
+  system('clear')
+  display_match_info(game_data)
+  draw_board(game_data)
+  display_game_info(game_data)
+end
+
+def display_match_info(game_data)
+  blank_line
+  user_score, computer_score, ties = game_data[:match_scores].values
+  puts("MATCH SCORES:")
+  puts(" You: #{user_score},  Computer: #{computer_score},  Ties: #{ties}")
+  blank_line
+end
+
+def draw_board(game_data)
+  row_positions = BOARD_PARTS[:rows][:positions].keys
+  row_positions.each { |row_position| puts row(row_position, game_data) }
+end
+
+def display_game_info(game_data)
+  puts("Game #{game_number(game_data)}")
+  marks = [PLAYER1_MARK, PLAYER2_MARK]
+  marks.reverse! if game_data[:players][:player1] == :computer
+  user_mark, computer_mark = marks
+  puts("You are '#{user_mark}'. The computer is '#{computer_mark}'")
+end
+
+def row(row_position, game_data)
+  pattern  = BOARD_PARTS[:rows][:pattern]
+  pattern.map do |line_type|
+    next if row_position == :bottom && line_type == :horizontal
+    full_line(line_type, row_position, game_data)
+  end
+end
+
+def full_line(line_type, row_position, game_data)
+  row_squares = BOARD_PARTS[:rows][:positions][row_position]
+  row_squares.map do |square_number|
+    sub_line(line_type, square_number, game_data)
+  end.join
+end
+
+def sub_line(line_type, square_number, game_data)
+  data = BOARD_PARTS[:sub_lines]
+  parts = (line_type == :horizontal) ? data[:horizontal] : data[:inner]
+
+  sub_line = parts.keys.map do |part_type|
+    next if (part_type == :limit) && (square_number % 3 == 0)
+    parts[part_type]
+  end.join
+
+  add_marks(sub_line, square_number, line_type, game_data)
+end
+
+def add_marks(sub_line, square_number, line_type, game_data)
+  center = BOARD_SQUARE_SIZE / 2
+  case line_type
+  when :marked
+    sub_line[center] = game_data[:board][square_number]
+  when :numbered
+    sub_line[center] = square_number.to_s if
+      empty_squares(game_data).include?(square_number)
+  end
+  sub_line
+end
+
+def empty_squares(game_data)
+  board = game_data[:board]
+  board.keys.select { |square_number| board[square_number] ==  EMPTY_MARK }
+end
+
+main_game_loop
