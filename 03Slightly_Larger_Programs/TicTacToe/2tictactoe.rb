@@ -97,7 +97,7 @@ end
 def determine_player_order(game_data)
   choice = nil
   loop do
-    choice = choose_first_player
+    choice = first_player_choices
     blank_line
     break if ['1', '2', '3'].include?(choice)
     prompt("I'm sorry, that's not a valid choice")
@@ -107,7 +107,7 @@ def determine_player_order(game_data)
   display_player_order(game_data)
 end
 
-def choose_first_player
+def first_player_choices
   system('clear')
   prompt("Choose who will go first for this match:")
   prompt("  Enter 1 to go first")
@@ -281,13 +281,13 @@ def detect_game_winner(game_data)
   players = game_data[:players]
   WINNING_LINES.each do |line|
     players.keys.each do |player|
-      return players[player] if detect_game_win(board, line, player)
+      return players[player] if game_win?(board, line, player)
     end
   end
   nil
 end
 
-def detect_game_win(board, line, player)
+def game_win?(board, line, player)
   player_mark = player == :player1 ? PLAYER1_MARK : PLAYER2_MARK
   board.values_at(*line).count(player_mark) == 3
 end
