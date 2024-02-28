@@ -22,9 +22,13 @@ ALGORITHM
   - output (input integer - number) spaces + number stars
 =end
 
-# def display_triangle(size, corner = 'lower right')
+# def display_triangle(size)
 #   (1..size).each { |number| puts "#{' ' * (size - number)}#{'*' * number}" }
 # end
+
+# Further Exploration: my approach this time was to create separate arrays of
+# star strings and space strings and then combine them. The `right_angle`
+# parameter takes a string, e.g. 'upper left', 'lower right', etc.
 
 def display_triangle(size, right_angle)
   vertical, horizontal = right_angle.split
@@ -40,7 +44,8 @@ def display_triangle(size, right_angle)
   puts lines
 end
 
+# tests
 display_triangle(5, 'upper left')
-display_triangle(5, 'upper right') #
+display_triangle(5, 'upper right')
 display_triangle(5, 'lower left')
-display_triangle(5, 'lower right') #
+display_triangle(5, 'lower right')
