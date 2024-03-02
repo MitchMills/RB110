@@ -90,6 +90,11 @@ def display_score(game_data, person)
   puts "#{label} #{score}"
 end
 
+# player turn methods
+def player_turn(game_data)
+
+end
+
 # tests
 # hand = ["Ace of Hearts", "3 of Spades", "Ace of Hearts"]
 # p hand_score(hand)
@@ -110,10 +115,10 @@ end
 # OUTLINE
 # 1. Initialize deck
 # 2. Deal cards to player and dealer
-
 # 3. Player turn: hit or stay
 #   - repeat until bust or "stay"
 # 4. If player bust, dealer wins.
+#
 # 5. Dealer turn: hit or stay
 #   - repeat until total >= 17
 # 6. If dealer bust, player wins.
