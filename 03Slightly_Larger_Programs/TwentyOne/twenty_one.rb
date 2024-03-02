@@ -14,8 +14,8 @@ def blank_line(number = 1)
 end
 
 # game setup methods
-def set_up_game(game_data)
-  deck = initialize_deck(game_data)
+def initialize_game(game_data)
+  initialize_deck(game_data)
   deal_starting_hands(game_data)
 end
 
@@ -43,12 +43,22 @@ def deal_one_card(game_data, person)
   game_data[:hands][person] << card
 end
 
-def display_dealt_card(game_data, card)
-  prelude = person == :player ? 'You get' : 'The dealer gets'
-  prompt("#{prelude} the #{card}")
-  sleep(0.8)
+def display_starting_deal(game_data)
+  hands = game_data[:hands]
+  hands[:dealer][1] = 'face-down card'
+  cards = hands[:player].zip(hands[:dealer]).flatten
+  cards.each_with_index do |card, index|
+    person = index.even? ? :player : :dealer
+    display_dealt_card(person, card)
+  end
 end
 
+def display_dealt_card(person, card)
+  prelude = person == :player ? 'You get' : 'The dealer gets'
+  article = card == 'face-down card' ? 'a' : 'the'
+  prompt("#{prelude} #{article} #{card}")
+  sleep(0.8)
+end
 
 # score methods
 def hand_score(hand)
@@ -130,23 +140,18 @@ end
 # main game loop
 # system('clear')
 # game_data = {}
-# set_up_game(game_data)
+# initialize_game(game_data)
 # player_turn(game_data)
 
-
 # tests
-system('clear')
-game_data = {}
-game_data[:deck] = ["5 of Diamonds", "2 of Diamonds", "6 of Spades", "2 of Spades", "3 of Spades", "3 of Diamonds", "9 of Hearts", "6 of Clubs", "Jack of Hearts", "8 of Diamonds", "10 of Clubs", "7 of Clubs", "8 of Spades", "Queen of Hearts", "5 of Clubs", "Jack of Clubs", "Queen of Clubs", "6 of Diamonds", "9 of Diamonds", "10 of Diamonds", "Queen of Diamonds", "8 of Hearts", "7 of Hearts", "2 of Hearts", "Jack of Diamonds", "9 of Clubs", "9 of Spades", "Ace of Spades", "3 of Clubs", "5 of Spades", "3 of Hearts", "King of Clubs", "Queen of Spades", "4 of Spades", "7 of Diamonds", "2 of Clubs", "5 of Hearts", "10 of Hearts", "Ace of Diamonds", "6 of Hearts", "King of Diamonds", "8 of Clubs", "King of Hearts", "4 of Diamonds", "Ace of Clubs", "Jack of Spades", "7 of Spades", "10 of Spades", "4 of Clubs", "4 of Hearts", "Ace of Hearts", "King of Spades"]
+# system('clear')
+# game_data = {}
+# game_data[:deck] = ["5 of Diamonds", "2 of Diamonds", "6 of Spades", "2 of Spades", "3 of Spades", "3 of Diamonds", "9 of Hearts", "6 of Clubs", "Jack of Hearts", "8 of Diamonds", "10 of Clubs", "7 of Clubs", "8 of Spades", "Queen of Hearts", "5 of Clubs", "Jack of Clubs", "Queen of Clubs", "6 of Diamonds", "9 of Diamonds", "10 of Diamonds", "Queen of Diamonds", "8 of Hearts", "7 of Hearts", "2 of Hearts", "Jack of Diamonds", "9 of Clubs", "9 of Spades", "Ace of Spades", "3 of Clubs", "5 of Spades", "3 of Hearts", "King of Clubs", "Queen of Spades", "4 of Spades", "7 of Diamonds", "2 of Clubs", "5 of Hearts", "10 of Hearts", "Ace of Diamonds", "6 of Hearts", "King of Diamonds", "8 of Clubs", "King of Hearts", "4 of Diamonds", "Ace of Clubs", "Jack of Spades", "7 of Spades", "10 of Spades", "4 of Clubs", "4 of Hearts", "Ace of Hearts", "King of Spades"]
 
-deal_starting_hands(game_data)
+# deal_starting_hands(game_data)
+# display_starting_deal(game_data)
 
 # p game_data[:hands]
-
-
-
-
-
 
 # OUTLINE
 # 1. Initialize deck
