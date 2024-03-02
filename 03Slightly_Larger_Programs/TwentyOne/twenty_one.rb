@@ -13,6 +13,12 @@ def blank_line(number = 1)
   number.times { puts }
 end
 
+# game setup methods
+def set_up_game(game_data)
+  deck = initialize_deck(game_data)
+  deal_starting_hands(game_data)
+end
+
 # deck methods
 def initialize_deck(game_data, number = 1)
   one_deck = FACE_VALUES.each_with_object([]) do |value, deck|
@@ -21,19 +27,28 @@ def initialize_deck(game_data, number = 1)
   game_data[:deck] = (one_deck * number).shuffle
 end
 
+def deal_starting_hands(game_data)
+  initialize_hands(game_data)
+  2.times do
+    [:player, :dealer].each { |person| deal_one_card(game_data, person) }
+  end
+end
+
 def initialize_hands(game_data)
   game_data[:hands] = { player: [], dealer: [] }
 end
 
-def deal_one_card(deck, person)
-  person << deck.shift
+def deal_one_card(game_data, person)
+  card = game_data[:deck].shift
+  game_data[:hands][person] << card
 end
 
-def deal_starting_hands(deck, hands)
-  2.times do
-    [:player, :dealer].each { |person| deal_one_card(deck, hands[person]) }
-  end
+def display_dealt_card(game_data, card)
+  prelude = person == :player ? 'You get' : 'The dealer gets'
+  prompt("#{prelude} the #{card}")
+  sleep(0.8)
 end
+
 
 # score methods
 def hand_score(hand)
@@ -92,25 +107,46 @@ end
 
 # player turn methods
 def player_turn(game_data)
-
+  system('clear')
+  loop do
+    display_both_hands(game_data)
+    choice = hit_or_stay
+    break if choice == 's'
+    deal_one_card(game_data, :player)
+    break if busted?(game_data[:hands][:player])
+  end
+  puts "stay or busted"
 end
 
-# tests
-# hand = ["Ace of Hearts", "3 of Spades", "Ace of Hearts"]
-# p hand_score(hand)
+def hit_or_stay
+  prompt("hit or stay?")
+  gets.chomp
+end
 
+def busted?(hand)
+  hand_score(hand) >= BUSTED
+end
+
+# main game loop
 # system('clear')
 # game_data = {}
-# deck = initialize_deck(game_data)
-# p deck
-# puts
-# hands = initialize_hands(game_data)
-# deal_starting_hands(deck, hands)
+# set_up_game(game_data)
+# player_turn(game_data)
+
+
+# tests
+system('clear')
+game_data = {}
+game_data[:deck] = ["5 of Diamonds", "2 of Diamonds", "6 of Spades", "2 of Spades", "3 of Spades", "3 of Diamonds", "9 of Hearts", "6 of Clubs", "Jack of Hearts", "8 of Diamonds", "10 of Clubs", "7 of Clubs", "8 of Spades", "Queen of Hearts", "5 of Clubs", "Jack of Clubs", "Queen of Clubs", "6 of Diamonds", "9 of Diamonds", "10 of Diamonds", "Queen of Diamonds", "8 of Hearts", "7 of Hearts", "2 of Hearts", "Jack of Diamonds", "9 of Clubs", "9 of Spades", "Ace of Spades", "3 of Clubs", "5 of Spades", "3 of Hearts", "King of Clubs", "Queen of Spades", "4 of Spades", "7 of Diamonds", "2 of Clubs", "5 of Hearts", "10 of Hearts", "Ace of Diamonds", "6 of Hearts", "King of Diamonds", "8 of Clubs", "King of Hearts", "4 of Diamonds", "Ace of Clubs", "Jack of Spades", "7 of Spades", "10 of Spades", "4 of Clubs", "4 of Hearts", "Ace of Hearts", "King of Spades"]
+
+deal_starting_hands(game_data)
+
 # p game_data[:hands]
-# puts
-# p deck
-# puts
-# display_both_hands(game_data)
+
+
+
+
+
 
 # OUTLINE
 # 1. Initialize deck
