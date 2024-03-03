@@ -15,17 +15,26 @@ end
 
 
 # game setup methods
-def initialize_game(game_data)
+def game_set_up(game_data)
+  system('clear')
   initialize_deck(game_data)
   deal_starting_hands(game_data)
   display_starting_deal(game_data)
+  blank_line
+  display_both_hands(game_data)
 end
 
 def game_intro
+  system('clear')
+  sleep(0.8)
   prompt("Welcome to Twenty One!")
-  prompt("You will play against the computer. The computer is the dealer.")
+  sleep(0.8)
+  prompt("You will play against the dealer.")
+  sleep(0.8)
   prompt("Enter any key to get started: ", :print)
   gets
+  sleep(0.8)
+  system('clear')
 end
 
 
@@ -55,13 +64,8 @@ end
 
 
 # score methods
-def hand_score(hand)
-  raw_score = get_raw_score(hand)
-  adjust_score(hand, raw_score)
-end
-
-def visible_score(hand)
-  hand -= [hand[1]]
+def hand_score(hand, context = :all_cards)
+  hand -= [hand[1]] unless context == :all_cards
   raw_score = get_raw_score(hand)
   adjust_score(hand, raw_score)
 end
@@ -105,7 +109,7 @@ end
 
 def display_score(game_data, person)
   hand = game_data[:hands][person]
-  score = person == :player ? hand_score(hand) : visible_score(hand)
+  score = person == :player ? hand_score(hand) : hand_score(hand, :visible)
   label = person == :player ? "Card Value:" : "Visible Card Value:"
   puts "#{label} #{score}"
 end
@@ -114,6 +118,9 @@ def display_starting_deal(game_data)
   hands = game_data[:hands]
   hands[:dealer][1] = 'face-down card'
   cards = hands[:player].zip(hands[:dealer]).flatten
+
+  prompt("Here's the deal:")
+  sleep(0.8)
   cards.each_with_index do |card, index|
     person = index.even? ? :player : :dealer
     display_dealt_card(person, card)
@@ -121,48 +128,58 @@ def display_starting_deal(game_data)
 end
 
 def display_dealt_card(person, card)
-  prelude = person == :player ? 'You get' : '  The dealer gets'
+  prelude = person == :player ? ' You get' : '   The dealer gets'
   article = card == 'face-down card' ? 'a' : 'the'
   prompt("#{prelude} #{article} #{card}")
-  sleep(0.8)
+  sleep(1)
 end
+
+
+
 
 
 # player turn methods
 def player_turn(game_data)
-  system('clear')
   loop do
-    display_both_hands(game_data)
     choice = hit_or_stay
     break if choice == 's'
-    deal_one_card(game_data, :player)
-    display_dealt_card(:player, game_data[:hands][:player].last)
-    break if busted?(game_data[:hands][:player])
+    hit(game_data, :player)
+    display_both_hands(game_data)
+    break prompt("BUSTED!") if busted?(game_data[:hands][:player])
   end
-  puts "stay or busted"
 end
 
 def hit_or_stay
   choice = get_choice
+  system('clear')
   display_choice(choice)
   choice
 end
 
 def get_choice
-  prompt("Would you like to hit or stay?")
+  blank_line
+  prompt("Would you like to hit, or stay?")
   loop do
     prompt("Enter 'h' to hit, or 's' to stay: ", :print)
     choice = gets.chomp
-    break if %w(h s).include?(choice)
+    return choice if %w(h s).include?(choice)
     prompt("I'm sorry, that's not a valid choice")
     blank_line
   end
-  choice
 end
 
 def display_choice(choice)
+  sleep(0.6)
   action = choice == 'h' ? 'hit' : 'stay'
   prompt("You chose to #{action}.")
+  sleep(0.6)
+end
+
+def hit(game_data, person)
+  deal_one_card(game_data, :player)
+  display_dealt_card(:player, game_data[:hands][:player].last)
+  sleep(0.4)
+  blank_line
 end
 
 def busted?(hand)
@@ -171,11 +188,14 @@ end
 
 
 # main game loop
-# system('clear')
-# game_intro
-# game_data = {}
-# initialize_game(game_data)
-# player_turn(game_data)
+game_intro
+loop do
+  game_data = {}
+  game_set_up(game_data)
+  player_turn(game_data)
+
+  break
+end
 
 # tests
 
