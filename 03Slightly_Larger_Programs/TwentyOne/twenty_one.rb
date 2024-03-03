@@ -13,7 +13,6 @@ def blank_line(number = 1)
   number.times { puts }
 end
 
-
 # game setup methods
 def game_set_up(game_data)
   system('clear')
@@ -36,7 +35,6 @@ def game_intro
   sleep(0.8)
   system('clear')
 end
-
 
 # deck methods
 def initialize_deck(game_data, number = 1)
@@ -62,7 +60,6 @@ def deal_one_card(game_data, person)
   game_data[:hands][person] << card
 end
 
-
 # score methods
 def hand_score(hand, context = :all_cards)
   hand -= [hand[1]] unless context == :all_cards
@@ -86,7 +83,6 @@ def adjust_score(hand, score)
   number_of_aces.times { score -= 10 if score > 21 }
   score
 end
-
 
 # hand display methods
 def display_both_hands(game_data)
@@ -134,10 +130,6 @@ def display_dealt_card(person, card)
   sleep(1)
 end
 
-
-
-
-
 # player turn methods
 def player_turn(game_data)
   loop do
@@ -150,13 +142,13 @@ def player_turn(game_data)
 end
 
 def hit_or_stay
-  choice = get_choice
+  choice = player_choice
   system('clear')
   display_choice(choice)
   choice
 end
 
-def get_choice
+def player_choice
   blank_line
   prompt("Would you like to hit, or stay?")
   loop do
@@ -176,8 +168,8 @@ def display_choice(choice)
 end
 
 def hit(game_data, person)
-  deal_one_card(game_data, :player)
-  display_dealt_card(:player, game_data[:hands][:player].last)
+  deal_one_card(game_data, person)
+  display_dealt_card(person, game_data[:hands][person].last)
   sleep(0.4)
   blank_line
 end
@@ -186,6 +178,7 @@ def busted?(hand)
   hand_score(hand) > BLACKJACK
 end
 
+# computer turn methods
 
 # main game loop
 game_intro
@@ -193,7 +186,6 @@ loop do
   game_data = {}
   game_set_up(game_data)
   player_turn(game_data)
-
   break
 end
 
