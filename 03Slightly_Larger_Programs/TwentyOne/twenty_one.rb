@@ -2,7 +2,6 @@ SUITS = %w(Clubs Diamonds Hearts Spades)
 FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 
 BLACKJACK = 21
-BUSTED = 22
 
 # general methods
 def prompt(message, action = :puts)
@@ -13,11 +12,21 @@ def blank_line(number = 1)
   number.times { puts }
 end
 
+
 # game setup methods
 def initialize_game(game_data)
   initialize_deck(game_data)
   deal_starting_hands(game_data)
+  display_starting_deal(game_data)
 end
+
+def game_intro
+  prompt("Welcome to Twenty One!")
+  prompt("You will play against the computer. The computer is the dealer.")
+  prompt("Enter any key to get started: ", :print)
+  gets
+end
+
 
 # deck methods
 def initialize_deck(game_data, number = 1)
@@ -43,22 +52,6 @@ def deal_one_card(game_data, person)
   game_data[:hands][person] << card
 end
 
-def display_starting_deal(game_data)
-  hands = game_data[:hands]
-  hands[:dealer][1] = 'face-down card'
-  cards = hands[:player].zip(hands[:dealer]).flatten
-  cards.each_with_index do |card, index|
-    person = index.even? ? :player : :dealer
-    display_dealt_card(person, card)
-  end
-end
-
-def display_dealt_card(person, card)
-  prelude = person == :player ? 'You get' : 'The dealer gets'
-  article = card == 'face-down card' ? 'a' : 'the'
-  prompt("#{prelude} #{article} #{card}")
-  sleep(0.8)
-end
 
 # score methods
 def hand_score(hand)
@@ -89,6 +82,7 @@ def adjust_score(hand, score)
   score
 end
 
+
 # hand display methods
 def display_both_hands(game_data)
   game_data[:hands].keys.each { |person| display_hand_info(game_data, person) }
@@ -97,12 +91,12 @@ end
 def display_hand_info(game_data, person)
   title = person == :player ? "YOUR" : "DEALER'S"
   puts "#{title} HAND:"
-  display_hand(game_data, person)
+  display_cards(game_data, person)
   display_score(game_data, person)
   blank_line
 end
 
-def display_hand(game_data, person)
+def display_cards(game_data, person)
   hand = game_data[:hands][person]
   hand[1] = "Face-down Card" if person == :dealer
   hand.each { |card| puts " #{card}" }
@@ -115,6 +109,24 @@ def display_score(game_data, person)
   puts "#{label} #{score}"
 end
 
+def display_starting_deal(game_data)
+  hands = game_data[:hands]
+  hands[:dealer][1] = 'face-down card'
+  cards = hands[:player].zip(hands[:dealer]).flatten
+  cards.each_with_index do |card, index|
+    person = index.even? ? :player : :dealer
+    display_dealt_card(person, card)
+  end
+end
+
+def display_dealt_card(person, card)
+  prelude = person == :player ? 'You get' : '  The dealer gets'
+  article = card == 'face-down card' ? 'a' : 'the'
+  prompt("#{prelude} #{article} #{card}")
+  sleep(0.8)
+end
+
+
 # player turn methods
 def player_turn(game_data)
   system('clear')
@@ -123,35 +135,48 @@ def player_turn(game_data)
     choice = hit_or_stay
     break if choice == 's'
     deal_one_card(game_data, :player)
+    display_dealt_card(:player, game_data[:hands][:player].last)
     break if busted?(game_data[:hands][:player])
   end
   puts "stay or busted"
 end
 
 def hit_or_stay
-  prompt("hit or stay?")
-  gets.chomp
+  choice = get_choice
+  display_choice(choice)
+  choice
+end
+
+def get_choice
+  prompt("Would you like to hit or stay?")
+  loop do
+    prompt("Enter 'h' to hit, or 's' to stay: ", :print)
+    choice = gets.chomp
+    break if %w(h s).include?(choice)
+    prompt("I'm sorry, that's not a valid choice")
+    blank_line
+  end
+  choice
+end
+
+def display_choice(choice)
+  action = choice == 'h' ? 'hit' : 'stay'
+  prompt("You chose to #{action}.")
 end
 
 def busted?(hand)
-  hand_score(hand) >= BUSTED
+  hand_score(hand) > BLACKJACK
 end
+
 
 # main game loop
 # system('clear')
+# game_intro
 # game_data = {}
 # initialize_game(game_data)
 # player_turn(game_data)
 
 # tests
-# system('clear')
-# game_data = {}
-# game_data[:deck] = ["5 of Diamonds", "2 of Diamonds", "6 of Spades", "2 of Spades", "3 of Spades", "3 of Diamonds", "9 of Hearts", "6 of Clubs", "Jack of Hearts", "8 of Diamonds", "10 of Clubs", "7 of Clubs", "8 of Spades", "Queen of Hearts", "5 of Clubs", "Jack of Clubs", "Queen of Clubs", "6 of Diamonds", "9 of Diamonds", "10 of Diamonds", "Queen of Diamonds", "8 of Hearts", "7 of Hearts", "2 of Hearts", "Jack of Diamonds", "9 of Clubs", "9 of Spades", "Ace of Spades", "3 of Clubs", "5 of Spades", "3 of Hearts", "King of Clubs", "Queen of Spades", "4 of Spades", "7 of Diamonds", "2 of Clubs", "5 of Hearts", "10 of Hearts", "Ace of Diamonds", "6 of Hearts", "King of Diamonds", "8 of Clubs", "King of Hearts", "4 of Diamonds", "Ace of Clubs", "Jack of Spades", "7 of Spades", "10 of Spades", "4 of Clubs", "4 of Hearts", "Ace of Hearts", "King of Spades"]
-
-# deal_starting_hands(game_data)
-# display_starting_deal(game_data)
-
-# p game_data[:hands]
 
 # OUTLINE
 # 1. Initialize deck
