@@ -139,6 +139,7 @@ def player_turn(game_data)
     display_both_hands(game_data)
     break prompt("BUSTED!") if busted?(game_data[:hands][:player])
   end
+  stay(game_data)
 end
 
 def hit_or_stay
@@ -176,6 +177,11 @@ end
 
 def busted?(hand)
   hand_score(hand) > BLACKJACK
+end
+
+def stay(game_data)
+  blank_line
+  display_both_hands(game_data)
 end
 
 # computer turn methods
