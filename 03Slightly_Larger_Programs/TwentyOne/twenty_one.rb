@@ -1,6 +1,7 @@
 SUITS = %w(Clubs Diamonds Hearts Spades)
 FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 
+DEALER_STAY = 17
 BLACKJACK = 21
 
 # general methods
