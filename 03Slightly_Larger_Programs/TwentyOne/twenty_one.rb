@@ -165,7 +165,7 @@ def player_choice
   end
 end
 
-def display_choice(choice)
+def display_choice(choice) #TODO submerge into hit and stay methods
   action = choice == 'h' ? 'hit' : 'stay'
   prompt("You chose to #{action}.")
   sleep(0.6)
@@ -204,7 +204,7 @@ loop do
   round_set_up(game_data)
   player_turn(game_data)
   break
-  dealer_turn(game_data)
+  dealer_turn(game_data) unless busted?(game_data[:hands][:player])
 end
 
 # tests
