@@ -25,12 +25,12 @@ end
 
 def game_intro
   system('clear')
-  sleep(0.8)
+  sleep(0.6)
   prompt("Welcome to Twenty One!")
   sleep(0.8)
   prompt("You will play against the dealer.")
   sleep(0.8)
-  prompt("Enter any key to get started: ", :print)
+  prompt("Enter any key to deal the first hand: ", :print)
   gets
   sleep(0.8)
   system('clear')
@@ -80,7 +80,7 @@ end
 
 def adjust_score(hand, score)
   number_of_aces = hand.map { |card| card.split.first }.count('Ace')
-  number_of_aces.times { score -= 10 if score > 21 }
+  number_of_aces.times { score -= 10 if score > BLACKJACK }
   score
 end
 
@@ -127,7 +127,7 @@ def display_dealt_card(person, card)
   prelude = person == :player ? ' You get' : '   The dealer gets'
   article = card == 'face-down card' ? 'a' : 'the'
   prompt("#{prelude} #{article} #{card}")
-  sleep(1)
+  sleep(0.8)
 end
 
 # player turn methods
@@ -144,6 +144,7 @@ end
 
 def hit_or_stay
   choice = player_choice
+  sleep(0.4)
   system('clear')
   display_choice(choice)
   choice
@@ -162,7 +163,6 @@ def player_choice
 end
 
 def display_choice(choice)
-  sleep(0.6)
   action = choice == 'h' ? 'hit' : 'stay'
   prompt("You chose to #{action}.")
   sleep(0.6)
