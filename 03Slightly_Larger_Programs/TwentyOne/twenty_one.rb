@@ -143,7 +143,7 @@ def player_turn(game_data)
     display_both_hands(game_data)
     break if busted?(game_data[:hands][:player])
   end
-  busted?(game_data[:hands][:player]) ? busted : stay
+  busted?(game_data[:hands][:player]) ? busted(game_date) : stay(game_data)
 end
 
 def hit_or_stay
@@ -155,7 +155,6 @@ def hit_or_stay
 end
 
 def player_choice
-  blank_line
   prompt("Would you like to hit, or stay?")
   loop do
     prompt("Enter 'h' to hit, or 's' to stay: ", :print)
@@ -204,7 +203,7 @@ initialize_deck(game_data)
 loop do
   round_set_up(game_data)
   player_turn(game_data)
-  busted if busted?(game_data[:hands][:player])
+  break
   dealer_turn(game_data)
 end
 
