@@ -13,16 +13,8 @@ def blank_line(number = 1)
   number.times { puts }
 end
 
-# game setup methods
-def game_set_up(game_data)
-  system('clear')
-  initialize_deck(game_data)
-  deal_starting_hands(game_data)
-  display_starting_deal(game_data)
-  blank_line
-  display_both_hands(game_data)
-end
 
+# game setup methods
 def game_intro
   system('clear')
   sleep(0.6)
@@ -35,6 +27,15 @@ def game_intro
   sleep(0.8)
   system('clear')
 end
+
+def round_set_up(game_data)
+  system('clear')
+  deal_starting_hands(game_data)
+  display_starting_deal(game_data)
+  blank_line
+  display_both_hands(game_data)
+end
+
 
 # deck methods
 def initialize_deck(game_data, number = 1)
@@ -60,6 +61,7 @@ def deal_one_card(game_data, person)
   game_data[:hands][person] << card
 end
 
+
 # score methods
 def hand_score(hand, context = :all_cards)
   hand -= [hand[1]] unless context == :all_cards
@@ -83,6 +85,7 @@ def adjust_score(hand, score)
   number_of_aces.times { score -= 10 if score > BLACKJACK }
   score
 end
+
 
 # hand display methods
 def display_both_hands(game_data)
@@ -130,6 +133,7 @@ def display_dealt_card(person, card)
   sleep(0.8)
 end
 
+
 # player turn methods
 def player_turn(game_data)
   loop do
@@ -137,9 +141,9 @@ def player_turn(game_data)
     break if choice == 's'
     hit(game_data, :player)
     display_both_hands(game_data)
-    break prompt("BUSTED!") if busted?(game_data[:hands][:player])
+    break if busted?(game_data[:hands][:player])
   end
-  stay(game_data)
+  busted?(game_data[:hands][:player]) ? busted : stay
 end
 
 def hit_or_stay
@@ -179,20 +183,29 @@ def busted?(hand)
   hand_score(hand) > BLACKJACK
 end
 
-def stay(game_data)
+def busted(game_data)
   blank_line
-  display_both_hands(game_data)
 end
 
-# computer turn methods
+def stay(game_data)
+  blank_line
+
+end
+
+# dealer turn methods
+def dealer_turn(game_data)
+
+end
 
 # main game loop
 game_intro
+game_data = {}
+initialize_deck(game_data)
 loop do
-  game_data = {}
-  game_set_up(game_data)
+  round_set_up(game_data)
   player_turn(game_data)
-  break
+  busted if busted?(game_data[:hands][:player])
+  dealer_turn(game_data)
 end
 
 # tests
