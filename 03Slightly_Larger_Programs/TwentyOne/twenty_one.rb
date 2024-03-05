@@ -1,8 +1,14 @@
 SUITS = %w(Clubs Diamonds Hearts Spades)
 FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 
+CARDS_IN_ONE_DECK = SUITS.size * FACE_VALUES.size
+DECKS_IN_GAME = 1
+CARDS_IN_GAME = CARDS_IN_ONE_DECK * DECKS_IN_GAME
+RESHUFFLE_SIZE = 0.25
+
 DEALER_STAY = 17
-BLACKJACK = 21
+TARGET_SCORE = 21
+
 
 # general methods
 def prompt(message, action = :puts)
@@ -15,34 +21,37 @@ end
 
 
 # game setup methods
-def game_intro
+def intro
   system('clear')
-  sleep(0.6)
   prompt("Welcome to Twenty One!")
-  sleep(0.8)
   prompt("You will play against the dealer.")
-  sleep(0.8)
   prompt("Enter any key to deal the first hand: ", :print)
   gets
-  sleep(0.8)
   system('clear')
 end
 
 def round_set_up(game_data)
   system('clear')
+  if game_data[:deck].size < CARDS_IN_GAME * RESHUFFLE_SIZE
+    initialize_deck(game_data)
+  end
   deal_starting_hands(game_data)
-  display_starting_deal(game_data)
+  narrate_starting_deal(game_data)
   blank_line
   display_both_hands(game_data)
 end
 
+def outro
+  prompt("Thank you for playing Twenty One!")
+end
 
-# deck methods
-def initialize_deck(game_data, number = 1)
+
+# deck / dealing methods
+def initialize_deck(game_data)
   one_deck = FACE_VALUES.each_with_object([]) do |value, deck|
     SUITS.each { |suit| deck << "#{value} of #{suit}" }
   end
-  game_data[:deck] = (one_deck * number).shuffle
+  game_data[:deck] = (one_deck * DECKS_IN_GAME).shuffle
 end
 
 def deal_starting_hands(game_data)
@@ -61,12 +70,39 @@ def deal_one_card(game_data, person)
   game_data[:hands][person] << card
 end
 
+def hit(game_data, person)
+  deal_one_card(game_data, person)
+  narrate_dealt_card(person, game_data[:hands][person].last)
+  blank_line
+  sleep(0.4)
+end
 
-# score methods
+def narrate_starting_deal(game_data)
+  hands = game_data[:hands]
+  hands[:dealer][1] = 'face-down card'
+  cards = hands[:player].zip(hands[:dealer]).flatten
+
+  prompt("Here's the deal:")
+  sleep(0.8)
+  cards.each_with_index do |card, index|
+    person = index.even? ? :player : :dealer
+    narrate_dealt_card(person, card)
+  end
+end
+
+def narrate_dealt_card(person, card)
+  prelude = person == :player ? ' You get' : '   The dealer gets'
+  article = card == 'face-down card' ? 'a' : 'the'
+  prompt("#{prelude} #{article} #{card}")
+  sleep(0.8)
+end
+
+
+# scoring methods
 def hand_score(hand, context = :all_cards)
   hand -= [hand[1]] unless context == :all_cards
   raw_score = get_raw_score(hand)
-  adjust_score(hand, raw_score)
+  adjust_for_aces(hand, raw_score)
 end
 
 def get_raw_score(hand)
@@ -80,61 +116,49 @@ def face_card_value(value)
   %w(Jack Queen King).include?(value) ? 10 : 11
 end
 
-def adjust_score(hand, score)
+def adjust_for_aces(hand, score)
   number_of_aces = hand.map { |card| card.split.first }.count('Ace')
-  number_of_aces.times { score -= 10 if score > BLACKJACK }
+  number_of_aces.times { score -= 10 if score > TARGET_SCORE }
   score
+end
+
+def busted?(hand)
+  hand_score(hand) > TARGET_SCORE
 end
 
 
 # hand display methods
 def display_both_hands(game_data)
-  game_data[:hands].keys.each { |person| display_hand_info(game_data, person) }
+  game_data[:hands].keys.each { |person| display_one_hand(game_data, person) }
 end
 
-def display_hand_info(game_data, person)
-  title = person == :player ? "YOUR" : "DEALER'S"
-  puts "#{title} HAND:"
-  display_cards(game_data, person)
-  display_score(game_data, person)
+def display_one_hand(game_data, person)
+  display_hand_title(person)
+  display_hand_cards(game_data, person)
+  display_hand_score(game_data, person)
   blank_line
 end
 
-def display_cards(game_data, person)
+def display_hand_title(person)
+  title = person == :player ? "YOUR" : "DEALER'S"
+  puts "#{title} HAND:"
+end
+
+def display_hand_cards(game_data, person)
   hand = game_data[:hands][person]
   hand[1] = "Face-down Card" if person == :dealer
   hand.each { |card| puts " #{card}" }
 end
 
-def display_score(game_data, person)
+def display_hand_score(game_data, person)
   hand = game_data[:hands][person]
   score = person == :player ? hand_score(hand) : hand_score(hand, :visible)
   label = person == :player ? "Card Value:" : "Visible Card Value:"
   puts "#{label} #{score}"
 end
 
-def display_starting_deal(game_data)
-  hands = game_data[:hands]
-  hands[:dealer][1] = 'face-down card'
-  cards = hands[:player].zip(hands[:dealer]).flatten
 
-  prompt("Here's the deal:")
-  sleep(0.8)
-  cards.each_with_index do |card, index|
-    person = index.even? ? :player : :dealer
-    display_dealt_card(person, card)
-  end
-end
-
-def display_dealt_card(person, card)
-  prelude = person == :player ? ' You get' : '   The dealer gets'
-  article = card == 'face-down card' ? 'a' : 'the'
-  prompt("#{prelude} #{article} #{card}")
-  sleep(0.8)
-end
-
-
-# player turn methods
+# turn methods
 def player_turn(game_data)
   loop do
     choice = hit_or_stay
@@ -143,7 +167,6 @@ def player_turn(game_data)
     display_both_hands(game_data)
     break if busted?(game_data[:hands][:player])
   end
-  busted?(game_data[:hands][:player]) ? busted(game_date) : stay(game_data)
 end
 
 def hit_or_stay
@@ -159,55 +182,81 @@ def player_choice
   loop do
     prompt("Enter 'h' to hit, or 's' to stay: ", :print)
     choice = gets.chomp
-    return choice if %w(h s).include?(choice)
+    return choice if %w(h s).include?(choice.downcase)
     prompt("I'm sorry, that's not a valid choice")
     blank_line
   end
 end
 
-def display_choice(choice) #TODO submerge into hit and stay methods
+def display_choice(choice)
   action = choice == 'h' ? 'hit' : 'stay'
   prompt("You chose to #{action}.")
   sleep(0.6)
 end
 
-def hit(game_data, person)
-  deal_one_card(game_data, person)
-  display_dealt_card(person, game_data[:hands][person].last)
-  sleep(0.4)
-  blank_line
-end
-
-def busted?(hand)
-  hand_score(hand) > BLACKJACK
-end
-
-def busted(game_data)
-  blank_line
-end
-
-def stay(game_data)
-  blank_line
-
-end
-
-# dealer turn methods
 def dealer_turn(game_data)
-
+  loop do
+    dealer_hand = game_data[:hands][:dealer]
+    break if hand_score(dealer_hand) >= DEALER_STAY || busted?(dealer_hand)
+    hit(game_data, :dealer)
+    display_both_hands(game_data)
+  end
 end
+
+# round methods
+def round_result(game_data)
+  winner = determine_winner(game_data)
+  display_round_result(game_data, winner)
+end
+
+def determine_winner(game_data)
+  player_hand = game_data[:hands][:player]
+  dealer_hand = game_data[:hands][:dealer]
+
+  difference = hand_score(player_hand) - hand_score(dealer_hand)
+  if difference > 0 || busted?(dealer_hand)
+    :player
+  elsif difference < 0 || busted?(player_hand)
+    :dealer
+  else
+    :tie
+  end
+end
+
+def display_round_result(game_data, result)
+  system('clear')
+  display_both_hands(game_data)
+  blank_line
+  if [:player, :dealer].include?(result)
+    person = result == :player ? 'You' : 'The dealer'
+    prompt("#{person} won!")
+  else
+    prompt("It's a tie.")
+  end
+end
+
+def another_round?
+  blank_line
+  prompt("Enter 'y' to play another game. Enter any other key to stop playing.")
+  gets.chomp.downcase == 'y'
+end
+
+
 
 # main game loop
-game_intro
+intro
 game_data = {}
 initialize_deck(game_data)
 loop do
   round_set_up(game_data)
   player_turn(game_data)
-  break
   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
+  round_result(game_data)
+  break unless another_round?
 end
+outro
 
-# tests
+# TODO: display dealer hand slowly; announce bust vs win etc
 
 # OUTLINE
 # 1. Initialize deck
