@@ -262,7 +262,9 @@ loop do
 end
 # outro
 
-# TODO: display dealer hand slowly; announce bust vs win etc
+# TODO: display dealer hand slowly
+# TODO: announce bust vs win etc
+# TODO: show all cards once dealer starts turn
 
 # OUTLINE
 # 1. Initialize deck
