@@ -101,11 +101,11 @@ end
 # scoring methods
 def hand_score(hand, context = :all_cards)
   hand -= [hand[1]] unless context == :all_cards
-  raw_score = get_raw_score(hand)
+  raw_score = raw_score(hand)
   adjust_for_aces(hand, raw_score)
 end
 
-def get_raw_score(hand)
+def raw_score(hand)
   values = hand.map { |card| card.split.first }
   values.map do |value|
     value.to_i > 0 ? value.to_i : face_card_value(value)
@@ -167,6 +167,9 @@ def player_turn(game_data)
     display_both_hands(game_data)
     break if busted?(game_data[:hands][:player])
   end
+  prompt('You busted!') if busted?(game_data[:hands][:player])
+  blank_line
+  display_both_hands(game_data)
 end
 
 def hit_or_stay
@@ -196,10 +199,13 @@ end
 
 def dealer_turn(game_data)
   loop do
-    dealer_hand = game_data[:hands][:dealer]
-    break if hand_score(dealer_hand) >= DEALER_STAY || busted?(dealer_hand)
+    hand = game_data[:hands][:dealer]
+    break prompt ('The dealer stayed.') if hand_score(hand) >= DEALER_STAY
+    break prompt('The dealer busted!') if busted?(hand)
+    prompt('The dealer hits.')
     hit(game_data, :dealer)
     display_both_hands(game_data)
+    sleep(1)
   end
 end
 
@@ -251,10 +257,10 @@ loop do
   round_set_up(game_data)
   player_turn(game_data)
   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
-  round_result(game_data)
-  break unless another_round?
+  # round_result(game_data)
+  break #unless another_round?
 end
-outro
+# outro
 
 # TODO: display dealer hand slowly; announce bust vs win etc
 
