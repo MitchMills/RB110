@@ -38,7 +38,7 @@ def round_set_up(game_data)
   deal_starting_hands(game_data)
   narrate_starting_deal(game_data)
   blank_line
-  display_both_hands(game_data)
+  display_both_hands(game_data, :visible_cards)
 end
 
 def outro
@@ -79,9 +79,8 @@ end
 
 def narrate_starting_deal(game_data)
   hands = game_data[:hands]
-  hands[:dealer][1] = 'face-down card'
   cards = hands[:player].zip(hands[:dealer]).flatten
-
+  cards[3] = 'face-down card'
   prompt("Here's the deal:")
   sleep(0.8)
   cards.each_with_index do |card, index|
@@ -126,16 +125,15 @@ def busted?(hand)
   hand_score(hand) > TARGET_SCORE
 end
 
-
 # hand display methods
-def display_both_hands(game_data)
-  game_data[:hands].keys.each { |person| display_one_hand(game_data, person) }
+def display_both_hands(game_data, context = :all_cards)
+  game_data[:hands].keys.each { |person| display_one_hand(game_data, person, context) }
 end
 
-def display_one_hand(game_data, person)
+def display_one_hand(game_data, person, context)
   display_hand_title(person)
-  display_hand_cards(game_data, person)
-  display_hand_score(game_data, person)
+  display_hand_cards(game_data, person, context)
+  display_hand_score(game_data, person, context)
   blank_line
 end
 
@@ -144,18 +142,24 @@ def display_hand_title(person)
   puts "#{title} HAND:"
 end
 
-def display_hand_cards(game_data, person)
+def display_hand_cards(game_data, person, context)
   hand = game_data[:hands][person]
-  hand[1] = "Face-down Card" if person == :dealer
+  hand = visible_hand(hand) if person == :dealer && context == :visible_cards
   hand.each { |card| puts " #{card}" }
 end
 
-def display_hand_score(game_data, person)
-  hand = game_data[:hands][person]
-  score = person == :player ? hand_score(hand) : hand_score(hand, :visible)
-  label = person == :player ? "Card Value:" : "Visible Card Value:"
+def visible_hand(hand)
+  hand.map.with_index { |card, index| index == 1 ? 'Face-down card' : card }
+end
+
+def display_hand_score(game_data, person, context)
+  label = 'Card Value:'
+  label.prepend('Visible ') if person == :dealer && context == :visible_cards
+  context = :all_cards if person == :player
+  score = hand_score(game_data[:hands][person], context)
   puts "#{label} #{score}"
 end
+
 
 
 # turn methods
@@ -164,10 +168,9 @@ def player_turn(game_data)
     choice = hit_or_stay
     break if choice == 's'
     hit(game_data, :player)
-    display_both_hands(game_data)
-    break if busted?(game_data[:hands][:player])
+    display_both_hands(game_data, :visible_cards)
+    break prompt('You busted!') if busted?(game_data[:hands][:player])
   end
-  prompt('You busted!') if busted?(game_data[:hands][:player])
   blank_line
   display_both_hands(game_data)
 end
