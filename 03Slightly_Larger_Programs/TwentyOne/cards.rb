@@ -20,6 +20,31 @@ def blank_line(number = 1)
 end
 
 
+# game setup methods
+def intro
+  system('clear')
+  prompt("Welcome to Twenty One!")
+  prompt("You will play against the dealer.")
+  prompt("Enter any key to deal the first hand: ", :print)
+  gets
+  system('clear')
+end
+
+def round_set_up(game_data)
+  system('clear')
+  if game_data[:deck].size < CARDS_IN_GAME * RESHUFFLE_SIZE
+    initialize_deck(game_data)
+  end
+  deal_starting_hands(game_data)
+  narrate_starting_deal(game_data)
+  blank_line
+  display_both_hands(game_data, :visible_cards)
+end
+
+def outro
+  prompt("Thank you for playing Twenty One!")
+end
+
 
 # deck / dealing methods
 def initialize_deck(game_data)
@@ -72,7 +97,6 @@ def narrate_dealt_card(person, card)
 end
 
 
-
 # scoring methods
 def hand_score(hand, context = :all_cards)
   hand -= [hand[1]] unless context == :all_cards
@@ -101,7 +125,9 @@ def busted?(hand)
   hand_score(hand) > TARGET_SCORE
 end
 
-
+def dealer_stay?(hand)
+  hand_score(hand) >= DEALER_STAY
+end
 
 # hand display methods
 def display_both_hands(game_data, context = :all_cards)
@@ -140,18 +166,134 @@ end
 
 
 
+# turn methods
+def player_turn(game_data)
+  loop do
+    choice = hit_or_stay
+    break if choice == 's'
+    hit(game_data, :player)
+    display_both_hands(game_data, :visible_cards)
+    break prompt('You busted!') if busted?(game_data[:hands][:player])
+  end
+  transition_to_dealer_turn(game_data)
+end
+
+def hit_or_stay
+  choice = player_choice
+  sleep(0.4)
+  system('clear')
+  display_choice(choice)
+  choice
+end
+
+def player_choice
+  prompt("Would you like to hit, or stay?")
+  loop do
+    prompt("Enter 'h' to hit, or 's' to stay: ", :print)
+    choice = gets.chomp
+    return choice if %w(h s).include?(choice.downcase)
+    prompt("I'm sorry, that's not a valid choice")
+    blank_line
+  end
+end
+
+def display_choice(choice)
+  action = choice == 'h' ? 'hit' : 'stay'
+  prompt("You chose to #{action}.")
+  sleep(0.6)
+end
+
+def transition_to_dealer_turn(game_data)
+  blank_line
+  prompt("Now it's the dealer's turn.")
+  sleep(0.8)
+  prompt('The dealer reveals their face-down card:')
+  sleep(1)
+  blank_line
+  display_both_hands(game_data)
+end
+
+def dealer_turn(game_data)
+  loop do
+    hand = game_data[:hands][:dealer]
+    break prompt('The dealer busted!') if busted?(hand)
+    break prompt ('The dealer stayed.') if dealer_stay?(hand)
+    continue_dealer_turn
+    prompt('The dealer hits.')
+    hit(game_data, :dealer)
+    display_both_hands(game_data)
+    sleep(1)
+  end
+end
+
+def continue_dealer_turn
+  prompt("Enter any key to continue with the dealer's turn: ", :print)
+  gets
+  system('clear')
+end
+
+
+# round methods
+def round_result(game_data)
+  winner = determine_winner(game_data)
+  display_round_result(game_data, winner)
+end
+
+def determine_winner(game_data)
+  player_hand = game_data[:hands][:player]
+  dealer_hand = game_data[:hands][:dealer]
+
+  difference = hand_score(player_hand) - hand_score(dealer_hand)
+  if difference > 0 || busted?(dealer_hand)
+    :player
+  elsif difference < 0 || busted?(player_hand)
+    :dealer
+  else
+    :tie
+  end
+end
+
+def display_round_result(game_data, result)
+  system('clear')
+  display_both_hands(game_data)
+  blank_line
+  if [:player, :dealer].include?(result)
+    person = result == :player ? 'You' : 'The dealer'
+    prompt("#{person} won!")
+  else
+    prompt("It's a tie.")
+  end
+end
+
+def another_round?
+  blank_line
+  prompt("Enter 'y' to play another game. Enter any other key to stop playing.")
+  gets.chomp.downcase == 'y'
+end
+
+
+
+# main game loop
+intro
 game_data = {}
 initialize_deck(game_data)
-deal_starting_hands(game_data)
-p game_data[:hands][:player]
-p game_data[:hands][:dealer]
-puts
-display_both_hands(game_data, :visible_cards)
-puts
-p game_data[:hands][:player]
-p game_data[:hands][:dealer]
-puts
-display_both_hands(game_data)
-puts
-p game_data[:hands][:player]
-p game_data[:hands][:dealer]
+loop do
+  round_set_up(game_data)
+  player_turn(game_data)
+  dealer_turn(game_data) unless busted?(game_data[:hands][:player])
+  # round_result(game_data)
+  break #unless another_round?
+end
+# outro
+
+# OUTLINE
+# 1. Initialize deck
+# 2. Deal cards to player and dealer
+# 3. Player turn: hit or stay
+#   - repeat until bust or "stay"
+# 4. If player bust, dealer wins.
+#
+# 5. Dealer turn: hit or stay
+#   - repeat until total >= 17
+# 6. If dealer bust, player wins.
+# 7. Compare cards and declare winner.

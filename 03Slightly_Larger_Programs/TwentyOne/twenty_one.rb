@@ -125,6 +125,10 @@ def busted?(hand)
   hand_score(hand) > TARGET_SCORE
 end
 
+def dealer_stay?(hand)
+  hand_score(hand) >= DEALER_STAY
+end
+
 # hand display methods
 def display_both_hands(game_data, context = :all_cards)
   game_data[:hands].keys.each { |person| display_one_hand(game_data, person, context) }
@@ -171,8 +175,7 @@ def player_turn(game_data)
     display_both_hands(game_data, :visible_cards)
     break prompt('You busted!') if busted?(game_data[:hands][:player])
   end
-  blank_line
-  display_both_hands(game_data)
+  transition_to_dealer_turn(game_data)
 end
 
 def hit_or_stay
@@ -200,17 +203,35 @@ def display_choice(choice)
   sleep(0.6)
 end
 
+def transition_to_dealer_turn(game_data)
+  blank_line
+  prompt("Now it's the dealer's turn.")
+  sleep(0.8)
+  prompt('The dealer reveals their face-down card:')
+  sleep(1)
+  blank_line
+  display_both_hands(game_data)
+end
+
 def dealer_turn(game_data)
   loop do
     hand = game_data[:hands][:dealer]
-    break prompt ('The dealer stayed.') if hand_score(hand) >= DEALER_STAY
     break prompt('The dealer busted!') if busted?(hand)
+    break prompt ('The dealer stayed.') if dealer_stay?(hand)
+    continue_dealer_turn
     prompt('The dealer hits.')
     hit(game_data, :dealer)
     display_both_hands(game_data)
     sleep(1)
   end
 end
+
+def continue_dealer_turn
+  prompt("Enter any key to continue with the dealer's turn: ", :print)
+  gets
+  system('clear')
+end
+
 
 # round methods
 def round_result(game_data)
@@ -264,10 +285,6 @@ loop do
   break #unless another_round?
 end
 # outro
-
-# TODO: display dealer hand slowly
-# TODO: announce bust vs win etc
-# TODO: show all cards once dealer starts turn
 
 # OUTLINE
 # 1. Initialize deck
