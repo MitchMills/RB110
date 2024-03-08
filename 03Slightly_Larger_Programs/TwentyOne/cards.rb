@@ -208,7 +208,7 @@ def transition_to_dealer_turn(game_data)
   prompt("Now it's the dealer's turn.")
   sleep(0.8)
   prompt('The dealer reveals their face-down card:')
-  sleep(1)
+  sleep(0.8)
   blank_line
   display_both_hands(game_data)
 end
@@ -219,8 +219,7 @@ def dealer_turn(game_data)
     break prompt('The dealer busted!') if busted?(hand)
     break prompt ('The dealer stayed.') if dealer_stay?(hand)
     continue_dealer_turn
-    prompt('The dealer hits.')
-    hit(game_data, :dealer)
+    dealer_hits(game_data)
     display_both_hands(game_data)
     sleep(1)
   end
@@ -230,6 +229,12 @@ def continue_dealer_turn
   prompt("Enter any key to continue with the dealer's turn: ", :print)
   gets
   system('clear')
+end
+
+def dealer_hits(game_data)
+  prompt('The dealer hits.')
+  sleep(0.8)
+  hit(game_data, :dealer)
 end
 
 
