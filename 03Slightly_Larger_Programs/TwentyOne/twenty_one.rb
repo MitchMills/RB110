@@ -245,17 +245,27 @@ def round_result(game_data)
 end
 
 def determine_winner(game_data)
-  player_hand = game_data[:hands][:player]
-  dealer_hand = game_data[:hands][:dealer]
+  hands = game_data[:hands]
+  return busted_winner(hands) if busted_winner?(hands)
 
-  difference = hand_score(player_hand) - hand_score(dealer_hand)
-  if difference > 0 || busted?(dealer_hand)
-    :player
-  elsif difference < 0 || busted?(player_hand)
-    :dealer
-  else
-    :tie
+  difference = hand_score(hands[:player]) - hand_score(hands[:dealer])
+  case difference
+  when 0 then :tie
+  when (0..) then :player
+  else :dealer
   end
+end
+
+def busted_winner?(hands)
+  !!busted_winner(hands)
+end
+
+def busted_winner(hands)
+  persons = [:player, :dealer]
+  persons.each_with_index do |person, index|
+    return persons[1 - index] if busted?(hands[person])
+  end
+  nil
 end
 
 def display_round_result(game_data, result)
@@ -277,18 +287,17 @@ def another_round?
 end
 
 
-
 # main game loop
-intro
-game_data = {}
-initialize_deck(game_data)
-loop do
-  round_set_up(game_data)
-  player_turn(game_data)
-  dealer_turn(game_data) unless busted?(game_data[:hands][:player])
-  # round_result(game_data)
-  break #unless another_round?
-end
+# intro
+# game_data = {}
+# initialize_deck(game_data)
+# loop do
+#   round_set_up(game_data)
+#   player_turn(game_data)
+#   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
+#   # round_result(game_data)
+#   break #unless another_round?
+# end
 # outro
 
 # OUTLINE
