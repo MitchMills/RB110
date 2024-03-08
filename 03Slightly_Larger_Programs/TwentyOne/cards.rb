@@ -246,18 +246,7 @@ end
 
 def determine_winner(game_data)
   hands = game_data[:hands]
-  return busted_winner(hands) if busted_winner?(hands)
-
-  difference = hand_score(hands[:player]) - hand_score(hands[:dealer])
-  case difference
-  when 0 then :tie
-  when (0..) then :player
-  else :dealer
-  end
-end
-
-def busted_winner?(hands)
-  !!busted_winner(hands)
+  busted_winner(hands) || score_winner(hands)
 end
 
 def busted_winner(hands)
@@ -266,6 +255,15 @@ def busted_winner(hands)
     return persons[1 - index] if busted?(hands[person])
   end
   nil
+end
+
+def score_winner(hands)
+  difference = hand_score(hands[:player]) - hand_score(hands[:dealer])
+  case difference
+  when 0 then :tie
+  when (0..) then :player
+  else :dealer
+  end
 end
 
 def display_round_result(game_data, result)
@@ -286,6 +284,17 @@ def another_round?
   gets.chomp.downcase == 'y'
 end
 
+
+game_data = {
+  hands: {
+    player: ['King of Clubs', 'Queen of Diamonds'],
+    dealer: ['King of Clubs', 'Queen of Diamonds', '2 of Spades']
+  }
+}
+
+system('clear')
+display_both_hands(game_data)
+p determine_winner(game_data)
 
 # main game loop
 # intro
