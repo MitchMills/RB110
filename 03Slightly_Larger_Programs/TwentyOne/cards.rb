@@ -244,8 +244,24 @@ end
 
 # round methods
 def round_result(game_data)
+  blank_line
+  display_both_hands(game_data)
+  display_win_reason(game_data)
+  display_winner(game_data)
+end
+
+def display_win_reason(game_data)
+  hands = game_data[:hands]
   winner = determine_winner(game_data)
-  display_round_result(game_data, winner)
+  if !!busted_winner(hands)
+    buster = busted_winner(hands) == :dealer ? 'You' : 'The dealer'
+    prompt("#{buster} busted.")
+  elsif [:player, :dealer].include?(winner)
+    winner = :player ? 'You have' : 'The dealer has' # TODO: logic problem here: results reversed
+    prompt("#{winner} a higher hand")
+  else
+    prompt("Your hands are equal.")
+  end
 end
 
 def determine_winner(game_data)
@@ -261,11 +277,6 @@ def busted_winner(hands)
   nil
 end
 
-def who_busted(hands)
-  [:player, :dealer].each { |person| return person if busted?(hands[person]) }
-  nil
-end
-
 def score_winner(hands)
   difference = hand_score(hands[:player]) - hand_score(hands[:dealer])
   case difference
@@ -275,16 +286,10 @@ def score_winner(hands)
   end
 end
 
-def display_round_result(game_data, winner)
-  display_both_hands(game_data)
-  blank_line
-
-  prompt("#{who_busted(hands)} busted.") if !!who_busted(hands)
-
-
-
-  if [:player, :dealer].include?(result)
-    person = result == :player ? 'You' : 'The dealer'
+def display_winner(game_data)
+  winner = determine_winner(game_data)
+  if [:player, :dealer].include?(winner)
+    person = winner == :player ? 'You' : 'The dealer'
     prompt("#{person} won!")
   else
     prompt("It's a tie.")
