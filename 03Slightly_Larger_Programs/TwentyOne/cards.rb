@@ -208,6 +208,7 @@ def dealer_turn(game_data)
     display_both_hands(game_data)
     sleep(1)
   end
+  dealer_turn_outro(game_data)
 end
 
 def dealer_turn_intro(game_data)
@@ -232,6 +233,15 @@ def dealer_hits(game_data)
   hit(game_data, :dealer)
 end
 
+def dealer_turn_outro(game_data)
+  system('clear')
+  hand = game_data[:hands][:dealer]
+  prompt('The dealer has chosen to stay.') unless busted?(hand)
+  blank_line
+end
+
+
+
 # round methods
 def round_result(game_data)
   winner = determine_winner(game_data)
@@ -251,6 +261,11 @@ def busted_winner(hands)
   nil
 end
 
+def who_busted(hands)
+  [:player, :dealer].each { |person| return person if busted?(hands[person]) }
+  nil
+end
+
 def score_winner(hands)
   difference = hand_score(hands[:player]) - hand_score(hands[:dealer])
   case difference
@@ -260,10 +275,14 @@ def score_winner(hands)
   end
 end
 
-def display_round_result(game_data, result)
-  system('clear')
+def display_round_result(game_data, winner)
   display_both_hands(game_data)
   blank_line
+
+  prompt("#{who_busted(hands)} busted.") if !!who_busted(hands)
+
+
+
   if [:player, :dealer].include?(result)
     person = result == :player ? 'You' : 'The dealer'
     prompt("#{person} won!")
@@ -271,6 +290,9 @@ def display_round_result(game_data, result)
     prompt("It's a tie.")
   end
 end
+
+
+
 
 def another_round?
   blank_line
