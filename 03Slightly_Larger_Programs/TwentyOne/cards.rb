@@ -169,9 +169,8 @@ def player_turn(game_data)
     break if choice == 's'
     hit(game_data, :player)
     display_both_hands(game_data, :visible_cards)
-    break prompt('You busted!') if busted?(game_data[:hands][:player])
+    break if busted?(game_data[:hands][:player])
   end
-  transition_to_dealer_turn(game_data)
 end
 
 def hit_or_stay
@@ -199,7 +198,19 @@ def display_choice(choice)
   sleep(0.6)
 end
 
-def transition_to_dealer_turn(game_data)
+def dealer_turn(game_data)
+  dealer_turn_intro(game_data)
+  loop do
+    continue_dealer_turn
+    hand = game_data[:hands][:dealer]
+    break if busted?(hand) || dealer_stay?(hand)
+    dealer_hits(game_data)
+    display_both_hands(game_data)
+    sleep(1)
+  end
+end
+
+def dealer_turn_intro(game_data)
   blank_line
   prompt("Now it's the dealer's turn.")
   sleep(0.8)
@@ -207,18 +218,6 @@ def transition_to_dealer_turn(game_data)
   sleep(0.8)
   blank_line
   display_both_hands(game_data)
-end
-
-def dealer_turn(game_data)
-  loop do
-    hand = game_data[:hands][:dealer]
-    break prompt('The dealer busted!') if busted?(hand)
-    break prompt('The dealer stayed.') if dealer_stay?(hand)
-    continue_dealer_turn
-    dealer_hits(game_data)
-    display_both_hands(game_data)
-    sleep(1)
-  end
 end
 
 def continue_dealer_turn
@@ -291,11 +290,11 @@ end
 intro
 game_data = {}
 initialize_deck(game_data)
-loop do
+# loop do
   round_set_up(game_data)
   player_turn(game_data)
   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
   round_result(game_data)
-  break unless another_round?
-end
-outro
+#   break unless another_round?
+# end
+# outro
