@@ -9,7 +9,6 @@ RESHUFFLE_SIZE = 0.25
 DEALER_STAY = 17
 TARGET_SCORE = 21
 
-
 # general methods
 def prompt(message, action = :puts)
   action == :print ? print("=> #{message}") : puts("=> #{message}")
@@ -18,7 +17,6 @@ end
 def blank_line(number = 1)
   number.times { puts }
 end
-
 
 # game setup methods
 def intro
@@ -44,7 +42,6 @@ end
 def outro
   prompt("Thank you for playing Twenty One!")
 end
-
 
 # deck / dealing methods
 def initialize_deck(game_data)
@@ -96,7 +93,6 @@ def narrate_dealt_card(person, card)
   sleep(0.8)
 end
 
-
 # scoring methods
 def hand_score(hand, context = :all_cards)
   hand -= [hand[1]] unless context == :all_cards
@@ -131,7 +127,9 @@ end
 
 # hand display methods
 def display_both_hands(game_data, context = :all_cards)
-  game_data[:hands].keys.each { |person| display_one_hand(game_data, person, context) }
+  game_data[:hands].keys.each do |person|
+    display_one_hand(game_data, person, context)
+  end
 end
 
 def display_one_hand(game_data, person, context)
@@ -163,8 +161,6 @@ def display_hand_score(game_data, person, context)
   score = hand_score(game_data[:hands][person], context)
   puts "#{label} #{score}"
 end
-
-
 
 # turn methods
 def player_turn(game_data)
@@ -217,7 +213,7 @@ def dealer_turn(game_data)
   loop do
     hand = game_data[:hands][:dealer]
     break prompt('The dealer busted!') if busted?(hand)
-    break prompt ('The dealer stayed.') if dealer_stay?(hand)
+    break prompt('The dealer stayed.') if dealer_stay?(hand)
     continue_dealer_turn
     dealer_hits(game_data)
     display_both_hands(game_data)
@@ -236,7 +232,6 @@ def dealer_hits(game_data)
   sleep(0.8)
   hit(game_data, :dealer)
 end
-
 
 # round methods
 def round_result(game_data)
@@ -284,28 +279,23 @@ def another_round?
   gets.chomp.downcase == 'y'
 end
 
+# tests
+# game_data = {
+#   hands: {
+#     player: ['King of Clubs', 'Queen of Diamonds'],
+#     dealer: ['King of Clubs', 'Queen of Diamonds', '2 of Spades']
+#   }
+# }
 
 # main game loop
-# intro
-# game_data = {}
-# initialize_deck(game_data)
-# loop do
-#   round_set_up(game_data)
-#   player_turn(game_data)
-#   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
-#   # round_result(game_data)
-#   break #unless another_round?
-# end
-# outro
-
-# OUTLINE
-# 1. Initialize deck
-# 2. Deal cards to player and dealer
-# 3. Player turn: hit or stay
-#   - repeat until bust or "stay"
-# 4. If player bust, dealer wins.
-#
-# 5. Dealer turn: hit or stay
-#   - repeat until total >= 17
-# 6. If dealer bust, player wins.
-# 7. Compare cards and declare winner.
+intro
+game_data = {}
+initialize_deck(game_data)
+loop do
+  round_set_up(game_data)
+  player_turn(game_data)
+  dealer_turn(game_data) unless busted?(game_data[:hands][:player])
+  round_result(game_data)
+  break unless another_round?
+end
+outro
