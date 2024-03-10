@@ -121,14 +121,17 @@ def busted?(hand)
   hand_score(hand) > TARGET_SCORE
 end
 
-def dealer_stay?(hand)
-  hand_score(hand) >= DEALER_STAY
+def dealer_stay?(game_data)
+  hands = game_data[:hands]
+  hand_score(hands[:dealer]) >= DEALER_STAY ||
+    hand_score(hands[:dealer]) > hand_score(hands[:player])
 end
 
 # hand display methods
 def display_both_hands(game_data, context = :all_cards)
   game_data[:hands].keys.each do |person|
     display_one_hand(game_data, person, context)
+    sleep(0.1)
   end
 end
 
@@ -168,8 +171,8 @@ def player_turn(game_data)
     choice = hit_or_stay
     break if choice == 's'
     hit(game_data, :player)
-    display_both_hands(game_data, :visible_cards)
     break if busted?(game_data[:hands][:player])
+    display_both_hands(game_data, :visible_cards)
   end
 end
 
@@ -203,7 +206,7 @@ def dealer_turn(game_data)
   loop do
     continue_dealer_turn
     hand = game_data[:hands][:dealer]
-    break if busted?(hand) || dealer_stay?(hand)
+    break if busted?(hand) || dealer_stay?(game_data)
     dealer_hits(game_data)
     display_both_hands(game_data)
     sleep(1)
@@ -235,9 +238,10 @@ end
 
 def dealer_turn_outro(game_data)
   system('clear')
-  hand = game_data[:hands][:dealer]
-  prompt('The dealer has chosen to stay.') unless busted?(hand)
+  prompt('The dealer stays.') unless busted?(game_data[:hands][:dealer])
   blank_line
+  display_both_hands(game_data)
+  continue_dealer_turn
 end
 
 
@@ -257,8 +261,8 @@ def display_win_reason(game_data)
     buster = busted_winner(hands) == :dealer ? 'You' : 'The dealer'
     prompt("#{buster} busted.")
   elsif [:player, :dealer].include?(winner)
-    winner = :player ? 'You have' : 'The dealer has' # TODO: logic problem here: results reversed
-    prompt("#{winner} a higher hand")
+    winner = winner == :player ? 'You have' : 'The dealer has'
+    prompt("#{winner} a higher hand.")
   else
     prompt("Your hands are equal.")
   end
