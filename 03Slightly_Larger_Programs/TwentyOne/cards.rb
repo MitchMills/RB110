@@ -71,7 +71,7 @@ def hit(game_data, person)
   deal_one_card(game_data, person)
   narrate_dealt_card(person, game_data[:hands][person].last)
   blank_line
-  sleep(0.4)
+  sleep(0.1)
 end
 
 def narrate_starting_deal(game_data)
@@ -171,8 +171,8 @@ def player_turn(game_data)
     choice = hit_or_stay
     break if choice == 's'
     hit(game_data, :player)
-    break if busted?(game_data[:hands][:player])
     display_both_hands(game_data, :visible_cards)
+    break if busted?(game_data[:hands][:player])
   end
 end
 
@@ -204,8 +204,8 @@ end
 def dealer_turn(game_data)
   dealer_turn_intro(game_data)
   loop do
-    continue_dealer_turn
     hand = game_data[:hands][:dealer]
+    continue_dealer_turn
     break if busted?(hand) || dealer_stay?(game_data)
     dealer_hits(game_data)
     display_both_hands(game_data)
@@ -241,7 +241,6 @@ def dealer_turn_outro(game_data)
   prompt('The dealer stays.') unless busted?(game_data[:hands][:dealer])
   blank_line
   display_both_hands(game_data)
-  continue_dealer_turn
 end
 
 
@@ -249,7 +248,6 @@ end
 # round methods
 def round_result(game_data)
   blank_line
-  display_both_hands(game_data)
   display_win_reason(game_data)
   display_winner(game_data)
 end

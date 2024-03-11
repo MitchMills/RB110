@@ -71,7 +71,7 @@ def hit(game_data, person)
   deal_one_card(game_data, person)
   narrate_dealt_card(person, game_data[:hands][person].last)
   blank_line
-  sleep(0.4)
+  sleep(0.1)
 end
 
 def narrate_starting_deal(game_data)
@@ -121,14 +121,17 @@ def busted?(hand)
   hand_score(hand) > TARGET_SCORE
 end
 
-def dealer_stay?(hand)
-  hand_score(hand) >= DEALER_STAY
+def dealer_stay?(game_data)
+  hands = game_data[:hands]
+  hand_score(hands[:dealer]) >= DEALER_STAY ||
+    hand_score(hands[:dealer]) > hand_score(hands[:player])
 end
 
 # hand display methods
 def display_both_hands(game_data, context = :all_cards)
   game_data[:hands].keys.each do |person|
     display_one_hand(game_data, person, context)
+    sleep(0.1)
   end
 end
 
@@ -169,9 +172,8 @@ def player_turn(game_data)
     break if choice == 's'
     hit(game_data, :player)
     display_both_hands(game_data, :visible_cards)
-    break prompt('You busted!') if busted?(game_data[:hands][:player])
+    break if busted?(game_data[:hands][:player])
   end
-  transition_to_dealer_turn(game_data)
 end
 
 def hit_or_stay
@@ -199,7 +201,20 @@ def display_choice(choice)
   sleep(0.6)
 end
 
-def transition_to_dealer_turn(game_data)
+def dealer_turn(game_data)
+  dealer_turn_intro(game_data)
+  loop do
+    hand = game_data[:hands][:dealer]
+    continue_dealer_turn
+    break if busted?(hand) || dealer_stay?(game_data)
+    dealer_hits(game_data)
+    display_both_hands(game_data)
+    sleep(1)
+  end
+  dealer_turn_outro(game_data)
+end
+
+def dealer_turn_intro(game_data)
   blank_line
   prompt("Now it's the dealer's turn.")
   sleep(0.8)
@@ -207,18 +222,6 @@ def transition_to_dealer_turn(game_data)
   sleep(0.8)
   blank_line
   display_both_hands(game_data)
-end
-
-def dealer_turn(game_data)
-  loop do
-    hand = game_data[:hands][:dealer]
-    break prompt('The dealer busted!') if busted?(hand)
-    break prompt('The dealer stayed.') if dealer_stay?(hand)
-    continue_dealer_turn
-    dealer_hits(game_data)
-    display_both_hands(game_data)
-    sleep(1)
-  end
 end
 
 def continue_dealer_turn
@@ -233,10 +236,34 @@ def dealer_hits(game_data)
   hit(game_data, :dealer)
 end
 
+def dealer_turn_outro(game_data)
+  system('clear')
+  prompt('The dealer stays.') unless busted?(game_data[:hands][:dealer])
+  blank_line
+  display_both_hands(game_data)
+end
+
+
+
 # round methods
 def round_result(game_data)
+  blank_line
+  display_win_reason(game_data)
+  display_winner(game_data)
+end
+
+def display_win_reason(game_data)
+  hands = game_data[:hands]
   winner = determine_winner(game_data)
-  display_round_result(game_data, winner)
+  if !!busted_winner(hands)
+    buster = busted_winner(hands) == :dealer ? 'You' : 'The dealer'
+    prompt("#{buster} busted.")
+  elsif [:player, :dealer].include?(winner)
+    winner = winner == :player ? 'You have' : 'The dealer has'
+    prompt("#{winner} a higher hand.")
+  else
+    prompt("Your hands are equal.")
+  end
 end
 
 def determine_winner(game_data)
@@ -261,17 +288,18 @@ def score_winner(hands)
   end
 end
 
-def display_round_result(game_data, result)
-  system('clear')
-  display_both_hands(game_data)
-  blank_line
-  if [:player, :dealer].include?(result)
-    person = result == :player ? 'You' : 'The dealer'
+def display_winner(game_data)
+  winner = determine_winner(game_data)
+  if [:player, :dealer].include?(winner)
+    person = winner == :player ? 'You' : 'The dealer'
     prompt("#{person} won!")
   else
     prompt("It's a tie.")
   end
 end
+
+
+
 
 def another_round?
   blank_line
@@ -291,11 +319,11 @@ end
 intro
 game_data = {}
 initialize_deck(game_data)
-loop do
+# loop do
   round_set_up(game_data)
   player_turn(game_data)
   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
   round_result(game_data)
-  break unless another_round?
-end
-outro
+#   break unless another_round?
+# end
+# outro
