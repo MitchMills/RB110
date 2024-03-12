@@ -314,11 +314,11 @@ end
 intro
 game_data = {}
 initialize_deck(game_data)
-# loop do
+loop do
   round_set_up(game_data)
   player_turn(game_data)
   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
   round_result(game_data)
-#   break unless another_round?
-# end
-# outro
+  break unless another_round?
+end
+outro

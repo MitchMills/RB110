@@ -165,7 +165,7 @@ def display_hand_score(game_data, person, context)
   puts "#{label} #{score}"
 end
 
-# turn methods
+# player turn methods
 def player_turn(game_data)
   loop do
     choice = hit_or_stay
@@ -201,11 +201,12 @@ def display_choice(choice)
   sleep(0.6)
 end
 
+# dealer turn methods
 def dealer_turn(game_data)
   dealer_turn_intro(game_data)
   loop do
     hand = game_data[:hands][:dealer]
-    continue_dealer_turn
+    continue_dealer_turn unless busted?(hand)
     break if busted?(hand) || dealer_stay?(game_data)
     dealer_hits(game_data)
     display_both_hands(game_data)
@@ -243,11 +244,8 @@ def dealer_turn_outro(game_data)
   display_both_hands(game_data)
 end
 
-
-
 # round methods
 def round_result(game_data)
-  blank_line
   display_win_reason(game_data)
   display_winner(game_data)
 end
@@ -298,9 +296,6 @@ def display_winner(game_data)
   end
 end
 
-
-
-
 def another_round?
   blank_line
   prompt("Enter 'y' to play another game. Enter any other key to stop playing.")
@@ -319,11 +314,11 @@ end
 intro
 game_data = {}
 initialize_deck(game_data)
-# loop do
+loop do
   round_set_up(game_data)
   player_turn(game_data)
   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
   round_result(game_data)
-#   break unless another_round?
-# end
-# outro
+  break unless another_round?
+end
+outro
