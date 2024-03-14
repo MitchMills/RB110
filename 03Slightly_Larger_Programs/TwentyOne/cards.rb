@@ -25,12 +25,12 @@ def intro
   prompt("You will play against the dealer.")
   prompt("Enter any key to deal the first hand: ", :print)
   gets
-  system('clear')
+  # system('clear')
 end
 
 def round_set_up(game_data)
   system('clear')
-  if game_data[:deck].size < CARDS_IN_GAME * RESHUFFLE_SIZE
+  if game_data[:deck].size < CARDS_IN_GAME * RESHUFFLE_SIZE ### TODO: reshuffle_deck method?
     initialize_deck(game_data)
   end
   deal_starting_hands(game_data)
@@ -319,6 +319,14 @@ loop do
   player_turn(game_data)
   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
   round_result(game_data)
+  p game_data[:deck].size
   break unless another_round?
 end
 outro
+
+# possible game_data structure
+game_data2 = {
+  deck: [],
+  player: { hand: [], score: 0 },
+  dealer: { hand: [], score: 0 }
+}
