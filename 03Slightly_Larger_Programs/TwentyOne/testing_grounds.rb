@@ -328,15 +328,25 @@ def another_round?
 end
 
 # main game loop
-intro
+# intro
+# game_data = initialize_game_data
+# deck = initialize_deck
+# loop do
+#   round_set_up(game_data)
+#   player_turn(game_data)
+#   dealer_turn(game_data) unless busted?(game_data[:hands][:player])
+#   round_result(game_data)
+#   p game_data[:deck].size
+#   break unless another_round?
+# end
+# outro
+
+# testing
 game_data = initialize_game_data
+p game_data
 deck = initialize_deck
-loop do
-  round_set_up(game_data)
-  player_turn(game_data)
-  dealer_turn(game_data) unless busted?(game_data[:hands][:player])
-  round_result(game_data)
-  p game_data[:deck].size
-  break unless another_round?
-end
-outro
+
+p deck.size
+deal_starting_hands(deck, game_data)
+p game_data
+p deck.size
