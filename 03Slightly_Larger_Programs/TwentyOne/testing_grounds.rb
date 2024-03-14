@@ -4,10 +4,10 @@ FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 CARDS_IN_ONE_DECK = SUITS.size * FACE_VALUES.size
 DECKS_IN_GAME = 1
 CARDS_IN_GAME = CARDS_IN_ONE_DECK * DECKS_IN_GAME
-RESHUFFLE_SIZE = 0.25
+RESHUFFLE_TRIGGER = 0.25
 
-DEALER_STAY = 17
-TARGET_SCORE = 21
+DEALER_STAY_TOTAL = 17
+TARGET_TOAL = 21
 
 # general methods
 def prompt(message, action = :puts)
@@ -25,18 +25,29 @@ def intro
   prompt("You will play against the dealer.")
   prompt("Enter any key to deal the first hand: ", :print)
   gets
-  # system('clear')
 end
 
-def round_set_up(game_data)
+
+
+def round_set_up(deck, game_data)
   system('clear')
-  if game_data[:deck].size < CARDS_IN_GAME * RESHUFFLE_SIZE ### TODO: reshuffle_deck method?
-    initialize_deck(game_data)
-  end
-  deal_starting_hands(game_data)
+  deck = reshuffle_deck if time_to_reshuffle?(deck)
+  deal_starting_hands(deck, game_data)
+
   narrate_starting_deal(game_data)
   blank_line
   display_both_hands(game_data, :visible_cards)
+end
+
+
+
+def time_to_reshuffle?(deck)
+  deck.size < (CARDS_IN_GAME * RESHUFFLE_TRIGGER) + rand(CARDS_IN_GAME / 5)
+end
+
+def reshuffle_deck
+  initialize_deck
+  prompt('The dealer reshuffled the deck.')
 end
 
 def outro
@@ -44,27 +55,31 @@ def outro
 end
 
 # deck / dealing methods
-def initialize_deck(game_data)
+def initialize_deck
   one_deck = FACE_VALUES.each_with_object([]) do |value, deck|
     SUITS.each { |suit| deck << "#{value} of #{suit}" }
   end
-  game_data[:deck] = (one_deck * DECKS_IN_GAME).shuffle
+  (one_deck * DECKS_IN_GAME).shuffle
 end
 
-def deal_starting_hands(game_data)
+
+
+def deal_starting_hands(deck, game_data)
   initialize_hands(game_data)
   2.times do
-    [:player, :dealer].each { |person| deal_one_card(game_data, person) }
+    [:player, :dealer].each { |person| deal_one_card(person, deck, game_data) }
   end
 end
 
+
+
 def initialize_hands(game_data)
-  game_data[:hands] = { player: [], dealer: [] }
+  [:player, :dealer].each { |person| game_data[person][:hand] = [] }
 end
 
-def deal_one_card(game_data, person)
-  card = game_data[:deck].shift
-  game_data[:hands][person] << card
+def deal_one_card(person, deck, game_data)
+  card = deck.shift
+  game_data[person][:hand] << card
 end
 
 def hit(game_data, person)
@@ -302,18 +317,10 @@ def another_round?
   gets.chomp.downcase == 'y'
 end
 
-# tests
-# game_data = {
-#   hands: {
-#     player: ['King of Clubs', 'Queen of Diamonds'],
-#     dealer: ['King of Clubs', 'Queen of Diamonds', '2 of Spades']
-#   }
-# }
-
 # main game loop
 intro
-game_data = {}
-initialize_deck(game_data)
+game_data = { player: {}, dealer: {} }
+deck = initialize_deck
 loop do
   round_set_up(game_data)
   player_turn(game_data)
