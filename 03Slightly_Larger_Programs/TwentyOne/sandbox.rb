@@ -6,8 +6,17 @@ DECKS_IN_GAME = 1
 CARDS_IN_GAME = CARDS_IN_ONE_DECK * DECKS_IN_GAME
 RESHUFFLE_TRIGGER = 0.25
 
-DEALER_STAY = 17
+DEALER_STAY_TOTAL = 17
 TARGET_TOTAL = 21
+CARDS_IN_FIRST_DEAL = 2
+
+ROLES = [:player1, :dealer]
+
+def initialize_game_data
+  ROLES.each_with_object({}) do |person, game_data|
+    game_data[person] = { wins: 0 }
+  end
+end
 
 def initialize_deck
   one_deck = FACE_VALUES.each_with_object([]) do |value, deck|
@@ -18,20 +27,21 @@ end
 
 def deal_starting_hands(deck, game_data)
   initialize_hands(game_data)
-  2.times do
-    [:player, :dealer].each { |person| deal_one_card(person, deck, game_data) }
+  CARDS_IN_FIRST_DEAL.times do
+    deal_card_to_all_players(deck, game_data)
   end
 end
 
 def initialize_hands(game_data)
-  [:player, :dealer].each { |person| game_data[person] = { hand: [], total: 0 } }
+  ROLES.each { |person| game_data[person][:hand] = { cards: [], total: 0 } }
 end
 
-def deal_one_card(person, deck, game_data)
-  hand = game_data[person][:hand]
-  card = deck.shift
-  hand << card
-  game_data[person][:total] += total(hand) ####### hand total: how to account for aces if doing cards individually?
+def deal_card_to_all_players(deck, game_data)
+  ROLES.each { |person| deal_one_card(game_data[person][:hand][:cards], deck) }
+end
+
+def deal_one_card(hand, deck)
+  hand << deck.shift
 end
 
 
@@ -60,17 +70,31 @@ def adjust_for_aces(hand, total)
 end
 #########
 
-game_data = { player: {}, dealer: {} }
+game_data = initialize_game_data
+p game_data
 deck = initialize_deck
 
+p deck.size
 deal_starting_hands(deck, game_data)
 p game_data
+p deck.size
 
 
 
 # possible game_data structure
 game_data2 = {
-  deck: [],
-  player: { hand: [], total: 0 },
-  dealer: { hand: [], total: 0 }
+  player1: {
+    hand: {
+      cards: [],
+      total: 0
+    }
+    wins: 0
+  },
+  dealer: {
+    hand: {
+      cards: [],
+      total: 0
+    }
+    wins: 0
+  }
 }
