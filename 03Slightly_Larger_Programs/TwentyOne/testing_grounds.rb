@@ -7,7 +7,10 @@ CARDS_IN_GAME = CARDS_IN_ONE_DECK * DECKS_IN_GAME
 RESHUFFLE_TRIGGER = 0.25
 
 DEALER_STAY_TOTAL = 17
-TARGET_TOAL = 21
+TARGET_TOTAL = 21
+CARDS_IN_FIRST_DEAL = 2
+
+ROLES = [:player1, :dealer]
 
 # general methods
 def prompt(message, action = :puts)
@@ -27,7 +30,9 @@ def intro
   gets
 end
 
-
+def initialize_game_data
+  ROLES.each_with_object({}) { |person, game_data| game_data[person] = {} }
+end
 
 def round_set_up(deck, game_data)
   system('clear')
@@ -37,17 +42,6 @@ def round_set_up(deck, game_data)
   narrate_starting_deal(game_data)
   blank_line
   display_both_hands(game_data, :visible_cards)
-end
-
-
-
-def time_to_reshuffle?(deck)
-  deck.size < (CARDS_IN_GAME * RESHUFFLE_TRIGGER) + rand(CARDS_IN_GAME / 5)
-end
-
-def reshuffle_deck
-  initialize_deck
-  prompt('The dealer reshuffled the deck.')
 end
 
 def outro
@@ -62,24 +56,31 @@ def initialize_deck
   (one_deck * DECKS_IN_GAME).shuffle
 end
 
+def reshuffle_deck
+  prompt('The dealer reshuffled the deck.')
+  initialize_deck
+end
 
+def time_to_reshuffle?(deck)
+  deck.size < (CARDS_IN_GAME * RESHUFFLE_TRIGGER) + rand(CARDS_IN_GAME / 5)
+end
 
 def deal_starting_hands(deck, game_data)
   initialize_hands(game_data)
-  2.times do
-    [:player, :dealer].each { |person| deal_one_card(person, deck, game_data) }
-  end
+  CARDS_IN_FIRST_DEAL.times { deal_card_to_all_players(deck, game_data) }
+  card_totals(game_data)
 end
-
-
 
 def initialize_hands(game_data)
-  [:player, :dealer].each { |person| game_data[person][:hand] = [] }
+  ROLES.each { |person| game_data[person][:hand] = { cards: [] } }
 end
 
-def deal_one_card(person, deck, game_data)
-  card = deck.shift
-  game_data[person][:hand] << card
+def deal_card_to_all_players(deck, game_data)
+  ROLES.each { |person| deal_one_card(game_data[person][:hand][:cards], deck) }
+end
+
+def deal_one_card(hand, deck)
+  hand << deck.shift
 end
 
 def hit(game_data, person)
@@ -109,13 +110,22 @@ def narrate_dealt_card(person, card)
 end
 
 # scoring methods
-def hand_score(hand, context = :all_cards)
-  hand -= [hand[1]] unless context == :all_cards
-  raw_score = raw_score(hand)
-  adjust_for_aces(hand, raw_score)
+def card_totals(game_data)
+  ROLES.each do |person|
+    game_data[person][:hand][:total] = total(game_data[person][:hand][:cards])
+  end
+
+  dealer_hand = game_data[:dealer][:hand]
+  dealer_hand[:visible_total] = total(dealer_hand[:cards], :visible_cards)
 end
 
-def raw_score(hand)
+def total(hand, context = :all_cards)
+  hand -= [hand[1]] unless context == :all_cards
+  raw_total = raw_total(hand)
+  adjust_for_aces(hand, raw_total)
+end
+
+def raw_total(hand)
   values = hand.map { |card| card.split.first }
   values.map do |value|
     value.to_i > 0 ? value.to_i : face_card_value(value)
@@ -126,10 +136,10 @@ def face_card_value(value)
   %w(Jack Queen King).include?(value) ? 10 : 11
 end
 
-def adjust_for_aces(hand, score)
+def adjust_for_aces(hand, total)
   number_of_aces = hand.map { |card| card.split.first }.count('Ace')
-  number_of_aces.times { score -= 10 if score > TARGET_SCORE }
-  score
+  number_of_aces.times { total -= 10 if total > TARGET_TOTAL }
+  total
 end
 
 def busted?(hand)
@@ -319,7 +329,7 @@ end
 
 # main game loop
 intro
-game_data = { player: {}, dealer: {} }
+game_data = initialize_game_data
 deck = initialize_deck
 loop do
   round_set_up(game_data)
@@ -330,10 +340,3 @@ loop do
   break unless another_round?
 end
 outro
-
-# possible game_data structure
-game_data2 = {
-  deck: [],
-  player: { hand: [], score: 0 },
-  dealer: { hand: [], score: 0 }
-}

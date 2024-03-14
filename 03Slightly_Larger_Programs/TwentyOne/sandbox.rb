@@ -12,36 +12,43 @@ CARDS_IN_FIRST_DEAL = 2
 
 ROLES = [:player1, :dealer]
 
-def initialize_game_data
-  ROLES.each_with_object({}) do |person, game_data|
-    game_data[person] = { wins: 0 }
-  end
+def initialize_game_data ##
+  ROLES.each_with_object({}) { |person, game_data| game_data[person] = {} }
 end
 
-def initialize_deck
+def initialize_deck ##
   one_deck = FACE_VALUES.each_with_object([]) do |value, deck|
     SUITS.each { |suit| deck << "#{value} of #{suit}" }
   end
   (one_deck * DECKS_IN_GAME).shuffle
 end
 
-def deal_starting_hands(deck, game_data)
+def deal_starting_hands(deck, game_data) ##
   initialize_hands(game_data)
-  CARDS_IN_FIRST_DEAL.times do
-    deal_card_to_all_players(deck, game_data)
-  end
+  CARDS_IN_FIRST_DEAL.times { deal_card_to_all_players(deck, game_data) }
+  card_totals(game_data)
 end
 
-def initialize_hands(game_data)
-  ROLES.each { |person| game_data[person][:hand] = { cards: [], total: 0 } }
+def initialize_hands(game_data) ##
+  ROLES.each { |person| game_data[person][:hand] = { cards: [] } }
 end
 
-def deal_card_to_all_players(deck, game_data)
+def deal_card_to_all_players(deck, game_data) ##
   ROLES.each { |person| deal_one_card(game_data[person][:hand][:cards], deck) }
 end
 
-def deal_one_card(hand, deck)
+def deal_one_card(hand, deck) ##
   hand << deck.shift
+end
+
+
+def card_totals(game_data)
+  ROLES.each do |person|
+    game_data[person][:hand][:total] = total(game_data[person][:hand][:cards])
+  end
+
+  dealer_hand = game_data[:dealer][:hand]
+  dealer_hand[:visible_total] = total(dealer_hand[:cards], :visible_cards)
 end
 
 
@@ -87,14 +94,14 @@ game_data2 = {
     hand: {
       cards: [],
       total: 0
-    }
+    },
     wins: 0
   },
   dealer: {
     hand: {
       cards: [],
       total: 0
-    }
+    },
     wins: 0
   }
 }
