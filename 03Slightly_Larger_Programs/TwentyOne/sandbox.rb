@@ -100,8 +100,11 @@ game_data2 = {
   dealer: {
     hand: {
       cards: [],
-      total: 0
+      total: 0,
+      visible_total: 0
     },
     wins: 0
   }
 }
+
+# game_data[:player1][:hand][:cards]
