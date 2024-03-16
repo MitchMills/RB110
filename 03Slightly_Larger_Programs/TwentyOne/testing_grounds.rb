@@ -150,7 +150,7 @@ end
 def dealer_stay?(game_data)
   dealer_total = game_data[:dealer][:hand][:total]
   player_total = game_data[:player][:hand][:total]
-  dealer_total >= DEALER_STAY || dealer_total > player_total
+  dealer_total >= DEALER_STAY_TOTAL || dealer_total > player_total
 end
 
 # hand display methods
