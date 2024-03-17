@@ -1,4 +1,4 @@
-SUITS = %w(Clubs Diamonds Hearts Spades)
+SUITS = %w(Clubs Diamonds)# Hearts Spades)
 FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 
 CARDS_IN_ONE_DECK = SUITS.size * FACE_VALUES.size
@@ -36,7 +36,7 @@ end
 
 def round_set_up(deck, game_data)
   system('clear')
-  deck = reshuffle_deck if time_to_reshuffle?(deck)
+  reshuffle_deck(deck) if time_to_reshuffle?(deck)
   deal_starting_hands(deck, game_data)
 
   narrate_starting_deal(game_data)
@@ -56,9 +56,9 @@ def initialize_deck
   (one_deck * DECKS_IN_GAME).shuffle
 end
 
-def reshuffle_deck
+def reshuffle_deck(deck)
   prompt('The dealer reshuffled the deck.')
-  initialize_deck
+  deck = initialize_deck
 end
 
 def time_to_reshuffle?(deck)
@@ -284,18 +284,6 @@ def round_result(game_data)
   display_winner(winner, game_data)
 end
 
-def display_win_reason(winner, game_data)
-  if !!busted_winner(game_data)
-    buster = busted_winner(game_data) == :dealer ? 'You' : 'The dealer'
-    prompt("#{buster} busted.")
-  elsif ROLES.include?(winner)
-    winner_and_verb = winner == :player ? 'You have' : 'The dealer has'
-    prompt("#{winner_and_verb} a higher hand.")
-  else
-    prompt("Your hands are equal.")
-  end
-end
-
 def determine_winner(game_data)
   busted_winner(game_data) || hand_winner(game_data)
 end
@@ -317,8 +305,20 @@ def hand_winner(game_data)
   end
 end
 
+def display_win_reason(winner, game_data)
+  if !!busted_winner(game_data)
+    buster = busted_winner(game_data) == :dealer ? 'You' : 'The dealer'
+    prompt("#{buster} busted.")
+  elsif ROLES.include?(winner)
+    winner_and_verb = winner == :player ? 'You have' : 'The dealer has'
+    prompt("#{winner_and_verb} a higher hand.")
+  else
+    prompt("Your hands are equal.")
+  end
+end
+
 def display_winner(winner, game_data)
-  if [:player, :dealer].include?(winner)
+  if ROLES.include?(winner)
     role = winner == :player ? 'You' : 'The dealer'
     prompt("#{role} won!")
   else
@@ -333,25 +333,21 @@ def another_round?
 end
 
 # main game loop
-# intro
-# game_data = initialize_game_data
-# deck = initialize_deck
-# loop do
-#   round_set_up(deck, game_data)
-#   player_turn(deck, game_data)
-#   dealer_turn(deck, game_data) unless busted?(game_data[:player][:hand][:total])
-#   round_result(game_data)
-#   p deck.size
-#   break unless another_round?
-# end
-# outro
+intro
+game_data = initialize_game_data
+deck = initialize_deck
+loop do
+  round_set_up(deck, game_data)
+  player_turn(deck, game_data)
+  dealer_turn(deck, game_data) unless busted?(game_data[:player][:hand][:total])
+  round_result(game_data)
+  p deck.size
+  break unless another_round?
+end
+outro
 
 # TODO: deck bug: not removing cards from deck, no reshuffle
 
 
 ### TESTING
-deck = ["6 of Spades", "9 of Clubs", "5 of Diamonds", "9 of Spades", "4 of Clubs"]#, "2 of Spades", "8 of Diamonds", "Jack of Spades", "5 of Hearts", "King of Hearts", "4 of Spades", "2 of Hearts", "5 of Spades", "6 of Clubs", "Ace of Clubs", "3 of Clubs", "7 of Clubs", "2 of Diamonds", "10 of Diamonds", "10 of Hearts", "Jack of Diamonds", "Ace of Spades", "King of Diamonds", "Queen of Spades", "King of Spades", "7 of Hearts", "Ace of Diamonds", "3 of Diamonds", "9 of Diamonds", "6 of Diamonds", "6 of Hearts", "7 of Diamonds", "3 of Hearts", "10 of Clubs", "Queen of Clubs", "2 of Clubs", "Queen of Hearts", "8 of Spades", "10 of Spades", "5 of Clubs", "King of Clubs", "8 of Hearts", "7 of Spades", "9 of Hearts", "3 of Spades", "Ace of Hearts", "Jack of Clubs", "8 of Clubs", "4 of Diamonds", "4 of Hearts", "Jack of Hearts", "Queen of Diamonds"]
-
-p deck.size
-deck = reshuffle_deck if time_to_reshuffle?(deck)
-p deck.size
+# deck = ["6 of Spades", "9 of Clubs", "5 of Diamonds", "9 of Spades", "4 of Clubs", "2 of Spades", "8 of Diamonds", "Jack of Spades", "5 of Hearts", "King of Hearts", "4 of Spades", "2 of Hearts", "5 of Spades", "6 of Clubs", "Ace of Clubs", "3 of Clubs", "7 of Clubs", "2 of Diamonds", "10 of Diamonds", "10 of Hearts", "Jack of Diamonds", "Ace of Spades", "King of Diamonds", "Queen of Spades", "King of Spades", "7 of Hearts", "Ace of Diamonds", "3 of Diamonds", "9 of Diamonds", "6 of Diamonds", "6 of Hearts", "7 of Diamonds", "3 of Hearts", "10 of Clubs", "Queen of Clubs", "2 of Clubs", "Queen of Hearts", "8 of Spades", "10 of Spades", "5 of Clubs", "King of Clubs", "8 of Hearts", "7 of Spades", "9 of Hearts", "3 of Spades", "Ace of Hearts", "Jack of Clubs", "8 of Clubs", "4 of Diamonds", "4 of Hearts", "Jack of Hearts", "Queen of Diamonds"].shuffle
