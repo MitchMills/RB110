@@ -36,12 +36,13 @@ end
 
 def round_set_up(deck, game_data)
   system('clear')
-  reshuffle_deck(deck) if time_to_reshuffle?(deck)
+  deck = reshuffle_deck if time_to_reshuffle?(deck)
   deal_starting_hands(deck, game_data)
 
   narrate_starting_deal(game_data)
   blank_line
   display_both_hands(game_data, :visible_cards)
+  deck
 end
 
 def outro
@@ -56,9 +57,9 @@ def initialize_deck
   (one_deck * DECKS_IN_GAME).shuffle
 end
 
-def reshuffle_deck(deck)
+def reshuffle_deck
   prompt('The dealer reshuffled the deck.')
-  deck = initialize_deck
+  initialize_deck
 end
 
 def time_to_reshuffle?(deck)
@@ -337,11 +338,10 @@ intro
 game_data = initialize_game_data
 deck = initialize_deck
 loop do
-  round_set_up(deck, game_data)
+  deck = round_set_up(deck, game_data)
   player_turn(deck, game_data)
   dealer_turn(deck, game_data) unless busted?(game_data[:player][:hand][:total])
   round_result(game_data)
-  p deck.size
   break unless another_round?
 end
 outro
