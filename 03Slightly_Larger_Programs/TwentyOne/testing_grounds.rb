@@ -1,4 +1,4 @@
-SUITS = %w(Clubs Diamonds)# Hearts Spades)
+SUITS = %w(Clubs Diamonds Hearts Spades)
 FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 
 CARDS_IN_ONE_DECK = SUITS.size * FACE_VALUES.size
