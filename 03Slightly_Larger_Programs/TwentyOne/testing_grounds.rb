@@ -316,7 +316,7 @@ def display_win_reason(winner, game_data)
   end
 end
 
-def display_winner(winner, game_data)
+def display_winner(winner)
   if ROLES.include?(winner)
     role = winner == :player ? 'You' : 'The dealer'
     prompt("#{role} won!")
