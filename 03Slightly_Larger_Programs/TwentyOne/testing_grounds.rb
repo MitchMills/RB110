@@ -36,13 +36,10 @@ end
 
 def round_set_up(deck, game_data)
   system('clear')
-  deck = reshuffle_deck if time_to_reshuffle?(deck)
   deal_starting_hands(deck, game_data)
-
   narrate_starting_deal(game_data)
   blank_line
   display_both_hands(game_data, :visible_cards)
-  deck
 end
 
 def outro
@@ -63,7 +60,8 @@ def reshuffle_deck
 end
 
 def time_to_reshuffle?(deck)
-  deck.size < (CARDS_IN_GAME * RESHUFFLE_TRIGGER) + rand(CARDS_IN_GAME / 5)
+  number = CARDS_IN_GAME * RESHUFFLE_TRIGGER
+  deck.size < (number + rand(number))
 end
 
 def deal_starting_hands(deck, game_data)
@@ -99,7 +97,7 @@ def narrate_starting_deal(game_data)
   cards = hands[0].zip(hands[1]).flatten
   cards[3] = 'face-down card'
   prompt("Here's the deal:")
-  sleep(0.8)
+  sleep(0.7)
   cards.each_with_index do |card, index|
     role = index.even? ? :player : :dealer
     narrate_dealt_card(role, card)
@@ -110,7 +108,7 @@ def narrate_dealt_card(role, card)
   prelude = role == :player ? ' You get' : '   The dealer gets'
   article = card == 'face-down card' ? 'a' : 'the'
   prompt("#{prelude} #{article} #{card}")
-  sleep(0.8)
+  sleep(0.7)
 end
 
 # scoring methods
@@ -212,7 +210,7 @@ end
 
 def hit_or_stay
   choice = player_choice
-  sleep(0.4)
+  sleep(0.3)
   system('clear')
   display_choice(choice)
   choice
@@ -232,7 +230,7 @@ end
 def display_choice(choice)
   action = choice == 'h' ? 'hit' : 'stay'
   prompt("You chose to #{action}.")
-  sleep(0.6)
+  sleep(0.5)
 end
 
 # dealer turn methods
@@ -244,7 +242,7 @@ def dealer_turn(deck, game_data)
     break if busted?(total) || dealer_stay?(game_data)
     dealer_hits(deck, game_data)
     display_both_hands(game_data)
-    sleep(1)
+    sleep(0.7)
   end
   dealer_turn_outro(game_data)
 end
@@ -252,9 +250,9 @@ end
 def dealer_turn_intro(game_data)
   blank_line
   prompt("Now it's the dealer's turn.")
-  sleep(0.8)
+  sleep(0.7)
   prompt('The dealer reveals their face-down card:')
-  sleep(0.8)
+  sleep(0.7)
   blank_line
   display_both_hands(game_data)
 end
@@ -267,7 +265,7 @@ end
 
 def dealer_hits(deck, game_data)
   prompt('The dealer hits.')
-  sleep(0.8)
+  sleep(0.7)
   hit(:dealer, deck, game_data)
 end
 
@@ -338,16 +336,11 @@ intro
 game_data = initialize_game_data
 deck = initialize_deck
 loop do
-  deck = round_set_up(deck, game_data)
+  deck = reshuffle_deck if time_to_reshuffle?(deck)
+  round_set_up(deck, game_data)
   player_turn(deck, game_data)
   dealer_turn(deck, game_data) unless busted?(game_data[:player][:hand][:total])
   round_result(game_data)
   break unless another_round?
 end
 outro
-
-# TODO: deck bug: not removing cards from deck, no reshuffle
-
-
-### TESTING
-# deck = ["6 of Spades", "9 of Clubs", "5 of Diamonds", "9 of Spades", "4 of Clubs", "2 of Spades", "8 of Diamonds", "Jack of Spades", "5 of Hearts", "King of Hearts", "4 of Spades", "2 of Hearts", "5 of Spades", "6 of Clubs", "Ace of Clubs", "3 of Clubs", "7 of Clubs", "2 of Diamonds", "10 of Diamonds", "10 of Hearts", "Jack of Diamonds", "Ace of Spades", "King of Diamonds", "Queen of Spades", "King of Spades", "7 of Hearts", "Ace of Diamonds", "3 of Diamonds", "9 of Diamonds", "6 of Diamonds", "6 of Hearts", "7 of Diamonds", "3 of Hearts", "10 of Clubs", "Queen of Clubs", "2 of Clubs", "Queen of Hearts", "8 of Spades", "10 of Spades", "5 of Clubs", "King of Clubs", "8 of Hearts", "7 of Spades", "9 of Hearts", "3 of Spades", "Ace of Hearts", "Jack of Clubs", "8 of Clubs", "4 of Diamonds", "4 of Hearts", "Jack of Hearts", "Queen of Diamonds"].shuffle
