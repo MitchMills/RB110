@@ -4,7 +4,7 @@ FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 CARDS_IN_ONE_DECK = SUITS.size * FACE_VALUES.size
 DECKS_IN_GAME = 1
 CARDS_IN_GAME = CARDS_IN_ONE_DECK * DECKS_IN_GAME
-RESHUFFLE_TRIGGER = 0.5
+RESHUFFLE_TRIGGER = 0.5 # TODO: change back to 0.25
 
 DEALER_STAY_TOTAL = 17
 TARGET_TOTAL = 21
@@ -72,11 +72,11 @@ def deal_starting_hands(deck, game_data)
 end
 
 def initialize_hands(game_data)
-  ROLES.each { |role| game_data[role][:hand] = { cards: [] } }
+  ROLES.each { |role| game_data[role][:hand] = [] }
 end
 
 def deal_card_to_each_player(deck, game_data)
-  ROLES.each { |role| deal_one_card(game_data[role][:hand][:cards], deck) }
+  ROLES.each { |role| deal_one_card(game_data[role][:hand], deck) }
 end
 
 def deal_one_card(hand, deck)
@@ -84,7 +84,7 @@ def deal_one_card(hand, deck)
 end
 
 def hit(role, deck, game_data)
-  hand = game_data[role][:hand][:cards]
+  hand = game_data[role][:hand]
   deal_one_card(hand, deck)
   narrate_dealt_card(role, hand.last)
   update_totals(role, game_data)
@@ -93,13 +93,14 @@ def hit(role, deck, game_data)
 end
 
 def update_totals(role, game_data)
-  hand = game_data[role][:hand]
-  hand[:total] = total(hand)
-  hand[:visible_total] = total(hand, :visible_cards) if role == :dealer
+  role_data = game_data[role]
+  hand = role_data[:hand]
+  role_data[:total] = total(hand)
+  role_data[:visible_total] = total(hand, :visible_cards) if role == :dealer
 end
 
 def narrate_starting_deal(game_data)
-  hands = ROLES.map { |role| game_data[role][:hand][:cards] }
+  hands = ROLES.map { |role| game_data[role][:hand] }
   cards = hands[0].zip(hands[1]).flatten
   cards[3] = 'face-down card'
   prompt("Here's the deal:")
@@ -120,12 +121,12 @@ end
 # scoring methods
 def card_totals(game_data)
   ROLES.each do |role|
-    hand = game_data[role][:hand]
-    hand[:total] = total(hand[:cards])
+    role_data = game_data[role]
+    role_data[:total] = total(role_data[:hand])
   end
 
-  dealer_hand = game_data[:dealer][:hand]
-  dealer_hand[:visible_total] = total(dealer_hand[:cards], :visible_cards)
+  dealer_data = game_data[:dealer]
+  dealer_data[:visible_total] = total(dealer_data[:hand], :visible_cards)
 end
 
 def total(hand, context = :all_cards)
@@ -157,7 +158,7 @@ end
 
 def dealer_stay?(game_data)
   player_total, dealer_total = ROLES.map do |role|
-    game_data[role][:hand][:total]
+    game_data[role][:total]
   end
   dealer_total >= DEALER_STAY_TOTAL || dealer_total > player_total
 end
@@ -183,7 +184,7 @@ def display_hand_title(role)
 end
 
 def display_hand_cards(role, context, game_data)
-  cards = game_data[role][:hand][:cards]
+  cards = game_data[role][:hand]
   cards = visible_hand(cards) if role == :dealer && context == :visible_cards
   cards.each { |card| puts " #{card}" }
 end
@@ -195,8 +196,8 @@ end
 def display_hand_total(role, context, game_data)
   context = :all_cards if role == :player
   label = hand_total_label(context)
-  hand = game_data[role][:hand]
-  total = context == :all_cards ? hand[:total] : hand[:visible_total]
+  role_data = game_data[role]
+  total = context == :all_cards ? role_data[:total] : role_data[:visible_total]
   puts "#{label} #{total}"
 end
 
@@ -211,7 +212,7 @@ def player_turn(deck, game_data)
     break if choice == 's'
     hit(:player, deck, game_data)
     display_both_hands(game_data, :visible_cards)
-    break if busted?(game_data[:player][:hand][:total])
+    break if busted?(game_data[:player][:total])
   end
 end
 
@@ -244,7 +245,7 @@ end
 def dealer_turn(deck, game_data)
   dealer_turn_intro(game_data)
   loop do
-    total = game_data[:dealer][:hand][:total]
+    total = game_data[:dealer][:total]
     continue_dealer_turn unless busted?(total)
     break if busted?(total) || dealer_stay?(game_data)
     dealer_hits(deck, game_data)
@@ -278,7 +279,7 @@ end
 
 def dealer_turn_outro(game_data)
   system('clear')
-  prompt('The dealer stays.') unless busted?(game_data[:dealer][:hand][:total])
+  prompt('The dealer stays.') unless busted?(game_data[:dealer][:total])
   blank_line
   display_both_hands(game_data)
 end
@@ -297,13 +298,13 @@ end
 def busted_winner(game_data)
   roles = ROLES
   roles.each_with_index do |role, index|
-    return roles[1 - index] if busted?(game_data[role][:hand][:total])
+    return roles[1 - index] if busted?(game_data[role][:total])
   end
   nil
 end
 
 def hand_winner(game_data)
-  difference = ROLES.map { |role| game_data[role][:hand][:total] }.inject(:-)
+  difference = ROLES.map { |role| game_data[role][:total] }.inject(:-)
   case difference
   when 0 then :tie
   when (0..) then :player
@@ -345,8 +346,9 @@ deck = initialize_deck
 loop do
   round_set_up(deck, game_data)
   player_turn(deck, game_data)
-  dealer_turn(deck, game_data) unless busted?(game_data[:player][:hand][:total])
+  dealer_turn(deck, game_data) unless busted?(game_data[:player][:total])
   round_result(game_data)
+  p deck.size
   break unless another_round?
 end
 outro

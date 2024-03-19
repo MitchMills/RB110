@@ -28,19 +28,15 @@ p deck
 
 # possible game_data structure
 game_data2 = {
-  player1: {
-    hand: {
-      cards: [],
-      total: 0
-    },
+  player: {
+    hand: [],
+    total: 0,
     wins: 0
   },
   dealer: {
-    hand: {
-      cards: [],
-      total: 0,
-      visible_total: 0
-    },
+    hand: [],
+    total: 0,
+    visible_total: 0,
     wins: 0
   }
 }
