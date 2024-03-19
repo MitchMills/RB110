@@ -12,14 +12,17 @@ CARDS_IN_FIRST_DEAL = 2
 
 ROLES = [:player1, :dealer]
 
-def hand_total_label(context)
-  context == :visible_cards ? 'Visible Card Value:' : 'Card Value:'
-  # label = 'Card Value:'
-  # label.prepend('Visible ') if context == :visible_cards
-  # label
+def reshuffle(deck)
+  (deck.clear << [4, 5, 6]).flatten!
 end
 
-p hand_total_label(:all_cards)
+deck = [1, 2, 3]
+reshuffle(deck)
+p deck
+
+
+
+
 
 
 
@@ -57,4 +60,4 @@ game_data3 = {
   }
 }
 
-# game_data[:player1][:hand][:cards]
+# game_data[:player][:wins]

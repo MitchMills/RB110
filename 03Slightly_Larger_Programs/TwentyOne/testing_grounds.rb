@@ -4,7 +4,7 @@ FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 CARDS_IN_ONE_DECK = SUITS.size * FACE_VALUES.size
 DECKS_IN_GAME = 1
 CARDS_IN_GAME = CARDS_IN_ONE_DECK * DECKS_IN_GAME
-RESHUFFLE_TRIGGER = 0.25
+RESHUFFLE_TRIGGER = 0.5
 
 DEALER_STAY_TOTAL = 17
 TARGET_TOTAL = 21
@@ -21,7 +21,7 @@ def blank_line(number = 1)
   number.times { puts }
 end
 
-# game setup methods
+# general game methods
 def intro
   system('clear')
   prompt("Welcome to Twenty One!")
@@ -36,6 +36,7 @@ end
 
 def round_set_up(deck, game_data)
   system('clear')
+  reshuffle(deck) if time_to_reshuffle?(deck)
   deal_starting_hands(deck, game_data)
   narrate_starting_deal(game_data)
   blank_line
@@ -54,9 +55,9 @@ def initialize_deck
   (one_deck * DECKS_IN_GAME).shuffle
 end
 
-def reshuffle_deck
+def reshuffle(deck)
   prompt('The dealer reshuffled the deck.')
-  initialize_deck
+  deck.clear.concat(initialize_deck)
 end
 
 def time_to_reshuffle?(deck)
@@ -66,7 +67,7 @@ end
 
 def deal_starting_hands(deck, game_data)
   initialize_hands(game_data)
-  CARDS_IN_FIRST_DEAL.times { deal_card_to_all_players(deck, game_data) }
+  CARDS_IN_FIRST_DEAL.times { deal_card_to_each_player(deck, game_data) }
   card_totals(game_data)
 end
 
@@ -74,7 +75,7 @@ def initialize_hands(game_data)
   ROLES.each { |role| game_data[role][:hand] = { cards: [] } }
 end
 
-def deal_card_to_all_players(deck, game_data)
+def deal_card_to_each_player(deck, game_data)
   ROLES.each { |role| deal_one_card(game_data[role][:hand][:cards], deck) }
 end
 
@@ -83,13 +84,18 @@ def deal_one_card(hand, deck)
 end
 
 def hit(role, deck, game_data)
-  hand = game_data[role][:hand]
-  deal_one_card(hand[:cards], deck)
-  narrate_dealt_card(role, hand[:cards].last)
-  hand[:total] = total(hand[:cards])
-  hand[:visible_total] = total(hand[:cards], :visible_cards) if role == :dealer
+  hand = game_data[role][:hand][:cards]
+  deal_one_card(hand, deck)
+  narrate_dealt_card(role, hand.last)
+  update_totals(role, game_data)
   blank_line
   sleep(0.1)
+end
+
+def update_totals(role, game_data)
+  hand = game_data[role][:hand][:cards]
+  hand[:total] = total(hand)
+  hand[:visible_total] = total(hand, :visible_cards) if role == :dealer
 end
 
 def narrate_starting_deal(game_data)
@@ -150,8 +156,9 @@ def busted?(total)
 end
 
 def dealer_stay?(game_data)
-  dealer_total = game_data[:dealer][:hand][:total]
-  player_total = game_data[:player][:hand][:total]
+  [player_total, dealer_total] = ROLES.map do |role|
+    game_data[role][:hand][:total]
+  end
   dealer_total >= DEALER_STAY_TOTAL || dealer_total > player_total
 end
 
@@ -280,7 +287,7 @@ end
 def round_result(game_data)
   winner = determine_winner(game_data)
   display_win_reason(winner, game_data)
-  display_winner(winner, game_data)
+  display_winner(winner)
 end
 
 def determine_winner(game_data)
@@ -336,7 +343,6 @@ intro
 game_data = initialize_game_data
 deck = initialize_deck
 loop do
-  deck = reshuffle_deck if time_to_reshuffle?(deck)
   round_set_up(deck, game_data)
   player_turn(deck, game_data)
   dealer_turn(deck, game_data) unless busted?(game_data[:player][:hand][:total])
