@@ -93,7 +93,7 @@ def hit(role, deck, game_data)
 end
 
 def update_totals(role, game_data)
-  hand = game_data[role][:hand][:cards]
+  hand = game_data[role][:hand]
   hand[:total] = total(hand)
   hand[:visible_total] = total(hand, :visible_cards) if role == :dealer
 end
@@ -156,7 +156,7 @@ def busted?(total)
 end
 
 def dealer_stay?(game_data)
-  [player_total, dealer_total] = ROLES.map do |role|
+  player_total, dealer_total = ROLES.map do |role|
     game_data[role][:hand][:total]
   end
   dealer_total >= DEALER_STAY_TOTAL || dealer_total > player_total
