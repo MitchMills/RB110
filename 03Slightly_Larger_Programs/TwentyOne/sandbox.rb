@@ -42,4 +42,19 @@ game_data2 = {
   }
 }
 
+game_data3 = {
+  :player=>{
+    :hand=>{
+      :cards=>["8 of Hearts", "10 of Diamonds"],
+      :total=>18
+    }
+    },
+  :dealer=>{
+    :hand=>{
+      :cards=>["6 of Clubs", "Queen of Diamonds"],
+      :total=>16,
+      :visible_total=>6}
+  }
+}
+
 # game_data[:player1][:hand][:cards]
