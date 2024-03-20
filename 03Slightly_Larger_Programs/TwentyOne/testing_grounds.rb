@@ -4,7 +4,7 @@ FACE_VALUES = ('2'..'10').to_a + %w(Jack Queen King Ace)
 CARDS_IN_ONE_DECK = SUITS.size * FACE_VALUES.size
 DECKS_IN_GAME = 1
 CARDS_IN_GAME = CARDS_IN_ONE_DECK * DECKS_IN_GAME
-RESHUFFLE_TRIGGER = 0.5 # TODO: change back to 0.25
+RESHUFFLE_TRIGGER = 0.25
 
 DEALER_STAY_TOTAL = 17
 TARGET_TOTAL = 21
@@ -92,13 +92,6 @@ def hit(role, deck, game_data)
   sleep(0.1)
 end
 
-def update_totals(role, game_data)
-  role_data = game_data[role]
-  hand = role_data[:hand]
-  role_data[:total] = total(hand)
-  role_data[:visible_total] = total(hand, :visible_cards) if role == :dealer
-end
-
 def narrate_starting_deal(game_data)
   hands = ROLES.map { |role| game_data[role][:hand] }
   cards = hands[0].zip(hands[1]).flatten
@@ -127,6 +120,13 @@ def card_totals(game_data)
 
   dealer_data = game_data[:dealer]
   dealer_data[:visible_total] = total(dealer_data[:hand], :visible_cards)
+end
+
+def update_totals(role, game_data)
+  role_data = game_data[role]
+  hand = role_data[:hand]
+  role_data[:total] = total(hand)
+  role_data[:visible_total] = total(hand, :visible_cards) if role == :dealer
 end
 
 def total(hand, context = :all_cards)
@@ -348,7 +348,12 @@ loop do
   player_turn(deck, game_data)
   dealer_turn(deck, game_data) unless busted?(game_data[:player][:total])
   round_result(game_data)
-  p deck.size
   break unless another_round?
 end
 outro
+
+# TODOS
+# display rules if player desires
+# keep track of wins and ties
+#   maybe have a first-to-five condition
+# maybe blackjack win
