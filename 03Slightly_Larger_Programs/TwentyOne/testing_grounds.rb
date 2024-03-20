@@ -249,11 +249,24 @@ def dealer_turn(deck, game_data)
     continue_dealer_turn unless busted?(total)
     break if busted?(total) || dealer_stay?(game_data)
     dealer_hits(deck, game_data)
-    display_both_hands(game_data)
+    display_both_hands(game_data) unless busted?(game_data[:dealer][:total])
     sleep(0.7)
   end
   dealer_turn_outro(game_data)
 end
+
+# def dealer_turn(deck, game_data)
+#   dealer_turn_intro(game_data)
+#   loop do
+#     total = game_data[:dealer][:total]
+#     continue_dealer_turn unless busted?(total)
+#     break if busted?(total) || dealer_stay?(game_data)
+#     dealer_hits(deck, game_data)
+#     display_both_hands(game_data)
+#     sleep(0.7)
+#   end
+#   dealer_turn_outro(game_data)
+# end
 
 def dealer_turn_intro(game_data)
   blank_line
@@ -278,8 +291,10 @@ def dealer_hits(deck, game_data)
 end
 
 def dealer_turn_outro(game_data)
-  system('clear')
-  prompt('The dealer stays.') unless busted?(game_data[:dealer][:total])
+  unless busted?(game_data[:dealer][:total])
+      system('clear')
+      prompt('The dealer stays.')
+  end
   blank_line
   display_both_hands(game_data)
 end
