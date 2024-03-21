@@ -12,10 +12,43 @@ CARDS_IN_FIRST_DEAL = 2
 
 ROLES = [:player1, :dealer]
 
+def turn(role, deck, game_data) # role = :player or :dealer
+  turn_intro(role, game_data)
+  loop do
+    total = game_data[role][:total]
+    continue_turn(role, game_data)
+    choice = hit_or_stay
+    break if choice == 's'
+    hit(role, deck, game_data)
+    display_both_hands(game_data, role)
+    break if busted?(total)
+  end
+  turn_outro(role, game_data)
+end
 
+def turn_intro(role, game_data)
+  'foo'
+end
 
+def continue_turn(role, game_data)
+  'foo'
+end
 
+def hit_or_stay
+  'foo'
+end
 
+def hit(role, deck, game_data)
+  'foo'
+end
+
+def display_both_hands(game_data, role)
+  'foo'
+end
+
+def busted?(total)
+  total > TARGET_TOTAL
+end
 
 
 
