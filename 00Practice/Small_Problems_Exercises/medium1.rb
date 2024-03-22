@@ -1,3 +1,59 @@
+### 1.2 ROTATION I
+=begin
+Write a method that rotates an array by moving the first element to the end of the array. The original array should not be modified.
+
+Do not use the method Array#rotate or Array#rotate! for your implementation.
+
+4:04
+PROBLEM
+input: array
+  - type of elements not specified
+output: array
+  - new (input array is not modified)
+  - contains all the same elements as input array
+    - order is different
+      - first element of input array is last element of output array
+      - all other elements move up 1 place
+      - if input array only has one element, so does output array
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: array
+  - [a, b, c] => [b, c, a]
+    [0, 1, 2] => [1, 2, 0]
+
+- output: new array
+
+ALGORITHM
+- transform input array using indexes
+  - new index is input index + 1
+    - unless index is last index, then == 0
+=end
+
+# def rotate_array(array)
+#   array.each_index.map do |index|
+#     if index == array.size - 1
+#       array[0]
+#     else
+#       array[index + 1]
+#     end
+#   end
+# end
+
+def rotate_array(array)
+  array.each_index.map { |index| array[(index + 1) % array.size] }
+end
+
+p rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
+p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
+p rotate_array(['a']) == ['a']
+
+x = [1, 2, 3, 4]
+p rotate_array(x) == [2, 3, 4, 1]   # => true
+p x == [1, 2, 3, 4]                 # => true
+
+
 ### 8 FIBONACCI NUMBERS (RECURSION)
 def fibonacci(nth)
 
@@ -381,7 +437,7 @@ fibonacci(20) == 6765
 # end
 
 # def toggle_lights(number_of_lights)
-#   (1..number_of_lights).filter_map do |current_light| 
+#   (1..number_of_lights).filter_map do |current_light|
 #     current_light ** 2 if (current_light ** 2 <= number_of_lights)
 #   end
 # end
@@ -508,7 +564,7 @@ fibonacci(20) == 6765
 #   when switches.size then "Every light is now #{status}. "
 #   when 1 then "1 light is now #{status}: #{group.last}. "
 #   when 2 then "2 lights are now #{status}: #{group.join(" and ")}. "
-#   else "#{group.size} lights are now #{status}: " + 
+#   else "#{group.size} lights are now #{status}: " +
 #     "#{group[0..-2].join(", ")}, and #{group.last}. "
 #   end
 # end
@@ -535,7 +591,7 @@ fibonacci(20) == 6765
 #   when switches.size then "every light is left #{status}"
 #   when 1 then "1 light is left #{status}: #{group.first}"
 #   when 2 then "2 lights are left #{status}: #{group.join(" and ")}"
-#   else "#{group.size} lights are left #{status}: " + 
+#   else "#{group.size} lights are left #{status}: " +
 #     "#{group[0..-2].join", "}, and #{group.last}"
 #   end
 # end
