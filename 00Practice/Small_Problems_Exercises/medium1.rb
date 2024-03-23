@@ -1,3 +1,86 @@
+### 3.2 ROTATION III
+
+
+### 2.2 ROTATION II
+=begin
+Write a method that can rotate the last n digits of a number. For example:
+
+rotate_rightmost_digits(735291, 1) == 735291
+rotate_rightmost_digits(735291, 2) == 735219
+rotate_rightmost_digits(735291, 3) == 735912
+rotate_rightmost_digits(735291, 4) == 732915
+rotate_rightmost_digits(735291, 5) == 752913
+rotate_rightmost_digits(735291, 6) == 352917
+
+Note that rotating just 1 digit results in the original number being returned.
+You may use the rotate_array method from the previous exercise if you want. (Recommended!)
+You may assume that n is always a positive integer.
+
+9:26
+PROBLEM
+input: 2 integers
+  - first integer is the number that will have digits rotated
+  - second integer is the number of digits to rotate
+    - digits are from end of number (i.e. rightmost digits)
+    - always a positive integer
+    - presumably falls within range of 1 up to number of digits in first input number
+
+output: integer
+  - this is the input number with the requisite digits rotated
+    - rotate: take the first digit of the group and move it to the end of the group
+      - all other digits stay in the same order, they just move 'up' one place
+    - all non-rotated digits in the input number remain the same
+    - if second input integer is 1, input number will be unchanged
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: 2 integers (number, digits)
+  - number converted to a string: numberstring
+  - two substrings:
+    - non-rotating digits: numberstring[0, (length - digits)]
+    - rotating digits: numberstring[-digits, digits]
+  - joined string after rotating second substring
+
+- output: integer
+
+ALGORITHM
+- convert the first input integer into a string
+- separate this string into two substrings
+  - string[0, length - second input integer]
+  - string[-second input integer, second input integer]
+- rotate the second substring
+  - substring2[1..-1] + substring[0]
+- join the substring together
+- convert this string into an integer and return it
+
+=end
+
+# def rotate_rightmost_digits(number, digits)
+#   left_digits, right_digits = substrings(number, digits)
+#   right_digits = rotate(right_digits)
+#   (left_digits + right_digits).to_i
+# end
+
+# def substrings(number, digits)
+#   string = number.to_s
+#   left_digits = string[0, string.size - digits]
+#   right_digits = string[-digits, digits]
+#   [left_digits, right_digits]
+# end
+
+# def rotate(string)
+#   string[1..-1] + string[0]
+# end
+
+# p rotate_rightmost_digits(735291, 1) == 735291
+# p rotate_rightmost_digits(735291, 2) == 735219
+# p rotate_rightmost_digits(735291, 3) == 735912
+# p rotate_rightmost_digits(735291, 4) == 732915
+# p rotate_rightmost_digits(735291, 5) == 752913
+# p rotate_rightmost_digits(735291, 6) == 352917
+
+
 ### 1.2 ROTATION I
 =begin
 Write a method that rotates an array by moving the first element to the end of the array. The original array should not be modified.
@@ -41,31 +124,31 @@ ALGORITHM
 #   end
 # end
 
-def rotate_array(array)
-  array.each_index.map { |index| array[(index + 1) % array.size] }
-end
+# def rotate_array(array)
+#   array.each_index.map { |index| array[(index + 1) % array.size] }
+# end
 
-p rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
-p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
-p rotate_array(['a']) == ['a']
+# p rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
+# p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
+# p rotate_array(['a']) == ['a']
 
-x = [1, 2, 3, 4]
-p rotate_array(x) == [2, 3, 4, 1]   # => true
-p x == [1, 2, 3, 4]                 # => true
+# x = [1, 2, 3, 4]
+# p rotate_array(x) == [2, 3, 4, 1]   # => true
+# p x == [1, 2, 3, 4]                 # => true
 
 
 ### 8 FIBONACCI NUMBERS (RECURSION)
-def fibonacci(nth)
+# def fibonacci(nth)
 
-end
+# end
 
-fibonacci(1) == 1
-fibonacci(2) == 1
-fibonacci(3) == 2
-fibonacci(4) == 3
-fibonacci(5) == 5
-fibonacci(12) == 144
-fibonacci(20) == 6765
+# fibonacci(1) == 1
+# fibonacci(2) == 1
+# fibonacci(3) == 2
+# fibonacci(4) == 3
+# fibonacci(5) == 5
+# fibonacci(12) == 144
+# fibonacci(20) == 6765
 
 ### 7 WORD TO DIGIT
 # numbers = %w(zero one two three four five six seven eight nine)
