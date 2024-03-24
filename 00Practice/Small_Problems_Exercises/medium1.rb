@@ -1,4 +1,69 @@
 ### 3.2 ROTATION III
+=begin
+If you take a number like 735291, and rotate it to the left, you get 352917. If you now keep the first digit fixed in place, and rotate the remaining digits, you get 329175. Keep the first 2 digits fixed in place and rotate again to 321759. Keep the first 3 digits fixed in place and rotate again to get 321597. Finally, keep the first 4 digits fixed in place and rotate the final 2 digits to get 321579. The resulting number is called the maximum rotation of the original number.
+
+Write a method that takes an integer as argument, and returns the maximum rotation of that argument. You can (and probably should) use the rotate_rightmost_digits method from the previous exercise.
+
+Note that you do not have to handle multiple 0s.
+
+Examples:
+max_rotation(735291) == 321579
+max_rotation(3) == 3
+max_rotation(35) == 53
+max_rotation(105) == 15 # the leading zero gets dropped:  105, 051, 015
+max_rotation(8_703_529_146) == 7_321_609_845:
+7 035291468,
+73 52914680,
+732 9146805,
+7321 468059,
+73216 80594,
+732160 5948,
+7321609 485,
+73216098 54,
+732160984 5
+
+PROBLEM
+input: integer
+  - does not contain multiple zeroes in a row
+output: integer
+  - 'maximum rotation' of input integer
+    - rotate all digits, then all except first digit, etc, until you rotate final 2 digits
+      - 'rotate' means to take the first digit of the number and move it to the end
+        - a single digit rotated == itself
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - array of separate digits
+
+- output: integer
+
+ALGORITHM
+- create an array of the individual digits in the input integer
+  - start at index 0, then 1, up to (length - 2)
+    - delete the digit at that index of the array
+      - add the deleted digit to the end of the array
+  - join the digits into a string
+  - convert the string into an integer, and return it
+
+=end
+
+def max_rotation(number)
+  digits = number.digits.reverse
+  last_index = digits.size - 2
+  (0..last_index).each do |index|
+    removed = digits.delete_at(index)
+    digits << removed
+  end
+  digits.join.to_i
+end
+
+p max_rotation(735291) == 321579
+p max_rotation(3) == 3
+p max_rotation(35) == 53
+p max_rotation(105) == 15 # the leading zero gets dropped
+p max_rotation(8_703_529_146) == 7_321_609_845
 
 
 ### 2.2 ROTATION II
