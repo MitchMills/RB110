@@ -16,9 +16,6 @@ The result is that 2 lights are left on, lights 1 and 4. The return value is [1,
 With 10 lights, 3 lights are left on: lights 1, 4, and 9. The return value is [1, 4, 9].
 =end
 
-p lights(5) == [1, 4]
-p lights(10) == [1, 4, 9]
-p lights(100) == [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
 
 ### 3.2 ROTATION III
