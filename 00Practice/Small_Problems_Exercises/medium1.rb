@@ -14,9 +14,70 @@ Example with n = 5 lights:
 
 The result is that 2 lights are left on, lights 1 and 4. The return value is [1, 4].
 With 10 lights, 3 lights are left on: lights 1, 4, and 9. The return value is [1, 4, 9].
+
+7:39
+PROBLEM
+input: integer
+  - represents number of lights and number of repetitions
+    - lights:
+      - can be either on or off
+      - all start in off position
+    - repetitions:
+      - from 1 up to input integer
+      -toggle every light that has that number as a factor
+output: array
+  - represents which lights are on after all repetitions are completed
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - representation of switches:
+    - hash: keys are switch number, values are status (boolean) # { 1: false, 2: true ...}
+      - false = off, true = on
+  - way to access every n switches on a particular repetition
+    - range for each factor: 1 up to input integer
+      - range from factor up to input integer
+        - use factor as a step
+  - way to select which switches are left on after all repetitions
+    - keys with values of true
+- output: array
+
+ALGORITHM
+- create a hash to represent the switches
+  - keys are numbers 1 through input integer
+  - values are all 'false'
+
+- perform required number of repetitions, toggling appropriate switches on each repetition
+  - consider each number from 1 up to the input integer
+    - this represents the current repetition and current factor
+    - for each factor, get the numbers that are products of that factor
+      - these represent the switches to be toggled
+        - start at current factor, up to input integer
+        - count up by current factor (e.g. 3, 6, 9 . . .)
+        - toggle the switch at that number
+
+- select all the switch numbers that are on
+  - return them in an array
 =end
 
+def lights(number)
+  switches = initialize_switches(number)
+  (1..number).each do |factor|
+    (factor..number).step(factor).each do |switch|
+      switches[switch] = !switches[switch]
+    end
+  end
+  switches.keys.select { |switch| switches[switch] }
+end
 
+def initialize_switches(number)
+  (1..number).to_a.zip(Array.new(5, false)).to_h
+end
+
+p lights(5) == [1, 4]
+p lights(10) == [1, 4, 9]
+p lights(99) == [1, 4, 9, 16, 25, 36, 49, 64, 81]
 
 ### 3.2 ROTATION III
 =begin
