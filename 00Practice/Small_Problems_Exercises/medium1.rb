@@ -57,7 +57,6 @@ ALGORITHM
 
 def diamond(size)
   top_half = top_half(size)
-  # bottom_half = bottom_half(size)
   bottom_half = top_half.reverse[1..]
   puts (top_half + bottom_half)
 end
