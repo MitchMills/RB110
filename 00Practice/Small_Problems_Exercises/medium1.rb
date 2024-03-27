@@ -1,3 +1,78 @@
+### 5.2 DIAMONDS
+=begin
+Write a method that displays a 4-pointed diamond in an n x n grid, where n is an odd integer that is supplied as an argument to the method. You may assume that the argument will always be an odd integer.
+
+PROBLEM
+input: integer
+  - odd
+
+output: strings
+  - spaces and asterixes
+  - four pointed diamond
+    - size is based on input integer: n
+      - n x n grid
+        top half:
+          - spaces: n/2 down to 0 : (n - stars) / 2
+          - stars: 1 up to n, step 2
+        bottom half:
+          - spaces: 1 up to n/2
+          - stars: (n - 2) down to 1
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: odd integer: n
+  - array of n strings
+    -
+- output: n strings
+
+   *
+  ***
+ *****
+*******
+ *****
+  ***
+   *
+
+ALGORITHM
+- create the top half of the diamond (including middle row)
+  - create a range from 1 up to n, stepping up by 2
+    - this represent the number of stars in each row
+  - transform this range into strings
+    - spaces + stars
+      - spaces = (n - stars) / 2
+      - stars
+- create the bottom half ot the diamond (not including middle row)
+  - create a range from (n - 2) down to 1, stepping down by 2
+    - this represents the number of stars in each row
+  - transform this range into strings
+    - spaces + stars
+      - speace = (n - stars / 2)
+      - stars
+- join the top and bottom halves
+  - add the two arrays together
+- output the diamond to the screen
+
+=end
+
+def diamond(size)
+  top_half = top_half(size)
+  # bottom_half = bottom_half(size)
+  bottom_half = top_half.reverse[1..]
+  puts (top_half + bottom_half)
+end
+
+def top_half(size)
+  (1..size).step(2).map do |stars|
+    (' ' * ((size - stars) / 2)) + ('*' * stars)
+  end
+end
+
+diamond(1)
+diamond(3)
+diamond(5)
+diamond(7)
+
 ### 4.2 LIGHTS
 =begin
 You have a bank of switches before you, numbered from 1 to n. Each switch is connected to exactly one light that is initially off. You walk down the row of switches and toggle every one of them. You go back to the beginning, and on this second pass, you toggle switches 2, 4, 6, and so on. On the third pass, you go back again to the beginning and toggle switches 3, 6, 9, and so on. You repeat this process and keep going until you have been through n repetitions.
@@ -61,23 +136,23 @@ ALGORITHM
   - return them in an array
 =end
 
-def lights(number)
-  switches = initialize_switches(number)
-  (1..number).each do |factor|
-    (factor..number).step(factor).each do |switch|
-      switches[switch] = !switches[switch]
-    end
-  end
-  switches.keys.select { |switch| switches[switch] }
-end
+# def lights(number)
+#   switches = initialize_switches(number)
+#   (1..number).each do |factor|
+#     (factor..number).step(factor).each do |switch|
+#       switches[switch] = !switches[switch]
+#     end
+#   end
+#   switches.keys.select { |switch| switches[switch] }
+# end
 
-def initialize_switches(number)
-  (1..number).to_a.zip(Array.new(5, false)).to_h
-end
+# def initialize_switches(number)
+#   (1..number).to_a.zip(Array.new(5, false)).to_h
+# end
 
-p lights(5) == [1, 4]
-p lights(10) == [1, 4, 9]
-p lights(99) == [1, 4, 9, 16, 25, 36, 49, 64, 81]
+# p lights(5) == [1, 4]
+# p lights(10) == [1, 4, 9]
+# p lights(99) == [1, 4, 9, 16, 25, 36, 49, 64, 81]
 
 ### 3.2 ROTATION III
 =begin
