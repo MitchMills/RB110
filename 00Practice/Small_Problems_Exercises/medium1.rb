@@ -1,3 +1,7 @@
+
+
+
+
 ### 5.2 DIAMONDS
 =begin
 Write a method that displays a 4-pointed diamond in an n x n grid, where n is an odd integer that is supplied as an argument to the method. You may assume that the argument will always be an odd integer.
@@ -26,10 +30,10 @@ DATA STRUCTURES
     -
 - output: n strings
 
-   *
-  ***
- *****
-*******
+   *      0   1
+  * *     1   3
+ *   *    3   5
+*     *   5   7
  *****
   ***
    *
@@ -55,22 +59,33 @@ ALGORITHM
 
 =end
 
-def diamond(size)
-  top_half = top_half(size)
-  bottom_half = top_half.reverse[1..]
-  puts (top_half + bottom_half)
-end
+# def diamond(size, filled: true)
+#   top_half = filled ? filled_top_half(size) : hollow_top_half(size)
+#   bottom_half = top_half.reverse[1..]
+#   puts (top_half + bottom_half)
+# end
 
-def top_half(size)
-  (1..size).step(2).map do |stars|
-    (' ' * ((size - stars) / 2)) + ('*' * stars)
-  end
-end
+# def filled_top_half(size)
+#   (1..size).step(2).map do |stars|
+#     spaces = (size - stars) / 2
+#     (' ' * spaces) + ('*' * stars)
+#   end
+# end
 
-diamond(1)
-diamond(3)
-diamond(5)
-diamond(7)
+# def hollow_top_half(size)
+#   (1..size).step(2).map do |stars|
+#     spaces = (size - stars) / 2
+#     diamond = '*' * stars
+#     center = diamond[1..-2]
+#     diamond[1..-2] = ' ' * center.size
+#     (' ' * spaces) + diamond
+#   end
+# end
+
+# diamond(1, filled: false)
+# diamond(3, filled: false)
+# diamond(5, filled: false)
+# diamond(7, filled: false)
 
 ### 4.2 LIGHTS
 =begin
