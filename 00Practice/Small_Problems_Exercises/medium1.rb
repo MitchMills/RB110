@@ -1,4 +1,66 @@
+### 6.2 WORD TO DIGIT
+=begin
+Write a method that takes a sentence string as input, and returns the same string with any sequence of the words 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' converted to a string of digits.
 
+Example:
+word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+
+12:37
+PROBLEM
+input: string
+  - may contain 'number words', e.g. 'five', 'three', etc
+output: string
+  - same as input string except:
+    - 'number words' are converted to number characters: 'five' -> '5'
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: string
+  - hash: keys are 'number words' and values are number characters: 'zero' => '0'
+  - array of individual words in string
+  - transformed array
+- output: string
+
+ALGORITHM
+- create a hash to convert number words to number characters
+  - keys are number words
+  - values are number characters
+- convert input string into an array of individual words
+  - remove punctuation
+- transform this array
+  - all words stay the same except number words
+    - these are changed into number characters using the hash
+- convert transformed array into a string, and return it
+=end
+
+number_words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+number_characters = ('0'..'9').to_a
+WORDS_TO_CHARACTERS = number_words.zip(number_characters).to_h
+ALPHA_CHARACTERS = ('A'..'Z').to_a + ('a'..'z').to_a
+
+def word_to_digit(string)
+  words = string.split
+  words.map do |word|
+    letters = letters_only(word)
+    if WORDS_TO_CHARACTERS.include?(letters)
+      deal_with_punctuation(word, letters)
+    else
+      word
+    end
+  end.join(' ')
+end
+
+def letters_only(word)
+  word.chars.select { |char| ALPHA_CHARACTERS.include?(char) }.join
+end
+
+def deal_with_punctuation(word, letters)
+  difference = (word.chars - letters.chars).join
+  WORDS_TO_CHARACTERS[letters] + difference
+end
+
+p word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
 
 
