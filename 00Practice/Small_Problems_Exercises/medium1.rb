@@ -1,4 +1,102 @@
-### 6.2 WORD TO DIGIT
+### 9 FIBONACCI II
+=begin
+Rewrite your recursive fibonacci method so that it computes its results without recursion.
+
+PROBLEM
+input: integer
+  - positive
+  - represents place in Fibonacci sequence
+- output: integer
+  - represents number at that place in Fibonacci sequence
+  - sum of previous two integers in sequence
+    - first two integers in sequence are 1
+      - 1, 1, 2, 3, 5 . . .
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - array of current 'last two' integers
+    - [1, 1]
+  - updated array: first number becomes second, second becomes (first + second)
+
+- output: integer
+
+ALGORITHM
+- create an array to hold the current two numbers
+  - set its value to [1, 1]
+- create a range from 3 up to input integer
+- for each number in the range:
+  - set first array element to equal second array element
+  - set second array element to equal sum of first and second elements
+- once finished, return the last number in the array
+=end
+
+# def fibonacci(number)
+#   first, last = [1, 1]
+#   3.upto(number) { first, last = [last, first + last] }
+#   last
+# end
+
+# p fibonacci(1) == 1
+# p fibonacci(2) == 1
+# p fibonacci(3) == 2
+# p fibonacci(4) == 3
+# p fibonacci(5) == 5
+# p fibonacci(12) == 144
+# p fibonacci(20) == 6765
+# p fibonacci(100) == 354224848179261915075
+# p fibonacci(100_001) # => 4202692702.....8285979669707537501
+
+### 8.2 FIBONACCI I
+=begin
+The Fibonacci series is a sequence of numbers starting with 1 and 1 where each number is the sum of the two previous numbers: the 3rd Fibonacci number is 1 + 1 = 2, the 4th is 1 + 2 = 3, the 5th is 2 + 3 = 5, and so on. In mathematical terms:
+
+F(1) = 1
+F(2) = 1
+F(n) = F(n - 1) + F(n - 2) where n > 2
+
+Sequences like this translate naturally as "recursive" methods. A recursive method is one in which the method calls itself.
+
+Recursive methods have three primary qualities:
+
+    They call themselves at least once.
+    They have a condition that stops the recursion (n == 1 above).
+    They use the result returned by themselves.
+
+Write a recursive method that computes the nth Fibonacci number, where nth is an argument to the method.
+
+PROBLEM
+input: integer
+  - positive
+  - represents place in the Fibonacci sequence
+output: integer
+  - represents Fibonacci number at that place (input integer) in the sequence
+
+EXAMPLES
+1, 1, 2, 3, 5
+
+DATA STRUCTURES
+
+ALGORITHM
+
+=end
+
+# def fibonacci(number)
+#   number <= 2 ? 1 : fibonacci(number - 1) + fibonacci(number - 2)
+# end
+
+# p fibonacci(1) == 1
+# p fibonacci(2) == 1
+# p fibonacci(3) == 2
+# p fibonacci(4) == 3
+# p fibonacci(5) == 5
+# p fibonacci(12) == 144
+# p fibonacci(20) == 6765
+
+
+
+### 7.2 WORD TO DIGIT
 =begin
 Write a method that takes a sentence string as input, and returns the same string with any sequence of the words 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' converted to a string of digits.
 
@@ -34,33 +132,33 @@ ALGORITHM
 - convert transformed array into a string, and return it
 =end
 
-number_words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-number_characters = ('0'..'9').to_a
-WORDS_TO_CHARACTERS = number_words.zip(number_characters).to_h
-ALPHA_CHARACTERS = ('A'..'Z').to_a + ('a'..'z').to_a
+# number_words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+# number_characters = ('0'..'9').to_a
+# WORDS_TO_CHARACTERS = number_words.zip(number_characters).to_h
+# ALPHA_CHARACTERS = ('A'..'Z').to_a + ('a'..'z').to_a
 
-def word_to_digit(string)
-  words = string.split
-  words.map do |word|
-    letters = letters_only(word)
-    if WORDS_TO_CHARACTERS.include?(letters)
-      deal_with_punctuation(word, letters)
-    else
-      word
-    end
-  end.join(' ')
-end
+# def word_to_digit(string)
+#   words = string.split
+#   words.map do |word|
+#     letters = letters_only(word)
+#     if WORDS_TO_CHARACTERS.include?(letters)
+#       deal_with_punctuation(word, letters)
+#     else
+#       word
+#     end
+#   end.join(' ')
+# end
 
-def letters_only(word)
-  word.chars.select { |char| ALPHA_CHARACTERS.include?(char) }.join
-end
+# def letters_only(word)
+#   word.chars.select { |char| ALPHA_CHARACTERS.include?(char) }.join
+# end
 
-def deal_with_punctuation(word, letters)
-  difference = (word.chars - letters.chars).join
-  WORDS_TO_CHARACTERS[letters] + difference
-end
+# def deal_with_punctuation(word, letters)
+#   difference = (word.chars - letters.chars).join
+#   WORDS_TO_CHARACTERS[letters] + difference
+# end
 
-p word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+# p word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
 
 
