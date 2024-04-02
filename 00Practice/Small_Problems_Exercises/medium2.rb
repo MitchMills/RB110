@@ -1,3 +1,6 @@
+### 2 ABCs
+
+
 ### 1 LONGEST SENTENCE
 =begin
 Write a program that reads the content of a text file and then prints the longest sentence in the file based on number of words. Sentences may end with periods (.), exclamation points (!), or question marks (?). Any sequence of characters that are not spaces or sentence-ending characters should be treated as a word. You should also print the number of words in the longest sentence.
@@ -15,55 +18,58 @@ Hint: f you have a variable str that contains a bunch of sentences, you can spli
   sentences = text.split(/\.|\?|!/)
 
 PROBLEM
-input: string
-  - contains words and sentences
-    - sentences end with: . ! ?
-    - words: any contiguous sequence of non-space, non-sentence-ending characters
-      - '--', e.g., counts as a word
+input: string (text file)
+  - contains sentences
+    - sentence: string that ends with  . ! ?
+      - word: sequence of contiguous non-space, non-sentence-ending characters
+
 output: string, integer
-  - string is longest sentence in input string based on word count
+  - string is longest sentence of input string
+    - longest = greatest number of words
   - integer is number of words in that sentence
+
+needs:
+- way to divide text into sentences
+- way to determine longest sentence
+  - way to count number of words in each sentence
 
 EXAMPLES
 
 DATA STRUCTURES
 - input: string
   - array of individual sentences
-  - for each sentence, array of individual words
-  - hash: keys are indexes of sentences in sentences array
-    - values are word count
-  - sorted hash: by word count
-- output: string
+  - array of individual words in each sentence
+- output: string, integer
 
 ALGORITHM
-- create an empty hash
-- create an array of individual sentences from the input string: sentences
-- for each sentence, create an array of individual words in that sentence: words
-  - create a key value pair in the hash
-    - key is index of sentence in sentences array
-    - value is size of words array
-- sort the hash by value
-- for the largest value:
-  - output the sentence at that key index from sentences to the terminal
-  - output that value to the terminal
+- divide input string into individual sentences
+- find the longest sentence
+  - divide each sentence into individual words
+  - select the sentence with the most words
+- output longest sentence to terminal
+- output number of words in that sentence to terminal
 
 =end
 
 # def longest_sentence(text)
 #   sentences = text.split(/\.|\?|!/)
-#   word_counts = word_counts(sentences)
-#   longest = word_counts.sort_by { |index, length| length }.last
-#   puts sentences[longest.first].strip
-#   puts longest.last
+#   longest = sentences.max_by { |sentence| sentence.split.size }.strip
+#   puts longest
+#   puts longest.split.size
 # end
 
-# def word_counts(sentences)
-#   word_counts = {}
-#   sentences.each_with_index do |sentence, index|
-#     words = sentence.split
-#     word_counts[index] = words.size
-#   end
-#   word_counts
+# def longest_paragraph(text)
+#   paragraphs = text.split(/\n\n/)
+#   longest = paragraphs.max_by { |paragraph| paragraph.split.size }.strip
+#   puts longest
+#   puts longest.split.size
+# end
+
+# def longest_word(text)
+#   words = text.split
+#   longest = words.max_by { |word| word.size }
+#   puts longest
+#   puts longest.size
 # end
 
 # text = File.read('frankenstein.txt')
@@ -74,4 +80,4 @@ ALGORITHM
 
 # But, in a larger sense, we can not dedicate, we can not consecrate, we can not hallow this ground. The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us -- that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion -- that we here highly resolve that these dead shall not have died in vain -- that this nation, under God, shall have a new birth of freedom -- and that government of the people, by the people, for the people, shall not perish from the earth."
 
-# longest_sentence(text)
+# longest_paragraph(text)
