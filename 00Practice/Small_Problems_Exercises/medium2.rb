@@ -1,4 +1,69 @@
 ### 2 ABCs
+=begin
+A collection of spelling blocks has two letters per block, as shown in this list:
+
+B:O   X:K   D:Q   C:P   N:A
+G:T   R:E   F:S   J:W   H:U
+V:I   L:Y   Z:M
+
+'boxkdqcpnagtrefsjwhuvilyzm'
+
+This limits the words you can spell with the blocks to just those words that do not use both letters from any given block. Each letter in each block can only be used once.
+
+Write a method that returns true if the word passed in as an argument can be spelled from this set of blocks, false otherwise.
+
+PROBLEM
+input: string
+
+output: boolean
+  - true if input stringcan be created from letters available on blocks
+    - case insensitive
+  - false otherwise
+  - blocks:
+    - have two 'sides' with a letter on each side
+      - only one 'side' can be used per input string
+      - each block can be used only once
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - representation of blocks
+  - account for whether an individual block has been used
+    - if either side of a given block has already been used, can't be used again
+
+- input: string
+  - blocks: could be an array of letter pairs: [bo, xk, dq . . .]
+    - can iterate over pairs and count the number of times input string includes each pair
+- output: boolean
+
+ALGORITHM
+- create an array containing 'blocks'
+  - each element represents a 'block'
+    - each 'block' is a string with two letters
+- create an empty hash with a default value of 0
+- consider each element in the blocks array
+  - consider each letter in the input string
+    - if the current letter is included in the block, add 1 to the count for that block
+- if any block has a count higher than 1, return false
+=end
+
+# BLOCKS = %w(bo xk dq cp na gt re fs jw hu vi ly zm)
+
+# def block_word?(word)
+#   letters = word.downcase.chars
+#   counts = Hash.new(0)
+#   BLOCKS.each do |block|
+#     letters.each do |letter|
+#       counts[block] +=1 if block.include?(letter)
+#     end
+#   end
+#   counts.select { |block, count| count > 1 }.empty?
+# end
+
+# p block_word?('BATCH') #== true
+# p block_word?('BUTCH') #== false
+# p block_word?('jest') #== true
 
 
 ### 1 LONGEST SENTENCE
