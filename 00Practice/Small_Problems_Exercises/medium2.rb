@@ -14,56 +14,58 @@ Write a method that returns true if the word passed in as an argument can be spe
 
 PROBLEM
 input: string
-
+  - contains only alpha characters
+    - upper and lower case
 output: boolean
-  - true if input stringcan be created from letters available on blocks
-    - case insensitive
-  - false otherwise
-  - blocks:
-    - have two 'sides' with a letter on each side
-      - only one 'side' can be used per input string
-      - each block can be used only once
+  - true if string can be constructed from 'blocks', false otherwise
+    - each block contains two characters (one on each side)
+      - a particular block can only be used once
+        - therefore no repeats of the same letter
+        - if letter on one side of a block has been used, letter on other side cannot be
+  - case insensitive
+    - e.g. 'b' == 'B'
 
 EXAMPLES
 
 DATA STRUCTURES
-- needs:
-  - representation of blocks
-  - account for whether an individual block has been used
-    - if either side of a given block has already been used, can't be used again
+-needs:
+  - a way to represent the blocks
+  - a way to determine if a particular block has been used
 
 - input: string
-  - blocks: could be an array of letter pairs: [bo, xk, dq . . .]
-    - can iterate over pairs and count the number of times input string includes each pair
+  - array to represent blocks
+    - each element is a two letter string # ['bo', 'xk', 'dq', . . .]
+  - array of each letter in downcased input string # ['b', 'a', 't', 'c', 'h']
+  - count of how many times each element in blocks array includes each letter in input string
 - output: boolean
+  - false if count is greater than 1 for any block
 
 ALGORITHM
-- create an array containing 'blocks'
-  - each element represents a 'block'
-    - each 'block' is a string with two letters
-- create an empty hash with a default value of 0
-- consider each element in the blocks array
-  - consider each letter in the input string
-    - if the current letter is included in the block, add 1 to the count for that block
-- if any block has a count higher than 1, return false
+- create a representation of the blocks
+  - array of thirteen elements
+    - each element is a two-letter string
+- determine how many times each block is used to create the input string
+  - for each block in blocks array
+    - consider each letter in input string
+    - if letter occurs in that block, increase count by 1
+- return false if any block is used more than once, true otherwise
 =end
 
-# BLOCKS = %w(bo xk dq cp na gt re fs jw hu vi ly zm)
+BLOCKS = %w(bo xk dq cp na gt re fs jw hu vi ly zm)
 
-# def block_word?(word)
-#   letters = word.downcase.chars
-#   counts = Hash.new(0)
-#   BLOCKS.each do |block|
-#     letters.each do |letter|
-#       counts[block] +=1 if block.include?(letter)
-#     end
-#   end
-#   counts.select { |block, count| count > 1 }.empty?
-# end
+def block_word?(word)
+  letters = word.downcase.chars
+  counts = BLOCKS.map do |block|
+    letters.count { |letter| block.include?(letter) }
+  end
+  counts.all? { |count| count < 2 }
+end
 
-# p block_word?('BATCH') #== true
-# p block_word?('BUTCH') #== false
-# p block_word?('jest') #== true
+p block_word?('BATCH') #== true
+p block_word?('BUTCH') #== false
+p block_word?('jest') #== true
+p block_word?('apple') #== false
+p block_word?('Baby') #== false
 
 
 ### 1 LONGEST SENTENCE
