@@ -1,3 +1,6 @@
+### 3 LETTERCASE PERCENTAGE
+
+
 ### 2 ABCs
 =begin
 A collection of spelling blocks has two letters per block, as shown in this list:
@@ -51,21 +54,33 @@ ALGORITHM
 - return false if any block is used more than once, true otherwise
 =end
 
-BLOCKS = %w(bo xk dq cp na gt re fs jw hu vi ly zm)
+# BLOCKS = %w(bo xk dq cp na gt re fs jw hu vi ly zm)
 
-def block_word?(word)
-  letters = word.downcase.chars
-  counts = BLOCKS.map do |block|
-    letters.count { |letter| block.include?(letter) }
-  end
-  counts.all? { |count| count < 2 }
-end
+# def block_word?(word)
+#   letters = word.downcase.chars
+#   counts = BLOCKS.map do |block|
+#     letters.count { |letter| block.include?(letter) }
+#   end
+#   counts.all? { |count| count < 2 }
+# end
 
-p block_word?('BATCH') #== true
-p block_word?('BUTCH') #== false
-p block_word?('jest') #== true
-p block_word?('apple') #== false
-p block_word?('Baby') #== false
+# def block_word?(word)
+#   letters = word.downcase.chars
+#   BLOCKS.each do |block|
+#     return false if (letters.count { |letter| block.include?(letter) }) > 1
+#   end
+#   true
+# end
+
+# def block_word?(word)
+#   BLOCKS.none? { |block| word.downcase.count(block) > 1 }
+# end
+
+# p block_word?('BATCH') #== true
+# p block_word?('BUTCH') #== false
+# p block_word?('jest') #== true
+# p block_word?('apple') #== false
+# p block_word?('Baby') #== false
 
 
 ### 1 LONGEST SENTENCE
