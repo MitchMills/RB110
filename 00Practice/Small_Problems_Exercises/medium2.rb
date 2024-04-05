@@ -1,4 +1,99 @@
 ### 3 LETTERCASE PERCENTAGE
+=begin
+In the easy exercises, we worked on a problem where we had to count the number of uppercase and lowercase characters, as well as characters that were neither of those two. Now we want to go one step further.
+
+Write a method that takes a string, and then returns a hash that contains 3 entries: one represents the percentage of characters in the string that are lowercase letters, one the percentage of characters that are uppercase letters, and one the percentage of characters that are neither.
+
+You may assume that the string will always contain at least one character.
+
+7:17
+PROBLEM
+input: string
+  - will always contain at least one character (i.e. no empty strings)
+  - may contain lowercase, uppercase and non-alpha characters
+
+output: hash
+  - keys: symbols: lowercase, uppercase, neither
+    - neither = non-alpha characters
+    - spaces count (as neither)
+  - values: floats percentage of that type of charcter in input string
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - length of input string
+  - number of each type of character
+    - way to identify type of character
+      - array of all lowercase alpha characters
+      - array of all uppercase alpha characters
+- input: string
+  - array of individual characters in string
+- output: hash
+
+ALGORITHM
+- create an array of all lowercase alpha characters
+- create an array of all uppercase alpha characters
+- create an empty hash with a default value of
+
+- convert input string into an array of individual characters
+- for each character in the input string
+  - increment the appropriate value in the hash
+- transform the hash values into percentages
+  - divide the count by the length of the input string (as a float)
+- return the hash
+
+=end
+# def letter_percentages(string)
+#   {
+#     lowercase: percentage(string, 'a-z'),
+#     uppercase: percentage(string, 'A-Z'),
+#     neither: percentage(string, '^A-Za-z')
+#   }
+# end
+
+def letter_percentages(string)
+  percentages = { lowercase: 'a-z', uppercase: 'A-Z', neither: '^A-Za-z' }
+  percentages.transform_values { |target| percentage(string, target) }
+end
+
+def percentage(string, target)
+  (string.count(target) / string.size.to_f * 100 ).round(1)
+end
+
+###
+# def letter_percentages(string)
+#   counts = counts(string)
+#   percentages(string, counts)
+# end
+
+# def counts(string)
+#   {
+#     lowercase: string.count('a-z'),
+#     uppercase: string.count('A-Z'),
+#     neither: string.count('^A-Za-z')
+#   }
+# end
+
+# def percentages(string, counts)
+#   counts.transform_values { |count| (count * 100.0 / string.size).round(1) }
+# end
+###
+
+### ESTHER HO
+# def letter_percentages(string)
+#   percentages = { lowercase: 'a-z', uppercase: 'A-Z', neither: '^a-zA-Z' }
+
+#   percentages.transform_values do |range|
+#     (string.count(range) * 100.0 / string.size).round(1)
+#   end
+# end
+###
+
+p letter_percentages('abCdef 123') == { lowercase: 50.0, uppercase: 10.0, neither: 40.0 }
+p letter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25.0 }
+p letter_percentages('123') == { lowercase: 0.0, uppercase: 0.0, neither: 100.0 }
+p letter_percentages('abcdefGHI') == {:lowercase=>66.7, :uppercase=>33.3, :neither=>0.0}
 
 
 ### 2 ABCs
