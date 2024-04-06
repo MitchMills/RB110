@@ -1,3 +1,64 @@
+### 4 MATCHING PARENTHESES
+=begin
+Write a method that takes a string as an argument, and returns true if all parentheses in the string are properly balanced, false otherwise. To be properly balanced, parentheses must occur in matching '(' and ')' pairs.
+
+Note that balanced pairs must each start with a (, not a ).
+
+PROBLEM
+input: string
+
+output: boolean
+  - return true if all parentheses in input string are 'balanced'
+    - same number of '(' and ')' characters
+    - balanced pairs must start with a '('
+    - if no parentheses in input string, string is 'balanced'
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - a way to determine 'balance'
+
+- input: string
+  - array of individual characters in input string
+  - counter to track balance
+    - start at 0
+    - increment or decrement for each ( or )
+- output: boolean
+
+ALGORITHM
+- set a balance counter to 0
+- create an array of individual characters in the input string
+- for each character:
+  - ignore unless it is ( or )
+  - increment counter if (
+  - decrement counter if )
+  - return false if counter is ever less than 0
+- return true if counter == 0 at end, false otherwise
+=end
+
+def balanced?(string)
+  balance = 0
+  string.chars.each do |character|
+    balance += 1 if character == '('
+    balance -= 1 if character == ')'
+    break if balance < 0
+  end
+  balance == 0
+end
+
+
+p balanced?('What (is) this?') == true
+p balanced?('What is) this?') == false
+p balanced?('What (is this?') == false
+p balanced?('((What) (is this))?') == true
+p balanced?('((What)) (is this))?') == false
+p balanced?('Hey!') == true
+p balanced?(')Hey!(') == false
+p balanced?('What ((is))) up(') == false
+p balanced?('What ())(is() up') == false
+
+
 ### 3 LETTERCASE PERCENTAGE
 =begin
 In the easy exercises, we worked on a problem where we had to count the number of uppercase and lowercase characters, as well as characters that were neither of those two. Now we want to go one step further.
