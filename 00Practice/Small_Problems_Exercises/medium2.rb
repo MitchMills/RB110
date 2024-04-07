@@ -9,14 +9,73 @@ A triangle is classified as follows:
 To be a valid triangle, the sum of the lengths of the two shortest sides must be greater than the length of the longest side, and all sides must have lengths greater than 0: if either of these conditions is not satisfied, the triangle is invalid.
 
 Write a method that takes the lengths of the 3 sides of a triangle as arguments, and returns a symbol :equilateral, :isosceles, :scalene, or :invalid depending on whether the triangle is equilateral, isosceles, scalene, or invalid.
+
+PROBLEM
+input: 3 integers
+  - represent lengths of sides of a potential triangle
+output: symbol
+  - represents what kind of triangle the input integers represent
+    - :equilateral
+      - all three sides are equal lengths
+    - :isosceles
+      - two sides are equal lengths, one is differentt
+    - :scalene
+      - all sides are different lengths
+    - :invalid
+      - any side length is not greater than 0
+      - sum of two shortest sides must be > length of longest side
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: 3 integers
+  - array of all 3 integers
+    - sorted so that can determine two shortest sides
+- output: symbol
+
+ALGORITHM
+- Determine if triangle is valid
+  - create an array of the three input integers
+  - sort from smallest to largest
+  - check if all integers are  greater than 0
+  - check if sum of first two integers in array is greater than last integer
+    - return :invalid if either condition is not met
+- Determine type of triangle
+  - if all integers are the same: return :equilateral
+  - if two are the same and the third is different, return :isosceles
+  - if all are different, return :scalene
 =end
 
+def triangle(side1, side2, side3)
+  all_sides = [side1, side2, side3].sort
+  return :invalid unless valid?(all_sides)
+  return :equilateral if equilateral?(all_sides)
+  return :isosceles if isosceles?(all_sides)
+  :scalene
+end
 
-p triangle(3, 3, 3) == :equilateral
-p triangle(3, 3, 1.5) == :isosceles
-p triangle(3, 4, 5) == :scalene
-p triangle(0, 3, 3) == :invalid
-p triangle(3, 1, 1) == :invalid
+def valid?(sides)
+  sides.all? { |side| side > 0 } &&
+  sides[0..1].sum > sides.last
+end
+
+def equilateral?(sides)
+  side1, side2, side3 = sides
+  side1 == side2 && side2 == side3
+end
+
+def isosceles?(sides)
+  side1, side2, side3 = sides
+  (side1 == side2 && side1 != side3) ||
+  (side2 == side3 && side1 != side2) ||
+  (side1 == side3 && side1 != side2)
+end
+
+p triangle(3, 3, 3) #== :equilateral
+p triangle(3, 3, 1.5) #== :isosceles
+p triangle(3, 4, 5) #== :scalene
+p triangle(0, 3, 3) #== :invalid
+p triangle(3, 1, 1) #== :invalid
 
 
 
