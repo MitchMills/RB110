@@ -1,3 +1,9 @@
+### 6 TRI ANGLES
+=begin
+
+=end
+
+
 ### 5 TRIANGLE SIDES
 =begin
 A triangle is classified as follows:
@@ -46,36 +52,36 @@ ALGORITHM
   - if all are different, return :scalene
 =end
 
-def triangle(side1, side2, side3)
-  all_sides = [side1, side2, side3].sort
-  return :invalid unless valid?(all_sides)
-  return :equilateral if equilateral?(all_sides)
-  return :isosceles if isosceles?(all_sides)
-  :scalene
-end
+# def triangle(side1, side2, side3)
+#   all_sides = [side1, side2, side3].sort
+#   return :invalid unless valid?(all_sides)
+#   return :equilateral if equilateral?(all_sides)
+#   return :isosceles if isosceles?(all_sides)
+#   :scalene
+# end
 
-def valid?(sides)
-  sides.all? { |side| side > 0 } &&
-  sides[0..1].sum > sides.last
-end
+# def valid?(sides)
+#   sides.all? { |side| side > 0 } &&
+#   sides.first(2).sum > sides.last
+# end
 
-def equilateral?(sides)
-  side1, side2, side3 = sides
-  side1 == side2 && side2 == side3
-end
+# def equilateral?(sides)
+#   side1, side2, side3 = sides
+#   side1 == side2 && side2 == side3
+# end
 
-def isosceles?(sides)
-  side1, side2, side3 = sides
-  (side1 == side2 && side1 != side3) ||
-  (side2 == side3 && side1 != side2) ||
-  (side1 == side3 && side1 != side2)
-end
+# def isosceles?(sides)
+#   side1, side2, side3 = sides
+#   (side1 == side2 && side1 != side3) ||
+#   (side2 == side3 && side1 != side2) ||
+#   (side1 == side3 && side1 != side2)
+# end
 
-p triangle(3, 3, 3) #== :equilateral
-p triangle(3, 3, 1.5) #== :isosceles
-p triangle(3, 4, 5) #== :scalene
-p triangle(0, 3, 3) #== :invalid
-p triangle(3, 1, 1) #== :invalid
+# p triangle(3, 3, 3) #== :equilateral
+# p triangle(3, 3, 1.5) #== :isosceles
+# p triangle(3, 4, 5) #== :scalene
+# p triangle(0, 3, 3) #== :invalid
+# p triangle(3, 1, 1) #== :invalid
 
 
 
