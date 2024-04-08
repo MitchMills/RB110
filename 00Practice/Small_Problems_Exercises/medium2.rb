@@ -1,7 +1,58 @@
 ### 6 TRI ANGLES
 =begin
+A triangle is classified as follows:
 
+  - right: One angle of the triangle is a right angle (90 degrees)
+  - acute: All 3 angles of the triangle are less than 90 degrees
+  - obtuse: One angle is greater than 90 degrees.
+
+To be a valid triangle, the sum of the angles must be exactly 180 degrees, and all angles must be greater than 0: if either of these conditions is not satisfied, the triangle is invalid.
+
+Write a method that takes the 3 angles of a triangle as arguments, and returns a symbol :right, :acute, :obtuse, or :invalid depending on whether the triangle is a right, acute, obtuse, or invalid triangle.
+
+You may assume integer valued angles so you don't have to worry about floating point errors. You may also assume that the arguments are specified in degrees.
+
+PROBLEM
+input: three integers
+  - represent the angles of a potential triangle
+    - specified in degrees
+output: symbol
+  - represents the type of triangle
+    - to be valid:
+      - all angles must be greater than 0
+      - sum of angles must be 180
+    - right: one angle = 90
+    - acute: all 3 angles < 90
+    - obtuse: one angle > 90
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: three integers
+  - array of all three angles
+- output: symbol
+
+ALGORITHM
+- create an array of all three input integers
+- if sum does not == 180 or any angle <= 0, return :invalid
+- consider the largest angle
+  - if > 90, then return :obtuse
+  - if == 90, then return :right
+  - if < 90, then return :acute
 =end
+
+def triangle(angle1, angle2, angle3)
+  all_angles = [angle1, angle2, angle3]
+  return :invalid unless all_angles.sum == 180
+    && all_angles.all? { |angle| angle > 0 }
+  case
+end
+
+triangle(60, 70, 50) == :acute
+triangle(30, 90, 60) == :right
+triangle(120, 50, 10) == :obtuse
+triangle(0, 90, 90) == :invalid
+triangle(50, 50, 50) == :invalid
 
 
 ### 5 TRIANGLE SIDES
