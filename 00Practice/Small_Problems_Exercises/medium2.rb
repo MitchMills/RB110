@@ -1,3 +1,68 @@
+### 8
+
+
+
+### 7 UNLUCKY DAYS
+=begin
+Write a method that returns the number of Friday the 13ths in the year given by an argument. You may assume that the year is greater than 1752 (when the United Kingdom adopted the modern Gregorian Calendar) and that it will remain in use for the foreseeable future.
+
+PROBLEM
+input: integer
+  - represents a year
+  - will be greater than 1752
+output: integer
+  - represents the number of Friday the 13ths in that year
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - range from 1 to 12 to represent each month
+- output: integer
+
+ALGORITHM
+- create a range from 1 to 12
+- for each number in the range
+  - create a new date object
+    - year is input integer
+    - month is current number in range
+    - day is 13
+- count the number of those days that are Fridays
+=end
+# require 'date'
+
+# def friday_13th(year)
+#   (1..12).count { |month| Date.new(year, month, 13).friday? }
+# end
+
+# p friday_13th(2015) == 3
+# p friday_13th(1986) == 1
+# p friday_13th(2019) == 2
+
+# def number_of_five_friday_months(year)
+#   all_fridays(year).count { |fridays| fridays.size == 5 }
+# end
+
+# def five_friday_months(year)
+#   months = all_fridays(year).each_with_index.filter_map do |fridays, index|
+#     index + 1 if fridays.size == 5
+#   end
+#   months.map { |month| Date::MONTHNAMES[month] }
+# end
+
+# def all_fridays(year)
+#   all_fridays = (1..12).map do |month|
+#     (1..31).select do |day|
+#       date = [year, month, day]
+#       Date.valid_date?(*date) && Date.new(*date).friday?
+#     end
+#   end
+# end
+
+# p number_of_five_friday_months(2024) # => 4
+# p five_friday_months(2024) # => ["March", "May", "August", "November"]
+
+
 ### 6 TRI ANGLES
 =begin
 A triangle is classified as follows:
