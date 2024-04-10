@@ -1,5 +1,78 @@
-### 8
+### 8 NEXT FEATURED NUMBER
+=begin
+A featured number (something unique to this exercise) is an odd number that is a multiple of 7, and whose digits occur exactly once each. So, for example, 49 is a featured number, but 98 is not (it is not odd), 97 is not (it is not a multiple of 7), and 133 is not (the digit 3 appears twice).
 
+Write a method that takes a single integer as an argument, and returns the next featured number that is greater than the argument. Return an error message if there is no next featured number.
+
+PROBLEM
+input: integer
+
+output: integer
+  - represents the next 'featured' number greater than the input integer
+  - featured number
+    - odd
+    - evenly divisible by 7
+    - digits occur exactly once each
+  - return error message if there is no next featured number
+
+EXAMPLES
+
+DATA STRUCTURES
+- input: integer
+  - next multiple of 7 greater than input integer
+    - from there check following multiples of 7 until a result is reached
+      - or no result can be reached (i.e. one of each digit)
+        - max is 9_876_543_210
+- output: integer
+
+ALGORITHM
+- get the next multiple of 7 greater than the input integer
+  - keep adding one to input integer until a multiple of 7 is reached
+- from that number, check every multiple of 7 between it an 9_876_543_210
+  - keep going unless number is odd
+    - if odd, check if all digits are unique
+      - convert the number to an array of digits
+        - compare it to an array of only unique digits
+      - if all unique, return that number
+    - else, keep going
+    - if max is reached, return error message
+=end
+
+MAX = 9_876_543_210
+
+def featured(number, factor = 7)
+  start = start(number, factor)
+  (start..MAX).step(factor * 2) do |multiple|
+    return multiple if all_digits_unique?(multiple)
+  end
+  "Error: there is no featured number greater than the given number."
+end
+
+def start(number, factor)
+  next_multiple = next_multiple(number, factor)
+  next_multiple.odd? ? next_multiple : next_multiple + factor
+end
+
+def next_multiple(number, multiple)
+  1.upto(multiple).each do |num|
+    candidate = number + num
+    return candidate if candidate % multiple == 0
+  end
+end
+
+def all_digits_unique?(number)
+  number.digits == number.digits.uniq
+end
+
+p featured(12) == 21
+p featured(20) == 21
+p featured(21) == 35
+p featured(997) == 1029
+p featured(1029) == 1043
+p featured(999_999) == 1_023_547
+p featured(999_999_987) == 1_023_456_987
+
+p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
 
 
 ### 7 UNLUCKY DAYS
