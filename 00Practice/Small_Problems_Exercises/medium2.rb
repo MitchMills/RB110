@@ -38,26 +38,35 @@ ALGORITHM
     - if max is reached, return error message
 =end
 
-MAX = 9_876_543_210
+MAX_NUMBER_WITH_UNIQUE_DIGITS = 9_876_543_210
+FEATURED_FACTOR = 7
 
-def featured(number, factor = 7)
-  start = start(number, factor)
-  (start..MAX).step(factor * 2) do |multiple|
-    return multiple if all_digits_unique?(multiple)
+FEATURED_NUMBER_REQUIREMENTS = []
+
+def featured(number, factor = FEATURED_FACTOR)
+  return no_solution_message if no_solution?(number)
+
+  start_number = start_number(number, factor)
+  (start_number..MAX_NUMBER_WITH_UNIQUE_DIGITS).step(factor * 2).find do |num|
+    all_digits_unique?(num)
   end
-  "Error: there is no featured number greater than the given number."
 end
 
-def start(number, factor)
+def no_solution_message
+  "There is no featured number greater than the given number."
+end
+
+def no_solution?(number)
+  number >= MAX_NUMBER_WITH_UNIQUE_DIGITS
+end
+
+def start_number(number, factor)
   next_multiple = next_multiple(number, factor)
   next_multiple.odd? ? next_multiple : next_multiple + factor
 end
 
-def next_multiple(number, multiple)
-  1.upto(multiple).each do |num|
-    candidate = number + num
-    return candidate if candidate % multiple == 0
-  end
+def next_multiple(number, factor)
+  ((number / factor) + 1) * factor
 end
 
 def all_digits_unique?(number)
