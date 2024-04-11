@@ -39,30 +39,53 @@ ALGORITHM
 =end
 
 MAX_NUMBER_WITH_UNIQUE_DIGITS = 9_876_543_210
-FEATURED_FACTOR = 7
 
-FEATURED_NUMBER_REQUIREMENTS = []
+FEATURED_NUMBER_REQUIREMENTS = {
+  check_parity: true,
+  required_parity: 'odd',
+  multiple_of: 7,
+  unique_digits: true
+}
 
-def featured(number, factor = FEATURED_FACTOR)
+def featured(number, requirements = FEATURED_NUMBER_REQUIREMENTS)
   return no_solution_message if no_solution?(number)
 
-  start_number = start_number(number, factor)
-  (start_number..MAX_NUMBER_WITH_UNIQUE_DIGITS).step(factor * 2).find do |num|
-    all_digits_unique?(num)
+  start_number = start_number(number, requirements)
+  stop_number = stop_number(number, requirements)
+
+  (start_number..stop_number).step(requirements[:multiple_of] * 2).find do |num|
+    requirements[:unique_digits] ? all_digits_unique?(num) :
   end
 end
 
 def no_solution_message
-  "There is no featured number greater than the given number."
+  "There is no number that can fulfill the given requirements."
 end
 
-def no_solution?(number)
-  number >= MAX_NUMBER_WITH_UNIQUE_DIGITS
+def no_solution?(number, requirements)
+  (requirements[:unique_digits] && number >= MAX_NUMBER_WITH_UNIQUE_DIGITS) ||
+  (requirements[:check_parity] && requirements[:required_parity] == 'odd' &&
+    requirements[:multiple_of].even?)
 end
 
-def start_number(number, factor)
-  next_multiple = next_multiple(number, factor)
+def start_number(number, requirements)
+  next_multiple = next_multiple(number, requirements[:multiple_of])
+
+  next_multiple = if requirements[:parity] == 'odd'
+                    next_multiple.odd? ? next_multiple : next_multiple + factor
+                  elsif requirements[:parity] == 'even'
+                    next_multiple.even? ? next_multiple : next_multiple + factor
+                  end
+
   next_multiple.odd? ? next_multiple : next_multiple + factor
+end
+
+def stop_number(number, requirements)
+  if requirements[:unique_digits]
+    MAX_NUMBER_WITH_UNIQUE_DIGITS
+  else
+
+  end
 end
 
 def next_multiple(number, factor)
