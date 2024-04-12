@@ -61,6 +61,7 @@ def no_solution_message
   "There is no number that can fulfill the given requirements."
 end
 
+
 def no_solution?(number, requirements)
   (requirements[:unique_digits] && number >= MAX_NUMBER_WITH_UNIQUE_DIGITS) ||
   (requirements[:parity] == :odd && requirements[:multiple_of].even?)
