@@ -1,3 +1,96 @@
+### 9 BUBBLE SORT
+=begin
+Write a method that takes an Array as an argument, and sorts that Array using the bubble sort algorithm as just described. Note that your sort will be "in-place"; that is, you will mutate the Array passed as an argument. You may assume that the Array contains at least 2 elements.
+
+PROBLEM
+input: array
+  - will contain at least 2 elements
+    - elements can be integers, strings, . . .
+output: array
+  - mutated input array (i.e. same array)
+  - elements are sorted
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - examine each pair
+  - swap pair when necessary
+  - keep track of whether a swap was made on the current pass
+  - keep track of number of passes:
+    - each successive pass can examine one less element than previous pass
+
+- input: array
+  - boolean to track whether swap was made this pass
+  - integer to track number of elements to examine on this pass
+    - (size of input array) - (number of current pass (start at 0))
+  - indexes of two current elements being compared (and possibly swapped)
+- output: array
+
+ALGORITHM
+- examine each pair of elements in the input array
+  - swap pairs when the first element is greater than the second
+    - otherwise leave as is
+- if any swaps were made during that pass, repeat the process
+- if no swaps were made, return the array
+
+
+- create an integer to track the number of the current pass
+  - set it to 0
+
+- create a boolean to represent whether a swap has been made on current pass
+  - set it to false
+- create a range to represent the index of the current first element
+  - 0 up to (array length - 2 - current pass)
+  - second element index will be current first element index + 1
+- for each number in the range
+  - compare the element at that index to the element at that index + 1
+    - if the first element is less than the second, swap them
+      - change the swap boolean to true
+    - otherwise leave as is
+- if swap boolean is true
+  - increment pass integer
+  - repeat process
+- if swap boolean is false, return array
+
+=end
+
+def bubble_sort!(list)
+  last_index = list.size - 2
+  loop do
+    swapped = check_pairs(list, last_index)
+    break unless swapped
+    last_index -= 1
+  end
+end
+
+def check_pairs(list, last_index)
+  swapped = false
+  (0..last_index).each do |index|
+    next if list[index] <= list[index + 1]
+    swap_elements!(list, index)
+    swapped = true
+  end
+  swapped
+end
+
+def swap_elements!(list, index)
+  list[index], list[index + 1] = list[index + 1], list[index]
+end
+
+array = [5, 3]
+bubble_sort!(array)
+p array == [3, 5]
+
+array = [6, 2, 4, 7, 1, 4]
+bubble_sort!(array)
+p array == [1, 2, 4, 4, 6, 7]
+
+array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+bubble_sort!(array)
+p array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+
+
 ### 8 NEXT FEATURED NUMBER
 =begin
 A featured number (something unique to this exercise) is an odd number that is a multiple of 7, and whose digits occur exactly once each. So, for example, 49 is a featured number, but 98 is not (it is not odd), 97 is not (it is not a multiple of 7), and 133 is not (the digit 3 appears twice).
