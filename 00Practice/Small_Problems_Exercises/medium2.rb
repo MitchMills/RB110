@@ -38,63 +38,63 @@ ALGORITHM
     - if max is reached, return error message
 =end
 
-MAX_NUMBER_WITH_UNIQUE_DIGITS = 9_876_543_210
+# MAX_NUMBER_WITH_UNIQUE_DIGITS = 9_876_543_210
 
-FEATURED_REQUIREMENTS = {
-  parity: :odd,
-  multiple_of: 7,
-  unique_digits: true
-}
+# FEATURED_REQUIREMENTS = {
+#   parity: :odd,
+#   multiple_of: 7,
+#   unique_digits: true
+# }
 
-def featured(number, requirements = FEATURED_REQUIREMENTS)
-  return no_solution_message if no_solution?(number, requirements)
+# def featured(number, requirements = FEATURED_REQUIREMENTS)
+#   return no_solution_message if no_solution?(number, requirements)
 
-  start_number = start_number(number, requirements)
-  factor = requirements[:multiple_of]
+#   start_number = start_number(number, requirements)
+#   factor = requirements[:multiple_of]
 
-  (start_number..).step(factor * 2).find do |num|
-    requirements[:unique_digits] ? all_digits_unique?(num) : num
-  end
-end
+#   (start_number..).step(factor * 2).find do |num|
+#     requirements[:unique_digits] ? all_digits_unique?(num) : num
+#   end
+# end
 
-def no_solution_message
-  "There is no number that can fulfill the given requirements."
-end
+# def no_solution_message
+#   "There is no number that can fulfill the given requirements."
+# end
 
 
-def no_solution?(number, requirements)
-  (requirements[:unique_digits] && number >= MAX_NUMBER_WITH_UNIQUE_DIGITS) ||
-  (requirements[:parity] == :odd && requirements[:multiple_of].even?)
-end
+# def no_solution?(number, requirements)
+#   (requirements[:unique_digits] && number >= MAX_NUMBER_WITH_UNIQUE_DIGITS) ||
+#   (requirements[:parity] == :odd && requirements[:multiple_of].even?)
+# end
 
-def start_number(number, requirements)
-  factor = requirements[:multiple_of]
-  next_multiple = next_multiple(number, factor)
+# def start_number(number, requirements)
+#   factor = requirements[:multiple_of]
+#   next_multiple = next_multiple(number, factor)
 
-  if requirements[:parity] == :odd
-    next_multiple.odd? ? next_multiple : next_multiple + factor
-  elsif requirements[:parity] == :even
-    next_multiple.even? ? next_multiple : next_multiple + factor
-  end
-end
+#   if requirements[:parity] == :odd
+#     next_multiple.odd? ? next_multiple : next_multiple + factor
+#   elsif requirements[:parity] == :even
+#     next_multiple.even? ? next_multiple : next_multiple + factor
+#   end
+# end
 
-def next_multiple(number, factor)
-  ((number / factor) + 1) * factor
-end
+# def next_multiple(number, factor)
+#   ((number / factor) + 1) * factor
+# end
 
-def all_digits_unique?(number)
-  number.digits.size == number.digits.uniq.size
-end
+# def all_digits_unique?(number)
+#   number.digits.size == number.digits.uniq.size
+# end
 
-p featured(12) == 21
-p featured(20) == 21
-p featured(21) == 35
-p featured(997) == 1029
-p featured(1029) == 1043
-p featured(999_999) == 1_023_547
-p featured(999_999_987) == 1_023_456_987
+# p featured(12) == 21
+# p featured(20) == 21
+# p featured(21) == 35
+# p featured(997) == 1029
+# p featured(1029) == 1043
+# p featured(999_999) == 1_023_547
+# p featured(999_999_987) == 1_023_456_987
 
-p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+# p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
 
 
 ### 7 UNLUCKY DAYS
