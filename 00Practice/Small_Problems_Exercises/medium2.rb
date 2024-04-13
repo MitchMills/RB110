@@ -1,3 +1,8 @@
+### 10
+
+
+
+
 ### 9 BUBBLE SORT
 =begin
 Write a method that takes an Array as an argument, and sorts that Array using the bubble sort algorithm as just described. Note that your sort will be "in-place"; that is, you will mutate the Array passed as an argument. You may assume that the Array contains at least 2 elements.
@@ -55,40 +60,40 @@ ALGORITHM
 
 =end
 
-def bubble_sort!(list)
-  last_index = list.size - 2
-  loop do
-    swapped = check_pairs(list, last_index)
-    break unless swapped
-    last_index -= 1
-  end
-end
+# def bubble_sort!(list)
+#   last_index = list.size - 2
+#   loop do
+#     swapped = check_pairs(list, last_index)
+#     break unless swapped
+#     last_index -= 1
+#   end
+# end
 
-def check_pairs(list, last_index)
-  swapped = false
-  (0..last_index).each do |index|
-    next if list[index] <= list[index + 1]
-    swap_elements!(list, index)
-    swapped = true
-  end
-  swapped
-end
+# def check_pairs(list, last_index)
+#   swapped = false
+#   (0..last_index).each do |index|
+#     next if list[index] <= list[index + 1]
+#     swap_elements!(list, index)
+#     swapped = true
+#   end
+#   swapped
+# end
 
-def swap_elements!(list, index)
-  list[index], list[index + 1] = list[index + 1], list[index]
-end
+# def swap_elements!(list, index)
+#   list[index], list[index + 1] = list[index + 1], list[index]
+# end
 
-array = [5, 3]
-bubble_sort!(array)
-p array == [3, 5]
+# array = [5, 3]
+# bubble_sort!(array)
+# p array == [3, 5]
 
-array = [6, 2, 4, 7, 1, 4]
-bubble_sort!(array)
-p array == [1, 2, 4, 4, 6, 7]
+# array = [6, 2, 4, 7, 1, 4]
+# bubble_sort!(array)
+# p array == [1, 2, 4, 4, 6, 7]
 
-array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
-bubble_sort!(array)
-p array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+# array = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+# bubble_sort!(array)
+# p array == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
 
 
 ### 8 NEXT FEATURED NUMBER
