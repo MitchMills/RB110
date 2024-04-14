@@ -1,5 +1,64 @@
 ### 11 IS IT PRIME?
+=begin
+A prime number is a positive number that is evenly divisible only by itself and 1. Thus, 23 is prime since its only divisors are 1 and 23. However, 24 is not prime since it has divisors of 1, 2, 3, 4, 6, 8, 12, and 24. Note that the number 1 is not prime.
 
+Write a method that takes a positive integer as an argument and returns true if the number is prime, false if it is not prime.
+
+You may not use Ruby's Prime class to solve this problem. Your task is to programmatically determine whether a number is prime without relying on any methods that already do that for you.
+
+PROBLEM
+input: integer
+  - positive
+
+output: boolean
+  - true if input integer is prime, false otherwise
+  - prime:
+    - evenly divisible only by 1 and itself
+    - NB 1 is not prime
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to consider every number between 2 and integer square root of input integer
+
+- input: integer
+  - range from 2 up to integer square root of input integer
+- output: boolean
+
+ALGORITHM
+- consider every number between 2 and the integer square root of the input integer, inclusive
+  - create a range from 2 up to ISR of input integer
+- if any number divides evenly into the input integer, return false
+  - for each number in the range, get the remainder of dividing the input integer by it
+  - if remainder is 0, return false
+- otherwise return true
+=end
+
+def is_prime?(number)
+  return false if number == 1
+  (2..Integer.sqrt(number)).each do |divisor|
+    return false if number % divisor == 0
+  end
+  true
+end
+
+p is_prime?(1) == false
+p is_prime?(2) == true
+p is_prime?(3) == true
+p is_prime?(4) == false
+p is_prime?(5) == true
+p is_prime?(6) == false
+p is_prime?(7) == true
+p is_prime?(8) == false
+p is_prime?(9) == false
+p is_prime?(10) == false
+p is_prime?(23) == true
+p is_prime?(24) == false
+p is_prime?(997) == true
+p is_prime?(998) == false
+p is_prime?(3_297_061) == true
+p is_prime?(23_297_061) == false
 
 
 
