@@ -1,31 +1,33 @@
-### 1 REPEAT YOURSELF
+### 2 ODD
 =begin
-Write a method that takes two arguments, a string and a positive integer, and prints the string as many times as the integer indicates.
+Write a method that takes one integer argument, which may be positive, negative, or zero. This method returns true if the number's absolute value is odd. You may assume that the argument is a valid integer value.
 
 PROBLEM
-input: string, integer
-  - integer is positive
-    - indicates how many times to output the string to terminal
-output: output to terminal
-  - print string as many times as integer indicates
+input: integer
+  - may be negative, zero, or positive
+  - valid integer value
+output: boolean
+  - true if input integer is odd, false otherwise
 
 EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to keep track of repetitions
 
-- input: string, integer
-  - looping structure
-    - break condition: integer
-- output: string printed to terminal integer times
+- input: integer
+
+- output: boolean
 
 ALGORITHM
-- print string integer times to terminal
 =end
 
-def repeat(string, repetitions)
-  repetitions.times { puts string }
+def is_odd?(number)
+  number % 2 != 0
 end
 
-repeat('Hello', 3)
+p is_odd?(2)    == false
+p is_odd?(5)    == true
+p is_odd?(-17)  == true
+p is_odd?(-8)   == false
+p is_odd?(0)    == false
+p is_odd?(7)    == true
