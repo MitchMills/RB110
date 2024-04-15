@@ -1,34 +1,44 @@
-### WHAT'S MY BONUS?
+### BANNERIZER
 =begin
-Write a method that takes two arguments, a positive integer and a boolean, and calculates the bonus for a given salary. If the boolean is true, the bonus should be half of the salary. If the boolean is false, the bonus should be 0.
-
 PROBLEM
-input: integer, boolean
-  - integer is positive
-    - represents salary
-  - boolean represents whether bonus will be paid
-- output: integer
-  - if boolean is true, return half of salary
-  - else return 0
+input: string
+  - can be empty
 
-EXAMPLES
+output: printed to terminal (text surrounded by box)
+  top / bottom of box: '+----+'
+  sides of box: '| (text) |'
 
 DATA STRUCTURES
-- needs:
-- input: integer, boolean
-
-- output: integer
+- input: string
+  - pattern array: horizontal, blank, text, blank, horizontal
+  - array to hold all strings
+- output: multiple string printed on separate lines
 
 ALGORITHM
-- if boolean is true
-  - return salary / 2
-- else return 0
+- get the length of the input string
+- create a pattern array: %w(horizontal, blank, text, blank, horizontal)
+- transform pattern array:
+  - if horizontal:
+    - '+' + '-' * (length + 2) + '-'
+  - if blank:
+    - '|' + ' ' * (length + 2) + '|'
+  - if text:
+    - '|' + " #{text} " + '|'
+- puts transformed array to terminal
+
 =end
 
-def calculate_bonus(salary, eligible_for_bonus)
-  eligible_for_bonus ? (salary / 2) : 0
+def print_in_box(text)
+  width = text.size + 2
+  box_pattern = %w(horizontal blank text blank horizontal)
+  box = box_pattern.map do |line|
+    case line
+    when 'horizontal' then "+#{'-' * width}+"
+    when 'blank' then "|#{' ' * width}|"
+    when 'text' then "| #{text} |"
+    end
+  end
+  puts box
 end
 
-p calculate_bonus(2800, true) == 1400
-p calculate_bonus(1000, false) == 0
-p calculate_bonus(50000, true) == 25000
+print_in_box('')
