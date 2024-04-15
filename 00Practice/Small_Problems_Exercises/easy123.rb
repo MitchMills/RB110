@@ -1,44 +1,59 @@
-### BANNERIZER
+### 6 RIGHT TRIANGLES
 =begin
-PROBLEM
-input: string
-  - can be empty
+Write a method that takes a positive integer, n, as an argument, and displays a right triangle whose sides each have n stars. The hypotenuse of the triangle (the diagonal side in the images below) should have one end at the lower-left of the triangle, and the other end at the upper-right.
 
-output: printed to terminal (text surrounded by box)
-  top / bottom of box: '+----+'
-  sides of box: '| (text) |'
+PROBLEM
+input: integer
+  - positive
+  - represents length of each side of a right triangle
+
+output: lines of strings
+  - represent a right triangle
+  - composed of '*'s
+  - hypotenuse is from lower-left to upper-right
+  - first line has 1 *, second has 2, up to input integer
+  - input integer = number of stars in bottom line of triangle
+
+EXAMPLES
 
 DATA STRUCTURES
-- input: string
-  - pattern array: horizontal, blank, text, blank, horizontal
-  - array to hold all strings
-- output: multiple string printed on separate lines
+- needs:
+  - control how many lines are printed
+  - control how many spaces and stars are on each line
+
+- input: integer
+  - range (from 1 up to input integer)
+  - array of strings
+- output: lines of strings
 
 ALGORITHM
-- get the length of the input string
-- create a pattern array: %w(horizontal, blank, text, blank, horizontal)
-- transform pattern array:
-  - if horizontal:
-    - '+' + '-' * (length + 2) + '-'
-  - if blank:
-    - '|' + ' ' * (length + 2) + '|'
-  - if text:
-    - '|' + " #{text} " + '|'
-- puts transformed array to terminal
-
+- create an array, size  is input integer
+- fill array with strings
+  - spaces: input integer minus current number
+  - stars: current number
+- output array to terminal
 =end
 
-def print_in_box(text)
-  width = text.size + 2
-  box_pattern = %w(horizontal blank text blank horizontal)
-  box = box_pattern.map do |line|
-    case line
-    when 'horizontal' then "+#{'-' * width}+"
-    when 'blank' then "|#{' ' * width}|"
-    when 'text' then "| #{text} |"
-    end
-  end
-  puts box
+def triangle(size, right_angle = 'lower right')
+  triangle = create_triangle(size, right_angle)
+  puts triangle
 end
 
-print_in_box('')
+def create_triangle(size, right_angle)
+  triangle = Array.new(size) { |index| '*' * (index + 1) }
+  rotate_triangle(triangle, right_angle)
+end
+
+def rotate_triangle(triangle, right_angle)
+  width = triangle.size
+  vertical, horizontal = right_angle.split
+  triangle.reverse! if vertical == 'upper'
+  triangle.map do |row|
+    horizontal == 'right' ? row.rjust(width) : row.ljust(width)
+  end
+end
+
+triangle(5, 'lower right')
+triangle(5, 'lower left')
+triangle(5, 'upper right')
+triangle(5, 'upper left')
