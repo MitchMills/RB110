@@ -1,90 +1,34 @@
-### STRINGY STRINGS
+### WHAT'S MY BONUS?
 =begin
-Write a method that takes one argument, a positive integer, and returns a string of alternating 1s and 0s, always starting with 1. The length of the string should match the given integer.
+Write a method that takes two arguments, a positive integer and a boolean, and calculates the bonus for a given salary. If the boolean is true, the bonus should be half of the salary. If the boolean is false, the bonus should be 0.
 
 PROBLEM
-input: integer
-  - positive
-  - represents desired length of output string
-
-output: string
-  - length = input integer
-  - alternating 1s and 0s, starting with 1
+input: integer, boolean
+  - integer is positive
+    - represents salary
+  - boolean represents whether bonus will be paid
+- output: integer
+  - if boolean is true, return half of salary
+  - else return 0
 
 EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to determine whether next character is 1 or 0
+- input: integer, boolean
 
-- input: integer
-  - empty string to add 1s and 0s to
-  - boolean toggle to determine 1s or 0s
-    - true = 1, false = 0
-- output: string
+- output: integer
 
-- ALGORITHM
-  - create an empty string
-  - create a variable to control adding a 1 or 0: add_one
-    - set it to true
-  - for the desired length
-    - add a character to the empty string
-      - if add_one is true, add a '1'
-      - else add a '0'
-  - return the string
+ALGORITHM
+- if boolean is true
+  - return salary / 2
+- else return 0
 =end
 
-# def stringy(length)
-#   string = ''
-#   add_one = true
-#   length.times do
-#     next_character = add_one ? '1' : '0'
-#     string << next_character
-#     add_one = !add_one
-#   end
-#   string
-# end
-
-# def stringy(length)
-#   string = ''
-#   length.times do |index|
-#     next_character = index.even? ? '1' : '0'
-#     string << next_character
-#   end
-#   string
-# end
-
-# def stringy(length, first_character = '1')
-# string = ''
-# characters = first_character == '1' ? ['1', '0'] : ['0', '1']
-
-# length.times do |index|
-#   next_character = index.even? ? characters[0] : characters[1]
-#   string << next_character
-# end
-# string
-# end
-
-# def stringy(length)
-#   (1..length).map { |place| place.odd? ? '1' : '0' }.join
-# end
-
-# def stringy(length, start_with_one = true)
-#   characters = start_with_one ? %w(1 0) : %w(0 1)
-#   (1..length).map { |place| place.odd? ? characters[0] : characters[1] }.join
-# end
-
-# def stringy(length, first = 1)
-#   second = first == 1 ? 0 : 1
-#   Array.new(length) { |index| index.even? ? first : second }.join
-# end
-
-def stringy(length, first = 1)
-  Array.new(length) { |index| index.even? ? first : 1 - first }.join
+def calculate_bonus(salary, eligible_for_bonus)
+  eligible_for_bonus ? (salary / 2) : 0
 end
 
-
-p stringy(6) == '101010'
-p stringy(9) == '101010101'
-p stringy(4) == '1010'
-p stringy(7) == '1010101'
+p calculate_bonus(2800, true) == 1400
+p calculate_bonus(1000, false) == 0
+p calculate_bonus(50000, true) == 25000
