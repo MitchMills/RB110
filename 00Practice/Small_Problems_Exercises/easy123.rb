@@ -1,29 +1,31 @@
-###
+### 1 REPEAT YOURSELF
+=begin
+Write a method that takes two arguments, a string and a positive integer, and prints the string as many times as the integer indicates.
 
+PROBLEM
+input: string, integer
+  - integer is positive
+    - indicates how many times to output the string to terminal
+output: output to terminal
+  - print string as many times as integer indicates
 
-### 1.6 Right Triangles
-def display_triangle(size, right_angle)
-  triangle = create_triangle(size, right_angle)
-  puts triangle
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to keep track of repetitions
+
+- input: string, integer
+  - looping structure
+    - break condition: integer
+- output: string printed to terminal integer times
+
+ALGORITHM
+- print string integer times to terminal
+=end
+
+def repeat(string, repetitions)
+  repetitions.times { puts string }
 end
 
-def create_triangle(size, right_angle)
-  lines = (1..size).to_a
-  stars = lines.map { |reps| '*' * reps }
-  spaces = lines.map { |reps| ' ' * (reps - 1) }.reverse
-  triangle = stars.zip(spaces).map(&:join)
-  rotate_triangle(triangle, right_angle)
-end
-
-def rotate_triangle(triangle, right_angle)
-  vertical, horizontal = right_angle.split
-  triangle.reverse! if vertical == 'upper'
-  triangle.map!(&:reverse) if horizontal == 'right'
-  triangle
-end
-
-# tests
-display_triangle(5, 'upper left')
-display_triangle(5, 'upper right')
-display_triangle(5, 'lower left')
-display_triangle(5, 'lower right')
+repeat('Hello', 3)
