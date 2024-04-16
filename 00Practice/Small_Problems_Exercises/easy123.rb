@@ -1,59 +1,44 @@
-### 6 RIGHT TRIANGLES
+### REVERSE DIGITS
 =begin
-Write a method that takes a positive integer, n, as an argument, and displays a right triangle whose sides each have n stars. The hypotenuse of the triangle (the diagonal side in the images below) should have one end at the lower-left of the triangle, and the other end at the upper-right.
+Write a method that takes a positive integer as an argument and returns that number with its digits reversed.
+
+Don't worry about arguments with leading zeros - Ruby sees those as octal numbers, which will cause confusing results. For similar reasons, the return value for our fourth example doesn't have any leading zeros.
 
 PROBLEM
 input: integer
   - positive
-  - represents length of each side of a right triangle
-
-output: lines of strings
-  - represent a right triangle
-  - composed of '*'s
-  - hypotenuse is from lower-left to upper-right
-  - first line has 1 *, second has 2, up to input integer
-  - input integer = number of stars in bottom line of triangle
+output: integer
+  - same digits as input integer, but reversed
 
 EXAMPLES
 
 DATA STRUCTURES
-- needs:
-  - control how many lines are printed
-  - control how many spaces and stars are on each line
-
 - input: integer
-  - range (from 1 up to input integer)
-  - array of strings
-- output: lines of strings
+  - integer converted to string
+- output: integer
 
 ALGORITHM
-- create an array, size  is input integer
-- fill array with strings
-  - spaces: input integer minus current number
-  - stars: current number
-- output array to terminal
+- convert the input integer to a string
+- reverse the string
+- convert the string into an integer and return it
 =end
 
-def triangle(size, right_angle = 'lower right')
-  triangle = create_triangle(size, right_angle)
-  puts triangle
-end
+# def reversed_number(number)
+#   number.to_s.reverse.to_i
+# end
 
-def create_triangle(size, right_angle)
-  triangle = Array.new(size) { |index| '*' * (index + 1) }
-  rotate_triangle(triangle, right_angle)
-end
-
-def rotate_triangle(triangle, right_angle)
-  width = triangle.size
-  vertical, horizontal = right_angle.split
-  triangle.reverse! if vertical == 'upper'
-  triangle.map do |row|
-    horizontal == 'right' ? row.rjust(width) : row.ljust(width)
+def reversed_number(number)
+  reversed_number = 0
+  until number == 0
+    number, remainder = number.divmod(10)
+    reversed_number = reversed_number * 10 + remainder
   end
+  reversed_number
 end
 
-triangle(5, 'lower right')
-triangle(5, 'lower left')
-triangle(5, 'upper right')
-triangle(5, 'upper left')
+p reversed_number(12345) == 54321
+p reversed_number(12213) == 31221
+p reversed_number(456) == 654
+p reversed_number(12000) == 21 # No leading zeros in return value!
+p reversed_number(12003) == 30021
+p reversed_number(1) == 1
