@@ -1,6 +1,14 @@
 def retirement_calculator
+  retirement_info = calculate_retirement_info
+  display_retirement_info(retirement_info)
+end
+
+def calculate_retirement_info
   ages = input_ages
-  display_retirement_info(ages)
+  years_to_work = ages.reverse.inject(:-)
+  current_year = Time.now.year
+  retirement_year = current_year + years_to_work
+  [current_year, retirement_year, years_to_work]
 end
 
 def input_ages
@@ -11,18 +19,11 @@ def input_ages
   end
 end
 
-def display_retirement_info(ages)
-  current_year, retirement_year, years_to_work = retirement_info(ages)
+def display_retirement_info(retirement_info)
+  current_year, retirement_year, years_to_work = retirement_info
   puts
   puts "It's #{current_year}. You will retire in #{retirement_year}."
   puts "You have only #{years_to_work} years of work to go!"
-end
-
-def retirement_info(ages)
-  years_to_work = ages.reverse.inject(:-)
-  current_year = Time.now.year
-  retirement_year = current_year + years_to_work
-  [current_year, retirement_year, years_to_work]
 end
 
 retirement_calculator
