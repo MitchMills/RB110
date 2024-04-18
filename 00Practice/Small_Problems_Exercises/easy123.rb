@@ -1,36 +1,23 @@
-PERCENT_DIVISOR = 100.0
-
-def tip_calculator
-  amounts = input_amounts
-  display_tip_and_total(amounts)
+def retirement_calculator
+  ages = input_ages
+  display_retirement_info(ages)
 end
 
-def input_amounts
-  ['bill', 'tip percentage'].map do |type|
-    print "What is the #{type}? "
-    gets.chomp.to_f
+def input_ages
+  questions = ["What is your age? ", "At what age would you like to retire? "]
+  questions.map do |question|
+    print question
+    gets.chomp.to_i
   end
 end
 
-def display_tip_and_total(amounts)
+def display_retirement_info(ages)
+  years_to_work = ages.reverse.inject(:-)
+  current_year = Time.now.year
+  retirement_year = current_year + years_to_work
   puts
-  tip_and_total = calculate_tip_and_total(amounts)
-  tip_and_total.each do |label, amount|
-    puts "The #{label} is #{format_currency(amount)}"
-  end
+  puts "It's #{current_year}. You will retire in #{retirement_year}."
+  puts "You have only #{years_to_work} years of work to go!"
 end
 
-def calculate_tip_and_total(amounts)
-  bill, tip_percentage = amounts
-  tip = bill * (tip_percentage / PERCENT_DIVISOR)
-  total = bill + tip
-  %w[tip total].zip([tip, total]).to_h
-end
-
-def format_currency(amount)
-  basic = format('%.2f', amount)
-  with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
-  with_commas.prepend('$')
-end
-
-tip_calculator
+retirement_calculator
