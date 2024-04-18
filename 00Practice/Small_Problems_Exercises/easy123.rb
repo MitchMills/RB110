@@ -42,7 +42,7 @@ def request_operation
 end
 
 def valid_operation?(input)
-  %w[s p].include?(input.downcase)
+  %w(s p).include?(input.downcase)
 end
 
 def calculate_result(input)
