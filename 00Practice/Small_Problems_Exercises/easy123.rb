@@ -1,17 +1,10 @@
 def retirement_calculator
-  retirement_info = calculate_retirement_info
-  display_retirement_info(retirement_info)
+  age_info = collect_age_info
+  retirement_info = calculate_retirement_info(age_info)
+  display(retirement_info)
 end
 
-def calculate_retirement_info
-  ages = input_ages
-  years_to_work = ages.reverse.inject(:-)
-  current_year = Time.now.year
-  retirement_year = current_year + years_to_work
-  [current_year, retirement_year, years_to_work]
-end
-
-def input_ages
+def collect_age_info
   questions = ["What is your age? ", "At what age would you like to retire? "]
   questions.map do |question|
     print question
@@ -19,7 +12,15 @@ def input_ages
   end
 end
 
-def display_retirement_info(retirement_info)
+def calculate_retirement_info(user_info)
+  ages = user_info
+  years_to_work = ages.reverse.inject(:-)
+  current_year = Time.now.year
+  retirement_year = current_year + years_to_work
+  [current_year, retirement_year, years_to_work]
+end
+
+def display(retirement_info)
   current_year, retirement_year, years_to_work = retirement_info
   puts
   puts "It's #{current_year}. You will retire in #{retirement_year}."
