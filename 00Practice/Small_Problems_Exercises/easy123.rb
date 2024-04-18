@@ -1,21 +1,65 @@
-### ODD NUMBERS
-=begin
-Print all odd numbers from 1 to 99, inclusive, to the console, with each number on a separate line.
+def sum_or_product
+  inputs = request_user_inputs
+  result = calculate_result(inputs)
+  display(result)
+end
 
-PROBLEM
-input: integer
+def request_user_inputs
+  integer = request_integer
+  operation = request_operation
+  [integer, operation]
+end
 
-output: integers displayed to screen
-  - only odd numbers between 1 and input integer, inclusive
-  - each number on a separate line
-=end
+def request_integer
+  loop do
+    print 'Please enter an integer greater than 0: '
+    input = gets.chomp
+    return input.to_i if valid_integer?(input)
 
-# def display_odd_numbers(limit)
-#   (1..limit).step(2) { |num| puts num }
-# end
+    invalid_entry('integer')
+    puts
+  end
+end
 
-# display_odd_numbers(21)
+def valid_integer?(input)
+  input.to_i.to_s == input && input.to_i.positive?
+end
 
+def invalid_entry(type)
+  description = type == 'integer' ? 'positive integer' : 'valid choice'
+  puts "I'm sorry, that's not a #{description}."
+end
 
-(1..6).map{|i|p i*2}
-(2..12).step(2){|i|p i}
+def request_operation
+  loop do
+    print "Enter 's' to compute the sum, 'p' to compute the product: "
+    input = gets.chomp
+    return input if valid_operation?(input)
+
+    invalid_entry('choice')
+    puts
+  end
+end
+
+def valid_operation?(input)
+  %w[s p].include?(input.downcase)
+end
+
+def calculate_result(input)
+  integer, operation = input
+  operator, outcome = operator(operation)
+  result = (1..integer).inject(operator)
+  [outcome, integer, result]
+end
+
+def operator(operation)
+  operation == 's' ? [:+, 'sum'] : [:*, 'product']
+end
+
+def display(result)
+  outcome, integer, result = result
+  puts
+  puts "The #{outcome} of the integers between 1 and #{integer} is #{result}."
+end
+
+sum_or_product
