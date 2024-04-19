@@ -1,65 +1,33 @@
-def sum_or_product
-  inputs = request_user_inputs
-  result = calculate_result(inputs)
-  display(result)
+### NEGATIVE
+=begin
+Write a method that takes a number as an argument. If the argument is a positive number, return the negative of that number. If the number is 0 or negative, return the original number.
+
+PROBLEM
+input: integer (or float?)
+
+output: integer (or float?)
+  - if integer is positive, return negative
+  - if negative or 0, return original number
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if input integer is positive, negative, or 0
+
+input: integer
+
+output: integer
+
+ALGORITHM
+- get the absolute value of the input integer
+- convert that value to negative and return it
+=end
+
+def negative(number)
+  -number.abs
 end
 
-def request_user_inputs
-  integer = request_integer
-  operation = request_operation
-  [integer, operation]
-end
-
-def request_integer
-  loop do
-    print 'Please enter an integer greater than 0: '
-    input = gets.chomp
-    return input.to_i if valid_integer?(input)
-
-    invalid_entry('integer')
-    puts
-  end
-end
-
-def valid_integer?(input)
-  input.to_i.to_s == input && input.to_i.positive?
-end
-
-def invalid_entry(type)
-  description = type == 'integer' ? 'positive integer' : 'valid choice'
-  puts "I'm sorry, that's not a #{description}."
-end
-
-def request_operation
-  loop do
-    print "Enter 's' to compute the sum, 'p' to compute the product: "
-    input = gets.chomp
-    return input if valid_operation?(input)
-
-    invalid_entry('choice')
-    puts
-  end
-end
-
-def valid_operation?(input)
-  %w(s p).include?(input.downcase)
-end
-
-def calculate_result(input)
-  integer, operation = input
-  operator, outcome = operator(operation)
-  result = (1..integer).inject(operator)
-  [outcome, integer, result]
-end
-
-def operator(operation)
-  operation == 's' ? [:+, 'sum'] : [:*, 'product']
-end
-
-def display(result)
-  outcome, integer, result = result
-  puts
-  puts "The #{outcome} of the integers between 1 and #{integer} is #{result}."
-end
-
-sum_or_product
+p negative(5) == -5
+p negative(-3) == -3
+p negative(0) == 0
