@@ -22,13 +22,18 @@ ALGORITHM
 - return the result
 =end
 
-def multiply(multiplier, multiplicand)
-  (1..multiplier).inject(0) do |product, _|
-    product += multiplicand
-  end
+def multiply(number1, number2)
+  number1 * number2
 end
 
-p multiply(3, 5) #== 15
+def power(number, power)
+  result = 0
+  power.times { result+= multiply(number, number) }
+  result
+end
+
+p power(5, 2)
+p power(3, 3)
 
 
 ### EASY 3.2 ARITHMETIC
