@@ -1,61 +1,33 @@
-### EASY 3.3 COUNTING CHARACTERS
+### EASY 3.4 MULTIPLY
 =begin
-Write a program that will ask a user for an input of a word or multiple words and give back the number of characters. Spaces should not be counted as a character.
-***
-=> Please write word or multiple words: walk, don't run
-There are 13 characters in "walk, don't run".
-***
+Create a method that takes two arguments, multiplies them together, and returns the result.
 
 PROBLEM
-input: string
-  - user prompted for input
-    - "Please write word or multiple words: "
-output: string
-  - "There are #{number} characters in #{input string}"
-  - includes number of characters (integer)
-    - spaces should not count
-    - all other characters should
+input: two numbers
+
+output: number
+  - product of two input integers
 
 EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to exclude space from count
+  - way to get product
 
-- input: string
-  - length of string
-  - number of spaces in string
-  - difference
-- output: integer, string
+- input: two numbers
+- output: number
 
 ALGORITHM
-- get total number of characters in input string
-  - string length
-- get number of spaces in input string
-  - count number of spaces in input string
-- get difference and return it in string
+- multiply two input numbers together
+- return the result
 =end
 
-def character_count
-  string = prompt_string
-  display_count(string)
+def multiply(num1, num2)
+  num1 * num2
 end
 
-def prompt_string
-  print "=> Please write word or multiple words: "
-  gets.chomp
-end
+p multiply([5], [3]) #== 15
 
-def display_count(string)
-  count = count_characters(string)
-  puts "=> There are #{count} characters in \"#{string}\"."
-end
-
-def count_characters(string)
-  string.size - string.count(' ')
-end
-
-character_count
 
 ### EASY 3.2 ARITHMETIC
 # def arithmetic
