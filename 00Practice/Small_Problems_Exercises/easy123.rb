@@ -22,11 +22,13 @@ ALGORITHM
 - return the result
 =end
 
-def multiply(num1, num2)
-  num1 * num2
+def multiply(multiplier, multiplicand)
+  (1..multiplier).inject(0) do |product, _|
+    product += multiplicand
+  end
 end
 
-p multiply([5], [3]) #== 15
+p multiply(3, 5) #== 15
 
 
 ### EASY 3.2 ARITHMETIC
