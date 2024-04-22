@@ -1,49 +1,11 @@
-### EASY 3.7 PALINDROMIC
+### EASY 3.10 UPPERCASE CHECK
 =begin
-Write a method that returns true if the string passed as an argument is a palindrome, false otherwise. A palindrome reads the same forward and backward. For this exercise, case matters as does punctuation and spaces.
 
-PROBLEM
-input: string
-  - can contain any characters, including spaces, punctuation, etc
-  - upper and lower case
-
-output: boolean
-  - true if input string is a palindrome
-    - reads the same forwards as backwards
-      - case matters
-      - punctuation and spaces matter
-  - false otherwise
-
-EXAMPLES
-
-DATA STRUCTURES
-- needs
-  - ability to reverse input string
-  - ability to compare input string to its reversed version
-
-- input: string
-  - reversed string
-- output: boolean
-
-ALGORITHM
-- reverse the input string
-- compare it to the input string
-- return true if they are the same, false otherwise
 =end
 
-ALPHANUMERICS = ('a'..'z').to_a + ('0'..'9').to_a
 
-def real_palindrome?(string)
-  comp = string.downcase.chars.select { |char| ALPHANUMERICS.include?(char)}
-  comp == comp.reverse
-end
 
-p real_palindrome?('madam') #== true
-p real_palindrome?('Madam') #== true           # (case does not matter)
-p real_palindrome?("Madam, I'm Adam") #== true # (only alphanumerics matter)
-p real_palindrome?('356653') #== true
-p real_palindrome?('356a653') #== true
-p real_palindrome?('123ab321') #== false
+
 
 
 
