@@ -1,8 +1,43 @@
 ### EASY 3.10 UPPERCASE CHECK
 =begin
+Write a method that takes a string argument, and returns true if all of the alphabetic characters inside the string are uppercase, false otherwise. Characters that are not alphabetic should be ignored.
 
+PROBLEM
+input: string
+
+output: boolean
+  - true if all alphabetic characters in string are uppercase
+  - false otherwise
+  - ignore non-alpha characters
+  - return true if input string is empty
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to evaluate if all alpha characters are uppercase
+
+- input: string
+
+- output: boolean
+
+ALGORITHM
+- create an upcased version of input string
+- compare it to input string
+- return true if they are equal, false otherwise
 =end
 
+def uppercase?(string)
+  string.upcase == string
+end
+
+
+p uppercase?('t') == false
+p uppercase?('T') == true
+p uppercase?('Four Score') == false
+p uppercase?('FOUR SCORE') == true
+p uppercase?('4SCORE!') == true
+p uppercase?('') == true
 
 
 
