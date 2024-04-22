@@ -1,39 +1,48 @@
-### EASY 3.4 MULTIPLY
+### EASY 3.6 EXCLUSIVE OR
 =begin
-Create a method that takes two arguments, multiplies them together, and returns the result.
+The || operator returns a truthy value if either or both of its operands are truthy. If both operands are falsey, it returns a falsey value. The && operator returns a truthy value if both of its operands are truthy, and a falsey value if either operand is falsey. This works great until you need only one of two conditions to be truthy, the so-called exclusive or.
+
+In this exercise, you will write a method named xor that takes two arguments, and returns true if exactly one of its arguments is truthy, false otherwise. Note that we are looking for a boolean result instead of a truthy/falsy value as returned by || and &&.
 
 PROBLEM
-input: two numbers
+input: 2 arguments
+  - can be any kind
 
-output: number
-  - product of two input integers
+output: boolean
+  - true if one argument is truthy and one is falsey
+  - false otherwise (both truthy or both falsey)
 
 EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to get product
+  - store whether each argument is truthy or falsey
+  - determine if one truthy and one falsy
 
-- input: two numbers
-- output: number
+- input: 2 statements
+  - array of evaluated statements: # [true, false] etc
+- output: boolean
 
 ALGORITHM
-- multiply two input numbers together
-- return the result
+- convert each argument into a boolean value
+  - apply !! to each argument
+- compare the two values
+  - if they are equal, return false
+  - else return true
 =end
 
-def multiply(number1, number2)
-  number1 * number2
+def xor?(arg1, arg2)
+  !!arg1 != !!arg2
 end
 
-def power(number, power)
-  result = 0
-  power.times { result+= multiply(number, number) }
-  result
-end
 
-p power(5, 2)
-p power(3, 3)
+p xor?(5.even?, 4.even?) == true
+p xor?(5.odd?, 4.odd?) == true
+p xor?(5.odd?, 4.even?) == false
+p xor?(5.even?, 4.odd?) == false
+
+
+
 
 
 ### EASY 3.2 ARITHMETIC
