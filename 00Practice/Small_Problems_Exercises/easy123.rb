@@ -1,47 +1,49 @@
-### EASY 3.6 EXCLUSIVE OR
+### EASY 3.7 PALINDROMIC
 =begin
-The || operator returns a truthy value if either or both of its operands are truthy. If both operands are falsey, it returns a falsey value. The && operator returns a truthy value if both of its operands are truthy, and a falsey value if either operand is falsey. This works great until you need only one of two conditions to be truthy, the so-called exclusive or.
-
-In this exercise, you will write a method named xor that takes two arguments, and returns true if exactly one of its arguments is truthy, false otherwise. Note that we are looking for a boolean result instead of a truthy/falsy value as returned by || and &&.
+Write a method that returns true if the string passed as an argument is a palindrome, false otherwise. A palindrome reads the same forward and backward. For this exercise, case matters as does punctuation and spaces.
 
 PROBLEM
-input: 2 arguments
-  - can be any kind
+input: string
+  - can contain any characters, including spaces, punctuation, etc
+  - upper and lower case
 
 output: boolean
-  - true if one argument is truthy and one is falsey
-  - false otherwise (both truthy or both falsey)
+  - true if input string is a palindrome
+    - reads the same forwards as backwards
+      - case matters
+      - punctuation and spaces matter
+  - false otherwise
 
 EXAMPLES
 
 DATA STRUCTURES
-- needs:
-  - store whether each argument is truthy or falsey
-  - determine if one truthy and one falsy
+- needs
+  - ability to reverse input string
+  - ability to compare input string to its reversed version
 
-- input: 2 statements
-  - array of evaluated statements: # [true, false] etc
+- input: string
+  - reversed string
 - output: boolean
 
 ALGORITHM
-- convert each argument into a boolean value
-  - apply !! to each argument
-- compare the two values
-  - if they are equal, return false
-  - else return true
+- reverse the input string
+- compare it to the input string
+- return true if they are the same, false otherwise
 =end
 
-def xor?(arg1, arg2)
-  !!arg1 != !!arg2
+ALPHANUMERICS = ('a'..'z').to_a + ('0'..'9').to_a
+
+def real_palindrome?(string)
+  comp = string.downcase.chars.select { |char| ALPHANUMERICS.include?(char)}
+  comp == comp.reverse
 end
 
-
-p xor?(5.even?, 4.even?) == true
-p xor?(5.odd?, 4.odd?) == true
-p xor?(5.odd?, 4.even?) == false
-p xor?(5.even?, 4.odd?) == false
-
-
+p real_palindrome?('madam') #== true
+p real_palindrome?('Madam') #== true           # (case does not matter)
+p real_palindrome?("Madam, I'm Adam") #== true # (only alphanumerics matter)
+p real_palindrome?('356653') #== true
+p real_palindrome?('356a653') #== true
+p real_palindrome?('123ab321') #== false
 
 
 
