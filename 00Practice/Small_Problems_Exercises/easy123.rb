@@ -1,106 +1,36 @@
-### EASY 3.10 UPPERCASE CHECK
+### EASY 4.1 SHORT LONG SHORT
 =begin
-Write a method that takes a string argument, and returns true if all of the alphabetic characters inside the string are uppercase, false otherwise. Characters that are not alphabetic should be ignored.
+Write a method that takes two strings as arguments, determines the longest of the two strings, and then returns the result of concatenating the shorter string, the longer string, and the shorter string once again. You may assume that the strings are of different lengths.
 
 PROBLEM
-input: string
-
-output: boolean
-  - true if all alphabetic characters in string are uppercase
-  - false otherwise
-  - ignore non-alpha characters
-  - return true if input string is empty
+input: two strings
+  - two different lengths
+  - one string may be empty
+output: string
+  - concatentated input strings: shorter + longer + shorter
 
 EXAMPLES
 
 DATA STRUCTURES
-- needs
-  - way to evaluate if all alpha characters are uppercase
+- needs:
+  - way to determine which string is shortest / longest
 
-- input: string
-
-- output: boolean
+- input: 2 strings
+  - array of both strings sorted by length
+- output: string
 
 ALGORITHM
-- create an upcased version of input string
-- compare it to input string
-- return true if they are equal, false otherwise
+- create an array containing both input strings
+- sort the array by length
+- concatenate strings: short + long + short
+- return that string
 =end
 
-def uppercase?(string)
-  string.upcase == string
+def short_long_short(string1, string2)
+  short, long = [string1, string2].sort_by(&:size)
+  short + long + short
 end
 
-
-p uppercase?('t') == false
-p uppercase?('T') == true
-p uppercase?('Four Score') == false
-p uppercase?('FOUR SCORE') == true
-p uppercase?('4SCORE!') == true
-p uppercase?('') == true
-
-
-
-
-
-
-### EASY 3.2 ARITHMETIC
-# def arithmetic
-#   numbers = request_numbers
-#   results = calculate_results(numbers)
-#   display_results(numbers, results)
-# end
-
-# def request_numbers
-#   %w(first second).map { |place| enter_number(place) }
-# end
-
-# def enter_number(place)
-#   loop do
-#     print "==> Enter the #{place} number: "
-#     entry = gets.chomp
-#     return entry.to_f if valid_entry?(entry)
-
-#     invalid_entry(entry)
-#   end
-# end
-
-# def valid_entry?(entry)
-#   entry.to_f.to_s == entry || entry.to_i.to_s == entry
-# end
-
-# def invalid_entry(entry)
-#   puts "==> Sorry, '#{entry}' is not a number. Please try again."
-#   puts
-# end
-
-# def calculate_results(numbers)
-#   operators = %i(+ - * / % **)
-#   results = operators.map do |operator|
-#     next "error: can't divide by zero" if zero_error(numbers, operator)
-#     numbers.inject(operator)
-#   end
-#   operators.zip(results).to_h
-# end
-
-# def zero_error(numbers, operator)
-#   numbers.last == 0 && %i(/ %).include?(operator)
-# end
-
-# def display_results(numbers, results)
-#   puts
-#   number1, number2 = numbers.map { |number| format_number(number) }
-#   results.each do |operation, result|
-#     result = format_number(result) unless result.instance_of?(String)
-#     puts "==> #{number1} #{operation} #{number2} = #{result}"
-#   end
-# end
-
-# def format_number(number)
-#   basic = format('%.2f', number)
-#   with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
-#   final = with_commas.gsub('.00', '')
-#   number < 0 ? final.prepend('-') : final
-# end
-
-# arithmetic
+p short_long_short('abc', 'defgh') == "abcdefghabc"
+p short_long_short('abcde', 'fgh') == "fghabcdefgh"
+p short_long_short('', 'xyz') == "xyz"
