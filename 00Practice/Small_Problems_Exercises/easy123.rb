@@ -1,53 +1,23 @@
-=begin
-A continuation of the previous exercise.
-
-The British Empire adopted the Gregorian Calendar in 1752, which was a leap year. Prior to 1752, the Julian Calendar was used. Under the Julian Calendar, leap years occur in any year that is evenly divisible by 4.
-
-Using this information, update the method from the previous exercise to determine leap years both before and after 1752.
-
-PROBLEM
-input: integer
-  - represents year
-output: boolean
-  - true if input year is a leap year, false otherwise
-  - leap year:
-    - before 1752: (Julian)
-      - any year evenly divisible by 4
-    - 1752 and after: (Gregorian)
-      - divisible by 4 unless (divisible by 100 and not divisible by 400)
-
-EXAMPLES
-
-DATA STRUCTURES
-- needs
-  - whether to use Julian or Gregorian calculation
-
-- input: year
-- output: boolean
-=end
-
-def leap_year?(year)
-  year < 1752 ? julian_leap_year?(year) : gregorian_leap_year?(year)
+# using #select
+def multisum(number)
+  (3..number).select { |number| multiple?(number, [3, 5]) }.sum
 end
 
-def julian_leap_year?(year)
-  year % 4 == 0
+def multiple?(number, divisors)
+  divisors.any? { |divisor| number % divisor == 0 }
 end
 
-def gregorian_leap_year?(year)
-  year % 100 == 0 ? year % 400 == 0 : year % 4 == 0
+# using #reduce with a block
+def multisum(number)
+  (3..number).reduce { |sum, num| multiple?(num, [3, 5]) ? sum + num : sum }
 end
 
-p leap_year?(2016) == true
-p leap_year?(2015) == false
-p leap_year?(2100) == false
-p leap_year?(2400) == true
-p leap_year?(240000) == true
-p leap_year?(240001) == false
-p leap_year?(2000) == true
-p leap_year?(1900) == false
-p leap_year?(1752) == true
-p leap_year?(1700) == true
-p leap_year?(1) == false
-p leap_year?(100) == true
-p leap_year?(400) == true
+# using #step
+def multisum(number)
+  ((3..number).step(3) + (5..number).step(5)).uniq.sum
+end
+
+p multisum(3) == 3
+p multisum(5) == 8
+p multisum(10) == 33
+p multisum(1000) == 234168
