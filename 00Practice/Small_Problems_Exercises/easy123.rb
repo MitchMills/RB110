@@ -1,37 +1,37 @@
-DIGITS = ('0'..'9').to_a + ('a'..'f').to_a
-
-def string_to_integer(string, base = 10)
-  return error_message(string, base) if input_error?(string, base)
-  digits = convert_to_digits(string)
-  combine_digits(digits, base)
+def string_to_signed_integer(string)
+  digits = get_digits(string)
+  combine_digits(string.chr, digits)
 end
 
-def error_message(string, base)
-  error_type = input_error(string, base)
-  error_messages = {
-    wrong_base: "Error: base must be either 10 or 16.",
-    string_error: "Error: input string contains invalid characters.",
-    base10: "Error: cannot convert to a decimal number: input string contains letters."
-  }
-  error_messages[error_type]
+def get_digits(string)
+  all_digits = ('0'..'9').to_a
+  numbers = string.chars.select { |char| all_digits.include?(char) }
+  numbers.map { |number| all_digits.index(number) }
 end
 
-def input_error?(string, base)
-  !!input_error(string, base)
+def combine_digits(first_character, digits)
+  result = digits.reverse.map.with_index { |digit, idx| digit * (10**idx) }.sum
+  first_character == '-' ? -result : result
 end
 
-def input_error(string, base)
-  chars = string.downcase.chars
-  return :wrong_base unless [10, 16].include?(base)
-  return :string_error unless chars.all? { |char| DIGITS.include?(char) }
-  return :base10 if base == 10 && chars.any? { |char| 'abcdef'.include?(char) }
-  nil
-end
+# def string_to_signed_integer(string)
+#   unsigned_string = %w(- +).include?(string[0]) ? string[1..-1] : string
+#   number = string_to_integer(unsigned_string)
+#   string[0] == '-' ? -number : number
+# end
 
-def convert_to_digits(string)
-  string.downcase.chars.map { |char| DIGITS.index(char) }
-end
+# DIGITS = {
+#   '0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4,
+#   '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9
+# }
 
-def combine_digits(digits, base)
-  digits.reverse.map.with_index { |digit, index| digit * (base**index) }.sum
-end
+# def string_to_integer(string)
+#   digits = string.chars.map { |char| DIGITS[char] }
+#   value = 0
+#   digits.each { |digit| value = (10 * value) + digit }
+#   value
+# end
+
+p string_to_signed_integer('4321') #== 4321
+p string_to_signed_integer('-570') #== -570
+p string_to_signed_integer('+100') #== 100
