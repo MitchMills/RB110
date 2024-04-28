@@ -1,32 +1,42 @@
-grade_book = [
-  {subject: "English",
-   grades: [
-            {grade_id: 17, type: "Exam", score: 4},
-            {grade_id: 18, type: "Quiz", score: 3.5},
-            {grade_id: 19, type: "Quiz", score: 3},
-            {grade_id: 20, type: "Quiz", score: 3.5},
-            {grade_id: 21, type: "Quiz", score: 2.5}
-          ]
-  },
-  {subject: "Band",
-   grades: [
-            {grade_id: 200, type: "Exam", score: 2},
-            {grade_id: 201, type: "Performance", score: 4},
-            {grade_id: 202, type: "Assignment", score: 4}
-          ]
-  }
-]
+STRING_INTEGERS = ('0'..'9').to_a
 
-english_grades = grade_book.select {|subj| subj[:subject] == "English"}
-
-english_quizzes = english_grades[0][:grades].select do |grade|
-  grade[:type] == "Quiz"
+def signed_integer_to_string1(integer)
+  number = integer.abs
+  result = ''
+  loop do
+    number, remainder = number.divmod(10)
+    result.prepend(STRING_INTEGERS[remainder])
+    break if number == 0
+  end
+  return result if integer == 0
+  integer > 0 ? result.prepend('+') : result.prepend('-')
 end
 
-english_quiz_scores = english_quizzes.map {|quiz| quiz[:score] }
+def signed_integer_to_string2(integer)
+  result = integer.abs.digits.reverse.join
+  return result if integer.zero?
+  integer.positive? ? result.prepend('+') : result.prepend('-')
+end
 
+def signed_integer_to_string3(integer)
+  sign = ['', '+', '-'][integer <=> 0]
+  number = integer.abs.digits.reduce('') do |result, digit|
+    result.prepend(STRING_INTEGERS[digit])
+  end
+  sign + number
+end
 
-sum = english_quiz_scores.sum
-number = english_quiz_scores.size
+def signed_integer_to_string4(integer)
+  sign = ['', '+', '-'][integer <=> 0]
+  number = integer.abs.digits.reverse.join
+  sign + number
+end
 
-p "The average of #{number} English quizzes is #{sum/number.to_f}"
+def signed_integer_to_string5(integer)
+  number = [integer].join
+  integer > 0 ? "+#{number}" : number
+end
+
+def signed_integer_to_string6(integer)
+  integer > 0 ? "+#{integer}" : "#{integer}"
+end

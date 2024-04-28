@@ -1,3 +1,90 @@
+=begin
+In the previous exercise, you developed a method that converts non-negative numbers to strings. In this exercise, you're going to extend that method by adding the ability to represent negative numbers as well.
+
+Write a method that takes an integer, and converts it to a string representation.
+
+PROBLEM 7:00
+input: integer
+  - can be positive, negative, or zero
+output: string
+  - string representation of input integer
+    - positive numbers start with +
+    - negative numbers start with -
+    - zero has no sign
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to access digits of input integer individually
+  - way to convert individual digits into string equivalents
+  - way to control what sign, if any, to append
+
+- input: integer
+  - empty string: add digits as they are convertedj
+  - add sign depending on value of input integer
+- output: string
+
+ALGORITHM
+- access each digit of input integer
+  - divide integer by 10 successivley until quotient is 0
+- convert each digit to its string equivalent, combine into one string
+  - create an array of strings, '0' through '9'
+  - use each remainder to access appropriate string by index
+- add + or - to beginning of string, depending on value of input integer
+=end
+
+# STRING_INTEGERS = ('0'..'9').to_a
+
+# def signed_integer_to_string(integer)
+#   number = integer.abs
+#   result = ''
+#   loop do
+#     number, remainder = number.divmod(10)
+#     result.prepend(STRING_INTEGERS[remainder])
+#     break if number == 0
+#   end
+#   return result if integer == 0
+#   integer > 0 ? result.prepend('+') : result.prepend('-')
+# end
+
+# def signed_integer_to_string(integer)
+#   result = integer.abs.digits.reverse.join
+#   return result if integer.zero?
+#   integer.positive? ? result.prepend('+') : result.prepend('-')
+# end
+
+# def signed_integer_to_string(integer)
+#   sign = ['', '+', '-'][integer <=> 0]
+#   number = integer.abs.digits.reduce('') do |result, digit|
+#     result.prepend(STRING_INTEGERS[digit])
+#   end
+#   sign + number
+# end
+
+# def signed_integer_to_string(integer)
+#   sign = ['', '+', '-'][integer <=> 0]
+#   number = integer.abs.digits.reverse.join
+#   sign + number
+# end
+
+def signed_integer_to_string(integer)
+  number = [integer].join
+  integer > 0 ? "+#{number}" : number
+end
+
+# def signed_integer_to_string(integer)
+#   integer > 0 ? "+#{integer}" : "#{integer}"
+# end
+
+p signed_integer_to_string(4321) #== '+4321'
+p signed_integer_to_string(-123) #== '-123'
+p signed_integer_to_string(0) #== '0'
+
+
+
+
+
 ### 10.2 SIGNED NUMBER TO STRING
 # STRING_INTEGERS = ('0'..'9').to_a
 
@@ -23,9 +110,9 @@
 #   result
 # end
 
-p signed_integer_to_string(4321) == '+4321'
-p signed_integer_to_string(-123) == '-123'
-p signed_integer_to_string(0) == '0'
+# p signed_integer_to_string(4321) == '+4321'
+# p signed_integer_to_string(-123) == '-123'
+# p signed_integer_to_string(0) == '0'
 
 ### 9.2 NUMBER TO STRING
 # STRING_INTEGERS = ('0'..'9').to_a
@@ -130,7 +217,7 @@ p signed_integer_to_string(0) == '0'
 # p string_to_integer('4321') == 4321
 # p string_to_integer('570') == 570
 
-### 6.2 
+### 6.2
 # def running_total(numbers)
 #   total = 0
 #   numbers.map { |number| total += number }
@@ -370,7 +457,7 @@ p signed_integer_to_string(0) == '0'
 #   digits = string.chars.map { |char| INTEGERS[char] }
 #   p digits
 #   value = 0
-#   digits.each do |digit| 
+#   digits.each do |digit|
 #     value = 10 * value + digit
 #     p value
 #   end
@@ -570,7 +657,7 @@ p signed_integer_to_string(0) == '0'
 # def short_long_short(str1, str2)
 #   short =  (str1.size < str2.size) ? str1 : str2
 #   long =   (str1.size > str2.size) ? str1 : str2
-#   short + long + short 
+#   short + long + short
 # end
 
 
