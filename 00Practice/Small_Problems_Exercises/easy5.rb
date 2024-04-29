@@ -1,3 +1,8 @@
+
+
+
+
+
 ### 11.2 LIST OF DIGITS
 # def digit_list(integer)
 #   integer.digits.reverse
@@ -24,17 +29,17 @@
 #   end.reverse
 # end
 
-def digit_list(integer)
-  Array.new(Math.log10(integer).to_i + 1).map do |digit|
-    integer, remainder = integer.divmod(10)
-    remainder
-  end.reverse
-end
+# def digit_list(integer)
+#   Array.new(Math.log10(integer).to_i + 1).map do |digit|
+#     integer, remainder = integer.divmod(10)
+#     remainder
+#   end.reverse
+# end
 
-p digit_list(12345) == [1, 2, 3, 4, 5]     # => true
-p digit_list(7) == [7]                     # => true
-p digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
-p digit_list(444) == [4, 4, 4]             # => true
+# p digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+# p digit_list(7) == [7]                     # => true
+# p digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+# p digit_list(444) == [4, 4, 4]             # => true
 
 ### 10.2 SPIN ME AROUND IN CIRCLES
 # def spin_me(str)
@@ -404,7 +409,7 @@ For this reason you could also use `#each` instead of `#map`. The `#each` method
 # p array1 # => ["hello"]
 # p array1.object_id # => 80
 # p array1[0] # => "hello"
-# p array1[0].object_id # => 100 
+# p array1[0].object_id # => 100
 # puts
 
 # array1.each do |word| #4
@@ -429,7 +434,7 @@ For this reason you could also use `#each` instead of `#map`. The `#each` method
 # def crunch(input_string)
 #   input_string.each_char.with_object("") do |char, new_string|
 #     new_string << char unless char == new_string[-1]
-#   end 
+#   end
 # end
 
 # p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
@@ -443,9 +448,9 @@ For this reason you could also use `#each` instead of `#map`. The `#each` method
 # WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
 # INTEGERS_TO_WORDS = INTEGERS.zip(WORDS).to_h
 # { 0=>"zero",      1=>"one",         2=>"two",       3=>"three",
-#   4=>"four",      5=>"five",        6=>"six",       7=>"seven", 
-#   8=>"eight",     9=>"nine",        10=>"ten",      11=>"eleven", 
-#   12=>"twelve",   13=>"thirteen",   14=>"fourteen", 15=>"fifteen", 
+#   4=>"four",      5=>"five",        6=>"six",       7=>"seven",
+#   8=>"eight",     9=>"nine",        10=>"ten",      11=>"eleven",
+#   12=>"twelve",   13=>"thirteen",   14=>"fourteen", 15=>"fifteen",
 #   16=>"sixteen",  17=>"seventeen",  18=>"eighteen", 19=>"nineteen"}
 
 # SORTED_INTEGERS = [
@@ -564,7 +569,7 @@ For this reason you could also use `#each` instead of `#map`. The `#each` method
 
 # def word_sizes(string)
 #   words = string.split
-#   sizes = Hash.new do |hash, key| 
+#   sizes = Hash.new do |hash, key|
 #     hash[key] = words.map {|word| word.size}.count(key)
 #   end
 #   words.each { |word| sizes[word.size] }
@@ -573,7 +578,7 @@ For this reason you could also use `#each` instead of `#map`. The `#each` method
 
 # def word_sizes(string)
 #   word_sizes = string.split.map { |word| word.size }
-#   size_counts = Hash.new do |hash, key| 
+#   size_counts = Hash.new do |hash, key|
 #     hash[key] = word_sizes.count(key)
 #   end
 #   word_sizes.uniq.each { |size| size_counts[size] }
@@ -724,13 +729,13 @@ For this reason you could also use `#each` instead of `#map`. The `#each` method
 # end
 
 # def ascii_value(string)
-#   p string.chars.map { |char| char = char.ord }.sum
+#   string.chars.map { |char| char.ord }.sum
 # end
 
 # def ascii_value(string)
 #   string.sum
 # end
-  
+
 
 # p ascii_value('Four score') == 984
 # p ascii_value('Launch School') == 1251
