@@ -1,3 +1,69 @@
+### 2.3 AFTER MIDNIGHT I
+=begin
+The time of day can be represented as the number of minutes before or after midnight. If the number of minutes is positive, the time is after midnight. If the number of minutes is negative, the time is before midnight.
+
+Write a method that takes a time using this minute-based format and returns the time of day in 24 hour format (hh:mm). Your method should work with any integer input.
+
+You may not use ruby's Date and Time classes. Disregard Daylight Savings and Standard Time and other complications.
+
+PROBLEM 7:40
+input: integer
+  - can be positive, negative, or 0
+  - represents minutes before or after midnight
+    - positive = after midnight
+    - negative = before midnight
+output: string
+  - represents time in 24 hour format (hh:mm)
+    - midnight = '00:00'
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to convert minutes to hours and minutes
+  - way to account for days (i.e. hours:minutes greater than 24)
+  - way to account for negative integers
+
+- input: integer
+  - minutes converted to hours and minutes
+  - hours converted to days
+- output: string
+
+ALGORITHM
+- convert input integer into hours and minutes
+  - divide by 60: quotient is hours, remainder is minutes
+- account for hours > 24
+  - divide by 24: quotient is days, remainder is hours
+    - only need hours
+- if input integer is negative
+  - subtract hours from 24
+  - subtract minutes from 60
+- return 'normalized' hours and minutes as a string: "hh:mm"
+  - prepend 0 if < 10
+
+=end
+
+MINUTES_PER_HOUR = 60
+HOURS_PER_DAY = 24
+
+def time_of_day(minutes)
+  hours, minutes = minutes.divmod(MINUTES_PER_HOUR)
+  hours = hours % HOURS_PER_DAY if hours.abs > 24
+  hours = 24 + hours if hours.negative?
+  hh, mm = [hours, minutes].map(&:to_s)
+  hh.prepend('0') if hours < 10
+  mm.prepend('0') if minutes < 10
+  "#{hh}:#{mm}"
+end
+
+p time_of_day(0) == "00:00"
+p time_of_day(-3) == "23:57"
+p time_of_day(35) == "00:35"
+p time_of_day(-1437) == "00:03"
+p time_of_day(3000) == "02:00"
+p time_of_day(800) == "13:20"
+p time_of_day(-4231) == "01:29"
+
 
 
 
