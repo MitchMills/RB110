@@ -1,49 +1,20 @@
-### EASY 5.1 ASCII
-=begin
-Write a method that determines and returns the ASCII string value of a string that is passed in as an argument. The ASCII string value is the sum of the ASCII values of every character in the string. (You may use String#ord to determine the ASCII value of a character.)
+MINUTES_PER_HOUR = 60
+HOURS_PER_DAY = 24
 
-PROBLEM 6:11
-input: string
-  - can contain any characters
-  - can be empty
-output: integer
-  - sum of the ASCII values of all characters in the string
-
-EXAMPLES
-
-DATA STRUCTURES
-- needs:
-  - way to access each individual character
-  - way to determine each characters' ascii value
-  - way to sum all values
-
-- input: string
-  - array of individual characters
-  - transformed array of ascii values for each character
-  - sum of all values
-- output: integer
-
-ALGORITHM
-- access each individual character
-  - create an array of each
-- determine its ascii value
-  - transform array into each character's ascii value
-- sum all these values and return sum
-=end
-
-# def ascii_value(string)
-#   string.chars.map(&:ord).sum
-# end
-
-# def ascii_value(string)
-#   string.chars.inject(0) { |sum, char| sum += (char.ord) }
-# end
-
-def ascii_value(string)
-  string.sum
+def time_of_day(minutes)
+  hours, minutes = minutes.divmod(MINUTES_PER_HOUR)
+  hours = hours % HOURS_PER_DAY if hours.abs > 24
+  hours = 24 + hours if hours.negative?
+  hh, mm = [hours, minutes].map(&:to_s)
+  hh.prepend('0') if hours < 10
+  mm.prepend('0') if minutes < 10
+  "#{hh}:#{mm}"
 end
 
-p ascii_value('Four score') == 984
-p ascii_value('Launch School') == 1251
-p ascii_value('a') == 97
-p ascii_value('') == 0
+p time_of_day(0) == "00:00"
+p time_of_day(-3) == "23:57"
+p time_of_day(35) == "00:35"
+p time_of_day(-1437) == "00:03"
+p time_of_day(3000) == "02:00"
+p time_of_day(800) == "13:20"
+p time_of_day(-4231) == "01:29"
