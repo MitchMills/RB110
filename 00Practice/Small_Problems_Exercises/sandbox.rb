@@ -3,12 +3,10 @@ HOURS_PER_DAY = 24
 
 def time_of_day(minutes)
   hours, minutes = minutes.divmod(MINUTES_PER_HOUR)
-  hours = hours % HOURS_PER_DAY if hours.abs > 24
-  hours = 24 + hours if hours.negative?
-  hh, mm = [hours, minutes].map(&:to_s)
-  hh.prepend('0') if hours < 10
-  mm.prepend('0') if minutes < 10
-  "#{hh}:#{mm}"
+  hours %= HOURS_PER_DAY
+  [hours, minutes].map do |unit|
+    unit < 10 ? unit.to_s.prepend('0') : unit.to_s
+  end.join(':')
 end
 
 p time_of_day(0) == "00:00"
