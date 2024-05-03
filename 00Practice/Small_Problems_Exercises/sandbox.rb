@@ -1,22 +1,14 @@
-MINUTES_PER_HOUR = 60
-MINUTES_PER_DAY = 1440
-
-def after_midnight(time)
-  hours, minutes = time.split(':').map(&:to_i)
-  ((hours * MINUTES_PER_HOUR) + minutes) % MINUTES_PER_DAY
+def swap(string)
+  string.split.map do |word|
+    first, last = swap_first_last_characters(word[0], word[-1])
+    word.size == 1 ? word : "#{first}#{word[1..-2]}#{last}"
+  end.join(' ')
 end
 
-def before_midnight(time)
-  (MINUTES_PER_DAY - after_midnight(time)) % MINUTES_PER_DAY
+def swap_first_last_characters(first, last)
+  first, last = last, first
 end
 
-p after_midnight('00:00') == 0
-p after_midnight('12:34') == 754
-p after_midnight('24:00') == 0
-p after_midnight('03:03') == 183
-
-p before_midnight('00:00') == 0
-p before_midnight('12:34') == 686
-p before_midnight('24:00') == 0
-p before_midnight('23:57') == 3
-p before_midnight('14:00') == 600
+p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
+p swap('Abcde') == 'ebcdA'
+p swap('a') == 'a'

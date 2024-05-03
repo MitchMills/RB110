@@ -1,72 +1,58 @@
-### 5.3 AFTER MIDNIGHT II
+### 5.4
 =begin
-As seen in the previous exercise, the time of day can be represented as the number of minutes before or after midnight. If the number of minutes is positive, the time is after midnight. If the number of minutes is negative, the time is before midnight.
+Given a string of words separated by spaces, write a method that takes this string of words and returns a string in which the first and last letters of every word are swapped.
 
-Write two methods that each take a time of day in 24 hour format, and return the number of minutes before and after midnight, respectively. Both methods should return a value in the range 0..1439.
+You may assume that every word contains at least one letter, and that the string will always contain at least one word. You may also assume that each string contains nothing but words and spaces.
 
-You may not use ruby's Date and Time methods.
-
-Yes, we know that 24:00 isn't a valid time in 24-hour format. Humor us, though; it makes the problem more interesting.
-
-Disregard Daylight Savings and Standard Time and other irregularities.
-
-PROBLEM 7:03
+PROBLEM 6:30
 input: string
-  - represents a time in 24 hour format
-    - midnight can be 00:00 OR 24:00
+  - contains a string of words
+    - will contain at least one word
+    - every word contains at least one letter
+  - contains only words and spaces
 
-output: integer
-  - represents number of minutes before or after midnight
-    - must be within range 0..1439
+output: string
+  - every word has first and last letters swapped
+  - if a word has only one letter, it remains the same
+  - case is maintained
 
 EXAMPLES
 
 DATA STRUCTURES
-- needs
-  - way to convert hours and minutes into minutes
-  - way to subtract time for after_midnight method
-  - way to deal with 24:00
+- needs:
+  - way to access each word separately
+  - way to access first and last letter of every word
 
-input: string
-  - string hours and minutes converted to integers
-  - hours converted to minutes
-  - sum: total minutes
-output: integer
+- input: string
+  - array of separate words
+  - indexes of first and last characters in each word
+- output: string
 
 ALGORITHM
-- after_midnight:
-  - convert input string into integer hours and minutes
-    - indexes 0 and 1, indexes -2 and -1
-  - convert hours into minutes
-  - return sum
+- separate string into individual words
+  - create an array of all words in the input string
+- swap first and last letters of each word
+  - use index 0 and index -1
+    - `word[0], word[-1] = word[-1], word[0]`
+- join individual words back into string and return it
 =end
 
-HOURS_PER_DAY = 24
-MINUTES_PER_HOUR = 60
-MINUTES_PER_DAY = 1440
-
-def after_midnight(time)
-  hours, minutes = time.split(':').map(&:to_i)
-  ((hours * MINUTES_PER_HOUR) + minutes) % MINUTES_PER_DAY
+def swap(string)
+  words = string.split
+  words.map { |word| swap_letters(word) }.join(' ')
 end
 
-def before_midnight(time)
- (MINUTES_PER_DAY - after_midnight(time)) % MINUTES_PER_DAY
+def swap_letters(word)
+  word[0], word[-1] = word[-1], word[0]
+  word
 end
 
+p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
+p swap('Abcde') == 'ebcdA'
+p swap('a') == 'a'
 
 
-p after_midnight('00:00') == 0
-p after_midnight('12:34') == 754
-p after_midnight('24:00') == 0
-p after_midnight('03:03') == 183
 
-
-p before_midnight('00:00') == 0
-p before_midnight('12:34') == 686
-p before_midnight('24:00') == 0
-p before_midnight('23:57') == 3
-p before_midnight('14:00') == 600
 
 
 ### 11.2 LIST OF DIGITS
