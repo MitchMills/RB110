@@ -1,14 +1,11 @@
-def swap(string)
-  string.split.map do |word|
-    first, last = swap_first_last_characters(word[0], word[-1])
-    word.size == 1 ? word : "#{first}#{word[1..-2]}#{last}"
-  end.join(' ')
+ALPHABET = ('a'..'z').to_a
+
+def cleanup(string)
+  clean_string = string.chars.map do |char|
+    ALPHABET.include?(char) ? char : ' '
+  end.join.split.join(' ')
+  ALPHABET.include?(string[0]) ? clean_string : clean_string.prepend(' ')
+  ALPHABET.include?(string[-1]) ? clean_string : clean_string << ' '
 end
 
-def swap_first_last_characters(first, last)
-  first, last = last, first
-end
-
-p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
-p swap('Abcde') == 'ebcdA'
-p swap('a') == 'a'
+p cleanup("---what's my +*& balloon?") #== ' what s my line '

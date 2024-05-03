@@ -1,56 +1,56 @@
-### 5.4
 =begin
-Given a string of words separated by spaces, write a method that takes this string of words and returns a string in which the first and last letters of every word are swapped.
+Given a string that consists of some words (all lowercased) and an assortment of non-alphabetic characters, write a method that returns that string with all of the non-alphabetic characters replaced by spaces. If one or more non-alphabetic characters occur in a row, you should only have one space in the result (the result should never have consecutive spaces).
 
-You may assume that every word contains at least one letter, and that the string will always contain at least one word. You may also assume that each string contains nothing but words and spaces.
-
-PROBLEM 6:30
+PROBLEM 4:24
 input: string
-  - contains a string of words
-    - will contain at least one word
-    - every word contains at least one letter
-  - contains only words and spaces
+  - contains only lowercase letters plus spaces and non-alphabetic characters
 
 output: string
-  - every word has first and last letters swapped
-  - if a word has only one letter, it remains the same
-  - case is maintained
+  - all non-alphabetic characters replaced by spaces
+  - if multiple non-alphabetic characters in a row, replace with only one space
+    - i.e. no consecutive spaces
 
 EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to access each word separately
-  - way to access first and last letter of every word
+  - way to detect non-alphabetic characters
+  - way to replace n-a characters with spaces
+  - way to remove consecutive spaces
+    -
 
 - input: string
-  - array of separate words
-  - indexes of first and last characters in each word
+  - array of all lowercase alphabetic characters
+  - array of individual characters in input sring
+  - transformed array: replace non-alpha characters with spaces
+  -
 - output: string
 
 ALGORITHM
-- separate string into individual words
-  - create an array of all words in the input string
-- swap first and last letters of each word
-  - use index 0 and index -1
-    - `word[0], word[-1] = word[-1], word[0]`
-- join individual words back into string and return it
+- create an array of all lowercase alpha characters
+- create an array of the individual characters in the input string
+- transform this array
+  - if character is present in the alphabet array, leave as is
+  - otherwise, replace it with a space
+-
 =end
+ALPHABET = ('a'..'z').to_a
 
-def swap(string)
-  words = string.split
-  words.map { |word| swap_letters(word) }.join(' ')
+# def cleanup(string)
+#   clean_string = string.chars.map do |char|
+#     ALPHABET.include?(char) ? char : ' '
+#   end.join.split.join(' ')
+#   ALPHABET.include?(string[0]) ? clean_string : clean_string.prepend(' ')
+#   ALPHABET.include?(string[-1]) ? clean_string : clean_string << ' '
+# end
+
+def cleanup(string)
+  clean_string = string.chars.map do |char|
+    ALPHABET.include?(char) ? char : ' '
+  end.join.squeeze(' ')
 end
 
-def swap_letters(word)
-  word[0], word[-1] = word[-1], word[0]
-  word
-end
-
-p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
-p swap('Abcde') == 'ebcdA'
-p swap('a') == 'a'
-
+p cleanup("---what's my +*& balloon?") #== ' what s my line '
 
 
 
