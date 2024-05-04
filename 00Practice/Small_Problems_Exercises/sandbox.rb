@@ -14,15 +14,6 @@ def word_sizes3(string)
   string.split.map(&:size).tally
 end
 
-def word_sizes4(string)
-  words = string.split
-  words.map do |word|
-    size = word.size
-    count = words.map(&:size).count(size)
-    [size, count]
-  end.to_h
-end
-
 def word_sizes(string)
   sizes = string.split.map(&:size)
   sizes.map { |size| [size, sizes.count(size)] }.to_h
