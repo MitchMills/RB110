@@ -1,73 +1,70 @@
 =begin
 Write a method that takes a string with one or more space separated words and returns a hash that shows the number of words of different sizes.
 
-Words consist of any string of characters that do not include a space.
+Words consist of any string of characters that do not include a space. Exclude non-letters when determining word size. For instance, the length of "it's" is 3, not 4.
 
-PROBLEM 7:49
+PROBLEM 7:47
 input: string
-  - contains one or more space separated words
-  - can be empty
+  - may be empty
 
 output: hash
-  - shows number of words of different sizes
-    - word: any string of charactes that does not include a space
-      - includes punctuation: e.g. 'abc.' is size 4
-    - keys are sizes, values are number of words of that size
-      - both are integers
+  - represents number of words of different sizes in input string
+  - keys are word size, values are number of words of that size
+    - size only includes letter characters
   - if input string is empty, return an empty hash
 
 EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to consider each word separately
+  - way to consider each 'word' individually
   - way to determine size of each word
-  - way to store count of each word size
+    - way to exclude non-letter characters from size determination
+  - way to determine number of words of each size
 
 - input: string
-  - empty hash with a default value of 0
-  - array of individual words in input string
+  - array of individual words
+  - each word with non-letter characters excluded
+  - empty hash with default value of 0
 - output: hash
 
 ALGORITHM
+- create an array of each individual word
+- create an array of only alpha characters (upper and lowercase)
 - create an empty hash with a default value of 0
-- create an array of individual words in input string
 - consider each word
-  - determine its size
-  - increment the value of the key of that size in the hash
+  - count each character that appears in the alphabet array
+- increment hash with key of that size
 - return the hash
 =end
 
+ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+
 # def word_sizes(string)
-#   counts = Hash.new(0)
-#   string.split.each do |word|
-#     counts[word.size] += 1
+#   string.split.each_with_object(Hash.new(0)) do |word, counts|
+#     size = word.chars.count { |char| ALPHABET.include?(char) }
+#     counts[size] += 1
 #   end
-#   counts
 # end
 
 # def word_sizes(string)
 #   string.split.each_with_object(Hash.new(0)) do |word, counts|
-#     counts[word.size] += 1
+#     size = word.count('A-Za-z')
+#     counts[size] += 1
 #   end
 # end
 
-# def word_sizes(string)
-#   string.split.map(&:size).tally
-# end
-
 def word_sizes(string)
-  words = string.split
-  words.map do |word|
-    count = words.map(&:size).count(word.size)
-    [word.size, count]
-  end.uniq.to_h
+  string.split.map { |word| word.count('A-Za-z') }.tally
 end
 
-p word_sizes('Four score and seven.') #== { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
-p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 1, 7 => 2 }
-p word_sizes("What's up doc?") == { 6 => 1, 2 => 1, 4 => 1 }
+
+
+p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
+p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
+p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
 p word_sizes('') == {}
+
 
 
 
