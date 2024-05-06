@@ -1,72 +1,51 @@
+### ALPHABETICAL NUMBERS
 =begin
-Write a method that takes a string with one or more space separated words and returns a hash that shows the number of words of different sizes.
+Write a method that takes an Array of Integers between 0 and 19, and returns an Array of those Integers sorted based on the English words for each number:
 
-Words consist of any string of characters that do not include a space. Exclude non-letters when determining word size. For instance, the length of "it's" is 3, not 4.
+zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
 
-PROBLEM 7:47
-input: string
-  - may be empty
+PROBLEM 5:17
+input: array
+  - contains only integers
+  - integers are between 0 and 19, inclusive
 
-output: hash
-  - represents number of words of different sizes in input string
-  - keys are word size, values are number of words of that size
-    - size only includes letter characters
-  - if input string is empty, return an empty hash
+output: array
+  - same integers as input array
+  - sorted alphabetically based on English words for each number
 
 EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to consider each 'word' individually
-  - way to determine size of each word
-    - way to exclude non-letter characters from size determination
-  - way to determine number of words of each size
+  - way to translate integers into English words
+  - way to sort integers based on those words
 
-- input: string
-  - array of individual words
-  - each word with non-letter characters excluded
-  - empty hash with default value of 0
-- output: hash
+- input: array
+  - translation hash:
+    - keys are integers
+    - values are English words
+- input: array
 
 ALGORITHM
-- create an array of each individual word
-- create an array of only alpha characters (upper and lowercase)
-- create an empty hash with a default value of 0
-- consider each word
-  - count each character that appears in the alphabet array
-- increment hash with key of that size
-- return the hash
+- create a hash to translate integers to English words
+- sort input array using hash value for each integer key
+- return the sorted array
 =end
 
-ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
 
-# def word_sizes(string)
-#   string.split.each_with_object(Hash.new(0)) do |word, counts|
-#     size = word.chars.count { |char| ALPHABET.include?(char) }
-#     counts[size] += 1
-#   end
+# def alphabetic_number_sort(numbers)
+#   numbers.sort_by { |number| NUMBER_WORDS[number] }
 # end
 
-# def word_sizes(string)
-#   string.split.each_with_object(Hash.new(0)) do |word, counts|
-#     size = word.count('A-Za-z')
-#     counts[size] += 1
-#   end
-# end
-
-def word_sizes(string)
-  string.split.map { |word| word.count('A-Za-z') }.tally
+def alphabetic_number_sort(numbers)
+  numbers.sort { |a, b| NUMBER_WORDS[a] <=> NUMBER_WORDS[b] }
 end
 
-
-
-p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
-p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
-p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
-p word_sizes('') == {}
-
-
-
+p alphabetic_number_sort((0..19).to_a) == [
+  8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
+  6, 16, 10, 13, 3, 12, 2, 0
+]
 
 
 ### 11.2 LIST OF DIGITS

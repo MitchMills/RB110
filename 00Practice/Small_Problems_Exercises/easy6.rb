@@ -1,12 +1,14 @@
+
+
 ### 10.2 MUTATION
-array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
-array2 = []
+# array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+# array2 = []
 
-array1.each { |value| array2 << value }
+# array1.each { |value| array2 << value }
 
-array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
+# array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
 
-puts array2
+# puts array2
 
 ### 9.2 DOES MY LIST INCLUDE THIS?
 # def include?(array, search_value)
@@ -96,7 +98,7 @@ puts array2
 # end
 
 # def merge(array1, array2) # MUTATING
-#   array2.each_with_object(array1) do |element, array1| 
+#   array2.each_with_object(array1) do |element, array1|
 #     array1 << element unless array1.include?(element)
 #   end
 # end
@@ -254,7 +256,7 @@ puts array2
 #   limit = 10**(length - 1)
 #   current_pair = [1, 1]
 #   index = 2
-#   loop do 
+#   loop do
 #     return index if current_pair.last >= limit
 #     next_number = current_pair.sum
 #     current_pair = [current_pair.last, next_number]
@@ -468,7 +470,7 @@ puts array2
 # def halvsies(array)
 #   half = array.size.divmod(2).sum
 #   left, right = array.slice(0, half), array.slice(half, array.size - half)
-# end 
+# end
 
 # p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
 # p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
@@ -552,8 +554,8 @@ puts array2
 #   new_array = []
 #   (array.size).times do
 #     new_array << array.pop
-#   end 
-  
+#   end
+
 #   (new_array.size).times do
 #     array << new_array.shift
 #   end
@@ -650,7 +652,7 @@ puts array2
 # end
 
 # def remove_vowels(string_array)
-#   string_array.map do |string| 
+#   string_array.map do |string|
 #     string.chars.each do |char|
 #       char = VOWELS.include?(char) ? "" : char
 #     end.join
@@ -658,7 +660,7 @@ puts array2
 # end
 
 # def remove_vowels(string_array)
-#   string_array.map do |string| 
+#   string_array.map do |string|
 #     string.chars.map do |char|
 #       char = VOWELS.include?(char) ? "" : char
 #     end.join
@@ -667,7 +669,7 @@ puts array2
 
 # def remove_vowels(string_array)
 #   string_array.map do |string|
-#     new_string = "" 
+#     new_string = ""
 #     string.each_char do |char|
 #       new_string << char unless VOWELS.include?(char)
 #     end
