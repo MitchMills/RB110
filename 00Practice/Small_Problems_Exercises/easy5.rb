@@ -1,51 +1,60 @@
-### ALPHABETICAL NUMBERS
+### 9 DAILY DOUBLE
 =begin
-Write a method that takes an Array of Integers between 0 and 19, and returns an Array of those Integers sorted based on the English words for each number:
+Write a method that takes a string argument and returns a new string that contains the value of the original string with all consecutive duplicate characters collapsed into a single character. You may not use String#squeeze or String#squeeze!.
 
-zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+PROBLEM 6:56
+input: string
+  - can be empty
 
-PROBLEM 5:17
-input: array
-  - contains only integers
-  - integers are between 0 and 19, inclusive
-
-output: array
-  - same integers as input array
-  - sorted alphabetically based on English words for each number
+output: new string
+  - all consecutive duplicate characters collapsed into a single character
+  - if input string is empty, return empty string
+  - size cannot be determined based on size of input string
 
 EXAMPLES
 
 DATA STRUCTURES
-- needs:
-  - way to translate integers into English words
-  - way to sort integers based on those words
+- needs
+  - way to consider each character individually
+  - way to detect consecutive duplicate characters
+  - way to remove all but one of those characters
 
-- input: array
-  - translation hash:
-    - keys are integers
-    - values are English words
-- input: array
+- input: string
+  - array of individual characters, with their indexes
+- output: string
 
 ALGORITHM
-- create a hash to translate integers to English words
-- sort input array using hash value for each integer key
-- return the sorted array
+- create an array of individual characters in the input string
+- for each character, select it unless the next character is the same
+- form the selected characters into a string and return it
 =end
 
-NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
-
-# def alphabetic_number_sort(numbers)
-#   numbers.sort_by { |number| NUMBER_WORDS[number] }
-# end
-
-def alphabetic_number_sort(numbers)
-  numbers.sort { |a, b| NUMBER_WORDS[a] <=> NUMBER_WORDS[b] }
+def crunch(string)
+  chars = string.chars
+  chars.select.with_index { |char, index| char != chars[index + 1] }.join
 end
 
-p alphabetic_number_sort((0..19).to_a) == [
-  8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
-  6, 16, 10, 13, 3, 12, 2, 0
-]
+p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+p crunch('4444abcabccba') == '4abcabcba'
+p crunch('ggggggggggggggg') == 'g'
+p crunch('a') == 'a'
+p crunch('') == ''
+
+### 8 ALPHABETICAL NUMBERS
+# NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+
+# # def alphabetic_number_sort(numbers)
+# #   numbers.sort_by { |number| NUMBER_WORDS[number] }
+# # end
+
+# def alphabetic_number_sort(numbers)
+#   numbers.sort { |a, b| NUMBER_WORDS[a] <=> NUMBER_WORDS[b] }
+# end
+
+# p alphabetic_number_sort((0..19).to_a) == [
+#   8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
+#   6, 16, 10, 13, 3, 12, 2, 0
+# ]
 
 
 ### 11.2 LIST OF DIGITS
