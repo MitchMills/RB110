@@ -1,31 +1,22 @@
-# def word_sizes1(string)
-#   counts = Hash.new(0)
-  # string.split.each { |word| counts[word.size] += 1 }
-  # counts
-# end
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
 
-# def word_sizes2(string)
-#   string.split.each_with_object(Hash.new(0)) do |word, counts|
-#     counts[word.size] += 1
-#   end
-# end
-
-# def word_sizes3(string)
-#   string.split.map(&:size).tally
-# end
-
-# def word_sizes(string)
-#   sizes = string.split.map(&:size)
-#   sizes.map { |size| [size, sizes.count(size)] }.to_h
-# end
-
-def word_sizes(string)
-  word_sizes = string.split.map(&:size)
-  counts = Hash.new { |hash, key| hash[key] = word_sizes.count(key) }
-  word_sizes.each_with_object(counts) { |word_size, counts| counts[word_size] }
+munsters.each do |name, info|
+  age_group = case info['age']
+  when (0..17) then 'kid'
+  when (18..64) then 'adult'
+  else 'senior'
+  end
+  munsters[name]['age_group'] = age_group
 end
 
-p word_sizes('Four score and seven.') #== { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
-p word_sizes('Hey diddle diddle, the cat and the fiddle!') #== { 3 => 5, 6 => 1, 7 => 2 }
-p word_sizes("What's up doc?") == { 6 => 1, 2 => 1, 4 => 1 }
-p word_sizes('') == {}
+p munsters
+
+# a kid is in the age range 0 - 17,
+# an adult is in the range 18 - 64 and
+# a senior is aged 65+.
