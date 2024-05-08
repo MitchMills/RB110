@@ -1,3 +1,63 @@
+### 11 LIST OF DIGITS
+=begin
+Write a method that takes one argument, a positive integer, and returns a list of the digits in the number.
+
+PROBLEM 4:40
+input: integer
+  - positive
+output: array
+  - each element is a digit from the input integer
+  - digits are in same order as in input integer
+
+EXAMPLE
+
+DATA STRUCTURES
+- needs
+  - way to get each successive separate digit
+
+- input: integer
+  - empty array to hold digits
+  - quotient and remainder of dividing integer by 10: 1234, 5
+  - remainder prepended to array, quotient becomes new number to be divided
+- output: array
+
+ALGORITHM
+- create an empty array to hold digits
+- divide integer by 10
+- prepend remainder to array
+- set integer to equal quotient
+- repeat until quotient = 0
+- return array
+=end
+
+# def digit_list(number)
+#   result = []
+#   loop do
+#     number, remainder = number.divmod(10)
+#     result.prepend(remainder)
+#     break if number == 0
+#   end
+#   result
+# end
+
+# def digit_list(number)
+#   number.to_s.size.times.map do
+#     number, remainder = number.divmod(10)
+#     remainder
+#   end.reverse
+# end
+
+def digit_list(number)
+  number.to_s.chars.map(&:to_i)
+end
+
+p digit_list(12345) == [1, 2, 3, 4, 5]
+p digit_list(7) == [7]
+p digit_list(375290) == [3, 7, 5, 2, 9, 0]
+p digit_list(444) == [4, 4, 4]
+
+
+
 ### 9 DAILY DOUBLE
 =begin
 Write a method that takes a string argument and returns a new string that contains the value of the original string with all consecutive duplicate characters collapsed into a single character. You may not use String#squeeze or String#squeeze!.
@@ -29,16 +89,16 @@ ALGORITHM
 - form the selected characters into a string and return it
 =end
 
-def crunch(string)
-  chars = string.chars
-  chars.select.with_index { |char, index| char != chars[index + 1] }.join
-end
+# def crunch(string)
+#   chars = string.chars
+#   chars.select.with_index { |char, index| char != chars[index + 1] }.join
+# end
 
-p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
-p crunch('4444abcabccba') == '4abcabcba'
-p crunch('ggggggggggggggg') == 'g'
-p crunch('a') == 'a'
-p crunch('') == ''
+# p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+# p crunch('4444abcabccba') == '4abcabcba'
+# p crunch('ggggggggggggggg') == 'g'
+# p crunch('a') == 'a'
+# p crunch('') == ''
 
 ### 8 ALPHABETICAL NUMBERS
 # NUMBER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
