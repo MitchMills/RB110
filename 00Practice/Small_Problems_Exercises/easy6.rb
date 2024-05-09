@@ -1,3 +1,82 @@
+### 1.3 CUTE ANGLES
+=begin
+Write a method that takes a floating point number that represents an angle between 0 and 360 degrees and returns a String that represents that angle in degrees, minutes and seconds. You should use a degree symbol (°) to represent degrees, a single quote (') to represent minutes, and a double quote (") to represent seconds. A degree has 60 minutes, while a minute has 60 seconds.
+
+Note: your results may differ slightly depending on how you round values, but should be within a second or two of the results shown.
+
+You should use two digit numbers with leading zeros when formatting the minutes and seconds, e.g., 321°03'07".
+
+You may use this constant to represent the degree symbol:
+DEGREE = "\xC2\xB0"
+
+PROBLEM 7:03
+input: float
+  - represents an angle
+    - between 0 and 360 degrees
+
+output: string
+  - represents same angle in degrees, minutes, and seconds
+  - formatting:
+    - degrees: °, minutes: ', seconds: "
+    - use leading zeros for minutes and seconds
+      - but not for degrees
+    - example: 321°03'07"
+  - conversion:
+    - 1 degree = 60 minutes
+    - 1 minute == 60 seconds
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - separate decimals from whole numbers
+  - convert decimals into minutes and seconds
+  - format final string
+
+- input: float
+  - converted to seconds
+  - converted to minutes and seconds
+- string
+
+ALGORITHM
+- convert input float into seconds
+  - float * 360
+-
+=end
+
+MINUTES_PER_DEGREE = 60
+SECONDS_PER_MINUTE = 60
+SECONDS_PER_DEGREE = MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
+
+def dms(degrees)
+  dms = calculate_dms(degrees)
+  apply_format(dms)
+end
+
+def calculate_dms(degrees)
+  degrees, minutes = degrees.divmod(1)
+  minutes *= MINUTES_PER_DEGREE
+  minutes, seconds = minutes.divmod(1)
+  seconds *= SECONDS_PER_MINUTE
+  minutes, seconds = [minutes += 1, 0] if seconds.round == 60
+  [degrees, minutes, seconds.round]
+end
+
+def apply_format(dms)
+  degrees, minutes, seconds = dms.map(&:to_s)
+  [minutes, seconds].map { |unit| unit.size == 1 ? unit.prepend('0') : unit }
+  "#{degrees}°#{minutes}'#{seconds}\""
+end
+
+puts dms(30) == %(30°00'00")
+puts dms(76.73) == %(76°43'48")
+puts dms(254.6) == %(254°36'00")
+puts dms(93.034773) == %(93°02'05")
+puts dms(0) == %(0°00'00")
+puts dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
+
+
+
 
 
 ### 10.2 MUTATION
