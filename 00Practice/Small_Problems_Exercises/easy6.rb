@@ -1,3 +1,50 @@
+### 2.3 DELETE VOWELS
+=begin
+Write a method that takes an array of strings, and returns an array of the same string values, except with the vowels (a, e, i, o, u) removed.
+
+PROBLEM 12:14
+input: array
+  - elements are strings
+
+output: array
+  - elements are same string values with aeiou/AEIOU removed
+  - case is preserved
+  - if a string contains only vowels, return an empty string
+  - output array contains same number of elements as input array
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - consider each string individually
+  - consider each character individually
+  - identify vowels
+  - remove vowels
+
+- input: array
+  - for each element in array:
+    - string of vowels (upper and lowercase)
+    - string with vowels deleted
+- output: array
+
+ALGORITHM
+- create a string of vowels: 'AEIOUaeiou'
+- transform input array:
+  - for each element, delete vowels
+- return transformed array
+=end
+
+# def remove_vowels(words)
+#   words.map { |word| word.delete('AEIOUaeiou') }
+# end
+
+# p remove_vowels(["abcdefghijklmnopqrstuvwxyz"]) == ["bcdfghjklmnpqrstvwxyz"]
+# p remove_vowels(["green", "YELLOW", "black", "white"]) == ["grn", "YLLW", "blck", "wht"]
+# p remove_vowels(["ABC", "AEIOU", "XYZ"]) == ['BC', '', 'XYZ']
+
+
+
+
 ### 1.3 CUTE ANGLES
 =begin
 Write a method that takes a floating point number that represents an angle between 0 and 360 degrees and returns a String that represents that angle in degrees, minutes and seconds. You should use a degree symbol (°) to represent degrees, a single quote (') to represent minutes, and a double quote (") to represent seconds. A degree has 60 minutes, while a minute has 60 seconds.
@@ -44,36 +91,36 @@ ALGORITHM
 -
 =end
 
-MINUTES_PER_DEGREE = 60
-SECONDS_PER_MINUTE = 60
-SECONDS_PER_DEGREE = MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
+# MINUTES_PER_DEGREE = 60
+# SECONDS_PER_MINUTE = 60
+# SECONDS_PER_DEGREE = 3600 # MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
 
-def dms(degrees)
-  dms = calculate_dms(degrees)
-  apply_format(dms)
-end
+# def dms(angle)
+#   dms = calculate_dms(angle)
+#   apply_format(dms)
+# end
 
-def calculate_dms(degrees)
-  degrees, minutes = degrees.divmod(1)
-  minutes *= MINUTES_PER_DEGREE
-  minutes, seconds = minutes.divmod(1)
-  seconds *= SECONDS_PER_MINUTE
-  minutes, seconds = [minutes += 1, 0] if seconds.round == 60
-  [degrees, minutes, seconds.round]
-end
+# def calculate_dms(degrees_float)
+#   total_seconds = (degrees_float * SECONDS_PER_DEGREE).round
+#   degrees, remaining_seconds = total_seconds.divmod(SECONDS_PER_DEGREE)
+#   minutes, seconds = remaining_seconds.divmod(SECONDS_PER_MINUTE)
+#   [degrees, minutes, seconds]
+# end
 
-def apply_format(dms)
-  degrees, minutes, seconds = dms.map(&:to_s)
-  [minutes, seconds].map { |unit| unit.size == 1 ? unit.prepend('0') : unit }
-  "#{degrees}°#{minutes}'#{seconds}\""
-end
+# def apply_format(dms)
+#   degrees, minutes, seconds = dms.map(&:to_s)
+#   [minutes, seconds].map { |unit| unit.size == 1 ? unit.prepend('0') : unit }
+#   "#{degrees}°#{minutes}'#{seconds}\""
+# end
 
-puts dms(30) == %(30°00'00")
-puts dms(76.73) == %(76°43'48")
-puts dms(254.6) == %(254°36'00")
-puts dms(93.034773) == %(93°02'05")
-puts dms(0) == %(0°00'00")
-puts dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
+# p calculate_dms(254.6)
+
+# puts dms(30) == %(30°00'00")
+# puts dms(76.73) == %(76°43'48")
+# puts dms(254.6) == %(254°36'00")
+# puts dms(93.034773) == %(93°02'05")
+# puts dms(0) == %(0°00'00")
+# puts dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
 
 
 
@@ -772,7 +819,7 @@ puts dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
 # DEGREE = "\xC2\xB0"
 # MINUTES_PER_DEGREE = 60
 # SECONDS_PER_MINUTE = 60
-# SECONDS_PER_DEGREE = MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
+# SECONDS_PER_DEGREE = 3600 # MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
 
 # def dms(degrees_float)
 #   total_seconds = (degrees_float * SECONDS_PER_DEGREE).round
