@@ -1,3 +1,75 @@
+### 3.3 FIBONACCI LENGTH
+=begin
+The Fibonacci series is a series of numbers (1, 1, 2, 3, 5, 8, 13, 21, ...) such that the first 2 numbers are 1 by definition, and each subsequent number is the sum of the two previous numbers. This series appears throughout the natural world.
+
+Computationally, the Fibonacci series is a very simple series, but the results grow at an incredibly rapid rate. For example, the 100th Fibonacci number is 354,224,848,179,261,915,075 -- that's enormous, especially considering that it takes 6 iterations before it generates the first 2 digit number.
+
+Write a method that calculates and returns the index of the first Fibonacci number that has the number of digits specified as an argument. (The first Fibonacci number has index 1.)
+
+You may assume that the argument is always greater than or equal to 2.
+
+PROBLEM 7:41
+input: integer
+  - greater than or equal to 2
+  - represents the target number of digits of a fibonacci number
+
+output: integer
+  - represents the index of the first Fibonacci number to have the target number of digits
+    - first Fibonacci nubmer has index of 1
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to determine current Fib number
+    - way to determine previous two Fib numbers?
+  - way to determine number of digits in current Fib number
+
+- input: integer
+  - loop
+  - counter that represents index
+  - array of last two Fib numbers
+  - sum of that array
+  - sum converted to string to determine length / number of digits
+- output: integer
+
+ALGORITHM
+- create a variable to track index (set to 3)
+- create an array to represent last two Fib numbers (set to [1, 1])
+- create a loop
+  - current fib number = sum of the array
+  - convert sum to a string and get its length
+  - if length = input integer, return index
+  - if not:
+    - reassign first number of array to last number of array
+    - reassign last number of array to sum
+    - increment index by 1
+
+=end
+
+def find_fibonacci_index_by_length(target_length)
+  index = 3
+  last_pair = [1, 1]
+  target = 10**(target_length - 1)
+
+  loop do
+    current_fib = last_pair.sum
+    return index if current_fib >= target
+
+    last_pair[0], last_pair[1] = last_pair[1], current_fib
+    index += 1
+  end
+end
+
+p find_fibonacci_index_by_length(2) #== 7          # 1 1 2 3 5 8 13
+p find_fibonacci_index_by_length(3) #== 12         # 1 1 2 3 5 8 13 21 34 55 89 144
+p find_fibonacci_index_by_length(10) == 45
+p find_fibonacci_index_by_length(100) == 476
+p find_fibonacci_index_by_length(1000) == 4782
+p find_fibonacci_index_by_length(10000) == 47847
+
+
+
 ### 2.3 DELETE VOWELS
 =begin
 Write a method that takes an array of strings, and returns an array of the same string values, except with the vowels (a, e, i, o, u) removed.
