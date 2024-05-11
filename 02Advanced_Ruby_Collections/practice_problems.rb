@@ -1,17 +1,35 @@
-### 15
-arr = [
-  {a: [1, 2, 3]},
-  {b: [2, 4, 6], c: [3, 6], d: [4]},
-  {e: [8], f: [6, 10]}
-]
+### 16
+HEXADECIMALS = ('0'..'9').to_a + ('a'..'f').to_a
+PATTERN = [8, 4, 4, 4, 12]
 
-evens = arr.select do |hash|
-  hash.values.all? do |numbers|
-    numbers.all? { |number| number.even? }
-  end
+# def generate_uuid
+#   PATTERN.map do |digits|
+#     digits.times.with_object('') { |_, string| string << HEXADECIMALS.sample }
+#   end.join('-')
+# end
+
+def generate_uuid
+  PATTERN.map do |digits|
+    digits.times.inject('') { |string, _| string << HEXADECIMALS.sample }
+  end.join('-')
 end
 
-p evens
+p generate_uuid
+
+### 15
+# arr = [
+#   {a: [1, 2, 3]},
+#   {b: [2, 4, 6], c: [3, 6], d: [4]},
+#   {e: [8], f: [6, 10]}
+# ]
+
+# evens = arr.select do |hash|
+#   hash.values.all? do |numbers|
+#     numbers.all? { |number| number.even? }
+#   end
+# end
+
+# p evens
 
 
 ### 14
