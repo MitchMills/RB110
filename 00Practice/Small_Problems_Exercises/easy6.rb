@@ -1,3 +1,96 @@
+# def reverse!(array)
+#   array.each_index { |index| array.insert(index, array.pop) }
+# end
+
+# def reverse!(list)
+#   reference_list = list.clone
+#   list.each_index { |index| list[index] = reference_list[-(index + 1)] }
+# end
+
+# def reverse!(list)
+#   reference_list = list.clone
+#   list.map! { reference_list.pop }
+# end
+
+# def reverse!(array)
+#   array.sort_by!.with_index { |_, index| -index }
+# end
+
+array = [1, 2, 3, 4, 3, 5]
+reverse!(array)
+p array #== [5, 4, 3, 3, 2, 1] (should be [5, 3, 4, 3, 2, 1])
+
+### 4.3
+=begin
+Write a method that takes an Array as an argument, and reverses its elements in place; that is, mutate the Array passed into this method. The return value should be the same Array object.
+
+You may not use Array#reverse or Array#reverse!.
+
+Note: for the test case list = ['abc'], we want to reverse the elements in the array. The array only has one element, a String, but we're not reversing the String itself, so the reverse! method call should return ['abc'].
+
+PROBLEM: 1:58
+input: array
+  - can be empty
+
+output: array
+  - same array object as input array (i.e. input array is mutated)
+  - elements are in reverse order
+    - elements themselves are unchanged, only their order in the array is changed
+  - if input array has only zero or one element, array will not be changed
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to reverse order of elements
+
+- input: array
+
+- output: array
+
+ALGORITHM
+- iterate over each index of the input array
+- on each iteration, use the index
+  - assign the value at the current index to index[- (index + 1)]
+- return the array
+=end
+# def reverse!(list)
+#   reference_list = list.clone
+#   (0...list.size).each do |index|
+#     list[index] = reference_list[-(index + 1)]
+#   end
+#   list
+# end
+
+# def reverse!(list)
+#   reference_list = list.clone
+#   list.each_index { |index| list[index] = reference_list[-(index + 1)] }
+# end
+
+# list1 = [1,2,3,4]
+# result1 = reverse!(list1)
+# p result1 == [4, 3, 2, 1] # true
+# p list1 == [4, 3, 2, 1] # true
+# p list1.object_id == result1.object_id # true
+# puts
+# list2 = %w(a b e d c)
+# result2 = reverse!(list2)
+# p result2 == ["c", "d", "e", "b", "a"] # true
+# p list2 == ["c", "d", "e", "b", "a"] # true
+# p list2.object_id == result2.object_id
+# puts
+# list3 = ['abc']
+# result3 = reverse!(list3)
+# p result3 == ["abc"] # true
+# p list3 == ["abc"] # true
+# p list3.object_id == result3.object_id
+# puts
+# list4 = []
+# result4 = reverse!(list4)
+# p result4 == [] # true
+# p list4 == [] # true
+# p list4.object_id == result4.object_id
+
 ### 3.3 FIBONACCI LENGTH
 =begin
 The Fibonacci series is a series of numbers (1, 1, 2, 3, 5, 8, 13, 21, ...) such that the first 2 numbers are 1 by definition, and each subsequent number is the sum of the two previous numbers. This series appears throughout the natural world.
@@ -47,26 +140,26 @@ ALGORITHM
 
 =end
 
-def find_fibonacci_index_by_length(target_length)
-  index = 3
-  last_pair = [1, 1]
-  target = 10**(target_length - 1)
+# def find_fibonacci_index_by_length(target_length)
+#   last_pair = [1, 1]
+#   index = 3
+#   target = 10**(target_length - 1)
 
-  loop do
-    current_fib = last_pair.sum
-    return index if current_fib >= target
+#   loop do
+#     current_fib = last_pair.sum
+#     return index if current_fib >= target
 
-    last_pair[0], last_pair[1] = last_pair[1], current_fib
-    index += 1
-  end
-end
+#     last_pair = [last_pair.last, current_fib]
+#     index += 1
+#   end
+# end
 
-p find_fibonacci_index_by_length(2) #== 7          # 1 1 2 3 5 8 13
-p find_fibonacci_index_by_length(3) #== 12         # 1 1 2 3 5 8 13 21 34 55 89 144
-p find_fibonacci_index_by_length(10) == 45
-p find_fibonacci_index_by_length(100) == 476
-p find_fibonacci_index_by_length(1000) == 4782
-p find_fibonacci_index_by_length(10000) == 47847
+# p find_fibonacci_index_by_length(2) #== 7          # 1 1 2 3 5 8 13
+# p find_fibonacci_index_by_length(3) #== 12         # 1 1 2 3 5 8 13 21 34 55 89 144
+# p find_fibonacci_index_by_length(10) == 45
+# p find_fibonacci_index_by_length(100) == 476
+# p find_fibonacci_index_by_length(1000) == 4782
+# p find_fibonacci_index_by_length(10000) == 47847
 
 
 
