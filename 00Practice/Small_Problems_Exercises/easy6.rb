@@ -1,3 +1,57 @@
+### 6.3 MERGE ARRAYS
+=begin
+Write a method that takes two Arrays as arguments, and returns an Array that contains all of the values from the argument Arrays. There should be no duplication of values in the returned Array, even if there are duplicates in the original Arrays.
+
+PROBLEM 4:33
+input: two arrays
+
+output: array
+  - combines all the values from the input arrays
+    - no duplicates (even if input arrays contain duplicates)
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each value in input arrays
+  - way to deal with duplicate values
+
+- input: 2 arrays
+  - empty array to add non-duplicate values to
+- output: array
+
+ALGORITHM
+- remove duplicate values from first and second input arrays
+- remove values in first input array from second input array
+- create an empty array and add all values from both arrays to it
+- return that array
+=end
+
+# def merge(array1, array2)
+#   array1, array2 = array1.uniq, array2.uniq
+#   array1.each do |element|
+#     array2.delete(element)
+#   end
+#   array1 + array2
+# end
+
+def merge(array1, array2)
+  (array1 + array2).uniq
+end
+
+# def merge(array1, array2)
+#   array1.union(array2)
+# end
+
+# def merge(*a_buffet_of_arrays) # => [arg1, arg2, arg3 ... ]
+#   a_buffet_of_arrays.inject(:union)
+# end
+
+# p merge([1, 3, 5, 3], [3, 6, 9, 6], [9, 10, 11, 11]) #== [1, 3, 5, 6, 9, 10, 11]
+
+p merge([1, 3, 5, 3], [3, 6, 9, 6]) #== [1, 3, 5, 6, 9]
+
+
 
 
 
