@@ -1,50 +1,20 @@
-customer_orders = [
-  {
-    customer_id: 12,
-    customer_name: 'Emma Lopez',
-    orders: [
-      { order_fulfilled: true, order_value: 135.99 },
-      { order_fulfilled: true, order_value: 289.49 },
-      { order_fulfilled: false, order_value: 58.00 }
-    ]
-  },
-  {
-    customer_id: 32,
-    customer_name: 'Michael Richards',
-    orders: [
-      { order_fulfilled: true, order_value: 120.00 },
-      { order_fulfilled: false, order_value: 85.65 }
-    ]
-  },
-  # rest of data...
+array = [
+  {a: 1},
+  {b: 2, c: 3},
+  {d: 4, e: 5, f: 6}
 ]
 
-# all_orders =[
-#   {customer_id: 12, customer_name: 'Emma Lopez', total_order_value: 483.48},
-#   {customer_id: 32, customer_name: 'Michael Richards', total_order_value: 205.65},
-#   # rest of data
-# ]
+# incremented = array.map do |hash|
+#   hash.map { |key, value| [key, value + 1] }.to_h
+# end
 
-# fulfilled_orders =[
-#   {customer_id: 12, customer_name: 'Emma Lopez', order_value: 425.48},
-#   {customer_id: 32, customer_name: 'Michael Richards', order_value: 120.00},
-#   # rest of data
-# ]
-
-fulfilled_orders = customer_orders.map do |customer|
-  {
-    customer_id: customer[:customer_id],
-    customer_name: customer[:customer_name]
-  }
-end
-
-customer_orders.each_with_index do |data, index|
-  order_value = data[:orders].reduce(0) do |total, order|
-    # total + order[:order_value] if order[:order_fulfilled]
-    order[:order_fulfilled] ? total += order[:order_value] : total
+incremented = array.map do |hash|
+  new_hash = {}
+  hash.each do |key, value|
+    new_hash[key] = value + 1
   end
-
-  fulfilled_orders[index][:order_value] = order_value
+  new_hash
 end
 
-p fulfilled_orders
+p array
+p incremented
