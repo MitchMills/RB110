@@ -1,3 +1,65 @@
+
+
+
+### 5.3 REVERSED ARRAYS 2
+=begin
+Write a method that takes an Array, and returns a new Array with the elements of the original list in reverse order. Do not modify the original list.
+
+You may not use Array#reverse or Array#reverse!, nor may you use the method you wrote in the previous exercise.
+
+PROBLEM 7:03
+input: array
+  - can be empty
+  - can contain only one element
+
+output: new array
+  - contains same elements as input array, in reverse order
+    - order of elements is reversed
+    - elements themselves are unchanged
+  - input array is not modified
+  - if input array is empty or has only one element, output array will look the same
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - access each element in input array
+  - place it in correct position in output array
+    - without modifying input array
+
+- input: array
+  - new array to hold reversed values
+- output: array
+
+ALGORITHM
+- transform input array using indexes
+  - each element will be at index -(index + 1)
+=end
+# def reverse(array)
+#   array.each_index.map { |index| array[-(index + 1)] }
+# end
+
+# def reverse(array)
+#   array.inject([]) { |result, element| result.prepend(element) }
+# end
+
+# def reverse(array)
+#   array.reduce([], :prepend)
+# end
+
+# p reverse([1,2,3,4]) == [4,3,2,1]          # => true
+# p reverse(%w(a b e d c)) == %w(c d e b a)  # => true
+# p reverse(['abc']) == ['abc']              # => true
+# p reverse([]) == []                        # => true
+
+# p list = [1, 3, 2]                      # => [1, 3, 2]
+# p new_list = reverse(list)              # => [2, 3, 1]
+# p list.object_id != new_list.object_id  # => true
+# p list == [1, 3, 2]                     # => true
+# p new_list == [2, 3, 1]                 # => true
+
+
+
 # def reverse!(array)
 #   array.each_index { |index| array.insert(index, array.pop) }
 # end
@@ -16,11 +78,11 @@
 #   array.sort_by!.with_index { |_, index| -index }
 # end
 
-array = [1, 2, 3, 4, 3, 5]
-reverse!(array)
-p array #== [5, 4, 3, 3, 2, 1] (should be [5, 3, 4, 3, 2, 1])
+# array = [1, 2, 3, 4, 3, 5]
+# reverse!(array)
+# p array #== [5, 4, 3, 3, 2, 1] (should be [5, 3, 4, 3, 2, 1])
 
-### 4.3
+### 4.3 REVERSED ARRAYS I
 =begin
 Write a method that takes an Array as an argument, and reverses its elements in place; that is, mutate the Array passed into this method. The return value should be the same Array object.
 
