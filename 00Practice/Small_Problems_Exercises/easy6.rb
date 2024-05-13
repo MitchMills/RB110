@@ -1,3 +1,83 @@
+### 7.3 HALVSIES
+=begin
+Write a method that takes an Array as an argument, and returns two Arrays (as a pair of nested Arrays) that contain the first half and second half of the original Array, respectively. If the original array contains an odd number of elements, the middle element should be placed in the first half Array.
+
+PROBLEM 7:14
+input: array
+  - can be empty
+  - can contain a single element
+
+outpu: nested array
+  - always contains two subarrays
+    - first subarray contains all elements of first half of input array
+      - if input array has odd # of elements, middle element goes in first array
+    - second subarray contains all elements of second half of input array
+  - if input array contains only 1 element
+    - second subarray will be empty
+  - if input array is empty
+    - both subarrays will be empty
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - determine midpoint of input array
+  - get correct number of elements in each subarray
+
+- input: array
+  - subarrays:
+    - if array size even:
+      - first: index 0, length = size / 2
+      - second: index size/2 .. -1
+    - if array size odd:
+      - first: (index 0, length = (size / 2) + 1) OR (index 0 .. index size/2)
+      - second: (index (size/2) + 1 .. -1
+
+- output: array
+
+ALGORITHM
+- determine the midpoint of the input array
+  - size / 2
+- if array size is even:
+  - return two subarrays
+    - first: input_array[0, size / 2]
+    - second: input_array[size/2 .. -1]
+if array size is odd:
+    - return two subarrays
+      - first: input_array[0 .. size/2]
+      - second: input_array[(size/2)+1 .. -1]
+- return both subarrays in an array
+=end
+
+# def halvsies(array)
+#   half = (array.size / 2.0).ceil
+#   first = array.take(half)
+#   second = array - first
+#   [first, second]
+# end
+
+# def halvsies(array)
+#   half = (array.size / 2.0).ceil
+#   [array.take(half), array.drop(half)]
+# end
+
+# def halvsies(array)
+#    half = (array.size / 2.0).ceil
+#   array.partition.with_index { |_, index| index < half }
+# end
+
+# def halvsies(arr)
+#   arr.partition { |num| arr.index(num) < (arr.length / 2.0).ceil }
+# end
+
+# p halvsies([1, 2, 3, 2]) #== [[1, 2], [3, 4]]
+# p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+# p halvsies([5]) == [[5], []]
+# p halvsies([]) == [[], []]
+
+
+
+
 ### 6.3 MERGE ARRAYS
 =begin
 Write a method that takes two Arrays as arguments, and returns an Array that contains all of the values from the argument Arrays. There should be no duplication of values in the returned Array, even if there are duplicates in the original Arrays.
@@ -35,9 +115,9 @@ ALGORITHM
 #   array1 + array2
 # end
 
-def merge(array1, array2)
-  (array1 + array2).uniq
-end
+# def merge(array1, array2)
+#   (array1 + array2).uniq
+# end
 
 # def merge(array1, array2)
 #   array1.union(array2)
@@ -49,7 +129,7 @@ end
 
 # p merge([1, 3, 5, 3], [3, 6, 9, 6], [9, 10, 11, 11]) #== [1, 3, 5, 6, 9, 10, 11]
 
-p merge([1, 3, 5, 3], [3, 6, 9, 6]) #== [1, 3, 5, 6, 9]
+# p merge([1, 3, 5, 3], [3, 6, 9, 6]) #== [1, 3, 5, 6, 9]
 
 
 
