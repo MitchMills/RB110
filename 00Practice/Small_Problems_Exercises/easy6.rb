@@ -1,3 +1,99 @@
+### 9.3 INCLUDED?
+=begin
+Write a method named include? that takes an Array and a search value as arguments. This method should return true if the search value is in the array, false if it is not. You may not use the Array#include? method in your solution.
+
+PROBLEM 11:11
+input: array, search value (can be any object)
+  - array can be empty
+  - search value can be any object, including nil
+
+output: boolean
+  - true if search value occurs in input array
+  - false otherwise
+  - return false if input array is empty
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to consider each value in input array
+  - way to compare each value to search value
+
+- input: array, object
+
+- output: boolean
+
+ALGORITHM
+- consider each element in the input array
+  - compare it to the search value
+    - return true if they are the same
+  - return false if no element is the same as the search value
+=end
+def include?(array, target)
+  array.any?(target)
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+
+
+
+### 8.3 DUPLICATES
+=begin
+Given an unordered array and the information that exactly one value in the array occurs twice (every other value occurs exactly once), how would you determine which value occurs twice? Write a method that will find and return the duplicate value that is known to be in the array.
+
+PROBLEM 10:44
+input: array
+  - elements are not in any particular order
+  - contains one and only one duplicate value
+  - all integers?
+output: integer
+  - the duplicate value
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to consider each value
+  - way to detect duplicate
+
+- input: array
+  - empty array to add non-duplicate values to
+- output: integer
+
+ALGORITHM
+
+=end
+
+# def find_dup(array)
+#   array.find { |element| array.count(element) > 1 }
+# end
+
+# def find_dup(array)
+#   no_dups = array.uniq
+#   array.each_with_index do |element, index|
+#     return element if element != no_dups[index]
+#   end
+# end
+
+# p find_dup([1, 5, 3, 1]) == 1
+# p find_dup([18,  9, 36, 96, 31, 19, 54, 75, 42, 15,
+#           38, 25, 97, 92, 46, 69, 91, 59, 53, 27,
+#           14, 61, 90, 81,  8, 63, 95, 99, 30, 65,
+#           78, 76, 48, 16, 93, 77, 52, 49, 37, 29,
+#           89, 10, 84,  1, 47, 68, 12, 33, 86, 60,
+#           41, 44, 83, 35, 94, 73, 98,  3, 64, 82,
+#           55, 79, 80, 21, 39, 72, 13, 50,  6, 70,
+#           85, 87, 51, 17, 66, 20, 28, 26,  2, 22,
+#           40, 23, 71, 62, 73, 32, 43, 24,  4, 56,
+#           7,  34, 57, 74, 45, 11, 88, 67,  5, 58]) == 73
+
+
+
 ### 7.3 HALVSIES
 =begin
 Write a method that takes an Array as an argument, and returns two Arrays (as a pair of nested Arrays) that contain the first half and second half of the original Array, respectively. If the original array contains an odd number of elements, the middle element should be placed in the first half Array.
