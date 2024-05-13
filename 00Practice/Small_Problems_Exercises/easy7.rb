@@ -1,3 +1,66 @@
+
+
+
+### 2.3 LETTERCASE COUNTER
+=begin
+Write a method that takes a string, and then returns a hash that contains 3 entries: one represents the number of characters in the string that are lowercase letters, one represents the number of characters that are uppercase letters, and one represents the number of characters that are neither.
+
+PROBLEM 4:43
+input: string
+  - can contain any type of character
+  - can be empty
+
+output: hash
+  - contains three key-value pairs
+    - keys are: lowercase, uppercase, neither
+    - values are numbers of characters in those categories
+  - values sum to size of input string
+  - key still appears even if value is 0
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each character individually
+  - way to determine category of each character
+  - way to record count of each category
+
+- input: string
+  - empty hash with default value of 0
+  - array of individual characters
+  - array of category names
+- output: hash
+
+ALGORITHM
+- create arrays of uppercase letters and lowercase letters
+- create an empty array with a default value of 0
+- create an array of categories
+- for each category, get the count of number of characters that belong to that category
+  - i.e. are included in the appropriate letter array
+  - for the neither category, subtract (lower + upper) from string length
+  - create a key-value pair in the output hash
+- return the hash
+=end
+UPPERCASE = ('A'..'Z').to_a
+LOWERCASE = ('a'..'z').to_a
+
+# def letter_case_count(string)
+#   counts = {lowercase: 0, uppercase: 0, neither: 0}
+#   string.chars.each do |char|
+#     counts[:lowercase] += 1 if LOWERCASE.include?(char)
+#     counts[:uppercase] += 1 if UPPERCASE.include?(char)
+#   end
+#   counts[:neither] = string.size - (counts[:lowercase] + counts[:uppercase])
+#   counts
+# end
+
+# def letter_case_count(string)
+#   types = [:lowercase, :uppercase, :neither]
+#   selectors = ['a-z', 'A-Z', '^A-Za-z']
+#   cases = types.zip(selectors).to_h
+#   cases.map { |type, selector| [type, string.count(selector)] }.to_h
+# end
+
 ### 1.3 COMBINE TWO LISTS
 =begin
 Write a method that combines two Arrays passed in as arguments, and returns a new Array that contains all elements from both Array arguments, with the elements taken in alternation.
@@ -30,9 +93,9 @@ DATA STRUCTURES
 #   array1.zip(array2).flatten
 # end
 
-def interleave(array1, array2)
-  array1.flat_map.with_index { |element, index| [element, array2[index]] }
-end
+# def interleave(array1, array2)
+#   array1.flat_map.with_index { |element, index| [element, array2[index]] }
+# end
 
 # def interleave(array1, array2)
 #   info1, info2 = [array1, array2].map.with_index do |array, array_index|
@@ -50,7 +113,7 @@ end
 #   end
 # end
 
-p interleave([1, 2, 3], ['a', 'b', 'c']) #== [1, 'a', 2, 'b', 3, 'c']
+# p interleave([1, 2, 3], ['a', 'b', 'c']) #== [1, 'a', 2, 'b', 3, 'c']
 
 
 
