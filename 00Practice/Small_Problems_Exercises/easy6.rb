@@ -1,3 +1,13 @@
+### 10.3 MUTATION
+array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+# array2 = []
+# array1.each { |value| array2 << value.chars.join }
+array2 = array1.map(&:dup)
+array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
+p array2
+
+
+
 ### 9.3 INCLUDED?
 =begin
 Write a method named include? that takes an Array and a search value as arguments. This method should return true if the search value is in the array, false if it is not. You may not use the Array#include? method in your solution.
@@ -29,18 +39,15 @@ ALGORITHM
     - return true if they are the same
   - return false if no element is the same as the search value
 =end
-def include?(array, target)
-  array.any?(target)
-end
+# def include?(array, target)
+#   array.any?(target)
+# end
 
-p include?([1,2,3,4,5], 3) == true
-p include?([1,2,3,4,5], 6) == false
-p include?([], 3) == false
-p include?([nil], nil) == true
-p include?([], nil) == false
-
-
-
+# p include?([1,2,3,4,5], 3) == true
+# p include?([1,2,3,4,5], 6) == false
+# p include?([], 3) == false
+# p include?([nil], nil) == true
+# p include?([], nil) == false
 
 ### 8.3 DUPLICATES
 =begin
