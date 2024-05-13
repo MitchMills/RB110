@@ -1,3 +1,59 @@
+### 1.3 COMBINE TWO LISTS
+=begin
+Write a method that combines two Arrays passed in as arguments, and returns a new Array that contains all elements from both Array arguments, with the elements taken in alternation.
+
+You may assume that both input Arrays are non-empty, and that they have the same number of elements.
+
+PROBLEM 1:08
+input: two arrays
+  - not empty
+  - both contain the same number of elements
+
+output: array
+  - contains all elements of both input arrays
+  - elements alternate
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each element in each array
+  - way to control interleaving / alternation
+
+- input: two arrays
+
+- output: array
+
+=end
+
+# def interleave(array1, array2)
+#   array1.zip(array2).flatten
+# end
+
+def interleave(array1, array2)
+  array1.flat_map.with_index { |element, index| [element, array2[index]] }
+end
+
+# def interleave(array1, array2)
+#   info1, info2 = [array1, array2].map.with_index do |array, array_index|
+#     array.map.with_index { |element, index| [element, index, array_index] }
+#   end
+
+#   both = info1 + info2
+#   sorted_both = both.sort_by { |(element, index, rank)| [index, rank] }
+#   sorted_both.map { |element, index, rank| element }
+# end
+
+# def interleave(array1, array2)
+#   (0...array1.size).each_with_object([]) do |index, result|
+#     result << array1[index] << array2[index]
+#   end
+# end
+
+p interleave([1, 2, 3], ['a', 'b', 'c']) #== [1, 'a', 2, 'b', 3, 'c']
+
+
+
 ### 11.2 HOW MANY
 ###
 # def count_occurrences(array)
@@ -186,7 +242,7 @@
 
 # def staggered_case(string) # MUTATING
 #   string.size.times do |idx|
-#     string[idx] = idx.even? ? string[idx].upcase : string[idx].downcase 
+#     string[idx] = idx.even? ? string[idx].upcase : string[idx].downcase
 #   end
 #   string
 # end
@@ -367,7 +423,7 @@
 # p word_cap('the javaScript language') == 'The Javascript Language'
 # p word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
 
-### 2.2 
+### 2.2
 # def letter_case_count(string)
 #   lowercase = ('a'..'z').to_a
 #   uppercase = ('A'..'Z').to_a
@@ -459,7 +515,7 @@
 
 # def count_occurrences(array)
 #   types = array.map(&:downcase)
-#   occurrences = types.each_with_object(Hash.new(0)) do |type, occurrences| 
+#   occurrences = types.each_with_object(Hash.new(0)) do |type, occurrences|
 #     occurrences[type] += 1
 #   end
 #   occurrences.each { |type, count| puts "#{type} => #{count}" }
@@ -506,7 +562,7 @@
 # def middle_word(sentence)
 #   words = sentence.split
 #   middle_index = (words.size / 2.0).ceil - 1
-#   number = words.size.even? ? 2 : 1 
+#   number = words.size.even? ? 2 : 1
 #   words.empty? ? '' : words[middle_index, number].join(' ')
 # end
 
@@ -700,9 +756,9 @@
 # p UPPER_TO_LOWER
 
 # {
-#   "A"=>"a", "B"=>"b", "C"=>"c", "D"=>"d", "E"=>"e", "F"=>"f", "G"=>"g", 
-#   "H"=>"h", "I"=>"i", "J"=>"j", "K"=>"k", "L"=>"l", "M"=>"m", "N"=>"n", 
-#   "O"=>"o", "P"=>"p", "Q"=>"q", "R"=>"r", "S"=>"s", "T"=>"t", "U"=>"u", 
+#   "A"=>"a", "B"=>"b", "C"=>"c", "D"=>"d", "E"=>"e", "F"=>"f", "G"=>"g",
+#   "H"=>"h", "I"=>"i", "J"=>"j", "K"=>"k", "L"=>"l", "M"=>"m", "N"=>"n",
+#   "O"=>"o", "P"=>"p", "Q"=>"q", "R"=>"r", "S"=>"s", "T"=>"t", "U"=>"u",
 #   "V"=>"v", "W"=>"w", "X"=>"x", "Y"=>"y", "Z"=>"z"
 # }
 
@@ -821,7 +877,7 @@
 #       result[:neither] +=1
 #     end
 #   end
-#   [:lowercase, :uppercase, :neither].each do |category| 
+#   [:lowercase, :uppercase, :neither].each do |category|
 #     result[category] = 0 unless result.has_key?(category)
 #   end
 #   result
@@ -868,7 +924,7 @@
 # def letter_case_count(string)
 #   categories = [:lowercase, :uppercase, :neither]
 #   categories.each_with_object({}) do |cat, result|
-#     result[cat] = 
+#     result[cat] =
 #   end
 # end
 

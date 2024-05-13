@@ -1,12 +1,8 @@
 ### 10.3 MUTATION
 array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
-# array2 = []
-# array1.each { |value| array2 << value.chars.join }
 array2 = array1.map(&:dup)
 array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
 p array2
-
-
 
 ### 9.3 INCLUDED?
 =begin
