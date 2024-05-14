@@ -1,3 +1,63 @@
+### 4.3 SWAP CASE
+=begin
+Write a method that takes a string as an argument and returns a new string in which every uppercase letter is replaced by its lowercase version, and every lowercase letter by its uppercase version. All other characters should be unchanged.
+
+You may not use String#swapcase; write your own version of this method.
+
+PROBLEM 12:10
+input: string
+  - can contain any type of character
+
+output: string
+  - all alpha characters have their case swapped
+  - all other characters remain unchanged
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each individual character
+  - way to identify alpha characters
+  - way to swap case for alpha characters
+
+- input: string
+  - array of individual characters
+  - array of all lowercase letters
+  - array of all uppercase letters
+  - array of all letters?
+- output: string
+
+ALGORITHM
+- create an array of all lowercase letters in alphabetical order
+- create an array of all uppercase letters in alphabetical order
+- create an array of the individual characters in the input string
+- for each character
+  - swap case if it is an alphabetical character
+    - lower to upper
+    - upper to lower
+  - otherwise leave as is
+- create a string from the characters array, and return it
+=end
+UPPERCASE = ('A'..'Z').to_a
+LOWERCASE = ('a'..'z').to_a
+
+def swapcase(string)
+  string.chars.map do |char|
+    if UPPERCASE.include?(char)
+      LOWERCASE[UPPERCASE.index(char)]
+    elsif LOWERCASE.include?(char)
+      UPPERCASE[LOWERCASE.index(char)]
+    else
+      char
+    end
+  end.join
+end
+
+p swapcase('PascalCase') == 'pASCALcASE'
+p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+
+
+
 ### 3.3 CAPITALIZE
 =begin
 Write a method that takes a single String argument and returns a new string that contains the original value of the argument with the first character of every word capitalized and all other letters lowercase.
@@ -35,34 +95,34 @@ ALGORITHM
 #   string.split.map(&:capitalize).join(' ')
 # end
 
-def word_cap(string)
-  string.downcase.split.map { |word| word[0].upcase + word[1..-1] }.join(' ')
-end
+# def word_cap(string)
+#   string.downcase.split.map { |word| word[0].upcase + word[1..-1] }.join(' ')
+# end
 
-def word_cap(string)
-  string.downcase.split.map do |word|
-    word.chars.map.with_index { |char, idx| idx == 0 ? char.upcase : char }.join
-  end.join(' ')
-end
+# def word_cap(string)
+#   string.downcase.split.map do |word|
+#     word.chars.map.with_index { |char, idx| idx == 0 ? char.upcase : char }.join
+#   end.join(' ')
+# end
 
-LOWERCASE = ('a'..'z').to_a
-UPPERCASE = ('A'..'Z').to_a
-ALL_LETTERS = LOWERCASE + UPPERCASE
+# LOWERCASE = ('a'..'z').to_a
+# UPPERCASE = ('A'..'Z').to_a
+# ALL_LETTERS = LOWERCASE + UPPERCASE
 
-def word_cap(string)
-  string.split.map do |word|
-    word.chars.map.with_index { |char, index| change_case(char, index) }.join
-  end.join(' ')
-end
+# def word_cap(string)
+#   string.split.map do |word|
+#     word.chars.map.with_index { |char, index| change_case(char, index) }.join
+#   end.join(' ')
+# end
 
-def change_case(char, index)
-  if ALL_LETTERS.include?(char)
-    char_index = LOWERCASE.index(char) || UPPERCASE.index(char)
-    index == 0 ? UPPERCASE[char_index] : LOWERCASE[char_index]
-  else
-    char
-  end
-end
+# def change_case(char, index)
+#   if ALL_LETTERS.include?(char)
+#     char_index = LOWERCASE.index(char) || UPPERCASE.index(char)
+#     index == 0 ? UPPERCASE[char_index] : LOWERCASE[char_index]
+#   else
+#     char
+#   end
+# end
 
 # def word_cap(string)
 #   string.split.map do |word|
@@ -84,9 +144,9 @@ end
 #   end
 # end
 
-puts word_cap('four score and seven') #== 'Four Score And Seven'
-puts word_cap('the javaScript language') #== 'The Javascript Language'
-puts word_cap('this is a "quoted" word') #== 'This Is A "quoted" Word'
+# puts word_cap('four score and seven') #== 'Four Score And Seven'
+# puts word_cap('the javaScript language') #== 'The Javascript Language'
+# puts word_cap('this is a "quoted" word') #== 'This Is A "quoted" Word'
 
 
 
