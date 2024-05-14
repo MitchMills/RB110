@@ -1,3 +1,93 @@
+### 3.3 CAPITALIZE
+=begin
+Write a method that takes a single String argument and returns a new string that contains the original value of the argument with the first character of every word capitalized and all other letters lowercase.
+
+You may assume that words are any sequence of non-blank characters.
+
+PROBLEM 8:00
+input: string
+  - contains 'words':
+    - word = any sequence of non-blank characters
+output: new string
+  - first character of every word capitalized
+  - all other letters lowercase
+    - javaScript => Javascript
+  - if first character is not a letter, then word is not capitalized
+    - "quoted" => "quoted"
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to identify 'words'
+  - way to access each word
+  - ways to capitalize first letter and lowercase all others
+
+ALGORITHM
+- create an array of individual words from input string
+- for each word
+  - lowercase the entire word
+  - capitalize the first letter
+- create a string from the array and return ti
+=end
+
+# def word_cap(string)
+#   string.split.map(&:capitalize).join(' ')
+# end
+
+def word_cap(string)
+  string.downcase.split.map { |word| word[0].upcase + word[1..-1] }.join(' ')
+end
+
+def word_cap(string)
+  string.downcase.split.map do |word|
+    word.chars.map.with_index { |char, idx| idx == 0 ? char.upcase : char }.join
+  end.join(' ')
+end
+
+LOWERCASE = ('a'..'z').to_a
+UPPERCASE = ('A'..'Z').to_a
+ALL_LETTERS = LOWERCASE + UPPERCASE
+
+def word_cap(string)
+  string.split.map do |word|
+    word.chars.map.with_index { |char, index| change_case(char, index) }.join
+  end.join(' ')
+end
+
+def change_case(char, index)
+  if ALL_LETTERS.include?(char)
+    char_index = LOWERCASE.index(char) || UPPERCASE.index(char)
+    index == 0 ? UPPERCASE[char_index] : LOWERCASE[char_index]
+  else
+    char
+  end
+end
+
+# def word_cap(string)
+#   string.split.map do |word|
+#     word.each_char.with_index.map do |char, index|
+#       index == 0 ? change_case(char, 'upper') : change_case(char, 'lower')
+#     end.join
+#   end.join(' ')
+# end
+
+# def change_case(character, target_case)
+#   original_case = target_case == 'upper' ? LOWERCASE : UPPERCASE
+#   new_case = target_case == 'upper' ? UPPERCASE : LOWERCASE
+
+#   if original_case.include?(character)
+#     index = original_case.index(character)
+#     new_case[index]
+#   else
+#     character
+#   end
+# end
+
+puts word_cap('four score and seven') #== 'Four Score And Seven'
+puts word_cap('the javaScript language') #== 'The Javascript Language'
+puts word_cap('this is a "quoted" word') #== 'This Is A "quoted" Word'
+
 
 
 
@@ -41,8 +131,8 @@ ALGORITHM
   - create a key-value pair in the output hash
 - return the hash
 =end
-UPPERCASE = ('A'..'Z').to_a
-LOWERCASE = ('a'..'z').to_a
+# UPPERCASE = ('A'..'Z').to_a
+# LOWERCASE = ('a'..'z').to_a
 
 # def letter_case_count(string)
 #   counts = {lowercase: 0, uppercase: 0, neither: 0}
