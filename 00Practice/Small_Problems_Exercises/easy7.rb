@@ -38,23 +38,37 @@ ALGORITHM
   - otherwise leave as is
 - create a string from the characters array, and return it
 =end
-UPPERCASE = ('A'..'Z').to_a
-LOWERCASE = ('a'..'z').to_a
+# UPPERCASE = ('A'..'Z').to_a
+# LOWERCASE = ('a'..'z').to_a
+# ALL_LETTERS = UPPERCASE + LOWERCASE
 
-def swapcase(string)
-  string.chars.map do |char|
-    if UPPERCASE.include?(char)
-      LOWERCASE[UPPERCASE.index(char)]
-    elsif LOWERCASE.include?(char)
-      UPPERCASE[LOWERCASE.index(char)]
-    else
-      char
-    end
-  end.join
-end
+# def swapcase(string)
+#   string.chars.map do |char|
+#     ALL_LETTERS.include?(char) ? change_case(char) : char
+#   end.join
+# end
 
-p swapcase('PascalCase') == 'pASCALcASE'
-p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+# def change_case(char)
+#   index = UPPERCASE.index(char) || LOWERCASE.index(char)
+#   UPPERCASE.include?(char) ? LOWERCASE[index] : UPPERCASE[index]
+# end
+
+###
+# UPPERCASE = ('A'..'Z').to_a
+# LOWERCASE = ('a'..'z').to_a
+# SWAP_HASH = (UPPERCASE.zip(LOWERCASE) + LOWERCASE.zip(UPPERCASE)).to_h
+
+# def swapcase(string)
+#   string.chars.map { |char| SWAP_HASH[char] || char }.join
+# end
+###
+
+# def swapcase(string)
+#   string.chars.map { |chr| chr == chr.upcase ? chr.downcase : chr.upcase }.join
+# end
+
+# p swapcase('PascalCase') == 'pASCALcASE'
+# p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
 
 
 
