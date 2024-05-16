@@ -1,3 +1,97 @@
+### 6.3 STAGGER II
+=begin
+Modify the method from the previous exercise so it ignores non-alphabetic characters when determining whether it should uppercase or lowercase each letter. The non-alphabetic characters should still be included in the return value; they just don't count when toggling the desired case.
+
+PROBLEM 1:17
+input: string
+
+output: new string
+  - contains same letters as input string
+    - every other letter is upper or lower case
+    - start with uppercase
+  - non-letter characters are unchanged
+    - do not count in toggling between upper and lower case
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each individual character
+  - way to determine which case to change letter characters to
+    - way to keep track of current state of toggle
+
+- input: string
+  - array of all letter characters
+  - toggle to determine upper or lower case
+  - array of individual characters
+  - transformed array
+- output: string
+
+ALGORITHM
+- create an array of all alpha characters
+- initialize a variable `uppercase` to true to control uppercase / lowercase
+- create an array of individual characters in the input string
+- transform the array:
+  -consider each character
+    - if it is a letter
+      - if `uppercase` is true, make it uppercase
+      - else make it lowercase
+      - toggle `uppercase` variable
+    - else leave character and toggle unchanged
+- convert the transformed array into a string and return it
+=end
+LETTERS = ('A'..'Z').to_a + ('a'..'z').to_a
+
+# def staggered_case(string)
+#   uppercase = true
+#   string.chars.map do |char|
+#     next char unless LETTERS.include?(char)
+#     char = uppercase ? char.upcase : char.downcase
+#     uppercase = !uppercase
+#     char
+#   end.join
+# end
+
+# def staggered_case(string)
+#   uppercase = false
+#   string.chars.map do |char|
+#     next char unless LETTERS.include?(char)
+#     uppercase = !uppercase
+#     change_case(char, uppercase)
+#   end.join
+# end
+
+# def change_case(char, uppercase)
+#   uppercase ? char.upcase : char.downcase
+# end
+
+###
+def staggered_case(string, start_upper: true, count_non_alpha: false)
+  uppercase = start_upper ? false : true
+  string.chars.map do |char|
+    if count_non_alpha
+      uppercase = !uppercase
+      uppercase ? char.upcase : char.downcase
+    else
+      next char unless LETTERS.include?(char)
+      uppercase = !uppercase
+      uppercase ? char.upcase : char.downcase
+    end
+  end.join
+end
+
+def change_case(char, uppercase)
+  uppercase ? char.upcase : char.downcase
+end
+
+p staggered_case('I Love Launch School!', start_upper: false) #== 'I lOvE lAuNcH sChOoL!'
+p staggered_case('I Love Launch School!', count_non_alpha: true, start_upper: false)
+
+p staggered_case('ALL CAPS') == 'AlL cApS'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+
+
+
 ### 5.3 STAGGER I
 =begin
 Write a method that takes a String as an argument, and returns a new String that contains the original value using a staggered capitalization scheme in which every other character is capitalized, and the remaining characters are lowercase. Characters that are not letters should not be changed, but count as characters when switching between upper and lowercase.
@@ -50,12 +144,12 @@ ALGORITHM
 #   end
 # end
 
-def staggered_case(string, start_upper: true)
-  string.each_char.with_index.inject('') do |result, (char, index)|
-    start = start_upper ? index.even? : index.odd?
-    result << (start ? char.upcase : char.downcase)
-  end
-end
+# def staggered_case(string, start_upper: true)
+#   string.each_char.with_index.inject('') do |result, (char, index)|
+#     start = start_upper ? index.even? : index.odd?
+#     result << (start ? char.upcase : char.downcase)
+#   end
+# end
 
 ###
 # UPPERCASE = ('A'..'Z').to_a
@@ -75,16 +169,16 @@ end
 # end
 ###
 
-def staggered_case(string, start_upper: true)
-  string.chars.map.with_index do |char, index|
-    start = start_upper ? index.even? : index.odd?
-    start ? char.upcase : char.downcase
-  end.join
-end
+# def staggered_case(string, start_upper: true)
+#   string.chars.map.with_index do |char, index|
+#     start = start_upper ? index.even? : index.odd?
+#     start ? char.upcase : char.downcase
+#   end.join
+# end
 
-p staggered_case('I Love Launch School!', start_upper: false) #== 'I LoVe lAuNcH ScHoOl!'
-p staggered_case('ALL_CAPS') == 'AlL_CaPs'
-p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+# p staggered_case('I Love Launch School!', start_upper: false) #== 'I LoVe lAuNcH ScHoOl!'
+# p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
 
 
