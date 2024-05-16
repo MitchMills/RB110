@@ -50,13 +50,39 @@ ALGORITHM
 #   end
 # end
 
-def staggered_case(string)
+def staggered_case(string, start_upper: true)
   string.each_char.with_index.inject('') do |result, (char, index)|
-    result << (index.even? ? char.upcase : char.downcase)
+    start = start_upper ? index.even? : index.odd?
+    result << (start ? char.upcase : char.downcase)
   end
 end
 
-p staggered_case('I Love Launch School!') #== 'I LoVe lAuNcH ScHoOl!'
+###
+# UPPERCASE = ('A'..'Z').to_a
+# LOWERCASE = ('a'..'z').to_a
+# ALPHABET = UPPERCASE + LOWERCASE
+
+# def staggered_case(string, start_upper: true)
+#   string.chars.map.with_index do |char, idx|
+#     char = ALPHABET.include?(char) ? change_char(char, idx, start_upper) : char
+#   end.join
+# end
+
+# def change_char(char, index, start_upper)
+#   char_idx = UPPERCASE.index(char) || LOWERCASE.index(char)
+#   start = start_upper ? index.even? : index.odd?
+#   start ? UPPERCASE[char_idx] : LOWERCASE[char_idx]
+# end
+###
+
+def staggered_case(string, start_upper: true)
+  string.chars.map.with_index do |char, index|
+    start = start_upper ? index.even? : index.odd?
+    start ? char.upcase : char.downcase
+  end.join
+end
+
+p staggered_case('I Love Launch School!', start_upper: false) #== 'I LoVe lAuNcH ScHoOl!'
 p staggered_case('ALL_CAPS') == 'AlL_CaPs'
 p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
