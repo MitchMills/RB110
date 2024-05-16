@@ -1,3 +1,68 @@
+### 5.3 STAGGER I
+=begin
+Write a method that takes a String as an argument, and returns a new String that contains the original value using a staggered capitalization scheme in which every other character is capitalized, and the remaining characters are lowercase. Characters that are not letters should not be changed, but count as characters when switching between upper and lowercase.
+
+PROBLEM: 8:05
+input: string
+
+output: new string
+  - save letters as input string
+    - case is staggered
+      - first character is uppercase, next lowercase, etc
+    - non-letter characters are not changed
+      - still count as characters in terms of switching case
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each individual character
+  - way to track whether to upcase or lowcase each character
+
+- input: string
+  - array of individual characters, with index
+- output: string
+
+ALGORITHM
+- create an array of individual character in the input string
+- transform the array
+  - for each character
+    - if its index is even, upcase it
+    - otherwise downcase it
+- convert the transformed array into a string and return it
+=end
+
+# def staggered_case(string)
+#   string.chars.map.with_index do |char, index|
+#     index.even? ? char.upcase : char.downcase
+#   end.join
+# end
+
+# def staggered_case(string)
+#   (0...string.size).map do |index|
+#     index.even? ? string[index].upcase : string[index].downcase
+#   end.join
+# end
+
+# def staggered_case(string)
+#   string.each_char.with_index.with_object('') do |(char, index), result|
+#     result << (index.even? ? char.upcase : char.downcase)
+#   end
+# end
+
+def staggered_case(string)
+  string.each_char.with_index.inject('') do |result, (char, index)|
+    result << (index.even? ? char.upcase : char.downcase)
+  end
+end
+
+p staggered_case('I Love Launch School!') #== 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+
+
+
 ### 4.3 SWAP CASE
 =begin
 Write a method that takes a string as an argument and returns a new string in which every uppercase letter is replaced by its lowercase version, and every lowercase letter by its uppercase version. All other characters should be unchanged.
