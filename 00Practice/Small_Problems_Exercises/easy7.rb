@@ -1,4 +1,60 @@
+### 10.3
 
+
+### 9.3 MULTIPLY ALL PAIRS
+=begin
+Write a method that takes two Array arguments in which each Array contains a list of numbers, and returns a new Array that contains the product of every pair of numbers that can be formed between the elements of the two Arrays. The results should be sorted by increasing value.
+
+You may assume that neither argument is an empty Array.
+
+PROBLEM 4:08
+input: two arrays
+  - elements are integers
+  - not empty
+
+output: array
+  - elements are products of every pair of numbers that can be formed from two arrays
+  - sorted in order of increasing value
+  - number of elements is product of size of both arrays
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to consider each element in both arrays
+  - way to store products of each pair
+  - way to sort values
+
+- input: two arrays
+  - array to store products
+  - sorted products array
+- output: array
+
+ALGORITHM
+- create an empty array to store pair products
+- for each element in the first array
+  - multiply by each element in the second array
+  - add the product to the products array
+- sort the products array and return it
+=end
+
+# def multiply_all_pairs(array1, array2)
+#   array1.each_with_object([]) do |num1, result|
+#     array2.each { |num2| result << num1 * num2 }
+#   end.sort
+# end
+
+# def multiply_all_pairs(array1, array2)
+#   array1.product(array2).map { |pair| pair.inject(:*) }.sort
+# end
+
+# def multiply_all_pairs(array1, array2)
+#   array1.flat_map do |num1|
+#     array2.map { |num2|  num1 * num2 }
+#   end.sort
+# end
+
+# p multiply_all_pairs([2, 4], [4, 3, 1, 2]) #== [2, 4, 4, 6, 8, 8, 12, 16]
 
 
 ### 8.3 MULTIPLY LISTS
@@ -39,9 +95,7 @@ ALGORITHM
 #   array1.zip(array2).map { |pair| pair.inject(:*) }
 # end
 
-p multiply_list([3, 5, 7], [9, 10, 11]) #== [27, 50, 77]
-
-
+# p multiply_list([3, 5, 7], [9, 10, 11]) #== [27, 50, 77]
 
 ### 7.3 MULTIPLICATIVE
 =begin
