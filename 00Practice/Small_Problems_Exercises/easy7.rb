@@ -1,4 +1,46 @@
-### 8.3
+
+
+
+### 8.3 MULTIPLY LISTS
+=begin
+Write a method that takes two Array arguments in which each Array contains a list of numbers, and returns a new Array that contains the product of each pair of numbers from the arguments that have the same index. You may assume that the arguments contain the same number of elements.
+
+PROBLEM 3:41
+input: two arrays
+  - elements are integers
+  - arrays are the same size
+
+ouptut: array
+  - each element is the product of the two elements with the same index from the input arrays
+  - same size as two input arrays
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - array to store products in
+  - way to multiply appropriate values together
+
+- input: two arrays
+  - transformed array
+- output: array
+
+ALGORITHM
+- transform the first array
+  - multiply each element times the element at that same index in second array
+- return the transformed array
+=end
+
+# def multiply_list(array1, array2)
+#   array1.map.with_index { |number, index| number * array2[index] }
+# end
+
+# def multiply_list(array1, array2)
+#   array1.zip(array2).map { |pair| pair.inject(:*) }
+# end
+
+p multiply_list([3, 5, 7], [9, 10, 11]) #== [27, 50, 77]
+
 
 
 ### 7.3 MULTIPLICATIVE
