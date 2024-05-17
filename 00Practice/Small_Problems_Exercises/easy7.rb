@@ -1,3 +1,54 @@
+### 7.3 MULTIPLICATIVE
+=begin
+Write a method that takes an Array of integers as input, multiplies all the numbers together, divides the result by the number of entries in the Array, and then prints the result rounded to 3 decimal places. Assume the array is non-empty.
+
+PROBLEM 6:37
+input: array
+  - non-empty
+  - elements are integers
+output: float
+  - all elements multiplied together then divided by the number of elements
+  - rounded to 3 decimal places
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to multiply all elements together
+  - way to divide by number of elements
+  - way to round result to 3 decimal places
+
+- input: array
+  - product of all elements
+  - size of array
+  - result
+- output: float (result rounded to 3 decimal places)
+
+ALGORITHM
+- get the product of all elements
+- divide by the size of the input array
+- round the result to 3 decimal places and return it
+=end
+
+# def show_multiplicative_average(array)
+#   product = array.inject(:*)
+#   result = product.to_f / array.size
+#   format('%.3f', result)
+# end
+
+def show_multiplicative_average(array)
+  average = array.inject(:*).fdiv(array.size)
+  puts "The result is #{format('%.3f', average)}"
+end
+
+show_multiplicative_average([3, 5]) #== 'The result is 7.500'
+show_multiplicative_average([6]) #== 'The result is 6.000'
+show_multiplicative_average([2, 5, 7, 11, 13, 17]) #== 'The result is 28361.667'
+
+
+
+
+
 ### 6.3 STAGGER II
 =begin
 Modify the method from the previous exercise so it ignores non-alphabetic characters when determining whether it should uppercase or lowercase each letter. The non-alphabetic characters should still be included in the return value; they just don't count when toggling the desired case.
@@ -40,7 +91,7 @@ ALGORITHM
     - else leave character and toggle unchanged
 - convert the transformed array into a string and return it
 =end
-LETTERS = ('A'..'Z').to_a + ('a'..'z').to_a
+# LETTERS = ('A'..'Z').to_a + ('a'..'z').to_a
 
 # def staggered_case(string)
 #   uppercase = true
@@ -66,29 +117,29 @@ LETTERS = ('A'..'Z').to_a + ('a'..'z').to_a
 # end
 
 ###
-def staggered_case(string, start_upper: true, count_non_alpha: false)
-  uppercase = start_upper ? false : true
-  string.chars.map do |char|
-    if count_non_alpha
-      uppercase = !uppercase
-      uppercase ? char.upcase : char.downcase
-    else
-      next char unless LETTERS.include?(char)
-      uppercase = !uppercase
-      uppercase ? char.upcase : char.downcase
-    end
-  end.join
-end
+# def staggered_case(string, start_upper: true, count_non_alpha: false)
+#   uppercase = start_upper ? false : true
+#   string.chars.map do |char|
+#     if count_non_alpha
+#       uppercase = !uppercase
+#       uppercase ? char.upcase : char.downcase
+#     else
+#       next char unless LETTERS.include?(char)
+#       uppercase = !uppercase
+#       uppercase ? char.upcase : char.downcase
+#     end
+#   end.join
+# end
 
-def change_case(char, uppercase)
-  uppercase ? char.upcase : char.downcase
-end
+# def change_case(char, uppercase)
+#   uppercase ? char.upcase : char.downcase
+# end
 
-p staggered_case('I Love Launch School!', start_upper: false) #== 'I lOvE lAuNcH sChOoL!'
-p staggered_case('I Love Launch School!', count_non_alpha: true, start_upper: false)
+# p staggered_case('I Love Launch School!', start_upper: false) #== 'I lOvE lAuNcH sChOoL!'
+# p staggered_case('I Love Launch School!', count_non_alpha: true, start_upper: false)
 
-p staggered_case('ALL CAPS') == 'AlL cApS'
-p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+# p staggered_case('ALL CAPS') == 'AlL cApS'
+# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
 
 
 
