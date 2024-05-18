@@ -1,5 +1,64 @@
-### 10.3
+=begin
+edge cases:
+  - empty string: return empty string
+  - no words in string: return empty string
+  - one-word string: return that word
+  - even number of elements: return middle pair
+=end
 
+def middle_word(string)
+  words = string.split
+  midpoint = (words.size / 2) + 1
+  number = words.size.even? ? 2 : 1
+  (words[-midpoint, number] || []).join(' ')
+end
+
+p middle_word('') == ''
+p middle_word('     ') == ''
+p middle_word('word') == 'word'
+p middle_word('two words') == 'two words'
+p middle_word('three words now') == 'words'
+p middle_word('there are four words') == 'are four'
+
+### 10.3 END IS NEAR
+=begin
+Write a method that returns the next to last word in the String passed to it as an argument.
+
+Words are any sequence of non-blank characters.
+
+You may assume that the input String will always contain at least two words.
+
+PROBLEM 7:03
+input: string
+  - contains 'words'
+    - word = any sequence of non-blank characters
+  - will always contain at least two words
+output: string
+  - the next-to-last word of the input string
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access separate words in input string
+  - way to determine next to last word
+
+- input: string
+  - array of individual words
+  - index of next to last word
+- output: string
+
+ALGORITHM
+- create an array of individual words in the input string
+- return the next to last word from that array
+=end
+
+# def penultimate(string)
+#   string.split[-2]
+# end
+
+# p penultimate('last word') == 'last'
+# p penultimate('Launch School is great!') == 'is'
 
 ### 9.3 MULTIPLY ALL PAIRS
 =begin
