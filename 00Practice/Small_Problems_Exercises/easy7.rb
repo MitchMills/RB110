@@ -1,3 +1,68 @@
+### 11.3 HOW MANY
+=begin
+Write a method that counts the number of occurrences of each element in a given array.
+
+The words in the array are case-sensitive: 'suv' != 'SUV'. Once counted, print each element alongside the number of occurrences.
+
+PROBLEM 10:40
+input: array
+  - elements are words
+output: strings
+  - contains:
+    - each type of unique word in input array
+      - case sensitive
+    - number of occurrences of that word
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to get unique elements of array
+  - way to count unique elements
+
+- input: array
+  - array of unique elements from input array
+  - array of counts of each of those elements
+  - hash with keys as elements and values as counts
+- output: string(element) and integer(count)
+
+ALGORITHM
+- create an array of unique elements in input array
+- create an array of counts of each unique element
+  - transform unique elements array
+- combine these two arrays into a hash
+  - keys = elements
+  - values = counts
+- use the hash to output info to screet
+=end
+
+def count_occurrences(list)
+  counts = determine_counts(list)
+  display_results(counts)
+end
+
+def determine_counts(list)
+  elements = list.map(&:downcase).uniq
+  counts = elements.map { |element| list.map(&:downcase).count(element) }
+  elements.zip(counts).to_h
+end
+
+def display_results(occurrences)
+  occurrences.each { |item, count| puts "#{item} => #{count}"}
+end
+
+vehicles = [
+  'car', 'Car', 'truck', 'CAR', 'SUV', 'truck',
+  'motorcycle', 'motorcycle', 'car', 'truck'
+]
+
+p count_occurrences(vehicles)
+
+# car => 4
+# truck => 3
+# SUV => 1
+# motorcycle => 2
+
 =begin
 edge cases:
   - empty string: return empty string
@@ -6,19 +71,19 @@ edge cases:
   - even number of elements: return middle pair
 =end
 
-def middle_word(string)
-  words = string.split
-  midpoint = (words.size / 2) + 1
-  number = words.size.even? ? 2 : 1
-  (words[-midpoint, number] || []).join(' ')
-end
+# def middle_word(string)
+#   words = string.split
+#   midpoint = (words.size / 2) + 1
+#   number = words.size.even? ? 2 : 1
+#   (words[-midpoint, number] || []).join(' ')
+# end
 
-p middle_word('') == ''
-p middle_word('     ') == ''
-p middle_word('word') == 'word'
-p middle_word('two words') == 'two words'
-p middle_word('three words now') == 'words'
-p middle_word('there are four words') == 'are four'
+# p middle_word('') == ''
+# p middle_word('     ') == ''
+# p middle_word('word') == 'word'
+# p middle_word('two words') == 'two words'
+# p middle_word('three words now') == 'words'
+# p middle_word('there are four words') == 'are four'
 
 ### 10.3 END IS NEAR
 =begin
