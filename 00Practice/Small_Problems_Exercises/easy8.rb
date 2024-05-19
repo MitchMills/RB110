@@ -1,5 +1,68 @@
+### 1.3 SUM OF SUMS
+=begin
+Write a method that takes an Array of numbers and then returns the sum of the sums of each leading subsequence for that Array. You may assume that the Array always contains at least one number.
 
+PROBLEM 6:31
+input: array
+  - elements are numbers
+  - always contains at least one number
+output: integer (or float)
+  - sum of each leading subsequence of input array
+    - basically the sum of an array where
+      - each element is sum of elements up to that index in the input array
+    - this array has the same number of elements as the input array
 
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to construct each subsequence
+  - way to keep track of sum
+
+- input: array
+  - array of subarrays
+  - array of sums
+- output: integer
+
+ALGORITHM
+- get all leading subsequences
+  - transform input array into an array of subsequences
+    - index always starts at 0
+    - size is 1, then 2, up to size of array
+- sum each subsequence
+- return the total of those sums
+=end
+
+# def sum_of_sums(array)
+#   subarrays = (1..array.size).map { |size| array.take(size) }
+#   sums = subarrays.map(&:sum)
+#   sums.sum
+# end
+
+# def sum_of_sums(array)
+#   (1..array.size).map { |size| array.take(size).sum }.sum
+# end
+
+# def sum_of_sums(array)
+#   (1..array.size).flat_map { |size| array.take(size) }.sum
+# end
+
+# def sum_of_sums(array)
+#   (1..array.size).inject(0) { |total, size| total += array.take(size).sum }
+# end
+
+# def sum_of_sums(array)
+#   array.size.downto(1).map { |size| array[-size] * size }.sum
+# end
+
+# def sum_of_sums(array)
+#   array.size.downto(1).inject(0) { |total, idx| total += (array[-idx] * idx) }
+# end
+
+# p sum_of_sums([3, 5, 2]) == (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+# p sum_of_sums([1, 5, 7, 3]) == (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
+# p sum_of_sums([4]) == 4
+# p sum_of_sums([1, 2, 3, 4, 5]) == 35
 
 ### 10.2 ARRAY AVERAGE
 # def average(numbers)
@@ -456,7 +519,7 @@
 
 # def reverse_words(string)
 #   string.split.map do |word|
-#     next word unless word.size > 4 
+#     next word unless word.size > 4
 #     word.reverse
 #   end.join(' ')
 # end
@@ -564,7 +627,7 @@
 
 # map one-liner with regex (by Daniel Chae)
 # def double_consonants(string)
-#   string.chars.each.map do |char| 
+#   string.chars.each.map do |char|
 #     char =~ /^[^aeiou_\d\W]/i ? char * 2 : char
 #   end.join
 # end
@@ -622,7 +685,7 @@
 #       puts "FizzBuzz"
 #     elsif 3.step(stop, 3).include?(num)
 #       puts "Fizz"
-#     elsif 5.step(stop, 5).include?(num) 
+#     elsif 5.step(stop, 5).include?(num)
 #       puts "Buzz"
 #     else
 #       puts num
@@ -687,7 +750,7 @@
 
 # def find_substring_palindromes(string)
 #   string.chars.each_index.with_object([]) do |stop_idx, palindromes|
-#     substring = string[0..stop_idx] 
+#     substring = string[0..stop_idx]
 #     palindromes << substring if is_palindrome?(substring)
 #   end
 # end
@@ -722,7 +785,7 @@
 # end
 
 # def get_leading_substrings(string)
-#   string.chars.each_index.map do |stop_idx| 
+#   string.chars.each_index.map do |stop_idx|
 #     string[0..stop_idx]
 #   end
 # end
@@ -803,7 +866,7 @@
 # end
 
 ######## DANIEL CHAE vvvvv
-# # recursive version 
+# # recursive version
 # # this one was a bit of a headache, someone please comment if you can make this cleaner
 
 # def substrings(s, iter = true)
@@ -812,7 +875,7 @@
 
 # def substrings(string, iterate = true)
 #   if string.size < 1
-#     [] 
+#     []
 #   else
 #     if iterate
 #       (substrings(string[...-1], false) << string).concat(substrings(string[1..]))

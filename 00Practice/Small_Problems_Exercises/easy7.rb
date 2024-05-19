@@ -42,9 +42,8 @@ def count_occurrences(list)
 end
 
 def determine_counts(list)
-  elements = list.map(&:downcase).uniq
-  counts = elements.map { |element| list.map(&:downcase).count(element) }
-  elements.zip(counts).to_h
+  elements = list.map(&:downcase)
+  elements.uniq.map { |element| [element, elements.count(element)] }.to_h
 end
 
 def display_results(occurrences)
