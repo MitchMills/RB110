@@ -1,3 +1,124 @@
+### 4.3 PALINDROMIC SUBSTRINGS
+
+
+### 3.3 ALL SUBSTRINGS
+=begin
+Write a method that returns a list of all substrings of a string. The returned list should be ordered by where in the string the substring begins. This means that all substrings that start at position 0 should come first, then all substrings that start at position 1, and so on. Since multiple substrings will occur at each position, the substrings at a given position should be returned in order from shortest to longest.
+
+PROBLEM 1:24
+input: string
+
+output: array
+  - all substrings of input string
+  - in order:
+    - by starting position
+      - by length
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to track starting position
+    - index 0 up to index (length - 1)
+  - way to track substring size
+    - from 1 up to (string length - start index)
+  - way to sort / order output array
+
+- input: string
+  - range to track start index: 0 up to string size
+  - range to track length: 1 up to (string size - start index)
+  - array to hold substrings
+- output: array
+
+ALGORITHM
+- create an empty array to hold substrings
+- consider every start index
+  - index 0 up to last index
+  - for each start index
+    - get all substrings
+      - length 1 up to max length
+- return all substrings in an array
+
+=end
+
+# def substrings(string)
+#   (0...string.size).flat_map do |start_index|
+#     (1..(string.size - start_index)).map { |size| string[start_index, size] }
+#   end
+# end
+
+###
+# def substrings(string)
+#   (0...string.size).flat_map do |start_index|
+#     leading_substrings(string[start_index..-1])
+#   end
+# end
+
+# def leading_substrings(string)
+#   (1..string.size).map { |size| string.chars.take(size).join }
+# end
+###
+
+# p substrings('abcde') == [
+#   'a', 'ab', 'abc', 'abcd', 'abcde',
+#   'b', 'bc', 'bcd', 'bcde',
+#   'c', 'cd', 'cde',
+#   'd', 'de',
+#   'e'
+# ]
+
+
+
+### 2.3 LEADING SUBSTRINGS
+=begin
+Write a method that returns a list of all substrings of a string that start at the beginning of the original string. The return value should be arranged in order from shortest to longest substring.
+
+PROBLEM 12:43
+input: string
+
+output: array
+  - elements are substrings
+    - all substrings start at first letter of input string
+    - in order from shortest to longest
+    - shortest is 1 character, longest is entire input string
+  - number of elements = number of characters in input string
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to track length of substrings
+
+- input: string
+  - empty array to hold substrings
+  - counter to track length of substrings: from 1 up to string length
+- output: array
+
+ALGORITHM
+- create an empty array
+- add substrings to the array
+  - alway start at index 0
+  - length from 1 up to input string length
+- return the array
+=end
+
+# def leading_substrings(string)
+#   (1..string.size).map { |size| string.chars.take(size).join }
+# end
+
+# def leading_substrings(string)
+#   Array.new(string.size) { |index| string[0..index] }
+# end
+
+# def leading_substrings(string)
+#   substring = ''
+#   string.chars.map { |char| substring += char }
+# end
+
+# p leading_substrings('abc') #== ['a', 'ab', 'abc']
+# p leading_substrings('a') #== ['a']
+# p leading_substrings('xyzzy') #== ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
+
 ### 1.3 SUM OF SUMS
 =begin
 Write a method that takes an Array of numbers and then returns the sum of the sums of each leading subsequence for that Array. You may assume that the Array always contains at least one number.

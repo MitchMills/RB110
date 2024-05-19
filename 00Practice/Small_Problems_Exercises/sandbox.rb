@@ -1,4 +1,9 @@
-def show_multiplicative_average(array)
-  average = array.inject(:*).fdiv(array.size)
-  puts "The result is #{format('%.3f', average)}"
+def substrings(string)
+  (0...string.size).flat_map do |start_index|
+    leading_substrings(string[start_index..-1])
+  end
+end
+
+def leading_substrings(string)
+  (1..string.size).map { |size| string.chars.take(size).join }
 end
