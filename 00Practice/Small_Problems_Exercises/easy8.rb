@@ -1,5 +1,91 @@
-### 4.3 PALINDROMIC SUBSTRINGS
+### 5.3
 
+
+
+
+### 4.3 PALINDROMIC SUBSTRINGS
+=begin
+Write a method that returns a list of all substrings of a string that are palindromic. That is, each substring must consist of the same sequence of characters forwards as it does backwards. The return value should be arranged in the same sequence as the substrings appear in the string. Duplicate palindromes should be included multiple times.
+
+You may (and should) use the substrings method you wrote in the previous exercise.
+
+For the purposes of this exercise, you should consider all characters and pay attention to case; that is, "AbcbA" is a palindrome, but neither "Abcba" nor "Abc-bA" are. In addition, assume that single characters are not palindromes.
+
+PROBLEM 9:09
+input: string
+
+output: array
+  - contains all substrings that are palindromic:
+    - same characters forwards as backwards
+      - case sensitive
+      - single characters are not palindromes
+  - in same order as they appear in input string
+    - i.e. in order of first character
+    - include duplicates
+  - return empty array if no palindromic substrings
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to find all substrings ( >= length 2)
+  - way to identify palindromes from among substrings
+
+- input: string
+  - array of all substrings with length >= 2
+  - filtered array
+- output array
+
+ALGORITHM
+- get all substrings with length >= 2
+- find palindromic substrings
+  - compare substring to its reverse, select if the same
+- return in an array
+=end
+
+# def palindromes(string)
+#   substrings = all_substrings(string)
+#   substrings.select do |substring|
+#     palindrome?(substring, all_characters: false, case_sensitive: false)
+#   end
+# end
+
+# p 'ABC-def123&*()'.downcase.gsub(/[^0-9a-z]/, '')
+
+# def all_substrings(string)
+#   (0...string.size).flat_map do |start_index|
+#     (2..(string.size - start_index)).map { |size| string[start_index, size] }
+#   end
+# end
+
+###
+# def all_substrings(string)
+#   (0...string.size).flat_map do |start_index|
+#     leading_substrings(string[start_index..-1])
+#   end
+# end
+
+# def leading_substrings(string)
+#   (1..string.size).map { |size| string[0, size] }
+# end
+
+# def palindrome?(string, all_characters: true, case_sensitive: true)
+#   string = string.gsub(/\W/,'') unless all_characters
+#   string = string.downcase unless case_sensitive
+#   string.size > 1 && string == string.reverse
+# end
+###
+
+# p palindromes('abcd') == []
+# p palindromes('ma-d-am') #== ['madam', 'ada']
+# p palindromes('hello-madam-did-madam-goodbye') #== [
+#   'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+#   'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+#   '-madam-', 'madam', 'ada', 'oo'
+# ]
+# p palindromes('knitting cassettes') == [
+#   'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
+# ]
 
 ### 3.3 ALL SUBSTRINGS
 =begin
@@ -66,8 +152,6 @@ ALGORITHM
 #   'd', 'de',
 #   'e'
 # ]
-
-
 
 ### 2.3 LEADING SUBSTRINGS
 =begin
