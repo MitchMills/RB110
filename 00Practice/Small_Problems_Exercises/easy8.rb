@@ -1,7 +1,84 @@
-### 5.3
+### 6.3
 
 
+### 5.3 FIZZBUZZ
+=begin
+Write a method that takes two arguments: the first is the starting number, and the second is the ending number. Print out all numbers from the starting number to the ending number, except if a number is divisible by 3, print "Fizz", if a number is divisible by 5, print "Buzz", and finally if a number is divisible by 3 and 5, print "FizzBuzz".
 
+PROBLEM 8:41
+input: two integers
+  - first integer: starting number
+  - second integer: ending number
+
+output: printed to terminal:
+  - each integer from starting number to ending number (inclusive)
+  - if number evenly divisible by 3, substitute "Fizz"
+  - if number evenly divisible by 5, substitute "Buzz"
+  - if number evenly divisible by 3 && 5, substitute "FizzBuzz"
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to determine if integer is evenly divisible by 3, 5, or both
+
+- input: two integers
+  - range from starting to ending integer
+- output: integers and strings
+
+ALGORITHM
+- create a range of numbers from starting to ending integer
+- transform this range
+  - for every number in the range
+    - if evenly divisible by 3 && 5, "FizzBuzz"
+    - elsif evenly divisible by 3, "Fizz"
+    - elsif evenly divisible by 5, "Buzz"
+    - else number stays the same
+- output transformed array to terminal
+=end
+###
+# def fizzbuzz(start, stop)
+#   result = (start..stop).map { |number| fizzbuzz_value(number) }
+#   puts result.join(', ')
+# end
+
+# def fizzbuzz_value(number)
+#   if number % 3 == 0 && number % 5 == 0 then "FizzBuzz"
+#   elsif number % 3 == 0 then "Fizz"
+#   elsif number % 5 == 0 then "Buzz"
+#   else number
+#   end
+# end
+###
+
+###
+# a somewhat convoluted approach using nested arrays, just for fun/practice
+# def fizzbuzz(start_number, end_number)
+#   values = determine_values(start_number..end_number)
+#   puts values.join(', ')
+# end
+
+# def determine_values(range)
+#   modulos = range.map do |number|
+#     [3, 5].map { |divisor| number % divisor }
+#   end
+#   fizzbuzz_values(range, modulos)
+# end
+
+# def fizzbuzz_values(range, array)
+#   fizzbuzz = ['Fizz', 'Buzz']
+#   array.map.with_index do |subarray, index|
+#     case subarray.count(0)
+#     when 0 then range.to_a[index]
+#     when 1 then fizzbuzz[subarray.index(0)]
+#     else fizzbuzz.join
+#     end
+#   end
+# end
+###
+
+
+# fizzbuzz(2, 16) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
 ### 4.3 PALINDROMIC SUBSTRINGS
 =begin
