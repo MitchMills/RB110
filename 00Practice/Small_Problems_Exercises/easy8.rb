@@ -1,4 +1,43 @@
-### 6.3
+### 6.3 DOUBLE CHAR
+=begin
+Write a method that takes a string, and returns a new string in which every character is doubled.
+
+PROBLEM 5:06
+input: string
+  - can be empty
+
+output: string
+  - every character from input string is doubled
+  - case sensitive
+  - if input string empty, return empty string
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to access each character in input string
+  - way to double each character
+
+- input: string
+  - array of individual characters
+  - transformed array with each character doubled
+- output: string
+
+ALGORITHM
+- create an array of individual characters from input string
+- transform this array
+  - double each character
+- convert transformed array into string and return it
+=end
+
+# def repeater(string)
+#   string.chars.map { |char| char * 2 }.join
+# end
+
+# p repeater('Hello') == "HHeelllloo"
+# p repeater("Good job!") == "GGoooodd  jjoobb!!"
+# p repeater('') == ''
+
 
 
 ### 5.3 FIZZBUZZ
