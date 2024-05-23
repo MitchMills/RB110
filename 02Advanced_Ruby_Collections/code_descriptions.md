@@ -1,3 +1,37 @@
+### EXAMPLE 6
+```ruby
+hash6 = [{ a: 'ant', b: 'elephant' }, { c: 'cat' }]
+
+hash6.select do |hash|
+  hash.all? do |key, value|
+    value[0] == key.to_s
+  end
+end
+# => [{ :c => "cat" }]
+```
+
+
+### EXAMPLE 5
+```ruby
+array5 = [[1, 2], [3, 4]]
+
+array5.map do |arr|
+  arr.map do |num|
+    num * 2
+  end
+end
+```
+On line 3, local variable `array5` is initialized to an array with a value of `[[1, 2], [3, 4]]`. On line 5, the `Array#map` method is called on `array5`, and each inner array element is passed in to the block in turn and assigned to local variable `arr`.
+
+Within this outer block, `Array#map` is called on `arr` and each integer element of the current array is passed into the inner block in turn, and assigned to local variable `num`.
+
+Within the inner block, the `Integer#*` method is called on `num` with `2` passed in as an argument. The return value of this expression will be twice the value of the current integer assigned to `num`. This is the last evaluated expression in the inner block, so it is the return value of that block, and the inner call to `map` will use it to transform each integer element of the current array.
+
+The return value of the inner call to `map` is the last evaluated expression of the outer block, so it will be the return value of that block. The outer call to `map` will use it to transform each inner array passed in to the outer block by the outer call to `map`.
+
+This code will return a new array with the value `[[2, 4],[6, 8]]`.
+
+
 ### EXAMPLE 4
 ```ruby
 array4 = [[18, 7], [3, 12]]
@@ -11,11 +45,11 @@ end
 ```
 On line 3, local variable `array4` is initialized to an array with the value `[[18, 7], [3, 12]]`.
 
-On line 4, local variable `my_arr` is initialized to the return value of the expression on lines 4 through 10. In this expression, on line 4 the `Array#each` method is called on `array4`, and each inner array is passed in to the block in turn and assigned to local variable `arr`.
+On line 4, local variable `my_arr` is initialized to the return value of the `Array#each` method called on `array4`. Each inner array of `array4` is passed in to the block in turn and assigned to local variable `arr`.
 
-Inside the block, on line 5 `Array#each` is called on `arr`, and each element of the current inner array is passed into the block and assigned to local variable `num`. 
+Inside the block, on line 5 `Array#each` is called on `arr`, and each element of the current inner array is passed into the block in turn and assigned to local variable `num`. 
 
-Within this block, on line 6 the current value referenced by `num` is compared to `5`. The comparison will return `true` if that value is greater than `5`, and `false` otherwise. This boolean return value will be used by the `if` statement on line 6.
+Within this block, on line 6 the current value referenced by `num` is compared to `5`. The comparison will return `true` if that value is greater than `5`, and `false` otherwise. This boolean return value will be used by the `if` conditional on line 6.
 
 If the value is `true`, line 7 will execute. Otherwise the conditional statement will terminate and return `nil`.
 
