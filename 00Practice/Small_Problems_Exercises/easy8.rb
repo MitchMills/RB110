@@ -1,4 +1,58 @@
-### 6.3 DOUBLE CHAR
+
+
+### DOUBLE CHAR II
+=begin
+Write a method that takes a string, and returns a new string in which every consonant character is doubled. Vowels (a,e,i,o,u), digits, punctuation, and whitespace should not be doubled.
+
+PROBLEM 11:20
+input: string
+  - can be empty
+
+output: new string
+  - every consonant is doubled
+  - all other characters remain the same
+  - if input string is empty, return an empty string
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to consider every character
+  - way to distinguish consonants from all other characters
+
+- input: string
+  - array of individual characters
+  - transformed array (consonants doubled)
+- output: string
+
+ALGORITHM
+- create an array of only consonants
+  - create a range of lowercase alpha characters
+  - subtract lowercase vowels
+- create an array of individual characters in the input string
+- transform this array
+  - if downcased character belongs to consonants array, double it
+  - otherwise leave it unchanged
+- convert transformed array into a string and return it
+=end
+# ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+# VOWELS = %w(A E I O U a e i o u)
+# CONSONANTS = ALPHABET - VOWELS
+
+# def double_consonants(string)
+#   string.chars.map { |char| CONSONANTS.include?(char) ? char * 2 : char }.join
+# end
+
+# def double_consonants(string)
+#   string.chars.map { |char| char =~ /[a-z&&[^aeiou]]/i ? char * 2 : char }.join
+# end
+
+# p double_consonants('String') == "SSttrrinngg"
+# p double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
+# p double_consonants("July 4th") == "JJullyy 4tthh"
+# p double_consonants('') == ""
+
+### 6.3 DOUBLE CHAR I
 =begin
 Write a method that takes a string, and returns a new string in which every character is doubled.
 
