@@ -1,3 +1,22 @@
+### EXAMPLE 8
+```ruby
+array8 = [[8, 13, 27], ['apple', 'banana', 'cantaloupe']]
+
+array8.map do |sub_array|
+  sub_array.select do |item|
+    if item.to_s.to_i == item    # if it's an integer
+      item > 13
+    else
+      item.size < 6
+    end
+  end
+end
+# => [[27], ["apple"]]
+```
+
+
+
+
 ### EXAMPLE 7
 ```ruby
 arr = [['1', '8', '11'], ['2', '6', '13'], ['2', '12', '15'], ['1', '8', '9']]
@@ -7,8 +26,12 @@ arr.sort_by do |sub_arr|
 end
 # => [["1", "8", "9"], ["1", "8", "11"], ["2", "6", "13"], ["2", "12", "15"]]
 ```
+`Array#sort_by` is called on `arr`, and each subarray element is passed to the block in turn and assigned to local variable `sub_arr`. Within the block, `Array#map` is called on `sub_arr` on each iteration of the outer block and returns a new array with elements determined by the return value of the `#map` block. The `#map` block calls `String#to_i` on each subarray string element passed in, so the call to `#map` returns a new array of integers. The `#sort_by` block uses this return value to place the elements of `arr` in order by comparing the integer values of each string in the subarrays. `#sort_by` returns a new array. The original array is unchanged.
 
-On line 3, local variable `arr` is initialized and assigned to an array. Each element of the array is a subarray, and each element of each of these subarrays is a string.
+
+
+****
+On line 3, local variable `arr` is initialized and assigned to an array. Each element of the array is a subarray, and each element these subarrays is a string.
 
 On line 5, the `Array#sort_by` method is called on `arr`. Each subarray element of `arr` is passed in to the block in turn and assigned to local variable `sub_arr`. On line 6 the `Array#map` method is called on `sub_arr`, and each element of the current subarray is passed in to the `#map` block in turn and assigned to local variable `num`.
 

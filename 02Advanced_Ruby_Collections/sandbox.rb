@@ -1,9 +1,14 @@
-arr = [['1', '8', '11'], ['2', '6', '13'], ['2', '12', '15'], ['1', '8', '9']]
-p arr
+array8 = [[8, 13, 27], ['apple', 'banana', 'cantaloupe']]
 
-sorted = arr.sort_by do |sub_arr|
-  sub_arr.map { |num| num.to_i }
+selected = array8.map do |sub_array|
+  sub_array.select do |item|
+    if item.to_s.to_i == item    # if it's an integer
+      item > 13
+    else
+      item.size < 6
+    end
+  end
 end
 
-p sorted
-p arr
+p selected
+p array8
