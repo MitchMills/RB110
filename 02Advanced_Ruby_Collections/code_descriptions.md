@@ -1,14 +1,28 @@
 ### EXAMPLE 6
 ```ruby
-hash6 = [{ a: 'ant', b: 'elephant' }, { c: 'cat' }]
+array6 = [{ a: 'ant', b: 'elephant' }, { c: 'cat' }]
 
-hash6.select do |hash|
+array6.select do |hash|
   hash.all? do |key, value|
     value[0] == key.to_s
   end
 end
 # => [{ :c => "cat" }]
 ```
+On line 3, local variable `array6` is initialized to an array with the value `[{ a: 'ant', b: 'elephant' }, { c: 'cat' }]`. On line 5 the `Array#select` method is called on `array6`. Each hash element in `array6` is passed to the block in turn and assigned to local variable `hash`.
+
+Within the block passed to `#select`, the `Enumerable#all?` method is called on `hash`, and each key-value pair of the current hash is passed to `#all?`'s block and assigned to local variables `key` and `value` respectively.
+
+Within `#all`'s block, the `String#[]` method is called on `value`, with `0` as an argument. This expression returns a new string with the same value as the character at index 0 of the string assigned to `value`. The `Symbol#to_s` method is called on `key`, which returns a string representation of the current key.
+
+These two return values are then compared to each other using the `String#==` method. It will return `true` if they have the same value, and `false` otherwise.
+
+Since this is the last evaluated expression within this block, the return value of this comparison will also be the return value of the block itself. `#all?` uses the return value of the block to determine its own return value. `#all?` will return `true` if its block returns a truthy value for every key-value pair of `hash` passed into it. It will return `false` otherwise.
+
+The `#all?` method call is the last evaluated expression within the block passed to `#select`, so that return value will also be the return value of the `#select` block. `#select` uses this return value to determine whether to include the current hash in the new array it returns. If the return value of the block is truthy, the current element will be included in the new hash. Otherwise the current element will be excluded.
+
+The return value of this code will be `[{ c: 'cat' }]`, since that hash is the only element in the input array where for every key-value pair, the first character of the value matches the string version of the key.
+
 
 
 ### EXAMPLE 5
