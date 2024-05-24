@@ -1,3 +1,21 @@
+### EXAMPLE 7
+```ruby
+arr = [['1', '8', '11'], ['2', '6', '13'], ['2', '12', '15'], ['1', '8', '9']]
+
+arr.sort_by do |sub_arr|
+  sub_arr.map { |num| num.to_i }
+end
+# => [["1", "8", "9"], ["1", "8", "11"], ["2", "6", "13"], ["2", "12", "15"]]
+```
+
+On line 3, local variable `arr` is initialized and assigned to an array. Each element of the array is a subarray, and each element of each of these subarrays is a string.
+
+On line 5, the `Array#sort_by` method is called on `arr`. Each subarray element of `arr` is passed in to the block in turn and assigned to local variable `sub_arr`. On line 6 the `Array#map` method is called on `sub_arr`, and each element of the current subarray is passed in to the `#map` block in turn and assigned to local variable `num`.
+
+Within the `#map` block, the `String#to_i` method is called on `num`. This method returns the string value interpreted as an integer. This is the last evaluated expression of the `#map` block, so this value is also what the `#map` block itself returns. `#map` returns a new array whose elements are the return values from the block.
+
+The call to `#map` is the last evaluated expression in the `#sort_by` block, so the new array returned by `#map` is the return value of that block. `#sort_by` uses that return value to sort the elements of the calling array `arr`. The result is a new array with the subarray elements sorted by the numerical value of the string elements in each subarray. So this code returns a new array with the value `[["1", "8", "9"], ["1", "8", "11"], ["2", "6", "13"], ["2", "12", "15"]]`
+
 ### EXAMPLE 6
 ```ruby
 array6 = [{ a: 'ant', b: 'elephant' }, { c: 'cat' }]
