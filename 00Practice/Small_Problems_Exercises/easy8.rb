@@ -1,6 +1,137 @@
+### 10.3 ARRAY AVERAGE
+=begin
+Write a method that takes one argument, an array containing integers, and returns the average of all numbers in the array. The array will never be empty and the numbers will always be positive integers. Your result should also be an integer.
+
+Don't use the Array#sum method for your solution - see if you can solve this problem using iteration more directly.
+
+PROBLEM 9:48
+input: array
+  - contains only positive integers
+  - not empty
+
+output: integer
+  - average of all integers in input array (integer division)
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to get total of all integers
+  - way to get number of integers
+  - way to get average
+
+- input: array
+  - sum of all integers
+  - length of array
+- output: integer
+=end
+
+# def average(numbers)
+#   numbers.sum / numbers.size.to_f
+# end
+
+# p average([1, 6]) #== 3 # integer division: (1 + 6) / 2 -> 3
+# p average([1, 5, 87, 45, 8, 8]) #== 25
+# p average([9, 47, 23, 95, 16, 52]) #== 40
 
 
-### DOUBLE CHAR II
+
+### 9.3 REVERSE IT II
+=begin
+Write a method that takes one argument, a string containing one or more words, and returns the given string with words that contain five or more characters reversed. Each string will consist of only letters and spaces. Spaces should be included only when more than one word is present.
+
+PROBLEM 9:34
+input: string
+  - contains only letters and spaces
+  - spaces only occur between words
+
+output: string
+  - same number of words as input string
+  - word order is maintained
+  - words that contain five or more characters are reversed
+  - case is maintained
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access individual words
+  - way to select words to reverse
+    - way to determine number of characters in individual words
+  - way to reverse individual words
+
+- input: string
+  - array of individual words
+  - length of each word
+  - transformed array with appropriate words reversed
+- output: string
+
+ALGORITHM
+- create an array of individual words from input string
+- transform this array
+  - if a word has five or more characters, reverse it
+  - otherwise leave as is
+- convert transformed array into string and return it
+=end
+
+# def reverse_words(words)
+#   words.split.map { |word| word.size >= 5 ? word.reverse : word }.join(' ')
+# end
+
+# def reverse_words(string)
+#   words = string.split
+#   new_words = words.map { |word| word.size >= 5 ? word.reverse : word }
+#   new_words.join(' ')
+# end
+
+# p reverse_words('Professional') == 'lanoisseforP'
+# p reverse_words('Walk around the block') == 'Walk dnuora the kcolb'
+# p reverse_words('Launch School') == 'hcnuaL loohcS'
+
+### 8.3 REVERSE IT I
+=begin
+Write a method that takes one argument, a string, and returns a new string with the words in reverse order.
+
+PROBLEM 9:11
+input: string
+  - can be empty
+  - can contain only whitespace
+
+output: string
+  - words in reverse order from input string
+  - word: characters surrounded by whitespace
+  - if input string is empty or contains only whitespace (i.e. no words):
+    - return empty string
+  - case is maintained
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access individual words
+  - way to reverse the order of the words
+
+- input: string
+  - array of individual words
+  - reversed array
+- output: string
+
+ALGORITHM
+- create an array of individual words from the input string
+- reverse this array
+- convert reversed array back into a string and return it
+=end
+
+# def reverse_sentence(sentence)
+#   sentence.split.reverse.join(' ')
+# end
+
+# p reverse_sentence('Hello World') == 'World Hello'
+# p reverse_sentence('Reverse these words') == 'words these Reverse'
+# p reverse_sentence('') == ''
+# p reverse_sentence('    ') == '' # Any number of spaces results in ''
+
+### 7.3 DOUBLE CHAR II
 =begin
 Write a method that takes a string, and returns a new string in which every consonant character is doubled. Vowels (a,e,i,o,u), digits, punctuation, and whitespace should not be doubled.
 
