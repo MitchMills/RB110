@@ -1,3 +1,55 @@
+### 1.3 HOWDY
+=begin
+Create a method that takes 2 arguments, an array and a hash. The array will contain 2 or more elements that, when combined with adjoining spaces, will produce a person's name. The hash will contain two keys, :title and :occupation, and the appropriate values. Your method should return a greeting that uses the person's full name, and mentions the person's title and occupation.
+
+PROBLEM 3:42
+input: array, hash
+  - array:
+    - contains 2 or more elements
+    - when combined (with spaces) produce a name
+      - don't add puncuation (e.g. 'Q' not 'Q.')
+  - hash:
+    - two key-value pairs
+      - keys: :title, :occupation
+      - values: strings
+
+output: string printed to terminal
+  - "Hello, &NAME! Nice to have a $TITLE $OCCUPATION around."
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to combine array strings into name
+  - way to access title and occupation
+    - way to pick correct article ('a', 'an')
+
+- input: array, hash
+  - array elements converted into a string: full name
+  - hash pairs converted into a string: title and occupation
+- output: string to print to screen
+
+ALGORITHM
+- combine array strings into a single string
+  - separated by spaces
+- combine hash values into a single string
+  - separated by spaces
+- determine proper article
+  - use first character of title-occupation string
+    - a / an
+- print string to screen
+=end
+
+def greetings(names, job_info)
+  name, job = [names, job_info.values].map { |info| info.join(' ')}
+  article = 'aeiou'.include?(job[0].downcase) ? 'an' : 'a'
+  "Hello, #{name}! Nice to have #{article} #{job} around."
+end
+
+
+p greetings(['John', 'Q', 'Doe'], { title: 'Advanced', occupation: 'Plumber' })
+# => "Hello, John Q Doe! Nice to have a Master Plumber around."
+
 ### 11.2 ODD LISTS
 # def oddities(array)
 #   array.filter_map.with_index { |element, index| element if index.even? }
@@ -126,7 +178,7 @@
 ###
 
 ###
-# GRADE_SCALE = { 
+# GRADE_SCALE = {
 #   A: (90..),
 #   B: (80..89),
 #   C: (70..79),
@@ -362,7 +414,7 @@
 #   (0...array.size).step(2).map { |idx| array[idx] }
 # end
 
-# def oddities(array) 
+# def oddities(array)
 #   0.step(array.size - 1, 2).map { |idx| array[idx] }
 # end
 
@@ -471,7 +523,7 @@
 #   list.each_with_index.with_object([]) do |(word1, idx), all_anagrams|
 #     next if all_anagrams.flatten.include?(word1)
 #     sub_anagrams = find_sub_anagrams(word1, idx, list)
-#     all_anagrams << sub_anagrams unless sub_anagrams.empty? 
+#     all_anagrams << sub_anagrams unless sub_anagrams.empty?
 #   end
 # end
 
@@ -586,7 +638,7 @@
 #   list.flat_map { |item, quantity| [item] * quantity }
 # end
 
-# p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) #== 
+# p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) #==
 # ["apples", "apples", "apples", "orange", "bananas","bananas"]
 
 ### 7 GRADE BOOK
@@ -597,7 +649,7 @@
 #   when (80..89) then 'B'
 #   when (70..79) then 'C'
 #   when (60..69) then 'D'
-#   else               'F' 
+#   else               'F'
 #   end
 # end
 
@@ -614,12 +666,12 @@
 # end
 #############
 # def get_grade(*grades)
-#   grade_scale = { 
-#     A:   (90..), 
-#     B: (80..89), 
-#     C: (70..79), 
-#     D: (60..69), 
-#     F:  (0..59) 
+#   grade_scale = {
+#     A:   (90..),
+#     B: (80..89),
+#     C: (70..79),
+#     D: (60..69),
+#     F:  (0..59)
 #   }
 #   average = grades.sum / grades.size
 #   grade_scale.keys.each do |letter|
