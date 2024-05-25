@@ -1,3 +1,125 @@
+
+
+
+### 4.3 HOW LONG
+=begin
+Write a method that takes a string as an argument, and returns an Array that contains every word from the string, to which you have appended a space and the word length.
+
+You may assume that words in the string are separated by exactly one space, and that any substring of non-space characters is a word.
+
+PROBLEM 5:29
+input: string
+  - contains words
+    - words are separated by exactly one space
+    - any substring of non-space characters
+  - can be empty
+
+output: array
+  - contains every word from input string in order as a separate element
+  - each element
+    - word from string
+    - plus a space and the word length
+  - number of elements == number of words in input string
+  - if input string is empty, return empty array
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to separate string into individual words
+  - way to determine length of each word
+  - way to append length to each word
+
+- input: string
+  - array of individual words
+  - transformed array: add word length
+- output: array
+
+ALGORITHM
+- create an array of individual words from the input string
+- transform this array
+  - each element is the original word + the word length
+- return the transformed array
+=end
+
+# def word_lengths(string)
+#   string.split.map { |word| "#{word} #{word.size}" }
+# end
+
+# def word_lengths(string)
+#   words = string.split
+#   sizes = string.split.map { |word| " #{word.size}"}
+#   words.zip(sizes).map(&:join)
+# end
+
+# p word_lengths("cow sheep chicken") #== ["cow 3", "sheep 5", "chicken 7"]
+# p word_lengths("baseball hot dogs and apple pie") == ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+# p word_lengths("It ain't easy, is it?") == ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+# p word_lengths("Supercalifragilisticexpialidocious") == ["Supercalifragilisticexpialidocious 34"]
+# p word_lengths("") == []
+
+### 3.3 COUNTING UP
+=begin
+Write a method that takes an integer argument, and returns an Array of all integers, in sequence, between 1 and the argument.
+
+You may assume that the argument will always be a valid integer that is greater than 0.
+
+PROBLEM 5:00
+input: integer
+  - always valid
+  - always greater than 0
+
+output: array
+  - elements are all integers
+  - from 1 up to input integer, inclusive, in sequence
+  - number of elements == input integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to produce successive numbers
+  - way to control number of elements in output array
+
+- input: integer
+  - range: from 1 up to input integer
+  - transformed array
+- output: array
+
+ALGORITHM
+- create a range from 1 up to the input integer
+- transform range into an array and return it
+=end
+
+# def sequence(last_number)
+#   (1..last_number).map(&:itself)
+# end
+
+# def sequence(last_number)
+#   (1..last_number).to_a
+# end
+
+# def sequence(last_number)
+#   Array.new(last_number.abs) { |index| index.next }
+# end
+
+# def sequence(last_number)
+#   last_number.times.map(&:next)
+# end
+
+# def sequence(integer)
+#   integer > 0 ? (1..integer).to_a : (integer..1).to_a.reverse
+# end
+
+# def sequence(int)
+#   sign = int <=> 0
+#   ([int, 1].min..[sign, int].max).to_a
+# end
+
+# p sequence(-5) #== [1, 2, 3, 4, 5]
+# p sequence(3) == [1, 2, 3]
+# p sequence(1) == [1]
+
 ### 2.3 DOUBLE DOUBLES
 =begin
 A double number is a number with an even number of digits whose left-side digits are exactly the same as its right-side digits. For example, 44, 3333, 103103, 7676 are all double numbers. 444, 334433, and 107 are not.
