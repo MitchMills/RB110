@@ -1,3 +1,77 @@
+### 2.3 DOUBLE DOUBLES
+=begin
+A double number is a number with an even number of digits whose left-side digits are exactly the same as its right-side digits. For example, 44, 3333, 103103, 7676 are all double numbers. 444, 334433, and 107 are not.
+
+Write a method that returns 2 times the number provided as an argument, unless the argument is a double number; double numbers should be returned as-is.
+
+PROBLEM 9:35
+input: integer
+
+output: integer
+  - input integer if input integer is a "double number"
+    - double number:
+      - even number of digits
+      - left side digits == right side digits
+  - twice the input integer otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to determine if input integer is a double number
+    - way to determine number of digits
+      - even or odd?
+    - way to compare front and back half
+
+- input: integer
+  - integer converted to string (to get length)
+  - front and back half of integer string (to compare)
+- output: integer
+
+ALGORITHM
+- determine if input integer is a double number
+  - convert input integer into a string
+  - if length is odd
+    - not a double number
+  - if length is even
+    - compare first half to last half
+      - if they are the same, double number
+      - otherwise not a double number
+- return input integer if so
+- double input integer and return it if not
+=end
+
+# def twice(number)
+#   double_number?(number) ? number : number * 2
+# end
+
+# def double_number?(number)
+#   number.to_s.size.even? ? sides_equal?(number) : false
+# end
+
+# def sides_equal?(number)
+#   characters = number.to_s.chars
+#   half = characters.size / 2
+#   characters.take(half) == characters.drop(half)
+# end
+
+# def double_number?(number)
+#   characters = number.to_s.chars
+#   half = characters.size / 2
+#   characters.take(half) == characters.drop(half)
+# end
+
+# p twice(37) == 74
+# p twice(44) == 44
+# p twice(334433) == 668866
+# p twice(444) == 888
+# p twice(107) == 214
+# p twice(103103) == 103103
+# p twice(3333) == 3333
+# p twice(7676) == 7676
+# p twice(123_456_789_123_456_789) == 123_456_789_123_456_789
+# p twice(5) == 10
+
 ### 1.3 HOWDY
 =begin
 Create a method that takes 2 arguments, an array and a hash. The array will contain 2 or more elements that, when combined with adjoining spaces, will produce a person's name. The hash will contain two keys, :title and :occupation, and the appropriate values. Your method should return a greeting that uses the person's full name, and mentions the person's title and occupation.
@@ -40,14 +114,14 @@ ALGORITHM
 - print string to screen
 =end
 
-def greetings(names, job_info)
-  name, job = [names, job_info.values].map { |info| info.join(' ')}
-  article = 'aeiou'.include?(job[0].downcase) ? 'an' : 'a'
-  "Hello, #{name}! Nice to have #{article} #{job} around."
-end
+# def greetings(names, job_info)
+#   name, job = [names, job_info.values].map { |info| info.join(' ')}
+#   article = 'aeiou'.include?(job[0].downcase) ? 'an' : 'a'
+#   "Hello, #{name}! Nice to have #{article} #{job} around."
+# end
 
 
-p greetings(['John', 'Q', 'Doe'], { title: 'Advanced', occupation: 'Plumber' })
+# p greetings(['John', 'Q', 'Doe'], { title: 'Advanced', occupation: 'Plumber' })
 # => "Hello, John Q Doe! Nice to have a Master Plumber around."
 
 ### 11.2 ODD LISTS

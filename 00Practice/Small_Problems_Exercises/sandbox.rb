@@ -1,6 +1,13 @@
-def greetings(names, job_info)
-  full_name = names.join(' ')
-  job = job_info.values.join(' ')
-  article = 'aeiou'.include?(job[0].downcase) ? 'an' : 'a'
-  "Hello, #{full_name}! Nice to have #{article} #{job} around."
+def twice(number)
+  double_number?(number) ? number : number * 2
+end
+
+def double_number?(number)
+  number.to_s.size.even? ? sides_equal?(number) : false
+end
+
+def sides_equal?(number)
+  characters = number.to_s.chars
+  half = characters.size / 2
+  characters.take(half) == characters.drop(half)
 end
