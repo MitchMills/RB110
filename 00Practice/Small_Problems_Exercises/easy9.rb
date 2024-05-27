@@ -1,3 +1,79 @@
+### 7.3 GRADE BOOK
+=begin
+Write a method that determines the mean (average) of the three scores passed to it, and returns the letter value associated with that grade.
+Numerical Score Letter 	Grade
+90 <= score <= 100 	'A'
+80 <= score < 90 	'B'
+70 <= score < 80 	'C'
+60 <= score < 70 	'D'
+0 <= score < 60 	'F'
+
+Tested values are all between 0 and 100. There is no need to check for negative values or values greater than 100.
+
+PROBLEM 10:42
+input: three integers
+  - represent three scores
+  - value will always be between 0 and 100, inclusive
+output: string
+  - represents letter grade
+    - (90..100): 'A'
+    - (80..89): 'B'
+    - (70..79): 'C'
+    - (60..69): 'D'
+    - (0..59) 'F'
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to get average of 3 scores
+  - way to translate score into letter grade
+
+- input: three integers
+  - sum of integers
+  - average of integers
+  - hash or case statement
+- output: string
+
+ALGORITHM
+- create a hash to translate average scores to grades
+  - keys are ranges
+  - values are letters
+- get grade average
+  - add integers together
+  - divide by 3
+- consider each key-value pair in grades hash
+  - if average is within range of key, return value
+
+=end
+# GRADE_RANGES = [(90..100), (80..89), (70..79), (60..69), (0..59)]
+# GRADES = %w(A B C D F)
+# GRADE_BOOK = GRADE_RANGES.zip(GRADES).to_h
+
+# def get_grade(*scores)
+#   average = scores.sum / scores.size
+#   GRADE_BOOK.find { |range, _grade| range.include?(average) }.last
+# end
+###
+
+GRADE_CUTOFFS = (6..10).to_a.reverse
+GRADES = %w(A A B C D)
+GRADE_BOOK = GRADE_CUTOFFS.zip(GRADES).to_h
+
+def get_grade(*scores)
+  average = scores.sum / scores.size
+  GRADE_BOOK[average / 10] || 'F'
+end
+
+p get_grade(100, 100, 100)
+p get_grade(95, 90, 93)
+p get_grade(90, 90, 90)
+p get_grade(89, 89, 89)
+p get_grade(89, 85, 83)
+p get_grade(74, 78, 72)
+p get_grade(65, 66, 67)
+p get_grade(50, 50, 0)
+
 ### 6.3 SEQUENCE COUNT
 =begin
 Create a method that takes two integers as arguments. The first argument is a count, and the second is the first number of a sequence that your method will create. The method should return an Array that contains the same number of elements as the count argument, while the values of each element will be multiples of the starting number.
@@ -39,15 +115,15 @@ ALGORITHM
 #   (1..size).map { |multiplier| multiple * multiplier }
 # end
 
-def sequence(size, multiple)
-  return Array.new(size, multiple) if multiple == 0
-  multiple.step(by: multiple, to: multiple * size).to_a
-end
+# def sequence(size, multiple)
+#   return Array.new(size, multiple) if multiple == 0
+#   multiple.step(by: multiple, to: multiple * size).to_a
+# end
 
-def sequence(size, multiple)
-  return Array.new(size, multiple) if multiple == 0
-  Array((multiple..(multiple * size)).step(multiple))
-end
+# def sequence(size, multiple)
+#   return Array.new(size, multiple) if multiple == 0
+#   Array((multiple..(multiple * size)).step(multiple))
+# end
 
 # def sequence(size, multiple)
 #   Array.new(size, multiple).map.with_index { |num, index| num * (index + 1) }
@@ -60,11 +136,11 @@ end
 #   end
 # end
 
-p sequence(5, 1) #== [1, 2, 3, 4, 5]
-p sequence(5, 2) #== [2, 4, 6, 8, 10]
-p sequence(4, -7) #== [-7, -14, -21, -28]
-p sequence(3, 0) #== [0, 0, 0]
-p sequence(0, 1000000) #== []
+# p sequence(5, 1) #== [1, 2, 3, 4, 5]
+# p sequence(5, 2) #== [2, 4, 6, 8, 10]
+# p sequence(4, -7) #== [-7, -14, -21, -28]
+# p sequence(3, 0) #== [0, 0, 0]
+# p sequence(0, 1000000) #== []
 
 
 ### 5.3
