@@ -1,3 +1,72 @@
+### 6.3 SEQUENCE COUNT
+=begin
+Create a method that takes two integers as arguments. The first argument is a count, and the second is the first number of a sequence that your method will create. The method should return an Array that contains the same number of elements as the count argument, while the values of each element will be multiples of the starting number.
+
+You may assume that the count argument will always have a value of 0 or greater, while the starting number can be any integer value. If the count is 0, an empty list should be returned.
+
+PROBLEM 6:37
+input: two integers
+  - first: count
+    - will always be >= 0
+  - second: first number / multiple
+    - can be any integer value
+
+- output: array
+  - size is first input integer
+    - if input integer == 0, return empty array
+  - elements are multiples of second input integer, beginning at second input integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to create sequence of multiples
+  - way to control size of sequence / when to stop
+
+- input: two integers
+  - array to hold multiples
+- output: array
+
+ALGORITHM
+- create a new array the size of the first input integer
+- fill it with multiples of the second input integer and return it
+  - multiply second input integer times index + 1
+=end
+
+# def sequence(size, multiple)
+#   Array.new(size) { |index| multiple * (index + 1) }
+#   size.times.map { |index| multiple * (index + 1) }
+#   (1..size).map { |multiplier| multiple * multiplier }
+# end
+
+def sequence(size, multiple)
+  return Array.new(size, multiple) if multiple == 0
+  multiple.step(by: multiple, to: multiple * size).to_a
+end
+
+def sequence(size, multiple)
+  return Array.new(size, multiple) if multiple == 0
+  Array((multiple..(multiple * size)).step(multiple))
+end
+
+# def sequence(size, multiple)
+#   Array.new(size, multiple).map.with_index { |num, index| num * (index + 1) }
+# end
+
+# def sequence(size, multiple)
+#   case multiple <=> 0
+#   when -1 then
+#   when 0..1 then Array(1..(multiple * size))
+#   end
+# end
+
+p sequence(5, 1) #== [1, 2, 3, 4, 5]
+p sequence(5, 2) #== [2, 4, 6, 8, 10]
+p sequence(4, -7) #== [-7, -14, -21, -28]
+p sequence(3, 0) #== [0, 0, 0]
+p sequence(0, 1000000) #== []
+
+
 ### 5.3
 =begin
 Write a method that takes a first name, a space, and a last name passed as a single String argument, and returns a string that contains the last name, a comma, a space, and the first name.
@@ -37,7 +106,12 @@ ALGORITHM
 #   "#{names.last}, #{names.first}"
 # end
 
-# p swap_name('Joe Roberts') == 'Roberts, Joe'
+# def swap_name(name)
+#   names = name.split
+#   names.map.with_index { |name, index| names[index - 1] }.join(', ')
+# end
+
+# p swap_name('Joe Roberts') #== 'Roberts, Joe'
 
 ### 4.3 HOW LONG
 =begin
