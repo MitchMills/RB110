@@ -1,5 +1,43 @@
+### 5.3
+=begin
+Write a method that takes a first name, a space, and a last name passed as a single String argument, and returns a string that contains the last name, a comma, a space, and the first name.
 
+PROBLEM 7:30
+input: string
+  - contains a first name followed by a space and a last name
 
+output: string
+  - contains the last name, a comma and a space, and the first name
+  - case is maintained
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access individual names from string
+  - way to change order of names
+
+- input: string
+  - array of individual names
+  - reversed array
+- output: string
+
+ALGORITHM
+- create an array of the separate words in the input string
+- reverse this array
+- convert the array into a string, with a comma and space separating the names
+=end
+
+# def swap_name(string)
+#   string.split.reverse.join(", ")
+# end
+
+# def swap_name(name)
+#   names = name.split
+#   "#{names.last}, #{names.first}"
+# end
+
+# p swap_name('Joe Roberts') == 'Roberts, Joe'
 
 ### 4.3 HOW LONG
 =begin
