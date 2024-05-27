@@ -1,3 +1,35 @@
+### EXAMPLE 9
+```ruby
+array9 = [[[1], [2], [3], [4]], [['a'], ['b'], ['c']]]
+
+array9.map do |element1|
+  element1.each do |element2|
+    element2.partition do |element3|
+      element3.size > 0
+    end
+  end
+end
+# => [[[1], [2], [3], [4]], [["a"], ["b"], ["c"]]]
+```
+On line 5, the `Array#map` method is called on `array9`. Each subarray element of `array9` is passed into the block in turn, and the return value of the block will determine the value of the elements in the new array that `#map` returns. 
+
+The return value of the `#map` block is determined by the last evaluated expression in the block, which in this case is a call to `Array#each`. Because `#each` returns the calling object, and no methods deeper in the code mutate that calling object or any of its elements, we can determine that the return value of this code will be a new array that matches the value of the calling object.
+
+- variable assignment
+- method call: `Array#map`
+- block execution
+  - method call: `Array#each`
+  - block execution
+    - method call: `Array#partition`
+    - block execution
+      - method call: `Integer#size` / `String#size`
+      - comparison:`>`
+
+
+
+
+
+
 ### EXAMPLE 8
 ```ruby
 array8 = [[8, 13, 27], ['apple', 'banana', 'cantaloupe']]

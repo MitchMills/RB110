@@ -1,14 +1,9 @@
-array8 = [[8, 13, 27], ['apple', 'banana', 'cantaloupe']]
+array9 = [[['a'], ['b'], ['c']], [['a'], ['b'], ['c']]]
 
-selected = array8.map do |sub_array|
-  sub_array.select do |item|
-    if item.to_s.to_i == item    # if it's an integer
-      item > 13
-    else
-      item.size < 6
-    end
+result = array9.map do |element1|
+  element1.each do |element2|
+    element2.each { |element3| element3.upcase! }
   end
 end
 
-p selected
-p array8
+p result
