@@ -13,7 +13,27 @@ array8.map do |sub_array|
 end
 # => [[27], ["apple"]]
 ```
+On line 3, local variable `array8` is initialized to an array with the value `[[8, 13, 27], ['apple', 'banana', 'cantaloupe']]`. 
 
+On line 5, the `Array#map` method is called on `array8`. Each subarray element of `array8` is passed to the `#map` block in turn, and assigned to local variable `sub_array`.
+
+Within the block, the `Array#select` method is called on `sub_array`, and each element of the current subarray is passed to the block in turn, and assigned to local variable `item`.
+
+Within the `#select` block, a `#to_s` method is called on `item`. The exact method called (`Integer#to_s` or `String#to_s`) will depend upon the type of object that `item` currently references. The return value will be a string. 
+
+The `String#to_i` method is then called on this return value, which will return an integer representation of that string. This value is then compared to the current value referenced by `item` using the `#==` method. The `#==` method will return a boolean value: `true` if the two values are equal, and `false` otherwise. 
+
+If `true` is returned, the first branch of the `if` conditional statement will execute. Then the `Integer#>` method will be called on `item`, with `13` passed in as an argument. This statement will return `true` if the current value referenced by `item` is greater than `13`, and `false` otherwise.
+
+If `false` is returned, the second branch of the `if` conditional statement will execute. Then the `String#size` method will be called on `item`, which will return the number of characters in the string referenced by `item`. The `Integer#<` method is then called, with `6` passed in as an argument. This statement will return `true` if the return value from `#size` is less than `6`, and `false` otherwise.
+
+The return value of the `if` conditional statement will be the return value of the `#select` block, since it is the last evaluated statement within the block. On each iteration, `#select` will return a new array containing elements of each subarray for which the block returned `true`.
+
+In this instance, the first branch will only execute for elements in the first subarray of `array8`. The value of only one of these integer elements is greater than 13, so the return value of `select` on its first iteration will be a new array with the value `[27]`.
+
+The second branch will only execute for elements in the second subarray of `array8`. Only one of these string elements contains less than 6 characters, so the return value of `select` on its second iteration will be a new array with the value `["apple"]`.
+
+These new arrays are the return values of the last evaluated expression within the `#map` block, so they will be the return values of the `#map` block. `#map` will use these return values to transform each element of `array8`. `#map` will return a new array containing these values: `[[27], ["apple"]]`. 
 
 
 
