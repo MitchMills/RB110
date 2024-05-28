@@ -1,3 +1,46 @@
+### 8.3
+=begin
+Write a method which takes a grocery list (array) of fruits with quantities and converts it into an array of the correct number of each fruit.
+
+PROBLEM 8:48
+input: array
+  - elements are subarrays
+    - each subarray contains a string and an integer
+      - string = fruit
+      - integer = quantity
+
+output: array
+  - contains only strings
+    - strings are fruits
+    - each fruit appears quantity times
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each fruit / quantity subarray
+  - way to create appropriate number of each fruit in output array
+
+- input: array
+  - transformed array
+    - each subarray => fruit * quantity
+    - flattened
+- output: array
+
+ALGORITHM
+- transform the input array
+  - for each element:
+    - transform into an array of fruit * quantity
+- flatten transformed array and return it
+=end
+
+def buy_fruit(list)
+  list.flat_map { |fruit, quantity| [fruit] * quantity }
+end
+
+p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
+  ["apples", "apples", "apples", "orange", "bananas","bananas"]
+
 ### 7.3 GRADE BOOK
 =begin
 Write a method that determines the mean (average) of the three scores passed to it, and returns the letter value associated with that grade.
@@ -56,23 +99,23 @@ ALGORITHM
 # end
 ###
 
-GRADE_CUTOFFS = (6..10).to_a.reverse
-GRADES = %w(A A B C D)
-GRADE_BOOK = GRADE_CUTOFFS.zip(GRADES).to_h
+# GRADE_CUTOFFS = (6..10).to_a.reverse
+# GRADES = %w(A A B C D)
+# GRADE_BOOK = GRADE_CUTOFFS.zip(GRADES).to_h
 
-def get_grade(*scores)
-  average = scores.sum / scores.size
-  GRADE_BOOK[average / 10] || 'F'
-end
+# def get_grade(*scores)
+#   average = scores.sum / scores.size
+#   GRADE_BOOK[average / 10] || 'F'
+# end
 
-p get_grade(100, 100, 100)
-p get_grade(95, 90, 93)
-p get_grade(90, 90, 90)
-p get_grade(89, 89, 89)
-p get_grade(89, 85, 83)
-p get_grade(74, 78, 72)
-p get_grade(65, 66, 67)
-p get_grade(50, 50, 0)
+# p get_grade(100, 100, 100)
+# p get_grade(95, 90, 93)
+# p get_grade(90, 90, 90)
+# p get_grade(89, 89, 89)
+# p get_grade(89, 85, 83)
+# p get_grade(74, 78, 72)
+# p get_grade(65, 66, 67)
+# p get_grade(50, 50, 0)
 
 ### 6.3 SEQUENCE COUNT
 =begin
