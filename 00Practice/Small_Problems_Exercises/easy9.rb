@@ -1,5 +1,34 @@
 ### 10.3
+=begin
+Write a method that takes one argument, a positive integer, and returns the sum of its digits.
 
+PROBLEM 5:18
+input: integer
+  - positive
+
+output: integer
+  - sum of digits of input integer
+=end
+# def sum(number)
+#   number.digits.sum
+# end
+
+# def sum(number)
+#   number.to_s.chars.map(&:to_i).sum
+# end
+
+def sum(number)
+  sum = 0
+  while number > 0
+    number, current_digit = number.divmod(10)
+    sum += current_digit
+  end
+  sum
+end
+
+p sum(23) #== 5
+p sum(496) #== 19
+p sum(123_456_789) #== 45
 
 ### 9.3
 =begin
