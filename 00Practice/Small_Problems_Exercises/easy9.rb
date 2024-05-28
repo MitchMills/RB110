@@ -1,3 +1,71 @@
+### 9.3
+=begin
+Given the array...
+  words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+            'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+            'flow', 'neon']
+
+Write a program that prints out groups of words that are anagrams. Anagrams are words that have the same exact letters in them but in a different order. Your output should look something like this:
+  ["demo", "dome", "mode"]
+  ["neon", "none"]
+  #(etc)
+
+PROBLEM 2:25
+input: array
+  - contains strings
+  - all lowercase letters
+
+output: arrays, printed to screen
+  - each array is a group of words that are anagrams of each other
+  - anagram = same exact letters but in a different order
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - determine which words are anagrams of each other
+  - group anagrams together
+  - print groups
+
+- input: array
+  - array of unique letter combos
+- output: arrays / array of arrays
+
+ALGORITHM
+- create an array of unique letter combinations
+  - transform input array
+    - strings into arrays of individual characters
+    - arrays sorted
+    - only unique arrays kept
+- for each unique letter combination, select strings in input array that have those letters
+- print each array of strings
+=end
+
+def anagram_groups(words)
+  groups = get_groups(words)
+  groups.each { |group| p group }
+end
+
+def get_groups(words)
+  combos = words.map { |word| word.chars.sort.join }.uniq
+  combos.map do |combo|
+    words.select { |word| word.chars.sort.join == combo }.sort
+  end
+end
+
+def get_groups(words)
+  groups = words.group_by { |word| word.chars.sort.join }
+  groups.map(&:last).map(&:sort)
+end
+
+words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+            'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+            'flow', 'neon']
+
+anagram_groups(words)
+
+
+
 ### 8.3
 =begin
 Write a method which takes a grocery list (array) of fruits with quantities and converts it into an array of the correct number of each fruit.
@@ -34,12 +102,12 @@ ALGORITHM
 - flatten transformed array and return it
 =end
 
-def buy_fruit(list)
-  list.flat_map { |fruit, quantity| [fruit] * quantity }
-end
+# def buy_fruit(list)
+#   list.flat_map { |fruit, quantity| [fruit] * quantity }
+# end
 
-p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
-  ["apples", "apples", "apples", "orange", "bananas","bananas"]
+# p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
+#   ["apples", "apples", "apples", "orange", "bananas","bananas"]
 
 ### 7.3 GRADE BOOK
 =begin
