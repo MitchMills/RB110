@@ -1,3 +1,6 @@
+### 10.3
+
+
 ### 9.3
 =begin
 Given the array...
@@ -41,30 +44,32 @@ ALGORITHM
 - print each array of strings
 =end
 
-def anagram_groups(words)
-  groups = get_groups(words)
-  groups.each { |group| p group }
-end
+# def anagram_groups(words)
+#   groups = get_groups(words)
+#   display_groups(groups)
+# end
 
-def get_groups(words)
-  combos = words.map { |word| word.chars.sort.join }.uniq
-  combos.map do |combo|
-    words.select { |word| word.chars.sort.join == combo }.sort
-  end
-end
+# def get_groups(words)
+#   combos = words.map { |word| word.chars.sort }.uniq
+#   combos.map do |combo|
+#     words.select { |word| word.chars.sort == combo }.sort
+#   end
+# end
 
-def get_groups(words)
-  groups = words.group_by { |word| word.chars.sort.join }
-  groups.map(&:last).map(&:sort)
-end
+# def get_groups(words)
+#   groups = words.group_by { |word| word.chars.sort }
+#   groups.values.map(&:sort)
+# end
 
-words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
-            'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
-            'flow', 'neon']
+# def display_groups(groups)
+#   groups.each { |group| p group }
+# end
 
-anagram_groups(words)
+# words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+#             'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+#             'flow', 'neon']
 
-
+# anagram_groups(words)
 
 ### 8.3
 =begin

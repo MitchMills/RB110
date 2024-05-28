@@ -1,9 +1,22 @@
 def anagram_groups(words)
   groups = get_groups(words)
-  groups.each { |group| p group }
+  display_groups(groups)
 end
 
 def get_groups(words)
-  groups = words.group_by { |word| word.chars.sort.join }
-  groups.map(&:last).map(&:sort)
+  combos = words.map { |word| word.chars.sort }.uniq
+  combos.map do |combo|
+    words.select { |word| word.chars.sort == combo }.sort
+  end
 end
+
+def display_groups(groups)
+  groups.each { |group| p group }
+end
+
+words = [
+  'demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live', 'fowl', 'veil',
+  'wolf', 'diet', 'vile', 'edit', 'tide', 'flow', 'neon'
+]
+
+anagram_groups(words)
