@@ -1,3 +1,58 @@
+### 11.3
+=begin
+Write a method that returns an Array that contains every other element of an Array that is passed in as an argument. The values in the returned list should be those values that are in the 1st, 3rd, 5th, and so on elements of the argument Array.
+
+PROBLEM 2:59
+input: array
+  - can be empty
+
+output: array
+  - every other element from the input array, starting from 1st
+  - if input array is empty, return empty array
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to determine every other element
+
+- input: array
+
+- output: array
+
+ALGORITHM
+- consider each element of the input array
+- add element to output array if its index is even
+=end
+
+# def oddities(array)
+#   array.select.with_index { |_, index| index.even? }
+# end
+
+# def oddities(array)
+#   (0...array.size).step(2).map { |index| array[index] }
+# end
+
+# def oddities(array)
+#   array.partition.with_index { |_, index| index.odd? }.last
+# end
+
+# def oddities(array)
+#   array.filter_map.with_index { |element, index| element if index.even? }
+# end
+
+def oddities(array)
+  groups = array.group_by.with_index { |_, index| index.even? }
+  groups[true] || []
+end
+
+p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
+p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
+p oddities(['abc', 'def']) == ['abc']
+p oddities([123]) == [123]
+p oddities([]) == []
+p oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
+
 ### 10.3
 =begin
 Write a method that takes one argument, a positive integer, and returns the sum of its digits.
@@ -17,18 +72,18 @@ output: integer
 #   number.to_s.chars.map(&:to_i).sum
 # end
 
-def sum(number)
-  sum = 0
-  while number > 0
-    number, current_digit = number.divmod(10)
-    sum += current_digit
-  end
-  sum
-end
+# def sum(number)
+#   sum = 0
+#   while number > 0
+#     number, current_digit = number.divmod(10)
+#     sum += current_digit
+#   end
+#   sum
+# end
 
-p sum(23) #== 5
-p sum(496) #== 19
-p sum(123_456_789) #== 45
+# p sum(23) #== 5
+# p sum(496) #== 19
+# p sum(123_456_789) #== 45
 
 ### 9.3
 =begin
