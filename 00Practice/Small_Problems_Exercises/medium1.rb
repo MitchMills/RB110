@@ -1,5 +1,98 @@
+### 2.2 ROTATION II
 
 
+### 1.2 ROTATION I
+=begin
+Write a method that rotates an array by moving the first element to the end of the array. The original array should not be modified.
+
+Do not use the method Array#rotate or Array#rotate! for your implementation.
+
+PROBLEM 3:23
+input: array
+  - may contain only one element
+
+output: new array
+  - first element of input array is now in last position
+  - if input array has only one element, new array will have the same value
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to access each element
+  - way to shift position of each element
+  - way to avoid mutating input array
+
+- input: array
+  - array of all but first element
+- output: array
+
+ALGORITHM
+- create a new array of all element from input array except first element
+- add first element to the end of the new array
+- return the new array
+=end
+
+# def rotate_array(array)
+#   array[1..-1] + [array[0]]
+# end
+
+# def rotate_string(string)
+#   rotate_array(string.chars).join
+# end
+
+# def rotate_integer(integer)
+#   rotate_array(integer.digits.reverse).join.to_i
+# end
+
+# p rotate_integer(12345)
+
+# def rotate_object(object)
+#   case object
+#   when Array, String
+#     object.empty? ? object : object[1..-1] + object[0, 1]
+#   when Hash
+#     rotate_object(object.to_a).to_h
+#   when Integer
+#     sign = object.positive? ? 1 : -1
+#     sign * rotate_object(object.abs.to_s).to_i
+#   else
+#     "Unable to rotate this type of object."
+#   end
+# end
+
+# Tests
+# array = [1, 2, 3]
+# p rotate_object([]) == []
+# p rotate_object(array) == [2, 3, 1]
+# p array == [1, 2, 3]
+# puts
+# string = '123'
+# p rotate_object('') == ''
+# p rotate_object(string) == '231'
+# p string == '123'
+# puts
+# hash = {a: 1, b: 2, c: 3}
+# p rotate_object({}) == {}
+# p rotate_object(hash) == {b: 2, c: 3, a: 1}
+# p hash == {a: 1, b: 2, c: 3}
+# puts
+# integer = 123
+# p rotate_object(0) == 0
+# p rotate_object(integer) == 231
+# p integer == 123
+# puts
+# p rotate_object(-123) # => -231
+# p rotate_object(102) # => 21
+# p rotate_object(1.2) # => "Unable to rotate this type of object."
+
+# p rotate_array([7, 3, 5, 2, 9, 1]) #== [3, 5, 2, 9, 1, 7]
+# p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
+# p rotate_array(['a']) == ['a']
+
+# x = [1, 2, 3, 4]
+# p rotate_array(x) == [2, 3, 4, 1]   # => true
+# p x == [1, 2, 3, 4]                 # => true
 
 ### 10 FIBONACCI III
 =begin

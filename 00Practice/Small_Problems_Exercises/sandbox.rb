@@ -1,22 +1,13 @@
-def anagram_groups(words)
-  groups = get_groups(words)
-  display_groups(groups)
-end
-
-def get_groups(words)
-  combos = words.map { |word| word.chars.sort }.uniq
-  combos.map do |combo|
-    words.select { |word| word.chars.sort == combo }.sort
+def rotate_object(object)
+  case object
+  when Array, String
+    object.empty? ? object : object[1..-1] + object[0, 1]
+  when Hash
+    rotate_object(object.to_a).to_h
+  when Integer
+    sign = object.positive? ? 1 : -1
+    sign * rotate_object(object.abs.to_s).to_i
+  else
+    "Unable to rotate this type of object."
   end
 end
-
-def display_groups(groups)
-  groups.each { |group| p group }
-end
-
-words = [
-  'demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live', 'fowl', 'veil',
-  'wolf', 'diet', 'vile', 'edit', 'tide', 'flow', 'neon'
-]
-
-anagram_groups(words)
