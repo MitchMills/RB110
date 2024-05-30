@@ -1,5 +1,51 @@
 ### 3.2 ROTATION III
+=begin
+If you take a number like 735291, and rotate it to the left, you get 352917. If you now keep the first digit fixed in place, and rotate the remaining digits, you get 329175. Keep the first 2 digits fixed in place and rotate again to 321759. Keep the first 3 digits fixed in place and rotate again to get 321597. Finally, keep the first 4 digits fixed in place and rotate the final 2 digits to get 321579. The resulting number is called the maximum rotation of the original number.
 
+Write a method that takes an integer as argument, and returns the maximum rotation of that argument. You can (and probably should) use the rotate_rightmost_digits method from the previous exercise.
+
+Note that you do not have to handle multiple 0s.
+
+PROBLEM 1:26
+input: integer
+  - does not contain multiple zeros in a row
+  - can be length 1
+
+output: integer
+  - digits have been maximally rotated
+  - if input integer has only one digit, output integer is the same
+  - if final number has leading zero, it is dropped
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to track number of iterations
+  - way to select correct number of rightmost digits on each iteration
+
+- input: integer
+  - array of individual digits
+  - subarrays of decreasing size to perform rotation on
+    - size number length down to size 2
+      -  735291 => 352917
+      - 3 52917 => 329175
+      - 32 9175 => 321759
+      - 321 759 => 321597
+      - 3215 97 => 321579
+- output: integer
+
+ALGORITHM
+- create an array of individual digits from input integer
+- 0 up to (array length - 2): start index
+  - on each iteration rotate the digits from that start index to the end of the array
+=end
+
+
+p max_rotation(735291) == 321579
+p max_rotation(3) == 3
+p max_rotation(35) == 53
+p max_rotation(105) == 15 # the leading zero gets dropped
+p max_rotation(8_703_529_146) == 7_321_609_845
 
 ### 2.2 ROTATION II
 =begin
