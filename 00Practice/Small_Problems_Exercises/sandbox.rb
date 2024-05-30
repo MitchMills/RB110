@@ -1,3 +1,11 @@
+def max_rotation(number)
+  number_of_digits = number.abs.to_s.size
+  number_of_digits.downto(2) do |digits_to_rotate|
+    number = rotate_rightmost_digits(number, digits_to_rotate)
+  end
+  number
+end
+
 def rotate_rightmost_digits(number, digits_to_rotate)
   return number if digits_to_rotate > number.to_s.size
   sign = number.positive? ? 1 : -1

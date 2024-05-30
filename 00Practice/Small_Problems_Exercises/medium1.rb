@@ -36,16 +36,57 @@ DATA STRUCTURES
 
 ALGORITHM
 - create an array of individual digits from input integer
-- 0 up to (array length - 2): start index
-  - on each iteration rotate the digits from that start index to the end of the array
+- create a range: 0 up to (array length - 2): start index
+  - transform:
+    - on each iteration rotate the digits from start index to the end of the array
+- return the last element of the transformed array
 =end
 
+# def max_rotation(number)
+#   digits = number.digits.reverse
+#   rotations = (0..(number.to_s.size - 2)).map do |start_index|
+#     rotated = rotate_array(digits[start_index..-1])
+#     front = digits.take(start_index)
+#     digits = front + rotated
+#   end
+#   (rotations.last || [number]).join.to_i
+# end
 
-p max_rotation(735291) == 321579
-p max_rotation(3) == 3
-p max_rotation(35) == 53
-p max_rotation(105) == 15 # the leading zero gets dropped
-p max_rotation(8_703_529_146) == 7_321_609_845
+# def rotate_array(array)
+#   array[1..-1] + array[0, 1]
+# end
+####
+
+def max_rotation(number)
+  number_of_digits = number.abs.to_s.size
+  number_of_digits.downto(2) do |digits_to_rotate|
+    number = rotate_rightmost_digits(number, digits_to_rotate)
+  end
+  number
+end
+
+def rotate_rightmost_digits(number, digits_to_rotate)
+  return number if digits_to_rotate > number.to_s.size
+  sign = number.positive? ? 1 : -1
+  leftmost, rightmost = separate_digits(number.abs, digits_to_rotate)
+  (leftmost + rotate_array(rightmost)).join.to_i * sign
+end
+
+def separate_digits(number, digits_to_rotate)
+  leftmost = number.digits.drop(digits_to_rotate).reverse
+  rightmost = number.digits.take(digits_to_rotate).reverse
+  [leftmost, rightmost]
+end
+
+def rotate_array(array)
+  array.empty? ? array : array[1..-1] + array[0, 1]
+end
+
+p max_rotation(-735291) == -321579
+p max_rotation(-3) == -3
+p max_rotation(-35) == -53
+p max_rotation(-105) == -15 # the leading zero gets dropped
+p max_rotation(-8_703_529_146) == -7_321_609_845
 
 ### 2.2 ROTATION II
 =begin
