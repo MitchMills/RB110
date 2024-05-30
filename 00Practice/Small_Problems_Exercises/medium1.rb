@@ -1,5 +1,79 @@
-### 2.2 ROTATION II
+### 3.2 ROTATION III
 
+
+### 2.2 ROTATION II
+=begin
+Write a method that can rotate the last n digits of a number.
+Note that rotating just 1 digit results in the original number being returned.
+You may use the rotate_array method from the previous exercise if you want. (Recommended!)
+You may assume that n is always a positive integer.
+
+PROBLEM 8:27
+input: two integers
+  - first: number to be rotated
+  - second: n, number of rightmost digits to be rotated
+    - always positive
+
+output: integer
+  - has n rightmost digits rotated
+    - rotated = first digit is moved to last position, all other digits shifted forward
+      - 123 => 231
+  - remaining digits unchanged
+  - if n == 1, return original number
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to isolate n rightmost digits
+  - way to rotate digits
+  - way to recombine into result
+
+- input: 2 integers
+  - array of individual digits of first input integer
+  - two arrays: leftmost digits and rightmost digits
+  - rotated rightmost digits
+  - combined arrays => string => integer
+- output: integer
+
+ALGORITHM
+- set a variable to 1 or -1 depending on if first input integer is positive or negative
+- convert absolute value of first input integer into an array of individual digits (in reverse order)
+- create an array of the first n digits
+- create an array of the remaining digits
+- reverse both arrays
+- rotate rightmost digits
+- combine both arrays into one
+- convert to a string, then an integer
+- multiply by sign variable and return
+=end
+
+# def rotate_rightmost_digits(number, digits_to_rotate)
+#   return number if digits_to_rotate > number.to_s.size
+#   sign = number.positive? ? 1 : -1
+#   leftmost, rightmost = separate_digits(number.abs, digits_to_rotate)
+#   (leftmost + rotate_array(rightmost)).join.to_i * sign
+# end
+
+# def separate_digits(number, digits_to_rotate)
+#   leftmost = number.digits.drop(digits_to_rotate).reverse
+#   rightmost = number.digits.take(digits_to_rotate).reverse
+#   [leftmost, rightmost]
+# end
+
+# def rotate_array(array)
+#   array.empty? ? array : array[1..-1] + array[0, 1]
+# end
+
+# p rotate_rightmost_digits(735291, 1) == 735291
+# p rotate_rightmost_digits(735291, 2) == 735219
+# p rotate_rightmost_digits(735291, 3) == 735912
+# p rotate_rightmost_digits(735291, 4) == 732915
+# p rotate_rightmost_digits(735291, 5) == 752913
+# p rotate_rightmost_digits(735291, 6) == 352917
+# p rotate_rightmost_digits(-735291, 3) == -735912
+# p rotate_rightmost_digits(735291, 8) == 735291
+# p rotate_rightmost_digits(1, 3)
 
 ### 1.2 ROTATION I
 =begin
