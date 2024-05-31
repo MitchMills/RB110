@@ -1,24 +1,13 @@
-def max_rotation(number)
-  number_of_digits = number.abs.to_s.size
-  number_of_digits.downto(2) do |digits_to_rotate|
-    number = rotate_rightmost_digits(number, digits_to_rotate)
-  end
-  number
+def max_rotation_with_zeros(integer)
+  digits = integer.digits.reverse
+  digits.each_index { |index| digits << digits.delete_at(index) }
+  digits.first == 0 ? digits.join : digits.join.to_i
 end
 
-def rotate_rightmost_digits(number, digits_to_rotate)
-  return number if digits_to_rotate > number.to_s.size
-  sign = number.positive? ? 1 : -1
-  leftmost, rightmost = separate_digits(number.abs, digits_to_rotate)
-  (leftmost + rotate_array(rightmost)).join.to_i * sign
-end
-
-def separate_digits(number, digits_to_rotate)
-  leftmost = number.digits.drop(digits_to_rotate).reverse
-  rightmost = number.digits.take(digits_to_rotate).reverse
-  [leftmost, rightmost]
-end
-
-def rotate_array(array)
-  array.empty? ? array : array[1..-1] + array[0, 1]
-end
+p max_rotation_with_zeros(735291) == 321579
+p max_rotation_with_zeros(3) == 3
+p max_rotation_with_zeros(35) == 53
+p max_rotation_with_zeros(105) == '015'
+p max_rotation_with_zeros(8_703_529_146) == 7_321_609_845
+p max_rotation_with_zeros(10023) == '02130'
+p max_rotation_with_zeros(10003) == '00130'
