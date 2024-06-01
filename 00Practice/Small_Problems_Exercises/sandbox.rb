@@ -1,13 +1,12 @@
-def max_rotation_with_zeros(integer)
-  digits = integer.digits.reverse
-  digits.each_index { |index| digits << digits.delete_at(index) }
-  digits.first == 0 ? digits.join : digits.join.to_i
+def greatest_product(number)
+  digits = number.digits.reverse
+  final_index = digits.size - 5
+  sequences = (0..final_index).map { |index| digits[index, 5] }
+  products = sequences.map { |sequence| sequence.inject(:*) }
+  products.max
 end
 
-p max_rotation_with_zeros(735291) == 321579
-p max_rotation_with_zeros(3) == 3
-p max_rotation_with_zeros(35) == 53
-p max_rotation_with_zeros(105) == '015'
-p max_rotation_with_zeros(8_703_529_146) == 7_321_609_845
-p max_rotation_with_zeros(10023) == '02130'
-p max_rotation_with_zeros(10003) == '00130'
+p greatest_product(123456) #== 720 # (2 * 3 * 4 * 5 * 6)
+p greatest_product(923456) #== 1080 # (9 * 2 * 3 * 4 * 5)
+p greatest_product(1234567890) #== 15120 # (5 * 6 * 7 * 8 * 9)
+p greatest_product(2494037820244202221011110532909999) #== 0
