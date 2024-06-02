@@ -1,3 +1,88 @@
+### 5.3 DIAMONDS
+=begin
+Write a method that displays a 4-pointed diamond in an n x n grid, where n is an odd integer that is supplied as an argument to the method. You may assume that the argument will always be an odd integer.
+
+diamond(9)
+
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *
+
+PROBLEM 1:12
+input: integer: n
+  - always odd
+  - always positive
+output: n rows of strings
+  - strings contain '*'s
+  - form diamond shape
+  - first row hash 1, then 3, then . . . up to n, then back down to 1
+  - spaces start at n/2, then 1 less per row, to 0, then back up to n/2
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to control number of spaces and stars in each row
+  - way to go from increasing stars to decreasing stars
+
+- start: integer
+  - array to store strings
+- end: strings
+
+ALGORITHMS
+\- create a range from 1 up to n and back down to 1, stepping by 2
+  - for each number, transform into a string of spaces and stars
+    - spaces = (n - number) / 2
+    - stars = number
+- output array to screen
+=end
+
+def diamond(size)
+  row_numbers = (1..size).step(2).to_a + (1..(size - 2)).step(2).to_a.reverse
+  rows = row_numbers.map do |row_number|
+    (' ' * ((size - row_number) / 2)) + ('*' * row_number)
+  end
+  puts rows
+end
+
+def hollow_diamond(size)
+  row_numbers = (1..size).step(2).to_a + (1..(size - 2)).step(2).to_a.reverse
+  rows = row_numbers.map do |row_number|
+    (' ' * ((size - row_number) / 2)) + ('*' * row_number)
+  end
+  puts rows
+end
+
+hollow_diamond(9)
+
+###
+# def diamond(max_width)
+#   rows = get_rows(max_width)
+#   display_diamond(rows)
+# end
+
+# def get_rows(max_width)
+#   row_widths = get_row_widths(max_width)
+#   row_widths.map { |row_width| ('*' * row_width).center(max_width) }
+# end
+
+# def get_row_widths(max_width)
+#   top_row_widths = (1..max_width).step(2).to_a
+#   bottom_row_widths = (top_row_widths - [max_width]).reverse
+#   top_row_widths + bottom_row_widths
+# end
+
+# def display_diamond(rows)
+#   rows.each { |row| puts row }
+# end
+####
+
 ### 4.3 1000 LIGHTS
 =begin
 You have a bank of switches before you, numbered from 1 to n. Each switch is connected to exactly one light that is initially off. You walk down the row of switches and toggle every one of them. You go back to the beginning, and on this second pass, you toggle switches 2, 4, 6, and so on. On the third pass, you go back again to the beginning and toggle switches 3, 6, 9, and so on. You repeat this process and keep going until you have been through n repetitions.
@@ -73,24 +158,24 @@ ALGORITHM
 This time, I used an array of integers to represent the bank of switches. The size of the array is 1 larger than the input integer, but index 0 isn't used. That way each index corresponds directly to its light number. Each index is initially set to a value of 0, and is incremented by 1 any time a switch is toggled. At the end, the indexes with an odd value indicate that that switch is in the on position.
 =end
 
-def lights(number)
-  switches = Array.new(number + 1, 0)
-  toggle!(switches)
-  on_switches(switches)
-end
+# def lights(number)
+#   switches = Array.new(number + 1, 0)
+#   toggle!(switches)
+#   on_switches(switches)
+# end
 
-def toggle!(switches)
-  number_of_rounds = switches.size - 1
-  (1..number_of_rounds).each_with_object(switches) do |round, switches|
-    (round..number_of_rounds).step(round).each { |index| switches[index] += 1 }
-  end
-end
+# def toggle!(switches)
+#   number_of_rounds = switches.size - 1
+#   (1..number_of_rounds).each_with_object(switches) do |round, switches|
+#     (round..number_of_rounds).step(round).each { |index| switches[index] += 1 }
+#   end
+# end
 
-def on_switches(switches)
-  switches.each_index.select { |index| switches[index].odd? }
-end
+# def on_switches(switches)
+#   switches.each_index.select { |index| switches[index].odd? }
+# end
 
-p lights(100)
+# p lights(100)
 
 
 =begin
