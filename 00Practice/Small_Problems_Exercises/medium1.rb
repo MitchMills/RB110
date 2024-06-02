@@ -43,45 +43,24 @@ ALGORITHMS
 - output array to screen
 =end
 
-def diamond(size)
-  row_numbers = (1..size).step(2).to_a + (1..(size - 2)).step(2).to_a.reverse
-  rows = row_numbers.map do |row_number|
-    (' ' * ((size - row_number) / 2)) + ('*' * row_number)
-  end
-  puts rows
-end
-
-def hollow_diamond(size)
-  row_numbers = (1..size).step(2).to_a + (1..(size - 2)).step(2).to_a.reverse
-  rows = row_numbers.map do |row_number|
-    (' ' * ((size - row_number) / 2)) + ('*' * row_number)
-  end
-  puts rows
-end
-
-hollow_diamond(9)
-
-###
-# def diamond(max_width)
-#   rows = get_rows(max_width)
-#   display_diamond(rows)
+# def diamond(size, hollow: false)
+#   rows = get_rows(size, hollow)
+#   puts rows
 # end
 
-# def get_rows(max_width)
-#   row_widths = get_row_widths(max_width)
-#   row_widths.map { |row_width| ('*' * row_width).center(max_width) }
+# def get_rows(size, hollow)
+#   row_numbers = (1..size).step(2).to_a + (1..(size - 2)).step(2).to_a.reverse
+#   hollow ? hollow_rows(row_numbers) : full_rows(row_numbers)
 # end
 
-# def get_row_widths(max_width)
-#   top_row_widths = (1..max_width).step(2).to_a
-#   bottom_row_widths = (top_row_widths - [max_width]).reverse
-#   top_row_widths + bottom_row_widths
+# def hollow_rows(row_numbers)
+#   rows = row_numbers.map { |row| row == 1 ? '*' : "*#{' ' * (row - 2)}*" }
+#   rows.map { |row| row.center(row_numbers.size) }
 # end
 
-# def display_diamond(rows)
-#   rows.each { |row| puts row }
+# def full_rows(row_numbers)
+#   row_numbers.map { |row_number| ('*' * row_number).center(row_numbers.size) }
 # end
-####
 
 ### 4.3 1000 LIGHTS
 =begin

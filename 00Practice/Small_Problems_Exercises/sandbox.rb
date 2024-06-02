@@ -1,16 +1,18 @@
-def lights(number)
-  switches = Array.new(number + 1, 0)
-  toggle!(switches)
-  on_switches(switches)
+def diamond(size, hollow: false)
+  rows = get_rows(size, hollow)
+  puts rows
 end
 
-def toggle!(switches)
-  number_of_rounds = switches.size - 1
-  (1..number_of_rounds).each_with_object(switches) do |round, switches|
-    (round..number_of_rounds).step(round).each { |index| switches[index] += 1 }
-  end
+def get_rows(size, hollow)
+  row_numbers = (1..size).step(2).to_a + (1..(size - 2)).step(2).to_a.reverse
+  hollow ? hollow_rows(row_numbers) : full_rows(row_numbers)
 end
 
-def on_switches(switches)
-  switches.each_index.select { |index| switches[index].odd? }
+def hollow_rows(row_numbers)
+  rows = row_numbers.map { |row| row == 1 ? '*' : "*#{' ' * (row - 2)}*" }
+  rows.map { |row| row.center(row_numbers.size) }
+end
+
+def full_rows(row_numbers)
+  row_numbers.map { |row_number| ('*' * row_number).center(row_numbers.size) }
 end
