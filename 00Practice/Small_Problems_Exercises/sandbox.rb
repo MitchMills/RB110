@@ -1,18 +1,59 @@
-def diamond(size, hollow: false)
-  rows = get_rows(size, hollow)
-  puts rows
+VALID_TOKENS = %w(PUSH ADD SUB MULT DIV MOD POP PRINT)
+
+OPERATORS = {
+  'ADD' => :+,
+  'SUB' => :-,
+  'MULT' => :*,
+  'DIV' => :/,
+  'MOD' => :%
+}
+
+def minilang(program)
+  return "Error: invalid token(s) in program" unless all_tokens_valid?(program)
+  memory = { register: 0, stack: [] }
+  process_program(program, memory)
 end
 
-def get_rows(size, hollow)
-  row_numbers = (1..size).step(2).to_a + (1..(size - 2)).step(2).to_a.reverse
-  hollow ? hollow_rows(row_numbers) : full_rows(row_numbers)
+def all_tokens_valid?(program)
+  program.split.all? { |token| valid_token?(token) }
 end
 
-def hollow_rows(row_numbers)
-  rows = row_numbers.map { |row| row == 1 ? '*' : "*#{' ' * (row - 2)}*" }
-  rows.map { |row| row.center(row_numbers.size) }
+def valid_token?(token)
+  VALID_TOKENS.include?(token) || token.to_i.to_s == token
 end
 
-def full_rows(row_numbers)
-  row_numbers.map { |row_number| ('*' * row_number).center(row_numbers.size) }
+def process_program(program, memory)
+  program.split.each do |token|
+    return "Error: empty stack" if stack_error?(memory[:stack], token)
+    memory[:register] = process_token(memory, token)
+  end
+  nil
+end
+
+def stack_error?(stack, token)
+  stack.empty? && (token == 'POP' || OPERATORS.include?(token))
+end
+
+def process_token(memory, token)
+  inputs = [memory[:register], memory[:stack], token]
+  OPERATORS.include?(token) ? calculation(inputs) : other_operation(inputs)
+end
+
+def calculation(inputs)
+  register, stack, token = inputs
+  operands = [register, stack.pop]
+  operator = OPERATORS[token]
+  operands.inject(operator)
+end
+
+def other_operation(inputs)
+  register, stack, token = inputs
+  case token
+  when 'PUSH'
+    stack << register
+    register
+  when 'POP' then stack.pop
+  when 'PRINT' then p register
+  else token.to_i
+  end
 end
