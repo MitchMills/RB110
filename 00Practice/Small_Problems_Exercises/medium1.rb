@@ -1,3 +1,98 @@
+### 4.3 1000 LIGHTS
+=begin
+You have a bank of switches before you, numbered from 1 to n. Each switch is connected to exactly one light that is initially off. You walk down the row of switches and toggle every one of them. You go back to the beginning, and on this second pass, you toggle switches 2, 4, 6, and so on. On the third pass, you go back again to the beginning and toggle switches 3, 6, 9, and so on. You repeat this process and keep going until you have been through n repetitions.
+
+Write a method that takes one argument, the total number of switches, and returns an Array that identifies which lights are on after n repetitions.
+
+Example with n = 5 lights:
+
+    round 1: every light is turned on
+    round 2: lights 2 and 4 are now off; 1, 3, 5 are on
+    round 3: lights 2, 3, and 4 are now off; 1 and 5 are on
+    round 4: lights 2 and 3 are now off; 1, 4, and 5 are on
+    round 5: lights 2, 3, and 5 are now off; 1 and 4 are on
+
+The result is that 2 lights are left on, lights 1 and 4. The return value is [1, 4].
+
+With 10 lights, 3 lights are left on: lights 1, 4, and 9. The return value is [1, 4, 9].
+
+PROBLEM 6:57
+input: integer
+  - represents number of switches / lights
+  - also represents number of passes / iterations
+
+output: array
+  - represents switch numbers of lights in 'on' position once all iterations have finished
+    - all lights start in 'off' position
+  - on first pass, all multiples of 1 are toggled
+    - then all multiples of 2, then 3, etc, up to input integer
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to represent bank of switches
+  - way to represent whether switch is in 'on' or 'off' position
+  - way to control which switches are toggled on each iteration
+
+- start: integer
+  - array of 0s with length of input integer
+  - range from 1 up to input integer
+  - range from current switch up to input integer, stepped by current switch number
+  - array of totals after being incremented on each iteration
+- end: array of switches with an odd numbered total
+
+ALGORITHM
+- create a new array of length (input integer), with all elements set to 0
+  - prepend nil so that index == switch number
+- iterate over a range from 1 up to input integer
+  - iterate over a range from current number up to input integer, stepped by current number
+    - for each index stepped to, increment the number at that index by 1
+- after all iterations are completed, return an array of the indexes whose values are odd
+=end
+
+# def lights(number)
+#   switches = Array.new(number, 0).prepend(nil)
+#   (1..number).each do |iteration|
+#     (iteration..number).step(iteration).each { |index| switches[index] += 1 }
+#   end
+#   switches.each_index.select do |index|
+#     switches[index] ? switches[index].odd? : false
+#   end
+# end
+
+# def lights(number)
+#   switches = Array.new(number + 1, 0)
+#   (1..number).each do |iteration|
+#     (iteration..number).step(iteration).each { |index| switches[index] += 1 }
+#   end
+#   switches.each_index.select { |index| switches[index].odd? }
+# end
+
+=begin
+This time, I used an array of integers to represent the bank of switches. The size of the array is 1 larger than the input integer, but index 0 isn't used. That way each index corresponds directly to its light number. Each index is initially set to a value of 0, and is incremented by 1 any time a switch is toggled. At the end, the indexes with an odd value indicate that that switch is in the on position.
+=end
+
+def lights(number)
+  switches = Array.new(number + 1, 0)
+  toggle!(switches)
+  on_switches(switches)
+end
+
+def toggle!(switches)
+  number_of_rounds = switches.size - 1
+  (1..number_of_rounds).each_with_object(switches) do |round, switches|
+    (round..number_of_rounds).step(round).each { |index| switches[index] += 1 }
+  end
+end
+
+def on_switches(switches)
+  switches.each_index.select { |index| switches[index].odd? }
+end
+
+p lights(100)
+
+
 =begin
 If you take a number like 735291, and rotate it to the left, you get 352917. If you now keep the first digit fixed in place, and rotate the remaining digits, you get 329175. Keep the first 2 digits fixed in place and rotate again to 321759. Keep the first 3 digits fixed in place and rotate again to get 321597. Finally, keep the first 4 digits fixed in place and rotate the final 2 digits to get 321579. The resulting number is called the maximum rotation of the original number.
 
@@ -42,18 +137,18 @@ ALGORITHM
 #   end.join.to_i
 # end
 
-def max_rotation(number)
-  digits = number.digits.reverse
-  digits.size.downto(2) do |index|
-    digits << digits.delete_at(-index)
-  end.join.to_i
-end
+# def max_rotation(number)
+#   digits = number.digits.reverse
+#   digits.size.downto(2) do |index|
+#     digits << digits.delete_at(-index)
+#   end.join.to_i
+# end
 
-p max_rotation(735291) == 321579
-p max_rotation(3) == 3
-p max_rotation(35) == 53
-p max_rotation(105) == 15 # the leading zero gets dropped
-p max_rotation(8_703_529_146) == 7_321_609_845
+# p max_rotation(735291) == 321579
+# p max_rotation(3) == 3
+# p max_rotation(35) == 53
+# p max_rotation(105) == 15 # the leading zero gets dropped
+# p max_rotation(8_703_529_146) == 7_321_609_845
 
 ### 3.2 ROTATION III
 =begin

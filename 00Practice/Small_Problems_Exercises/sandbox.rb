@@ -1,21 +1,16 @@
-require 'pry-byebug'
-UPPERCASE = ('A'..'Z').to_a
+def lights(number)
+  switches = Array.new(number + 1, 0)
+  toggle!(switches)
+  on_switches(switches)
+end
 
-def decode(strings)
-  binding.pry
-  strings.map do |string|
-    indexes = get_indexes(string)
-    indexes.size < 2 ? 0 : indexes.take(2).inject(:-).abs - 1
+def toggle!(switches)
+  number_of_rounds = switches.size - 1
+  (1..number_of_rounds).each_with_object(switches) do |round, switches|
+    (round..number_of_rounds).step(round).each { |index| switches[index] += 1 }
   end
 end
 
-def get_indexes(string)
-  string.chars.each_index.select do |index|
-    UPPERCASE.include?(string[index])
-  end
+def on_switches(switches)
+  switches.each_index.select { |index| switches[index].odd? }
 end
-
-p decode(['ZoL', 'heLlo', 'XX']) #== [1, 0, 0]
-p decode(['foUrsCoreAnd', 'seven', '']) #== [2, 0, 0]
-p decode(['lucYintheskyWith', 'dIaMonDs']) #== [8, 1]
-p decode([]) #== []
