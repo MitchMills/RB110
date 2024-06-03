@@ -1,3 +1,51 @@
+### 7.3 WORD TO DIGIT
+=begin
+Write a method that takes a sentence string as input, and returns the same string with any sequence of the words 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' converted to a string of digits.
+
+PROBLEM 7:23
+input: string
+
+output: string
+  - number words are converted to digits: 'one' => '1'
+  - all else remains the same
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to consider individual words in input string
+  - way to identify number words
+  - way to convert number words to digits
+
+- start: string
+  - array of individual words
+  - hash for conversion: { 'zero' => '1' . . .}
+  - transformed array
+- end: string
+
+ALGORITHM
+- create a hash to convert number words to digits
+- create an array of individual words from input string
+- transform this array
+  - consider each word
+    - if it is a key in the conversion hash, convert to digit
+    - otherwise leave as is
+- convert the transformed array into a string and return it
+=end
+number_words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', \
+'eight', 'nine']
+digits = ('0'..'9').to_a
+NUMBER_WORDS_TO_DIGITS = number_words.zip(digits).to_h
+
+def word_to_digit(string)
+  NUMBER_WORDS_TO_DIGITS.each do |word, digit|
+    string.gsub!(word, digit)
+  end
+  string
+end
+
+p word_to_digit('Please call me at five five five one two three four. Thanks.') == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
+
 ### 5.3 DIAMONDS
 =begin
 Write a method that displays a 4-pointed diamond in an n x n grid, where n is an odd integer that is supplied as an argument to the method. You may assume that the argument will always be an odd integer.
