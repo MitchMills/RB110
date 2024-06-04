@@ -1,3 +1,78 @@
+### 8.2 FEATURED NUMBER
+=begin
+A featured number (something unique to this exercise) is an odd number that is a multiple of 7, and whose digits occur exactly once each. So, for example, 49 is a featured number, but 98 is not (it is not odd), 97 is not (it is not a multiple of 7), and 133 is not (the digit 3 appears twice).
+
+Write a method that takes a single integer as an argument, and returns the next featured number that is greater than the argument. Return an error message if there is no next featured number.
+
+PROBLEM 8:10
+input: integer
+
+output: integer
+  - next 'featured' number
+    - odd &&
+    - multiple of 7
+    - no repeat digits
+  - error message if no next featured number
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - iterate integers upwards from input integer
+  - determine whether odd
+  - determine whether multiple of 7
+  - determine whether digits are unique
+
+- start: integer
+  - next odd multiple of seven
+  - numbers incremented by 14
+  - check for unique digits
+- end: integer or error message
+
+ALGORITHM
+- find next odd multiple of 7 greater than input integer
+  - increment by 1 until found
+  - return if unique digits
+- Otherwise increment by 14
+  - return if unique digits
+- Return error message if no number found before reaching 9_876_543_210
+
+- determine unique digits
+  - convert number to array of digits and compare to unique version of that array
+=end
+
+def featured(number)
+  if number >= 9_876_543_210
+    return 'There is no possible number that fulfills those requirements'
+  end
+  start = find_next_odd_multiple_of_seven(number)
+  (start..9_876_543_210).step(14) do |num|
+    return num if unique_digits?(num)
+  end
+end
+
+def find_next_odd_multiple_of_seven(number)
+  loop do
+    number += 1
+    return number if number.odd? && number % 7 == 0
+  end
+
+end
+
+def unique_digits?(number)
+  number.digits == number.digits.uniq
+end
+
+p featured(12) #== 21
+p featured(20) #== 21
+p featured(21) #== 35
+p featured(997) == 1029
+p featured(1029) == 1043
+p featured(999_999) == 1_023_547
+p featured(999_999_987) == 1_023_456_987
+
+p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+
 ### 11 IS IT PRIME?
 =begin
 A prime number is a positive number that is evenly divisible only by itself and 1. Thus, 23 is prime since its only divisors are 1 and 23. However, 24 is not prime since it has divisors of 1, 2, 3, 4, 6, 8, 12, and 24. Note that the number 1 is not prime.
@@ -35,30 +110,30 @@ ALGORITHM
 - otherwise return true
 =end
 
-def is_prime?(number)
-  return false if number == 1
-  (2..Integer.sqrt(number)).each do |divisor|
-    return false if number % divisor == 0
-  end
-  true
-end
+# def is_prime?(number)
+#   return false if number == 1
+#   (2..Integer.sqrt(number)).each do |divisor|
+#     return false if number % divisor == 0
+#   end
+#   true
+# end
 
-p is_prime?(1) == false
-p is_prime?(2) == true
-p is_prime?(3) == true
-p is_prime?(4) == false
-p is_prime?(5) == true
-p is_prime?(6) == false
-p is_prime?(7) == true
-p is_prime?(8) == false
-p is_prime?(9) == false
-p is_prime?(10) == false
-p is_prime?(23) == true
-p is_prime?(24) == false
-p is_prime?(997) == true
-p is_prime?(998) == false
-p is_prime?(3_297_061) == true
-p is_prime?(23_297_061) == false
+# p is_prime?(1) == false
+# p is_prime?(2) == true
+# p is_prime?(3) == true
+# p is_prime?(4) == false
+# p is_prime?(5) == true
+# p is_prime?(6) == false
+# p is_prime?(7) == true
+# p is_prime?(8) == false
+# p is_prime?(9) == false
+# p is_prime?(10) == false
+# p is_prime?(23) == true
+# p is_prime?(24) == false
+# p is_prime?(997) == true
+# p is_prime?(998) == false
+# p is_prime?(3_297_061) == true
+# p is_prime?(23_297_061) == false
 
 
 
