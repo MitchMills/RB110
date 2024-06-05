@@ -42,30 +42,29 @@ ALGORITHM
 =end
 
 def featured(number)
-  if number >= 9_876_543_210
-    return 'There is no possible number that fulfills those requirements'
-  end
-  start = find_next_odd_multiple_of_seven(number)
-  (start..9_876_543_210).step(14) do |num|
-    return num if unique_digits?(num)
-  end
+  start = find_next_odd_multiple_of_seven(number + 1)
+  next_featured_number(start)
 end
 
 def find_next_odd_multiple_of_seven(number)
-  loop do
-    number += 1
-    return number if number.odd? && number % 7 == 0
-  end
+  number += 1 until number.odd? && number % 7 == 0
+  number
+end
 
+def next_featured_number(starting_number)
+  (starting_number..9_876_543_210).step(14) do |number|
+    return number if unique_digits?(number)
+  end
+  'There is no possible number that fulfills those requirements'
 end
 
 def unique_digits?(number)
-  number.digits == number.digits.uniq
+  number.to_s.chars == number.to_s.chars.uniq
 end
 
-p featured(12) #== 21
-p featured(20) #== 21
-p featured(21) #== 35
+p featured(12) == 21
+p featured(20) == 21
+p featured(21) == 35
 p featured(997) == 1029
 p featured(1029) == 1043
 p featured(999_999) == 1_023_547
