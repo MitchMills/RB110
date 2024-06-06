@@ -64,17 +64,31 @@ def next_featured_number(starting_number)
   end
 end
 
+def unique_digits?(number)
+  seen_digits = Array.new(10, false)
+  loop do
+    number, current_digit = number.divmod(10)
+    return false if seen_digits[current_digit]
+    seen_digits[current_digit] = true
+    break if number == 0
+  end
+  true
+end
+
+
 # def unique_digits?(number)
 #   number.to_s.chars == number.to_s.chars.uniq
 # end
 
-def unique_digits?(number)
-  digits = ('0'..'9').to_a
-  string_num = number.to_s
-  digits.all? do |digit|
-    string_num.count(digit) < 2
-  end
-end
+# def unique_digits?(number)
+#   digits = ('0'..'9').to_a
+#   string_num = number.to_s
+#   digits.all? do |digit|
+#     string_num.count(digit) < 2
+#   end
+# end
+
+
 
 p featured(12) == 21
 p featured(20) == 21
