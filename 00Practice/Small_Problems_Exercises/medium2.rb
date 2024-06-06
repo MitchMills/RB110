@@ -41,9 +41,16 @@ ALGORITHM
   - convert number to array of digits and compare to unique version of that array
 =end
 
+MAX_FEATURED_NUMBER = 9_876_543_201
+
 def featured(number)
-  start = find_next_odd_multiple_of_seven(number + 1)
-  next_featured_number(start)
+  return error_message if number >= MAX_FEATURED_NUMBER
+  starting_number = find_next_odd_multiple_of_seven(number + 1)
+  next_featured_number(starting_number)
+end
+
+def error_message
+  'There is no possible number that fulfills those requirements'
 end
 
 def find_next_odd_multiple_of_seven(number)
@@ -52,14 +59,21 @@ def find_next_odd_multiple_of_seven(number)
 end
 
 def next_featured_number(starting_number)
-  (starting_number..9_876_543_210).step(14) do |number|
-    return number if unique_digits?(number)
+  (starting_number...MAX_FEATURED_NUMBER).step(14).find do |number|
+    unique_digits?(number)
   end
-  'There is no possible number that fulfills those requirements'
 end
 
+# def unique_digits?(number)
+#   number.to_s.chars == number.to_s.chars.uniq
+# end
+
 def unique_digits?(number)
-  number.to_s.chars == number.to_s.chars.uniq
+  digits = ('0'..'9').to_a
+  string_num = number.to_s
+  digits.all? do |digit|
+    string_num.count(digit) < 2
+  end
 end
 
 p featured(12) == 21
