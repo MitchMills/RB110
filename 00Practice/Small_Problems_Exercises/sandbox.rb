@@ -16,8 +16,8 @@ def find_next_odd_multiple_of_seven(number)
 end
 
 def next_featured_number(starting_number)
-  (starting_number...MAX_FEATURED_NUMBER).step(14).find do |number|
-    unique_digits?(number)
+  (starting_number..MAX_FEATURED_NUMBER).step(14).each do |number|
+    return number if unique_digits?(number)
   end
 end
 

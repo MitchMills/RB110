@@ -1,3 +1,6 @@
+
+
+
 ### 8.2 FEATURED NUMBER
 =begin
 A featured number (something unique to this exercise) is an odd number that is a multiple of 7, and whose digits occur exactly once each. So, for example, 49 is a featured number, but 98 is not (it is not odd), 97 is not (it is not a multiple of 7), and 133 is not (the digit 3 appears twice).
@@ -41,40 +44,39 @@ ALGORITHM
   - convert number to array of digits and compare to unique version of that array
 =end
 
-MAX_FEATURED_NUMBER = 9_876_543_201
+# MAX_FEATURED_NUMBER = 9_876_543_201
 
-def featured(number)
-  return error_message if number >= MAX_FEATURED_NUMBER
-  starting_number = find_next_odd_multiple_of_seven(number + 1)
-  next_featured_number(starting_number)
-end
+# def featured(number)
+#   return error_message if number >= MAX_FEATURED_NUMBER
+#   starting_number = find_next_odd_multiple_of_seven(number + 1)
+#   next_featured_number(starting_number)
+# end
 
-def error_message
-  'There is no possible number that fulfills those requirements'
-end
+# def error_message
+#   'There is no possible number that fulfills those requirements'
+# end
 
-def find_next_odd_multiple_of_seven(number)
-  number += 1 until number.odd? && number % 7 == 0
-  number
-end
+# def find_next_odd_multiple_of_seven(number)
+#   number += 1 until number.odd? && number % 7 == 0
+#   number
+# end
 
-def next_featured_number(starting_number)
-  (starting_number...MAX_FEATURED_NUMBER).step(14).find do |number|
-    unique_digits?(number)
-  end
-end
+# def next_featured_number(starting_number)
+#   (starting_number..MAX_FEATURED_NUMBER).step(14).each do |number|
+#     return number if unique_digits?(number)
+#   end
+# end
 
-def unique_digits?(number)
-  seen_digits = Array.new(10, false)
-  loop do
-    number, current_digit = number.divmod(10)
-    return false if seen_digits[current_digit]
-    seen_digits[current_digit] = true
-    break if number == 0
-  end
-  true
-end
-
+# def unique_digits?(number)
+#   seen_digits = Array.new(10, false)
+#   loop do
+#     number, current_digit = number.divmod(10)
+#     return false if seen_digits[current_digit]
+#     seen_digits[current_digit] = true
+#     break if number == 0
+#   end
+#   true
+# end
 
 # def unique_digits?(number)
 #   number.to_s.chars == number.to_s.chars.uniq
@@ -88,17 +90,15 @@ end
 #   end
 # end
 
+# p featured(12) == 21
+# p featured(20) == 21
+# p featured(21) == 35
+# p featured(997) == 1029
+# p featured(1029) == 1043
+# p featured(999_999) == 1_023_547
+# p featured(999_999_987) == 1_023_456_987
 
-
-p featured(12) == 21
-p featured(20) == 21
-p featured(21) == 35
-p featured(997) == 1029
-p featured(1029) == 1043
-p featured(999_999) == 1_023_547
-p featured(999_999_987) == 1_023_456_987
-
-p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+# p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
 
 ### 11 IS IT PRIME?
 =begin
