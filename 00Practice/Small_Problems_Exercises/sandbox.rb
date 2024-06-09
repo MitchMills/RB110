@@ -31,3 +31,5 @@ def unique_digits?(number)
   end
   true
 end
+
+p featured(999_999_987) == 1_023_456_987

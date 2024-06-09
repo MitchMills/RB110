@@ -1,3 +1,55 @@
+### SUBSTRING COUNT ***
+=begin
+Write a method that takes two strings as arguments and returns the number of times the second input string occurs as a substring within the first input string. Both input strings will consist solely of lowercase letters, and will always be at least one character in length.
+
+PROBLEM 4:43
+input: 2 strings
+  - contain only lowercase letters
+  - always at least length 1 / never empty
+output: integer
+  - number of times 2nd input string occurs as a substring in 1st input string
+  - can be 0
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to find substrings in larger string
+  - way to keep count of substrings
+
+- start: 2 strings
+  - array of all substrings in first input string
+    - of same length as second input string
+  - filtered array of matching substrings
+- end: integer
+
+ALGORITHM
+- find the length of the second input string: length2
+- find all substrings of that length from the first substring
+  - start at index 0
+  - end at index (length1 - length2)
+  - length = length1
+- find substrings from that group that match second input string
+- return the number of those substrings
+=end
+
+def count_substrings(string1, string2)
+  substrings = get_substrings(string1, string2.size)
+  substrings.select { |substring| substring == string2 }.size
+end
+
+def get_substrings(string, length)
+  last_index = string.size - length
+  (0..last_index).map do |start_index|
+    string[start_index, length]
+  end
+end
+
+p count_substrings('abcdeb','b') == 2
+p count_substrings('cc', 'cc') == 1
+p count_substrings('abbcbb', 'bb') == 2
+p count_substrings('abcdef', 'gh') == 0
+p count_substrings('aaaaa', 'aa') == 4
 
 
 
