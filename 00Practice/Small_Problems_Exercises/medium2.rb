@@ -1,3 +1,6 @@
+
+
+
 ### SUBSTRING COUNT ***
 =begin
 Write a method that takes two strings as arguments and returns the number of times the second input string occurs as a substring within the first input string. Both input strings will consist solely of lowercase letters, and will always be at least one character in length.
@@ -33,24 +36,25 @@ ALGORITHM
 - return the number of those substrings
 =end
 
-def count_substrings(string1, string2)
-  substrings = get_substrings(string1, string2.size)
-  substrings.select { |substring| substring == string2 }.size
-end
+# def count_substrings(string1, string2)
+#   substrings = get_substrings(string1, string2.size)
+#   substrings.select { |substring| substring == string2 }.size
+# end
 
-def get_substrings(string, length)
-  last_index = string.size - length
-  (0..last_index).map do |start_index|
-    string[start_index, length]
-  end
-end
+# def get_substrings(string, length)
+#   last_index = string.size - length
+#   (0..last_index).map do |start_index|
+#     string[start_index, length]
+#   end
+# end
 
-p count_substrings('abcdeb','b') == 2
-p count_substrings('cc', 'cc') == 1
-p count_substrings('abbcbb', 'bb') == 2
-p count_substrings('abcdef', 'gh') == 0
-p count_substrings('aaaaa', 'aa') == 4
+# p count_substrings('abcdeb','b') == 2
+# p count_substrings('cc', 'cc') == 1
+# p count_substrings('abbcbb', 'bb') == 2
+# p count_substrings('abcdef', 'gh') == 0
+# p count_substrings('aaaaa', 'aa') == 4
 
+# p 'abbcbb'.count('bb')
 
 
 ### 8.2 FEATURED NUMBER

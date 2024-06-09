@@ -1,35 +1,10 @@
-MAX_FEATURED_NUMBER = 9_876_543_201
-
-def featured(number)
-  return error_message if number >= MAX_FEATURED_NUMBER
-  starting_number = find_next_odd_multiple_of_seven(number + 1)
-  next_featured_number(starting_number)
+def count_substrings(string1, string2)
+  substrings = get_substrings(string1, string2.size)
+  matches = substrings.select { |substring| substring == string2 }
+  matches.size
 end
 
-def error_message
-  'There is no possible number that fulfills those requirements'
+def get_substrings(string, length)
+  last_index = string.size - length
+  (0..last_index).map { |start_index| string[start_index, length] }
 end
-
-def find_next_odd_multiple_of_seven(number)
-  number += 1 until number.odd? && number % 7 == 0
-  number
-end
-
-def next_featured_number(starting_number)
-  (starting_number..MAX_FEATURED_NUMBER).step(14).each do |number|
-    return number if unique_digits?(number)
-  end
-end
-
-def unique_digits?(number)
-  seen_digits = Array.new(10, false)
-  loop do
-    number, current_digit = number.divmod(10)
-    return false if seen_digits[current_digit]
-    seen_digits[current_digit] = true
-    break if number == 0
-  end
-  true
-end
-
-p featured(999_999_987) == 1_023_456_987
