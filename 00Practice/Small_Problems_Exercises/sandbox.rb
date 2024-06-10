@@ -1,10 +1,8 @@
-def count_substrings(string1, string2)
-  substrings = get_substrings(string1, string2.size)
-  matches = substrings.select { |substring| substring == string2 }
-  matches.size
+def smaller_than(array)
+  array.map { |number| less_thans(number, array) }
 end
 
-def get_substrings(string, length)
-  last_index = string.size - length
-  (0..last_index).map { |start_index| string[start_index, length] }
+def less_thans(number, array)
+  unique_values = array.uniq
+  unique_values.select { |value| number > value }.size
 end

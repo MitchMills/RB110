@@ -1,4 +1,58 @@
+### SMALLER THAN CURRENT ***
+=begin
+Write a method that takes an array of numbers as an argument. For each number in the input array, determine how many other numbers in the array are less than that current number. Return these results in an array.
 
+When counting how many numbers are less than the current number, only consider unique values. If a given number occurs more than once in the array, it should only be counted once.
+
+PROBLEM 5:58
+input: array
+  - contains only integers
+  - can contain only one element
+  - will not be empty?
+output: array
+  - for each integer element in input array:
+    - element in output array represents:
+      - how many other numbers are less than that current number
+        - only consider unique values
+        - can be 0
+  - contains same number of elements as input array
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to compare each element to other elements
+  - way to exclude non-unique values
+
+- start: array [1 1 2 3]
+  - array of unique values from input array [1 2 3]
+- end: array [0 0 1 2]
+
+ALGORITHM
+- create an array of unique values in the input array
+- transform each value in input array
+  - compare it to all values in unique array
+    - select unique values that are less than current input array value
+    - get the size of that array
+- return the transformed array
+=end
+
+def smaller_than(array)
+  uniques = array.uniq
+  array.map { |number| less_thans(number, uniques).size }
+end
+
+def less_thans(number, unique_values)
+  unique_values.select { |value| number > value }
+end
+
+p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
+p smaller_than([1, 200]) == [0, 1]
+p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
+p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
+p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
+p smaller_than([7, 7, 7]) == [0, 0, 0]
+p smaller_than([1]) == [0]
 
 
 ### SUBSTRING COUNT ***
