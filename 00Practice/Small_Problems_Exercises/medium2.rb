@@ -1,3 +1,75 @@
+### LETTER CHANGES ***
+=begin
+Write a method that takes a string as an argument and returns a new string with every letter character replaced with the 3rd letter following it in the alphabet ('a' becomes 'd', 'b' becomes 'e', etc).
+
+Maintain the case of the original letter. Loop back to the beginning of the alphabet if the 3rd letter is past the end ('x' becomes 'a', 'Y' becomes 'B', etc). Leave any non-letter characters unchanged.
+
+PROBLEM 6:17
+input: string
+  - may contain uppercase and lowercase letters
+  - may contain non-letter characters
+
+output: new string
+  - every letter character is replaced:
+    - by the 3rd letter following it in the alphabet
+      - maintain case
+      - loop back to beginning if 3rd letter is past the end
+        - 'xyz' => 'abc'
+  - non-letter characters are unchanged
+  - contains same number of characters as input string
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to determine if a character is alphabetic
+  - way to determine character to change alpha characters into
+    - way to 'loop' if past end of alphabet
+
+- start: string
+  - array of all alphabetic characters
+    - add A, B, and C to end of uppercase (for looping purposes)
+    - add a, b, and c to end of lowercase (for looping purposes)
+    - can use indexes to account for shift
+  - array of individual characters
+  - transformed array
+- end: string
+
+ALGORITHM
+- create an array of all alphabetic characters in order
+  - uppercase: add 'A', 'B', and 'C' to end
+  - lowercase: add 'a', 'b', and 'c' to end
+= convert the input string into an array of individual characters
+- for each character in input string:
+  - if it is included in the alphabet array, transform it
+    - get the index of that character in the alphabet array
+      - add 3 to the index
+      - use this new index to return the appropriate character
+  - otherwise leave as is
+- convert transformed array into a string and return it
+=end
+
+uppercase = ('A'..'Z').to_a * 2
+lowercase = ('a'..'z').to_a * 2
+ALPHABET = uppercase + lowercase
+ALPHABET_LENGTH = 26
+SHIFT_SIZE = -23
+
+def letter_changes(string)
+  string.chars.map { |char| ALPHABET.include?(char) ? shift(char) : char }.join
+end
+
+def shift(character)
+  shift_size = SHIFT_SIZE % ALPHABET_LENGTH
+  new_index = ALPHABET.index(character) + shift_size
+  ALPHABET[new_index]
+end
+
+p letter_changes('abc') == 'def'
+p letter_changes('WxY') == 'ZaB'
+p letter_changes('364.39') == '364.39'
+p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
+
 ### SMALLER THAN CURRENT ***
 =begin
 Write a method that takes an array of numbers as an argument. For each number in the input array, determine how many other numbers in the array are less than that current number. Return these results in an array.
@@ -37,22 +109,22 @@ ALGORITHM
 - return the transformed array
 =end
 
-def smaller_than(array)
-  uniques = array.uniq
-  array.map { |number| less_thans(number, uniques).size }
-end
+# def smaller_than(array)
+#   uniques = array.uniq
+#   array.map { |number| less_thans(number, uniques).size }
+# end
 
-def less_thans(number, unique_values)
-  unique_values.select { |value| number > value }
-end
+# def less_thans(number, unique_values)
+#   unique_values.select { |value| number > value }
+# end
 
-p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
-p smaller_than([1, 200]) == [0, 1]
-p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
-p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
-p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
-p smaller_than([7, 7, 7]) == [0, 0, 0]
-p smaller_than([1]) == [0]
+# p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
+# p smaller_than([1, 200]) == [0, 1]
+# p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
+# p smaller_than([1, 1, 2, 3]) == [0, 0, 1, 2]
+# p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
+# p smaller_than([7, 7, 7]) == [0, 0, 0]
+# p smaller_than([1]) == [0]
 
 
 ### SUBSTRING COUNT ***
