@@ -49,26 +49,27 @@ ALGORITHM
 - convert transformed array into a string and return it
 =end
 
-uppercase = ('A'..'Z').to_a * 2
-lowercase = ('a'..'z').to_a * 2
-ALPHABET = uppercase + lowercase
-ALPHABET_LENGTH = 26
-SHIFT_SIZE = -23
+# uppercase = ('A'..'Z').to_a * 2
+# lowercase = ('a'..'z').to_a * 2
+# SHIFT_ALPHABET = uppercase + lowercase
+# ALPHABET_SIZE = 26
 
-def letter_changes(string)
-  string.chars.map { |char| ALPHABET.include?(char) ? shift(char) : char }.join
-end
+# def letter_changes(string, shift_size = 3)
+#   string.chars.map do |char|
+#     SHIFT_ALPHABET.include?(char) ? shift(char, shift_size) : char
+#   end.join
+# end
 
-def shift(character)
-  shift_size = SHIFT_SIZE % ALPHABET_LENGTH
-  new_index = ALPHABET.index(character) + shift_size
-  ALPHABET[new_index]
-end
+# def shift(character, shift_size)
+#   shift_size %= ALPHABET_SIZE
+#   new_index = SHIFT_ALPHABET.index(character) + shift_size
+#   SHIFT_ALPHABET[new_index]
+# end
 
-p letter_changes('abc') == 'def'
-p letter_changes('WxY') == 'ZaB'
-p letter_changes('364.39') == '364.39'
-p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
+# p letter_changes('abc', -23) == 'def'
+# p letter_changes('WxY') == 'ZaB'
+# p letter_changes('364.39') == '364.39'
+# p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
 
 ### SMALLER THAN CURRENT ***
 =begin
