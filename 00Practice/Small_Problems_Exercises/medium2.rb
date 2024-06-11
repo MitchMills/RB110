@@ -1,3 +1,86 @@
+### VOWEL SUBSTRINGS ***
+=begin
+Write a method that takes a string as an argument and returns the number of "vowel substrings" within it. A "vowel substring" is a contiguous sequence of characters within the input string that consists only of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it at least once. All input strings will contain only lowercase letters.
+
+PROBLEM 6:05
+input: string
+  - contains only lowercase letters
+  - not empty?
+output: integer
+  - number of 'vowel substrings' in input string
+    - vowel substrings:
+      - only vowels, no other characters
+      - all five vowels (aeiou) appear at least once
+      - order not important
+      - minimum length is 5
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to get candidate substrings
+  - way to determine if only vowels are present
+  - way to determine if all vowels are present at least once
+
+start: string
+  - string of all vowels: 'aeiou'
+  - array of all substrings of length 5 or greater
+  - array of substrings that only contain vowels
+  - array of substrings that contain all vowels at least once
+end: integer
+
+ALGORITHM
+- get all substrings of at least length 5
+  - starting indexes: 0 up to input string length - 5
+  - length: 5 up to length of input string
+- select substrings that have only vowels
+- select substrings that contain all 5 vowels
+  - iterate over each vowel
+  - only select strings for which each vowel is present at least once
+
+=end
+
+def count_vowel_substrings(string)
+  vowels = 'aeiou'
+  all_substrings = get_all_substrings(string)
+  vowels_only_substrings = get_vowels_only_substrings(all_substrings, vowels)
+  vowel_substrings = get_vowel_substrings(vowels_only_substrings, vowels)
+  vowel_substrings.size
+end
+
+def get_all_substrings(string)
+  last_index = string.size - 5
+  max_length = string.size
+  (0..last_index).each_with_object([]) do |start_index, substrings|
+    (5..max_length).each do |length|
+      substrings << string[start_index, length]
+    end
+  end
+end
+
+def get_vowels_only_substrings(substrings, vowels)
+  substrings.select do |substring|
+    substring.chars.all? { |char| vowels.include?(char) }
+  end
+end
+
+def get_vowel_substrings(vowels_only, vowels)
+  vowels_only.select do |substring|
+    vowels.chars.all? { |vowel| substring.include?(vowel) }
+  end
+end
+
+p count_vowel_substrings('abcde') == 0
+p count_vowel_substrings('aeiou') == 1
+p count_vowel_substrings('iaoue') == 1
+p count_vowel_substrings('aeiogu') == 0
+p count_vowel_substrings('aeiouu') == 2
+p count_vowel_substrings('aeiouuu') == 3
+p count_vowel_substrings('aaeeiioouu') == 5
+
+
+
+
 ### LETTER CHANGES ***
 =begin
 Write a method that takes a string as an argument and returns a new string with every letter character replaced with the 3rd letter following it in the alphabet ('a' becomes 'd', 'b' becomes 'e', etc).
