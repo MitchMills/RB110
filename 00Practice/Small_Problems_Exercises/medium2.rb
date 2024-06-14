@@ -1,3 +1,54 @@
+
+
+
+### MULTIPLY ALL PAIRS ***
+=begin
+Write a method that, given two arrays each containing lists of numbers, returns a new array that contains the product of every pair of numbers that can be formed between the elements of the two arrays. The results should be sorted by increasing value.
+
+You may assume that neither argument is an empty array.
+
+PROBLEM 8:57
+input: two arrays
+  - arrays are not empty
+  - arrays contain only numbers
+
+output: new array
+  - elements are the products of every pair of numbers that can be formed between elements of two input arrays
+  - sorted from lowest to highest
+  - number of elements is product of the sizes of input arrays
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to multiply each element of one array by every element of other
+  - way to sort resulting array
+
+- start: two arrays
+
+- end: array
+
+ALGORITHM
+- create an empty array: products
+- consider each element of first array
+  - multiply by each element of second array
+  - add products to products array
+- sort products array lowest to highest
+- return products array
+=end
+
+# def multiply_all_pairs(array1, array2)
+#   products = []
+#   array1.each do |num1|
+#     array2.each { |num2| products << (num1 * num2) }
+#   end
+#   products.sort
+# end
+
+# p multiply_all_pairs([3], [1, 3, 2]) == [3, 6, 9]
+# p multiply_all_pairs([1, 2], [3, 4]) == [3, 4, 6, 8]
+# p multiply_all_pairs([1, 2], [4, 3, 1, 2]) == [1, 2, 2, 3, 4, 4, 6, 8]
+
 ### NEXT BIGGEST NUMBER ***
 =begin
 Write a method that, given a positive integer, returns the next biggest number that can be formed from the same digits. If no bigger number can be formed from those digits, return -1
@@ -17,9 +68,10 @@ EXAMPLES
 
 DATA STRUCTURES
 - needs:
-  - way to consider numbers with same digits as input integer /
+  - way to find numbers with same digits as input integer /
     - way to determine if a number has all the same digits as input integer
-  - way to determine largest number using those digits
+  - way to determine if such a number is the NEXT biggest number from input integer
+  - way to determine largest possible number using those digits
 
 - start: integer
   - largest possible number
@@ -27,7 +79,7 @@ DATA STRUCTURES
     - reverse sorted array of those digits
     - string => integer
   - range from (input integer + 1) to largest possible number
-  - array of individual digits
+  - arrays of individual digits, sorted (to compare to each other)
 - end: integer
 
 ALGORITHM
@@ -37,43 +89,42 @@ ALGORITHM
   - convert to a string
   - convert to an integer
 - find the next largest number with all the same digits
-  - create a range: (input integer + 1)..maximum possible number
-  - return the first number in the range that uses all the same digits
-    - iterate over digits of input integer
-      - return true if all of them are present in current integer
-
+  - create a range: (input integer + 1) up to maximum possible number
+  - consider each number in the range in turn
+  - return the first number that uses all the same digits as input integer
+    - convert input integer and candidate integer into arrays of digits
+    - sort both arrays
+    - compare them to each other
+- if no such number found, return -1
 =end
 
-def next_bigger_num(number)
-  find_next_bigger(number) || -1
-end
+# def next_bigger_num(number)
+#   start_number = number + 1
+#   max_number = find_max_number(number)
 
-def find_next_bigger(number)
-  start_number = number + 1
-  max_number = find_max_number(number)
-  (start_number..max_number).find do |candidate|
-    same_digits?(number, candidate)
-  end
-end
+#   next_bigger = (start_number..max_number).find do |candidate|
+#     same_digits?(number, candidate)
+#   end
 
-def find_max_number(number)
-  number.digits.sort.reverse.join.to_i
-end
+#   next_bigger || -1
+# end
 
-def same_digits?(number, candidate)
-  number.digits.sort == candidate.digits.sort
-end
+# def find_max_number(number)
+#   number.digits.sort.reverse.join.to_i
+# end
 
+# def same_digits?(number, candidate)
+#   number.digits.sort == candidate.digits.sort
+# end
 
-
-p next_bigger_num(9) == -1
-p next_bigger_num(12) == 21
-p next_bigger_num(315) == 351
-p next_bigger_num(111) == -1
-p next_bigger_num(13579) == 13597
-p next_bigger_num(13573) == 13735
-p next_bigger_num(13576) == 13657
-p next_bigger_num(97531) == -1
+# p next_bigger_num(9) == -1
+# p next_bigger_num(12) == 21
+# p next_bigger_num(315) == 351
+# p next_bigger_num(111) == -1
+# p next_bigger_num(13579) == 13597
+# p next_bigger_num(13573) == 13735
+# p next_bigger_num(13576) == 13657
+# p next_bigger_num(97531) == -1
 
 ### PAIRS ***
 =begin
