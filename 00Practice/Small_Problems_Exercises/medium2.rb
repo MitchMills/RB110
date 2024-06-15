@@ -1,5 +1,67 @@
+### CLOSEST VALUES ***
+=begin
+Write a method that takes an array of integers as an argument and returns the
+two numbers that are closest together in value. If more than one pair of integers satisfies this condition, return the pair whose elements occurs first in the input array.
 
+PROBLEM 7:27
+input: array
+  - contains numbers
+  - always contains at least three numbers
+output: array
+  - pair of numbers that are closest together in value
+    - if more than one pair qualifies, return earliest pair
+    - paired numbers are not necessarily contiguous
 
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to compare all numbers with each other
+  - way to find closest pair
+
+- start: array
+  - array containing all possible pairs as subarrays
+    - [12, 7, 17] => [[12, 7], [12, 17], [7, 17]]
+      - don't need to consider duplicate pairs (e.g. [17, 7])
+      - start at index 0, end at index (length - 2)
+      - [array[0], array[1]], [array[0], array[2]], [array[1], array[2]]
+  - pairs array sorted by difference between two elements
+- finish: array
+
+ALGORITHM
+- create an array of pair subarrays
+  - create a range to represent starting indexes:
+    - from 0 up to (array length - 2)
+    - for each starting index, pair with numbers at indexes:
+      - (index + 1) up to (array length - 1)
+- return the pair with the smallest difference between them
+
+=end
+
+# def closest_numbers(numbers)
+#   pairs = get_pairs(numbers)
+#   pairs.min_by { |pair| pair.inject(:-).abs }
+# end
+
+# def get_pairs(numbers)
+#   pairs = []
+#   last_start_index = numbers.size - 2
+#   last_index = numbers.size - 1
+
+#   (0..last_start_index).each do |index1|
+#     next_index = index1 + 1
+#     (next_index..last_index).each do |index2|
+#       pairs << [numbers[index1], numbers[index2]]
+#     end
+#   end
+
+#   pairs
+# end
+
+# p closest_numbers([2, 4, 6, 7]) == [6, 7]
+# p closest_numbers([5, 15, 25, 11, 20]) == [15, 11]
+# p closest_numbers([3, 6, 8, 11, 13]) == [6, 8]
+# p closest_numbers([12, 7, 17]) == [12, 7]
 
 ### MULTIPLY ALL PAIRS ***
 =begin
