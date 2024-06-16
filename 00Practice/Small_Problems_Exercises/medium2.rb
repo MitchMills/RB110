@@ -1,3 +1,80 @@
+
+
+
+### REPEATED SUBSTRING ***
+=begin
+Write a method that takes a string as an argument and returns true if that string can be constructed by taking a substring and concatenating two or more copies of the substring together. Return false otherwise.
+
+PROBLEM 5:14
+input: string
+  - can contain any type of character
+    - upper and lower case
+
+output: boolean
+  - return true if:
+    - input string can be constructing by taking a substring and
+      - concatenating 2 or more copies of substring together
+    - case matters: 'abcABC' == false
+    - min substring size is 1
+    - max substring size is (input string length / 2)
+  - return false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to generate appropriate substrings
+    - size 1 up to size length/2
+  - way to determine if 2 or more copies of substring == input string
+    - substring must be an even multiple of string length
+  - list of multiples of string length?
+    - or current multiplier: input string length / current substring length
+
+- start: string
+  - array of substrings
+  - multiplier
+- finish: boolean
+
+ALGORITHM
+- generate eligible substrings from input string
+  - start at size 1, up to (input string length / 2)
+  - start at index 0, up to (string length - current size)
+  - select only unique substrings
+- test if any unique eligible substrings can construct input string
+  - multiplier = input string length / substring length
+  - does substring * multiplier equal input string?
+  - return true if yes for any substring
+  - false otherwise
+=end
+
+# def repeated_substring(string)
+#   substrings = get_substrings(string)
+#   substrings.any? do |substring|
+#     multiplier = string.size / substring.size
+#     substring * multiplier == string
+#   end
+# end
+
+# def get_substrings(string)
+#   substrings = []
+#   max_size = string.size / 2
+#   (1..max_size).each do |current_size|
+#     last_index = string.size - current_size
+#     (0..last_index).each do |start_index|
+#       substrings << string[start_index, current_size]
+#     end
+#   end
+#   substrings.uniq
+# end
+
+# p repeated_substring('aba') == false
+# p repeated_substring('aaa') == true
+# p repeated_substring('abab') == true
+# p repeated_substring('abcABC') == false
+# p repeated_substring('AabAaba') == false
+# p repeated_substring('aB@AbaB@Ab') == true
+# p repeated_substring('ab3ab3ab3') == true
+
 ### TRIPLE DOUBLE ***
 =begin
 Write a method that takes two integers as arguments and returns true if the first integer has a sequence of at least three in a row of the same number, and the second integer has a sequence of at least two in a row of that same number. Otherwise, return false.
@@ -40,40 +117,40 @@ ALGORITHM
   - false otherwise
 =end
 
-def triple_double(number1, number2)
-  sequences1 = get_sequences(number1, 3)
-  sequences2 = get_sequences(number2, 2)
+# def triple_double(number1, number2)
+#   sequences1 = get_sequences(number1, 3)
+#   sequences2 = get_sequences(number2, 2)
 
-  triples = get_multiples(sequences1)
-  doubles = get_multiples(sequences2)
+#   triples = get_multiples(sequences1)
+#   doubles = get_multiples(sequences2)
 
-  unique_digits1 = get_unique_digits(triples)
-  unique_digits2 = get_unique_digits(doubles)
+#   unique_digits1 = get_unique_digits(triples)
+#   unique_digits2 = get_unique_digits(doubles)
 
-  unique_digits1.any? { |digit| unique_digits2.include?(digit) }
-end
+#   unique_digits1.any? { |digit| unique_digits2.include?(digit) }
+# end
 
-def get_sequences(number, target_size)
-  last_index = number.to_s.size - target_size
-  (0..last_index).map { |start_index| number.to_s[start_index, target_size] }
-end
+# def get_sequences(number, target_size)
+#   last_index = number.to_s.size - target_size
+#   (0..last_index).map { |start_index| number.to_s[start_index, target_size] }
+# end
 
-def get_multiples(sequences)
-  sequences.select do |sequence|
-    digits = sequence.chars
-    digits.all? { |digit| digit == digits[0] }
-  end
-end
+# def get_multiples(sequences)
+#   sequences.select do |sequence|
+#     digits = sequence.chars
+#     digits.all? { |digit| digit == digits[0] }
+#   end
+# end
 
-def get_unique_digits(multiples)
-  multiples.map { |multiple| multiple.chr }
-end
+# def get_unique_digits(multiples)
+#   multiples.map { |multiple| multiple.chr }
+# end
 
-p triple_double(12345, 12345) == false
-p triple_double(1222345, 122345) == true
-p triple_double(1222345, 123345) == false
-p triple_double(666789, 12345666) == true
-p triple_double(451999277, 41177722899) == true
+# p triple_double(12345, 12345) == false
+# p triple_double(1222345, 122345) == true
+# p triple_double(1222345, 123345) == false
+# p triple_double(666789, 12345666) == true
+# p triple_double(451999277, 41177722899) == true
 
 ### SORTING
 =begin
