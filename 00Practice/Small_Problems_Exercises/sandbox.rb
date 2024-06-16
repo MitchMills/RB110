@@ -1,44 +1,28 @@
-def transpose(array)
-  number_of_subarrays = array.first.size
-  result = Array.new(number_of_subarrays) { |_index| [] }
-
-  array.each do |subarray|
-    subarray.each_with_index do |element, index|
-      result[index] << element
-    end
-  end
-
-  result
+def merge(array1, array2)
+  result, index1, index2 = merge_equal_parts(array1, array2)
+  result + array1[index1..-1] + array2[index2..-1]
 end
 
-def transpose2(array)
-  number_of_subarrays = array.first.size
-  result = Array.new(number_of_subarrays, [])
-
-  array.each do |subarray|
-    subarray.each_with_index do |element, index|
-      result[index] += [element]
-    end
-  end
-
-  result
-end
-
-def transpose3(array)
-  number_of_subarrays = array.first.size
+def merge_equal_parts(array1, array2)
   result = []
-  number_of_subarrays.times { |_| result << [] }
+  index1 = 0
+  index2 = 0
 
-  array.each do |subarray|
-    subarray.each_with_index do |element, index|
-      result[index] << element
+  loop do
+    break if index1 == array1.size || index2 == array2.size
+    if array1[index1] <= array2[index2]
+      result << array1[index1]
+      index1 += 1
+    else
+      result << array2[index2]
+      index2 += 1
     end
   end
 
-  result
+  [result, index1, index2]
 end
 
-p transpose([[1, 2, 3, 4]]) == [[1], [2], [3], [4]]
-p transpose([[1], [2], [3], [4]]) == [[1, 2, 3, 4]]
-p transpose([[1, 2, 3, 4, 5], [4, 3, 2, 1, 0], [3, 7, 8, 6, 2]]) == [[1, 4, 3], [2, 3, 7], [3, 2, 8], [4, 1, 6], [5, 0, 2]]
-p transpose([[1]]) == [[1]]
+p merge([1, 5, 9], [2, 6, 8]) == [1, 2, 5, 6, 8, 9]
+p merge([1, 1, 3], [2, 2]) == [1, 1, 2, 2, 3]
+p merge([], [1, 4, 5]) == [1, 4, 5]
+p merge([1, 4, 5], []) == [1, 4, 5]

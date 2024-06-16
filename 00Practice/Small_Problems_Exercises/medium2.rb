@@ -1,3 +1,109 @@
+### SORTING
+=begin
+Write a method that takes two sorted Arrays as arguments, and returns a new Array that contains all elements from both arguments in sorted order.
+
+You may not provide any solution that requires you to sort the result array. You must build the result array one element at a time in the proper order.
+
+Your solution should not mutate the input arrays.
+
+PROBLEM 8:25
+input: 2 arrays
+  - array elements of each array are in sorted order
+  - can be empty
+
+output: array
+  - contains all elements of both input arrays, in sorted order
+  - input arrays are not mutated
+  - if either input array is empty, result is same as the other array
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to consider each element of each array
+  - way to determine which element to add next to result array
+  - way to deal with different-sized input arrays
+
+- start: two arrays
+  - empty array to add elements to
+  - counters to track current index in each array
+  - loop to control iterations / flow
+  - conditional to deal with different sized arrays, 'leftovers'
+- finish: array
+
+ALGORITHM
+- create an empty array to hold results
+- create two counters, one for each array, to track current index
+  - start at 0
+- start a loop
+  - break when one of the index counters equals the length of its array
+  - examine elements at current index from both arrays
+  - if one is <= to the other
+    - add that element to the results array
+    - increment that array's index counter
+
+- add all remaining elements to the results array
+  - if index is <= to length of its array
+    - add remaining elements from that array
+    - from current index to end of array
+
+- return the results array
+=end
+
+# def merge(array1, array2)
+#   result = []
+#   index1 = 0
+#   index2 = 0
+
+#   loop do
+#     break if index1 == array1.size || index2 == array2.size
+#     if array1[index1] <= array2[index2]
+#       result << array1[index1]
+#       index1 += 1
+#     else
+#       result << array2[index2]
+#       index2 += 1
+#     end
+#   end
+
+#   result += array1[index1..-1] if index1 <= index1.size
+#   result += array2[index2..-1] if index2 <= index2.size
+
+#   result
+# end
+
+###
+def merge(array1, array2)
+  result, index1, index2 = merge_equal_parts(array1, array2)
+  result + array1[index1..-1] + array2[index2..-1]
+end
+
+def merge_equal_parts(array1, array2)
+  result = []
+  index1 = 0
+  index2 = 0
+
+  loop do
+    break if index1 == array1.size || index2 == array2.size
+    if array1[index1] <= array2[index2]
+      result << array1[index1]
+      index1 += 1
+    else
+      result << array2[index2]
+      index2 += 1
+    end
+  end
+
+  [result, index1, index2]
+end
+
+p merge([1, 5, 9], [2, 6, 8]) == [1, 2, 5, 6, 8, 9]
+p merge([1, 1, 3], [2, 2]) == [1, 1, 2, 2, 3]
+p merge([], [1, 4, 5]) == [1, 4, 5]
+p merge([1, 4, 5], []) == [1, 4, 5]
+
+
+
 ### CLOSEST VALUES ***
 =begin
 Write a method that takes an array of integers as an argument and returns the
