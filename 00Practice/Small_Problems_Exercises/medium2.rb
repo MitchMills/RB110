@@ -1,3 +1,76 @@
+### TRIPLE DOUBLE ***
+=begin
+Write a method that takes two integers as arguments and returns true if the first integer has a sequence of at least three in a row of the same number, and the second integer has a sequence of at least two in a row of that same number. Otherwise, return false.
+
+PROBLEM 7:57
+input: two integers
+
+output: boolean
+  - true if 1st input integer has sequence of at least 3 in a row of same number
+    - AND 2nd input integer has a sequence of at least 2 in a row of same number
+    - triple and double must be same numbers
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to determine triples / doubles
+  - way to store target digit so that triple number == double number
+
+- start: two integers
+  - string representations of integers
+  - all 3 or 2 character substrings from each
+  - matching numbers
+- finish: boolean
+
+ALGORITHM
+- get all 3 or 2 digit sequences from each input integer
+  - convert integer to a string
+  - from each index up to (length - target length)
+    - get sequence of target length
+  - store in an array
+- from sequences array, get all sequences with identical digits
+  - all digits must equal each other
+- from identicals array, get all unique digits
+  - iterate over a range (0..9)
+    - select only digits that appear in identicals array
+- compare unique digits arrays
+  - return true if they contain matching digit(s)
+  - false otherwise
+=end
+
+def triple_double(number1, number2)
+  sequences1 = get_sequences(number1, 3)
+  sequences2 = get_sequences(number2, 2)
+
+  triples = get_multiples(sequences1, 3)
+  doubles = get_multiples(sequences2, 2)
+
+  unique_digits1 = triples.map { |triple| triple[0] }
+  unique_digits2 = doubles.map { |double| double[0] }
+
+  unique_digits1.any? { |digit| unique_digits2.include?(digit) }
+end
+
+def get_sequences(number, target_size)
+  last_index = number.to_s.size - target_size
+  (0..last_index).map { |start_index| number.to_s[start_index, target_size] }
+end
+
+def get_multiples(sequences, target_size)
+  sequences.select do |sequence|
+    digits = sequence.chars
+    digits.all? { |digit| digit == digits[0] }
+  end
+end
+
+p triple_double(12345, 12345) #== false
+p triple_double(1222345, 122345) #== true
+p triple_double(1222345, 123345) #== false
+p triple_double(666789, 12345666) #== true
+p triple_double(451999277, 41177722899) #== true
+
 ### SORTING
 =begin
 Write a method that takes two sorted Arrays as arguments, and returns a new Array that contains all elements from both arguments in sorted order.
@@ -6,9 +79,9 @@ You may not provide any solution that requires you to sort the result array. You
 
 Your solution should not mutate the input arrays.
 
-PROBLEM 8:25
+PROBLEM 6:25
 input: 2 arrays
-  - array elements of each array are in sorted order
+  - arrays are in sorted order
   - can be empty
 
 output: array
@@ -23,6 +96,7 @@ DATA STRUCTURES
   - way to consider each element of each array
   - way to determine which element to add next to result array
   - way to deal with different-sized input arrays
+  - way to deal with empty input arrays?
 
 - start: two arrays
   - empty array to add elements to
@@ -38,14 +112,14 @@ ALGORITHM
 - start a loop
   - break when one of the index counters equals the length of its array
   - examine elements at current index from both arrays
-  - if one is <= to the other
-    - add that element to the results array
-    - increment that array's index counter
+    - if one is <= to the other
+      - add that element to the results array
+      - increment that array's index counter
 
 - add all remaining elements to the results array
   - if index is <= to length of its array
     - add remaining elements from that array
-    - from current index to end of array
+      - from current index to end of array
 
 - return the results array
 =end
@@ -73,36 +147,33 @@ ALGORITHM
 # end
 
 ###
-def merge(array1, array2)
-  result, index1, index2 = merge_equal_parts(array1, array2)
-  result + array1[index1..-1] + array2[index2..-1]
-end
+# def merge(array1, array2)
+#   result, index1, index2 = merge_equal_parts(array1, array2)
+#   result + array1[index1..-1] + array2[index2..-1]
+# end
 
-def merge_equal_parts(array1, array2)
-  result = []
-  index1 = 0
-  index2 = 0
+# def merge_equal_parts(array1, array2)
+#   result = []
+#   index1 = 0
+#   index2 = 0
 
-  loop do
-    break if index1 == array1.size || index2 == array2.size
-    if array1[index1] <= array2[index2]
-      result << array1[index1]
-      index1 += 1
-    else
-      result << array2[index2]
-      index2 += 1
-    end
-  end
+#   until index1 == array1.size || index2 == array2.size
+#     if array1[index1] <= array2[index2]
+#       result << array1[index1]
+#       index1 += 1
+#     else
+#       result << array2[index2]
+#       index2 += 1
+#     end
+#   end
 
-  [result, index1, index2]
-end
+#   [result, index1, index2]
+# end
 
-p merge([1, 5, 9], [2, 6, 8]) == [1, 2, 5, 6, 8, 9]
-p merge([1, 1, 3], [2, 2]) == [1, 1, 2, 2, 3]
-p merge([], [1, 4, 5]) == [1, 4, 5]
-p merge([1, 4, 5], []) == [1, 4, 5]
-
-
+# p merge([1, 5, 9], [2, 6, 8]) == [1, 2, 5, 6, 8, 9]
+# p merge([1, 1, 3], [2, 2]) == [1, 1, 2, 2, 3]
+# p merge([], [1, 4, 5]) == [1, 4, 5]
+# p merge([1, 4, 5], []) == [1, 4, 5]
 
 ### CLOSEST VALUES ***
 =begin

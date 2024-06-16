@@ -1,28 +1,30 @@
-def merge(array1, array2)
-  result, index1, index2 = merge_equal_parts(array1, array2)
-  result + array1[index1..-1] + array2[index2..-1]
+def triple_double(number1, number2)
+  sequences1 = get_sequences(number1, 3)
+  sequences2 = get_sequences(number2, 2)
+
+  triples = get_multiples(sequences1)
+  doubles = get_multiples(sequences2)
+
+  unique_digits1 = triples.map { |triple| triple[0] }
+  unique_digits2 = doubles.map { |double| double[0] }
+
+  unique_digits1.any? { |digit| unique_digits2.include?(digit) }
 end
 
-def merge_equal_parts(array1, array2)
-  result = []
-  index1 = 0
-  index2 = 0
+def get_sequences(number, target_size)
+  last_index = number.to_s.size - target_size
+  (0..last_index).map { |start_index| number.to_s[start_index, target_size] }
+end
 
-  loop do
-    break if index1 == array1.size || index2 == array2.size
-    if array1[index1] <= array2[index2]
-      result << array1[index1]
-      index1 += 1
-    else
-      result << array2[index2]
-      index2 += 1
-    end
+def get_multiples(sequences)
+  sequences.select do |sequence|
+    digits = sequence.chars
+    digits.all? { |digit| digit == digits[0] }
   end
-
-  [result, index1, index2]
 end
 
-p merge([1, 5, 9], [2, 6, 8]) == [1, 2, 5, 6, 8, 9]
-p merge([1, 1, 3], [2, 2]) == [1, 1, 2, 2, 3]
-p merge([], [1, 4, 5]) == [1, 4, 5]
-p merge([1, 4, 5], []) == [1, 4, 5]
+p triple_double(12345, 12345) == false
+p triple_double(1222345, 122345) == true
+p triple_double(1222345, 123345) == false
+p triple_double(666789, 12345666) == true
+p triple_double(451999277, 41177722899) == true
