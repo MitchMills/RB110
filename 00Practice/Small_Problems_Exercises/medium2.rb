@@ -1,6 +1,88 @@
 
 
 
+
+### LONGEST ALPHABETICAL ***
+=begin
+Write a method that takes a string containing only lowercase letters as an argument, and returns the longest substring that is in alphabetical order. If there are multiple solutions, return the substring that occurs first in the input string. All input strings will be at least one character in length.
+
+PROBLEM 12:37
+input: string
+  - contains only lowercase letters
+  - always at least length 1
+output: string
+  - longest substring of input string that is in alphabetical order
+  - if more than one, return earliest
+  - can be entire input string
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs
+  - way to obtain all possible substrings
+    - start at index 0, up to last index
+    - start at length 1, up to input string length
+  - way to determine if a substring is in alphabetical order
+    - substring to array of individual letters
+    - letters sorted compared to original order
+
+- start: string
+  - array of all possible substrings
+  - array of only alphabetical substrings
+- finish: longest alphabetical string
+
+ALGORITHM
+- get all possible substrings
+  - create an empty array to hold substrings
+  - add substrings
+    - from index 0 up to index (length - 1)
+     - from length 1 up to input string length
+- find all alphabetical substrings
+  - convert each substring to an array of individual characters
+  - compare this array to a sorted version of itself
+    - keep if they are equal
+- return longest alphabetical substring
+=end
+
+# def longest(string)
+#   all_substrings = get_all_substrings(string)
+#   alphabetical_substrings = get_alphabetical_substrings(all_substrings)
+#   alphabetical_substrings.max_by(&:size)
+# end
+
+# def get_all_substrings(string)
+#   all_substrings = []
+#   last_index = string.size - 1
+
+#   (0..last_index).each do |start_index|
+#     max_length = string.size - start_index
+
+#     (1..max_length).each do |length|
+#       all_substrings << string[start_index, length]
+#     end
+#   end
+
+#   all_substrings
+# end
+
+# def get_alphabetical_substrings(substrings)
+#   substrings.select { |substring| alphabetical?(substring) }
+# end
+
+# def alphabetical?(string)
+#   string.chars == string.chars.sort
+# end
+
+# p longest('abc') == 'abc'
+# p longest('abcace') == 'abc'
+# p longest('asd') == 'as'
+# p longest('nab') == 'ab'
+# p longest('abcdeapbcdef') ==  'abcde'
+# p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+# p longest('asdfbyfgiklag') == 'fgikl'
+# p longest('z') == 'z'
+# p longest('zyba') == 'z'
+
 ### ALPHABET SCORE ***
 =begin
 Write a method that takes a string of words as an argument and returns the word that scores highest according to the letters it contains. Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, etc. So, for example, the word "ace" has a score of 9 (1 + 3 + 5).
