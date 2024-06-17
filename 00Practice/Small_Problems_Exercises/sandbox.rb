@@ -1,5 +1,5 @@
 def seven_eleven(number)
-  (1...number).filter_map { |num| num if num % 7 == 0 || num % 11 == 0 }.sum
+  ((7...number).step(7).to_a + (11...number).step(11).to_a).uniq.sum
 end
 
 p seven_eleven(10) == 7
