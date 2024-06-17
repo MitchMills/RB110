@@ -1,5 +1,82 @@
+### DELETE A DIGIT ***
+=begin
+Write a method that takes an integer as an argument and returns the largest integer that can be obtained by deleting exactly one digit.
+
+Assume all input integers will contain at least two digits
+
+PROBLEM 6:41
+input: integer
+  - will always contain at least two digits
+
+output: integer
+  - largest value that can be obtained by deleting one digit from input integer
+  - digits stay in order
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to create all possible 'sub-integers'
+    - input integer with one digit deleted
+    '12345' => [
+    '2345', # => 0: x,      1..4,
+    '1345', # => 1: 0..0    2..4
+    '1245', # => 2: 0..1,   3..4
+    '1235'  # => 3: 0..2,   4..4
+    '1234'  # => 4: 0..3,   x
+    ]
 
 
+- start: integer
+  - array of all possible sub-integers
+    - integers converted to strings or arrays of digits
+    - substrings concatenated minus specific digit
+- finish: integer
+
+ALGORITHM
+- find all possible integers with one digit deleted from input integer
+  - create an array to hold values
+  - convert input integer into a string
+  - for each index in the string
+    - convert string into an array of individual characters
+    - delete the character at the current index
+    - convert the array into a string then into an integer
+    - store it in the array
+
+- return the largest
+=end
+
+# def delete_digit(number)
+#   results = []
+#   last_index = number.to_s.size - 1
+
+#   (0..last_index).each do |index|
+#     digits = number.to_s.chars
+#     digits.delete_at(index)
+#     results << digits.join.to_i
+#   end
+
+#   results.max
+# end
+
+# def delete_digit(number)
+#   last_index = number.to_s.size - 1
+
+#   (0..last_index).map do |index|
+#     digits = number.to_s.chars
+#     digits.delete_at(index)
+#     digits.join.to_i
+#   end.max
+# end
+
+# p delete_digit(10) == 1
+# p delete_digit(12) == 2
+# p delete_digit(123) == 23
+# p delete_digit(321) == 32
+# p delete_digit(12345) == 2345
+# p delete_digit(62345) == 6345
+# p delete_digit(791983) == 91983
+# p delete_digit(1001) == 101
 
 ### REPEATED SUBSTRING ***
 =begin
