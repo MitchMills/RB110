@@ -1,3 +1,73 @@
+
+
+
+### ALPHABET SCORE ***
+=begin
+Write a method that takes a string of words as an argument and returns the word that scores highest according to the letters it contains. Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, etc. So, for example, the word "ace" has a score of 9 (1 + 3 + 5).
+
+If two words are tied for highest score, return the word that appears earliest in the original string.
+
+You can assume that all letters in the input string are lowercase and all input strings are valid.
+
+PROBLEM 10:04
+input: string
+  - contains 'words'
+    - sequence of contiguous characters separated by whitespace
+  - all letters are lowercase
+  - all input strings are valid
+
+output: string
+  - the word from input string that
+    - has highest 'letter score'
+      - each letter has a score according to its position in alphabet
+        - a = 1, b = 2, etc
+      - score of word is sum of scores of all its letters
+    - if two or more words have same score, return earliest word
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to separate input string into words
+  - way to assess score of each letter
+  - way to calculate score of each word
+  - way to resolve ties / successfully return earliest word
+
+- start: string
+  - array of alphabetic characters in order (for scoring)
+    - add non-letter character to front so indexes match scores
+  - array of individual words
+  - transformed array: [word, word score]
+- finish: string
+
+ALGORITHM
+- create an array of lowercase alphabetic characters in order
+  - add '0' to the front of the array
+- create a helper method to determine the score of a word
+  - convert word to an array of separate characters
+  - transform array into letter scores
+    - use index of current letter in alphabet array
+  - return the sum
+- convert input string into an array of separate words
+  - get the word with the highest letter score, using the helper method
+=end
+
+# ALPHABET = ('a'..'z').to_a.prepend('0')
+
+# def alphabet_score(words)
+#   words.split.max_by { |word| word_score(word) }
+# end
+
+# def word_score(word)
+#   word.chars.map { |char| ALPHABET.index(char) }.sum
+# end
+
+# p alphabet_score('time is up') == 'time'
+# p alphabet_score('time to stop') == 'stop'
+# p alphabet_score('aced up') == 'up'
+# p alphabet_score('ebb ace') == 'ebb'
+# p alphabet_score('c ba') == 'c'
+
 ### DELETE A DIGIT ***
 =begin
 Write a method that takes an integer as an argument and returns the largest integer that can be obtained by deleting exactly one digit.
