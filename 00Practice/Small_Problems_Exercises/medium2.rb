@@ -1,5 +1,71 @@
+### MAX SUM ***
+=begin
+Write a method that takes an array containing 0 or more integers and returns the maximum sum of a contiguous sequence of integers from that array.
 
+The contiguous sequence can range from 0 elements up to all elements of the input array. A sequence with 0 elements in it should be considered to have a sum of 0.
 
+PROBLEM 4:19
+input: array
+  - contains 0 or more integers
+    - integers can be positive or negative
+  - can be empty
+output: integer
+  - maximum sum of a conitguous sequence of integers from input array
+    - sequence can be from 0 elements up to full length of input array
+    - treat a sequence of 0 elements as having a sum of 0
+    - if input array is empty, return 0
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to generate all possible sequences
+  - way to sum sequences
+  - way to find maximum sum
+  - way to handle 0 length sequences
+
+- start: array
+  - array of all possible sequences
+    - from index 0 up to last index
+    - from length 0 up to (array length - current index)
+  - array of sums
+- finish: integer (largest sum)
+
+ALGORITHM
+- create an array of all possible substrings from input array
+  - create an empty array to store sequences
+  - start at index 0, up to index (array length - 1)
+  - start from length 0, up to length (array length - current index)
+- transform sequences array into an array of sums
+- return the highest sum
+=end
+
+# def max_sum(array)
+#   sequences = get_sequences(array)
+#   sums = sequences.map(&:sum)
+#   sums.max
+# end
+
+# def get_sequences(array)
+#   sequences = []
+#   last_index = array.size - 1
+
+#   (0..last_index).each do |start_index|
+#     max_length = array.size - start_index
+#     (1..max_length).each do |length|
+#       sequences << array[start_index, length]
+#     end
+#   end
+
+#   sequences << []
+# end
+
+# p max_sum([]) == 0
+# p max_sum([1, 2, 3]) == 6
+# p max_sum([-1, -2, -3]) == 0
+# p max_sum([1, 2, 3, -1]) == 6
+# p max_sum([1, -1, 2, 3, -1, 2]) == 6
+# p max_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6 # [4, -1, 2, 1]
 
 ### SUBSTRING TWICE ***
 =begin
