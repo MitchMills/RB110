@@ -1,6 +1,67 @@
 
 
 
+### SUBSTRING TWICE ***
+=begin
+Write a method that takes two strings and returns true if there exists a substring that appears in both of them. Return false otherwise. Only consider substrings that are at least two characters in length. Disregard case (for example, 'ace' and 'Ace' would be considered the same substring).
+
+All input strings will contain at least two characters, and will not contain any spaces.
+
+PROBLEM 12:42
+input: two strings
+  - contain at least two characters
+  - will not contain any spaces
+output: boolean
+  - return true if:
+    - a common substring appears in both input strings
+      - substring must be at least two characters
+      - substring can be entire input string
+      - disregard case: 'ace' and 'Ace' are considered same substring
+  - return false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to obtain all possible substrings from first input string (length >= 2)
+  - way to determine if second input string contains at least one of those substrings
+
+- start: two strings
+  - array of all >=2 length substrings from first input string
+- finish: boolean
+
+ALGORITHM
+- get all possible substrings from first input string (lenght >= 2)
+  - start at index 0, up to index (string length - 2)
+  - start at length 2, up to length (string length - current index)
+- determine whether any of those substrings occur in second input string
+  - check if any substrings are included in second input string
+    - return true if so, false otherwise
+=end
+
+# def substring_twice?(string1, string2)
+#   substrings = get_substrings(string1)
+#   substrings.any? { |substring| string2.downcase.include?(substring) }
+# end
+
+# def get_substrings(string)
+#   substrings = []
+#   last_index = string.size - 2
+
+#   (0..last_index).each do |start_index|
+#     max_length = string.size - start_index
+
+#     (2..max_length).each do |length|
+#       substrings << string.downcase[start_index, length]
+#     end
+#   end
+#   substrings
+# end
+
+# p substring_twice?('face', 'Ace') #== true
+# p substring_twice?('face', 'ACTUALLY') #== true
+# p substring_twice?('face', 'gave') #== false
+# p substring_twice?('aa', 'aa') #== true
 
 ### LONGEST ALPHABETICAL ***
 =begin
