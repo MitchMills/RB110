@@ -1,3 +1,63 @@
+
+
+
+### LETTER COUNT ***
+=begin
+Write a method that takes a string as an argument and returns a hash containing the number of times each character present in the string occurs. The input string wil contain only alphabetic lowercase characters, and no spaces.
+
+The hash keys should be symbols, and should be in alphabetical order, not order of appearance in the input string. The hash values should be the number of occurrences of the letter represented by the symbol.
+
+PROBLEM 4:42
+input: string
+  - will contain only alphabetic lowercase characters
+  - no spaces
+output: hash
+  - contains the number of times each character present in input string occurs
+  - keys are symbols
+    - letters (as symbols)
+    - should be in alphabetical order, NOT order of appearance in input string
+  - values are integers
+    - number of times that letter is present
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to count occurrences of each letter
+  - way to keep or put hash keys in alphabetical order
+
+- start: string
+  - array of all letter characters in alphabetical order
+  - empty hash to store counts in (default value of 0)
+  - conditional to see whether a given letter occurs in input string
+- finish: hash
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters in alphabetical order
+- create an empty hash with a default value of 0
+- iterate over this array
+  - if current letter is present in input string
+  - create a key for that letter
+    - value will be the number of occurrences of that letter in input string
+- return the hash
+=end
+
+# ALPHABET = ('a'..'z').to_a
+
+# def letter_count(string)
+#   counts = Hash.new(0)
+#   ALPHABET.each do |letter|
+#     if string.include?(letter)
+#       counts[letter.to_sym] = string.count(letter)
+#     end
+#   end
+#   counts
+# end
+
+# p letter_count('codewars') == {:a=>1, :c=>1, :d=>1, :e=>1, :o=>1, :r=>1, :s=>1, :w=>1}
+# p letter_count('activity') == {:a=>1, :c=>1, :i=>2, :t=>2, :v=>1, :y=>1}
+# p letter_count('arithmetics') == {:a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2}
+
 ### MAX SUM ***
 =begin
 Write a method that takes an array containing 0 or more integers and returns the maximum sum of a contiguous sequence of integers from that array.
