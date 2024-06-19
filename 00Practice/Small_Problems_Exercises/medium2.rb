@@ -1,6 +1,73 @@
 
 
 
+### DECODER
+=begin
+We're receiving a set of messages in code. The messages are sets of text strings, like:
+"alakwnwenvocxzZjsf"
+Write a method to decode these strings into numbers. The decoded number should be the number of lowercase characters between the first two uppercase characters. If there aren't two uppercase characters, the number should be 0.
+
+PROBLEM 4:31
+input: array
+  - elements are text strings
+    - can contain upper and lowercase letters
+    - strings can be empty
+  - array can be empty
+output: array
+  - elements are integers
+    - number of lowercase characters between first two uppercase characters in input strings
+    - if not two uppercase characters in input string, then 0
+  - if input array is empty, return empty array
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to determine number of uppercase letters
+  - way to determine locations (indexes) of uppercase letters
+  - way to determine number of lowercase characters between first two uppercase characters
+    - (index 2 - index 1) - 1
+
+- start: array
+  - array of all uppercase alphabet characters
+  - array of indexes of uppercase charcters
+- finish: array
+
+ALGORITHM
+- Create an empty array to hold results
+- Find the indexes of all uppercase characters in each input string
+  - create an array of all uppercase alphabetical characters
+  - create an empty array to store indexes
+  - convert each input string into an array of individual characters
+  - get the indexes of every character that is uppercase
+  - store them in the indexes array
+- if there are two or more indexes in the indexes array
+  - get the difference between the second and the first, and substract 1
+  - add this number to the results array
+- otherwise, add 0 to the results array
+=end
+# UPPERCASE = ('A'..'Z').to_a
+
+# def decode(strings)
+#   uppercase_indexes = get_uppercase_indexes(strings)
+#   get_codes(uppercase_indexes)
+# end
+
+# def get_uppercase_indexes(strings)
+#   strings.map do |string|
+#     string.chars.each_index.select { |index| UPPERCASE.include?(string[index]) }
+#   end
+# end
+
+# def get_codes(array)
+#   array.map { |indexes| indexes.size < 2 ? 0 : (indexes[1] - indexes[0]) - 1 }
+# end
+
+# p decode(['ZoL', 'heLlo', 'XX']) == [1, 0, 0]
+# p decode(['foUrsCoreAnd', 'seven', '']) == [2, 0, 0]
+# p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
+# p decode([]) == []
+
 ### LETTER COUNT ***
 =begin
 Write a method that takes a string as an argument and returns a hash containing the number of times each character present in the string occurs. The input string wil contain only alphabetic lowercase characters, and no spaces.
