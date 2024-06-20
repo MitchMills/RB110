@@ -1,6 +1,5 @@
 
 
-
 ### DECODER
 =begin
 We're receiving a set of messages in code. The messages are sets of text strings, like:
