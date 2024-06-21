@@ -1,21 +1,18 @@
-UPPERCASE = ('A'..'Z').to_a
+ALPHABET = ('a'..'z').to_a
 
-def decode(strings)
-  uppercase_indexes = get_uppercase_indexes(strings)
-  get_codes(uppercase_indexes)
-end
-
-def get_uppercase_indexes(strings)
+def solve(strings)
   strings.map do |string|
-    string.chars.each_index.select { |index| UPPERCASE.include?(string[index]) }
+    get_alphabet_position_letters(string)
   end
 end
 
-def get_codes(array)
-  array.map { |indexes| indexes.size < 2 ? 0 : (indexes[1] - indexes[0]) - 1 }
+def get_alphabet_position_letters(string)
+  string.chars.select.with_index do |char, index|
+    ALPHABET.index(char.downcase) == index
+  end.size
 end
 
-p decode(['ZoL', 'heLlo', 'XX']) == [1, 0, 0]
-p decode(['foUrsCoreAnd', 'seven', '']) == [2, 0, 0]
-p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
-p decode([]) == []
+p solve(["abode", "ABc", "xyzD"]) == [4, 3, 1]
+p solve(["abide", "ABc", "xyz"]) == [4, 3, 0]
+p solve(["IAMDEFANDJKL", "thedefgh", "xyzDEFghijabc"]) == [6, 5, 7]
+p solve(["encode", "abc", "xyzD", "ABmD"]) == [1, 3, 1, 3]

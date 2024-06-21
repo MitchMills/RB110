@@ -1,4 +1,72 @@
+### LETTER POSITIONS
+=begin
+Consider the word "abode".
+The letter `a` is in position 1 and `b` is in position 2.
+In the alphabet, `a` and `b` are also in positions 1 and 2.
 
+The letters `d` and `e` in "abode" occupy the positions they would occupy in the alphabet, which are positions 4 and 5.
+
+Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for each word.
+
+PROBLEM 6:35
+input: array
+  - elements are 'words'
+    - strings of contiguous characters
+    - all alphabetic
+    - uppercase and lowercase
+    - not empty
+output: array
+  - elements are integers
+  - same number of elements as input array
+  - integer is the number of letters in the word that occupy their positions in the alphabet
+    - a = 1, b = 2, etc
+    - can be 0
+  - case doesn't matter: a = 1, A = 1
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to determine if a letter in in its alphabet position
+  - way to keep count number of such letters
+
+- start: array of strings
+  - array of alphabetic characters in order, plus a 0 on the front
+  - array of individual characters in each string
+  - array of characters that are in alphabet position
+  - size of that array
+- finish: array of integers
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters in order
+  - prepend a '0'
+- for each string in the input array
+  - create an empty array: counts
+  - create an array of individual characters in the string
+  - select only those characters that are in their alphabet position
+    - if index of that character in alphabet array equals index in characters array
+  - get the size of this array, and add it to the counts array
+- return the counts array
+=end
+
+# ALPHABET = ('a'..'z').to_a
+
+# def solve(strings)
+#   strings.map do |string|
+#     get_alphabet_position_letters(string)
+#   end
+# end
+
+# def get_alphabet_position_letters(string)
+#   string.chars.select.with_index do |char, index|
+#     ALPHABET.index(char.downcase) == index
+#   end.size
+# end
+
+# p solve(["abode", "ABc", "xyzD"]) == [4, 3, 1]
+# p solve(["abide", "ABc", "xyz"]) == [4, 3, 0]
+# p solve(["IAMDEFANDJKL", "thedefgh", "xyzDEFghijabc"]) == [6, 5, 7]
+# p solve(["encode", "abc", "xyzD", "ABmD"]) == [1, 3, 1, 3]
 
 ### DECODER
 =begin
