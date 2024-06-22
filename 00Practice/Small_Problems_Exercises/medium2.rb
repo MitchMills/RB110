@@ -1,3 +1,122 @@
+### 11 FIBONACCI PATTERn
+=begin
+PROBLEM 12:32
+input: integer
+  - represents a place in the fibonacci series
+- output: integer
+  - last digit of number in that place
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to detect a pattern in last digit
+    - keep adding last digits to an array
+    - compare front and back half of array
+    - stop when they are equal
+
+  - way to use that pattern to quickly determine last digit
+    - get modulo of input integer by that pattern size
+    - return digit at that index
+
+- start: integer
+  - array of all last digits in fibonacci series before it starts to repeat
+  - get modulo of input integer by pattern size
+  - return digit at that index from last digits array
+- output: integer
+
+ALGORITHM
+Pattern Finder:
+  - create a last_digits array: [1, 1]
+  - set a counter at 3
+  - start a loop
+    - get the last digit of the fibonacci series for counter number
+    - add it to last_digits
+    - increment counter
+    - break if first half of last_digits equals last half
+  - return half of last_digits
+
+Digit Finder
+  - get the modulo of dividing input integer by last_digits.size
+  - return the digit at that index in last_digits
+=end
+
+def fibonacci_last(nth)
+  pattern = pattern_finder
+  place = (nth % pattern_finder.size) - 1
+  pattern[place]
+end
+
+def pattern_finder
+  last_digits = [1, 1]
+  nth = 3
+
+  loop do
+    last_digits << find_last_digit(nth)
+    nth += 1
+    half = last_digits.size / 2
+    break if last_digits.take(half) == last_digits.drop(half)
+  end
+
+  last_digits.take(last_digits.size / 2)
+end
+
+def find_last_digit(nth)
+  (3..nth).inject([1, 1]) do |last_two, _|
+    [last_two.last, last_two.sum].map { |num| num % 10 }
+  end.last
+end
+
+p fibonacci_last(15)        # -> 0  (the 15th Fibonacci number is 610)
+p fibonacci_last(20)        # -> 5 (the 20th Fibonacci number is 6765)
+p fibonacci_last(100)       # -> 5
+p fibonacci_last(100_001)   # -> 1 (this is a 20899 digit number)
+p fibonacci_last(1_000_007) # -> 3 (this is a 208989 digit number)
+p fibonacci_last(123456789) # -> 4
+p fibonacci_last(123_456_789_987_745) # -> 5
+
+### 10 FIBONACCI III
+=begin
+PROBLEM 12:16
+input: integer
+  - represents place in the fibonacci series
+output: integer
+  - final digit of fibonacci number in that place
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to get last digit of a number
+
+- start: integer
+  - last digit of previous two fib numbers
+- finish: integer
+
+ALGORITHM
+- create an array for the previous two fib digits: [1, 1]
+- for every number from 3 up to the input integer
+  - get % 10 of both fib digits
+  - last_two[0], last_two[1] = last_two[1], last_two.sum
+- return the last_two array
+=end
+
+# def fibonacci_last(nth)
+#   last_two = [1, 1]
+#   (3..nth).each do |place|
+#     last_two[0], last_two[1] = last_two[1], last_two.sum
+#     last_two.map! { |num| num % 10 }
+#   end
+#   last_two.last
+# end
+
+# p fibonacci_last(15)        # -> 0  (the 15th Fibonacci number is 610)
+# p fibonacci_last(20)        # -> 5 (the 20th Fibonacci number is 6765)
+# p fibonacci_last(100)       # -> 5 (the 100th Fibonacci number is 354224848179261915075)
+# p fibonacci_last(100_001)   # -> 1 (this is a 20899 digit number)
+# p fibonacci_last(1_000_007) # -> 3 (this is a 208989 digit number)
+# p fibonacci_last(123456789) # -> 4
+
 ### 9 FIBONACCI II
 =begin
 PROBLEM 7:44
@@ -28,18 +147,18 @@ ALGORITHM
 - return the last element of `last_two`
 =end
 
-def fibonacci(nth)
-  return 1 if nth <= 2
-  last_two = [1, 1]
-  (3..nth).each do |_|
-    last_two[0], last_two[1] = last_two[1], (last_two[0] + last_two[1])
-  end
-  last_two.last
-end
+# def fibonacci(nth)
+#   return 1 if nth <= 2
+#   last_two = [1, 1]
+#   (3..nth).each do |_|
+#     last_two[0], last_two[1] = last_two[1], (last_two[0] + last_two[1])
+#   end
+#   last_two.last
+# end
 
-p fibonacci(20) == 6765
-p fibonacci(100) == 354224848179261915075
-p fibonacci(100_001) # => 4202692702.....8285979669707537501
+# p fibonacci(20) == 6765
+# p fibonacci(100) == 354224848179261915075
+# p fibonacci(100_001) # => 4202692702.....8285979669707537501
 
 
 ### 8 FIBONACCI I
