@@ -1,18 +1,21 @@
-ALPHABET = ('a'..'z').to_a
+# def fibonacci(nth)
+#   return 1 if nth <= 2
+#   last_two = [1, 1]
+#   (3..nth).each do |_|
+#     last_two[0], last_two[1] = last_two[1], (last_two[0] + last_two[1])
+#   end
+#   last_two.last
+# end
 
-def solve(strings)
-  strings.map do |string|
-    get_alphabet_position_letters(string)
-  end
+def fibonacci(nth)
+  (3..nth).each_with_object([1, 1]) do |_, last_two|
+    last_two[0], last_two[1] = last_two[1], (last_two[0] + last_two[1])
+  end.last
 end
 
-def get_alphabet_position_letters(string)
-  string.chars.select.with_index do |char, index|
-    ALPHABET.index(char.downcase) == index
-  end.size
-end
-
-p solve(["abode", "ABc", "xyzD"]) == [4, 3, 1]
-p solve(["abide", "ABc", "xyz"]) == [4, 3, 0]
-p solve(["IAMDEFANDJKL", "thedefgh", "xyzDEFghijabc"]) == [6, 5, 7]
-p solve(["encode", "abc", "xyzD", "ABmD"]) == [1, 3, 1, 3]
+p fibonacci(1) == 1
+p fibonacci(2) == 1
+p fibonacci(3) == 2
+p fibonacci(20) == 6765
+p fibonacci(100) == 354224848179261915075
+# p fibonacci(100_001) # => 4202692702.....8285979669707537501

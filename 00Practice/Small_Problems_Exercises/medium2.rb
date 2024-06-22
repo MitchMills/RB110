@@ -1,3 +1,61 @@
+### 9 FIBONACCI II
+=begin
+PROBLEM 7:44
+input: integer
+
+output: integer
+  - if input integer <= 2, return 1
+  - else sum of previous two numbers in series
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to keep track of last two numbers in series
+  - way to keep track of current place in series
+
+- start: integer
+  - array of last two numbers in series
+    - starts at [1, 1] for place 3
+- finish: integer
+
+ALGORITHM
+- return 1 if input integer is <= 2
+- create an array, `last_two`, to hold last two numbers: [1, 1]
+- create a range from 3 up to input integer
+  - for each iteration
+    - last_two[0], last_two[1] = last_two[1], (last_two[0] + last_two[1])
+- return the last element of `last_two`
+=end
+
+def fibonacci(nth)
+  return 1 if nth <= 2
+  last_two = [1, 1]
+  (3..nth).each do |_|
+    last_two[0], last_two[1] = last_two[1], (last_two[0] + last_two[1])
+  end
+  last_two.last
+end
+
+p fibonacci(20) == 6765
+p fibonacci(100) == 354224848179261915075
+p fibonacci(100_001) # => 4202692702.....8285979669707537501
+
+
+### 8 FIBONACCI I
+# def fibonacci(nth)
+#   return 1 if nth <= 2
+#   fibonacci(nth - 1) + fibonacci(nth - 2)
+# end
+
+# p fibonacci(1) == 1
+# p fibonacci(2) == 1
+# p fibonacci(3) == 2
+# p fibonacci(4) == 3
+# p fibonacci(5) == 5
+# p fibonacci(12) == 144
+# p fibonacci(20) == 6765
+
 ### LETTER POSITIONS
 =begin
 Consider the word "abode".
