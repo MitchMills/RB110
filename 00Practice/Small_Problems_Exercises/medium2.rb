@@ -1,4 +1,65 @@
-### 11 FIBONACCI PATTERn
+
+
+
+### 1 BLOCKS
+=begin
+A collection of spelling blocks has two letters per block, as shown in this list:
+
+B:O   X:K   D:Q   C:P   N:A
+G:T   R:E   F:S   J:W   H:U
+V:I   L:Y   Z:M
+
+This limits the words you can spell with the blocks to just those words that do not use both letters from any given block. Each letter in each block can only be used once.
+
+Write a method that returns true if the word passed in as an argument can be spelled from this set of blocks, false otherwise.
+
+PROBLEM 4:39
+input: string
+
+output: boolean
+  - true if string can be made using the blocks
+    - only one of each letter pair can be used in the string
+    - case doesn't matter
+  - false otherwise
+
+B:O   X:K   D:Q   C:P   N:A
+G:T   R:E   F:S   J:W   H:U
+V:I   L:Y   Z:M
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to enforce using only one of a given pair
+
+- start: string 'BATCH'
+  - array of 'blocks' [BO XK DQ . . .]
+    - each block is a string with two letters
+  - array of counts of how many times a block is used
+    - if current input string letter is on a particular block
+- end: boolean
+
+ALGORITHM
+- create an array of 'blocks'
+  - each element is a two-character string
+- for each block in array
+  - for each character in that block
+    - count how many times it appears in the upcased string
+  - return false if the count is > 1
+- return true otherwise
+=end
+
+# BLOCKS = %w(BO XK DQ CP NA GT RE FS JW HU VI LY ZM)
+
+# def block_word?(word)
+#   BLOCKS.all? { |block| word.upcase.count(block) < 2 }
+# end
+
+# p block_word?('BATCH') == true
+# p block_word?('BUTCH') == false
+# p block_word?('jest') == true
+
+### 11 FIBONACCI PATTERN
 =begin
 PROBLEM 12:32
 input: integer
@@ -41,39 +102,39 @@ Digit Finder
   - return the digit at that index in last_digits
 =end
 
-def fibonacci_last(nth)
-  pattern = pattern_finder
-  place = (nth % pattern_finder.size) - 1
-  pattern[place]
-end
+# def fibonacci_last(nth)
+#   pattern = pattern_finder
+#   place = (nth % pattern_finder.size) - 1
+#   pattern[place]
+# end
 
-def pattern_finder
-  last_digits = [1, 1]
-  nth = 3
+# def pattern_finder
+#   last_digits = [1, 1]
+#   nth = 3
 
-  loop do
-    last_digits << find_last_digit(nth)
-    nth += 1
-    half = last_digits.size / 2
-    break if last_digits.take(half) == last_digits.drop(half)
-  end
+#   loop do
+#     last_digits << find_last_digit(nth)
+#     nth += 1
+#     half = last_digits.size / 2
+#     break if last_digits.take(half) == last_digits.drop(half)
+#   end
 
-  last_digits.take(last_digits.size / 2)
-end
+#   last_digits.take(last_digits.size / 2)
+# end
 
-def find_last_digit(nth)
-  (3..nth).inject([1, 1]) do |last_two, _|
-    [last_two.last, last_two.sum].map { |num| num % 10 }
-  end.last
-end
+# def find_last_digit(nth)
+#   (3..nth).inject([1, 1]) do |last_two, _|
+#     [last_two.last, last_two.sum].map { |num| num % 10 }
+#   end.last
+# end
 
-p fibonacci_last(15)        # -> 0  (the 15th Fibonacci number is 610)
-p fibonacci_last(20)        # -> 5 (the 20th Fibonacci number is 6765)
-p fibonacci_last(100)       # -> 5
-p fibonacci_last(100_001)   # -> 1 (this is a 20899 digit number)
-p fibonacci_last(1_000_007) # -> 3 (this is a 208989 digit number)
-p fibonacci_last(123456789) # -> 4
-p fibonacci_last(123_456_789_987_745) # -> 5
+# p fibonacci_last(15)        # -> 0  (the 15th Fibonacci number is 610)
+# p fibonacci_last(20)        # -> 5 (the 20th Fibonacci number is 6765)
+# p fibonacci_last(100)       # -> 5
+# p fibonacci_last(100_001)   # -> 1 (this is a 20899 digit number)
+# p fibonacci_last(1_000_007) # -> 3 (this is a 208989 digit number)
+# p fibonacci_last(123456789) # -> 4
+# p fibonacci_last(123_456_789_987_745) # -> 5
 
 ### 10 FIBONACCI III
 =begin
