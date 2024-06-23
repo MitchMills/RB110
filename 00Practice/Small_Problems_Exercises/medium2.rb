@@ -1,5 +1,170 @@
-### 4
+### 5 TRIANGLE SIDES
+=begin
+A triangle is classified as follows:
 
+    equilateral: All 3 sides are of equal length
+    isosceles: 2 sides are of equal length, while the 3rd is different
+    scalene: All 3 sides are of different length
+
+To be a valid triangle, the sum of the lengths of the two shortest sides must be greater than the length of the longest side, and all sides must have lengths greater than 0: if either of these conditions is not satisfied, the triangle is invalid.
+
+Write a method that takes the lengths of the 3 sides of a triangle as arguments, and returns a symbol :equilateral, :isosceles, :scalene, or :invalid depending on whether the triangle is equilateral, isosceles, scalene, or invalid.
+
+PROBLEM 1:38
+input: 3 integers
+  - represent lengths of three sides of a potential triangle
+  - can be 0
+  - assume all will be either 0 or positive
+output: symbol
+  - either:
+    - type of triangle: equilateral, isosceles, scalene
+      - equilateral: all three sides are the same length
+      - isosceles: two sides are equal lengths, one side is different
+      - scales: no sides are of equal length
+  - or:
+    - invalid:
+      - sum of lengths of 2 shortest sides is less than length of longest side
+        OR
+        - length of any side is not > 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine validity
+    - way to determine two shortest sides
+  - if valid, way to determine type
+    - way to compare all sides and determine if 0 or 2 or 3 lengths are equal
+
+- start: 3 integers
+  - sorted array of the 3 integers
+- end: symbol
+
+ALGORITHM
+- determine if valid
+  - create an array of all 3 sides, and sort it, smallest to largest
+  - return :invalid unless first element is > 0
+  - return :invalid unless first element + second element > third element
+- determine type
+  - get count of how many sides equal the first element
+  - if 1, then return :scales
+  - if 2, then return :isoscales
+  - if 3, then return equilateral
+
+=end
+
+# def triangle(side1, side2, side3)
+#   sides = [side1, side2, side3].sort
+#   return :invalid unless valid_triangle?(sides)
+#   triangle_type(sides)
+# end
+
+# def valid_triangle?(sides)
+#   sides[0] > 0 && sides[0, 2].sum > sides.last
+# end
+
+# def triangle_type(sides)
+#   equal_sides = get_equal_sides(sides)
+
+#   case equal_sides.max
+#   when 1 then :scalene
+#   when 2 then :isoscales
+#   when 3 then :equilateral
+#   end
+# end
+
+# def get_equal_sides(sides)
+#   sides.map do |side1|
+#     count = 0
+#     sides.each do |side2|
+#       count += 1 if side1 == side2
+#     end
+#     count
+#   end
+# end
+
+###
+def triangle(side1, side2, side3)
+  sides = [side1, side2, side3].sort
+  return :invalid unless sides[0, 2].sum > sides.last
+
+  case sides.uniq.size
+  when 1 then :equilateral
+  when 2 then :isosceles
+  when 3 then :scalene
+  end
+end
+
+p triangle(3, 3, 3) #== :equilateral
+p triangle(3, 3, 1.5) #== :isosceles
+p triangle(3, 4, 5) #== :scalene
+p triangle(0, 3, 3) #== :invalid
+p triangle(3, 1, 1) #== :invalid
+
+### 4 PARENTHESES
+=begin
+Write a method that takes a string as an argument, and returns true if all parentheses in the string are properly balanced, false otherwise. To be properly balanced, parentheses must occur in matching '(' and ')' pairs.
+
+Note that balanced pairs must each start with a (, not a ).
+
+PROBLEM 10:15
+input: string
+
+output: boolean
+  - true if all parentheses in input string are 'balanced'
+    - matching pairs: ( )
+      - must start with a (, not a )
+    - true if no parentheses in input string
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to make sure every ( has a matching )
+  - way to make sure a pair starts with (
+
+- start: string
+  - array of individual character in input string
+  - counter to track matching status
+    - +1 if ( is encountered
+    - -1 if ) is encountered
+- end: boolean
+  - true if counter equals zero at end
+  - false if counter is ever less than 0
+  - false if counter does not equal 0 at end
+
+ALGORITHM
+- create a counter variable and set it to 0
+- for every character in the input string
+  - if it is a '(', add 1 to the counter
+  - if it is a ')', subtract 1 from the counter
+  - return `false` if counter is < 0
+  - otherwise go to next character
+- return true if counter == 0
+- return false otherwise
+
+=end
+
+# def balanced?(string)
+#   balance = 0
+#   string.each_char do |char|
+#     next unless ['(', ')'].include?(char)
+#     balance += (char == '(' ? 1 : -1)
+#     break if balance < 0
+#   end
+#   balance.zero?
+# end
+
+# p balanced?('What (is) this?') #== true
+# p balanced?('What is) this?') == false
+# p balanced?('What (is this?') == false
+# p balanced?('((What) (is this))?') == true
+# p balanced?('((What)) (is this))?') == false
+# p balanced?('Hey!') == true
+# p balanced?(')Hey!(') == false
+# p balanced?('What ((is))) up(') == false
+# p balanced?('What ())(is() up') == false
 
 ### 3 LETTERCASE %
 =begin
