@@ -1,7 +1,87 @@
+### 4
 
 
+### 3 LETTERCASE %
+=begin
+Write a method that takes a string, and then returns a hash that contains 3 entries: one represents the percentage of characters in the string that are lowercase letters, one the percentage of characters that are uppercase letters, and one the percentage of characters that are neither.
 
-### 1 BLOCKS
+You may assume that the string will always contain at least one character.
+
+PROBLEM 6:38
+input: string
+  - may contain uppercase, lowercase, and non-letter characters
+  - will always contain at least one character
+output: hash
+  - keys are symbols
+    - :lowercase, :uppercase, :neither
+  - values are floats
+    - percentages of that type of character in input string
+    - formatted / rounded to 1 decimal place
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to distinguish different types of characters
+  - way to keep count of each type
+  - way to determine percentage
+  - way to correctly format percentage
+
+- start: string
+  - array of all uppercase letters
+  - array of all lowercase letters
+  - empty hash with default value of 0
+  - array of individual characters in input string
+- end: hash
+
+ALGORITHM
+- get the occurrences of each type in the input string
+  - create two arrays of all alphabetic characters: uppercase and lowercase
+  - create an empty hash with a default value of 0: counts
+  - for each character in the input string
+    - if it is included in the uppercase array
+      - increment counts[:uppercase]
+    - if it is included in the lowercase array
+      - increment counts[:lowercase]
+    - otherwise
+      - increment counts[:neither]
+- convert counts to percentages
+  - for each value in the counts hash
+    - divide by the length of the input string (result should be float)
+    - round to one decimal place
+=end
+
+# def letter_percentages(string)
+#   types = %i(lowercase uppercase neither)
+#   selectors = %w(a-z A-Z ^A-Za-z)
+#   percentages = types.zip(selectors).to_h
+
+#   # percentages.map do |type, selector|
+#   #   [type, (string.count(selector).fdiv(string.size) * 100).round(1)]
+#   # end.to_h
+
+#   percentages.transform_values do |selector|
+#     (string.count(selector).fdiv(string.size) * 100).round(1)
+#   end
+# end
+
+###
+# def letter_percentages(string)
+#   percentages = { lowercase: 'a-z', uppercase: 'A-Z', neither: '^A-Za-z' }
+#   percentages.transform_values { |selector| percentage(string, selector) }
+# end
+
+# def percentage(string, selector)
+#   (string.count(selector).fdiv(string.size) * 100).round(1)
+# end
+
+# p letter_percentages('abCdef 123') == { lowercase: 50.0, uppercase: 10.0, neither: 40.0 }
+# p letter_percentages('AbCd +Ef') == { lowercase: 37.5, uppercase: 37.5, neither: 25.0 }
+# p letter_percentages('123') == { lowercase: 0.0, uppercase: 0.0, neither: 100.0 }
+# p letter_percentages('abcdefGHI') == {:lowercase=>66.7, :uppercase=>33.3, :neither=>0.0}
+
+
+### 2 BLOCKS
 =begin
 A collection of spelling blocks has two letters per block, as shown in this list:
 
