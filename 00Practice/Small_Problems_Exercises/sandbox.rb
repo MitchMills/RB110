@@ -7,20 +7,27 @@ def valid_triangle?(sides)
   sides.min(2).sum > sides.max
 end
 
-def triangle_type(sides)
-  number_of_equal_sides = sides.count(sides.first)
-  case number_of_equal_sides
-  when 3 then :equilateral
-  when 2 then :isosceles
-  when 1 then :scalene
-  end
-end
+# def triangle_type(sides)
+#   # number_of_equal_sides = sides.count(sides.first)
+#   number_of_equal_sides = sides.tally.values.max
+#   case number_of_equal_sides
+#   when 3 then :equilateral
+#   when 2 then :isosceles
+#   when 1 then :scalene
+#   end
+# end
+
+# def triangle_type(sides)
+#   types = %i(isosceles scalene equilateral)
+#   number_of_equal_sides = sides.count(sides.first)
+#   index = 2 <=> number_of_equal_sides
+#   types[index]
+# end
 
 def triangle_type(sides)
-  types = %i(isosceles scalene equilateral)
+  types = %i(zero scalene isosceles equilateral)
   number_of_equal_sides = sides.count(sides.first)
-  index = 2 <=> number_of_equal_sides
-  types[index]
+  types[number_of_equal_sides]
 end
 
 p triangle(3, 3, 3) == :equilateral
