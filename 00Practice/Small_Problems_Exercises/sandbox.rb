@@ -1,11 +1,11 @@
-def triangle(side1, side2, side3)
-  sides = [side1, side2, side3]
-  valid_triangle?(sides) ? triangle_type(sides) : :invalid
-end
+# def triangle(side1, side2, side3)
+#   sides = [side1, side2, side3]
+#   valid_triangle?(sides) ? triangle_type(sides) : :invalid
+# end
 
-def valid_triangle?(sides)
-  sides.min(2).sum > sides.max
-end
+# def valid_triangle?(sides)
+#   sides.min(2).sum > sides.max
+# end
 
 # def triangle_type(sides)
 #   # number_of_equal_sides = sides.count(sides.first)
@@ -24,11 +24,11 @@ end
 #   types[index]
 # end
 
-def triangle_type(sides)
-  types = %i(zero scalene isosceles equilateral)
-  number_of_equal_sides = sides.count(sides.first)
-  types[number_of_equal_sides]
-end
+# def triangle_type(sides)
+#   types = %i(zero scalene isosceles equilateral)
+#   number_of_equal_sides = sides.count(sides.first)
+#   types[number_of_equal_sides]
+# end
 
 p triangle(3, 3, 3) == :equilateral
 p triangle(3, 3, 1.5) == :isosceles

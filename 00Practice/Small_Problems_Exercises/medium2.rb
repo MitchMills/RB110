@@ -54,52 +54,42 @@ ALGORITHM
 =end
 
 # def triangle(side1, side2, side3)
-#   sides = [side1, side2, side3].sort
-#   return :invalid unless valid_triangle?(sides)
-#   triangle_type(sides)
+#   sides = [side1, side2, side3]
+#   valid_triangle?(sides) ? triangle_type(sides) : :invalid
 # end
 
 # def valid_triangle?(sides)
-#   sides[0] > 0 && sides[0, 2].sum > sides.last
+#   sides.min(2).sum > sides.max
 # end
 
 # def triangle_type(sides)
-#   equal_sides = get_equal_sides(sides)
-
-#   case equal_sides.max
-#   when 1 then :scalene
-#   when 2 then :isoscales
+#   # number_of_equal_sides = sides.count(sides.first)
+#   number_of_equal_sides = sides.tally.values.max
+#   case number_of_equal_sides
 #   when 3 then :equilateral
+#   when 2 then :isosceles
+#   when 1 then :scalene
 #   end
 # end
 
-# def get_equal_sides(sides)
-#   sides.map do |side1|
-#     count = 0
-#     sides.each do |side2|
-#       count += 1 if side1 == side2
-#     end
-#     count
-#   end
+# def triangle_type(sides)
+#   types = %i(isosceles scalene equilateral)
+#   number_of_equal_sides = sides.count(sides.first)
+#   index = 2 <=> number_of_equal_sides
+#   types[index]
 # end
 
-###
-def triangle(side1, side2, side3)
-  sides = [side1, side2, side3].sort
-  return :invalid unless sides[0, 2].sum > sides.last
+# def triangle_type(sides)
+#   types = %i(zero scalene isosceles equilateral)
+#   number_of_equal_sides = sides.count(sides.first)
+#   types[number_of_equal_sides]
+# end
 
-  case sides.uniq.size
-  when 1 then :equilateral
-  when 2 then :isosceles
-  when 3 then :scalene
-  end
-end
-
-p triangle(3, 3, 3) #== :equilateral
-p triangle(3, 3, 1.5) #== :isosceles
-p triangle(3, 4, 5) #== :scalene
-p triangle(0, 3, 3) #== :invalid
-p triangle(3, 1, 1) #== :invalid
+# p triangle(3, 3, 3) #== :equilateral
+# p triangle(3, 3, 1.5) #== :isosceles
+# p triangle(3, 4, 5) #== :scalene
+# p triangle(0, 3, 3) #== :invalid
+# p triangle(3, 1, 1) #== :invalid
 
 ### 4 PARENTHESES
 =begin
