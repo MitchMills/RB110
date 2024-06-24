@@ -1,27 +1,52 @@
-# def friday_13th(year)
-#   (1..12).count { |month| Time.new(year, month, 13).friday? }
+require 'benchmark'
+
+MAX_FEATURED_NUMBER = 9_876_543_201
+
+def featured(number)
+  return no_solution_message if number >= MAX_FEATURED_NUMBER
+  next_featured_number(number)
+end
+
+def no_solution_message
+  'There is no possible number that fulfills those requirements'
+end
+
+def next_featured_number(number)
+  start = find_next_odd_multiple_of_seven(number + 1)
+  (start..MAX_FEATURED_NUMBER).step(14).find { |num| unique_digits?(num) }
+end
+
+def find_next_odd_multiple_of_seven(number)
+  number += number.odd? ? 0 : 1
+  (number..(number + 14)).step(2).find { |num| num % 7 == 0 }
+end
+
+def unique_digits?(number)
+  seen_digits = Array.new(10, false)
+  loop do
+    number, current_digit = number.divmod(10)
+    return false if seen_digits[current_digit]
+    seen_digits[current_digit] = true
+    break if number == 0
+  end
+  true
+end
+
+# def unique_digits?(number)
+#   number.digits.uniq == number.digits
 # end
 
-# p friday_13th(2015) == 3
-# p friday_13th(1986) == 1
-# p friday_13th(2019) == 2
+# def unique_digits?(number)
+#   number.to_s.chars.uniq == number.to_s.chars
+# end
 
-require 'date'
+# p featured(12) == 21
+# p featured(20) == 21
+# p featured(21) == 35
+# p featured(997) == 1029
+# p featured(1029) == 1043
+# p featured(999_999) == 1_023_547
+# p featured(9_999_999_999)
+# p featured(999_999_987) == 1_023_456_987
 
-def five_friday_months(year)
-  (1..12).count { |month| fridays_in_month(year, month) == 5 }
-end
-
-def fridays_in_month(year, month)
-  first_friday = get_first_friday(year, month)
-  (first_friday..31).step(7).count { |day| Date.valid_date?(year, month, day) }
-end
-
-def get_first_friday(year, month)
-  (1..7).find { |day| Date.new(year, month, day).friday? }
-end
-
-p five_friday_months(2015) == 4
-p five_friday_months(1986) == 4
-p five_friday_months(2019) == 4
-p five_friday_months(2021) == 5
+puts Benchmark.measure { featured(999_999_987) }

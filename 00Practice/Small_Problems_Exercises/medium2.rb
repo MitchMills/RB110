@@ -1,5 +1,72 @@
+### 8 FEATURED NUMBERS
+=begin
+A featured number (something unique to this exercise) is an odd number that is a multiple of 7, and whose digits occur exactly once each. So, for example, 49 is a featured number, but 98 is not (it is not odd), 97 is not (it is not a multiple of 7), and 133 is not (the digit 3 appears twice).
 
+Write a method that takes a single integer as an argument, and returns the next featured number that is greater than the argument. Return an error message if there is no next featured number.
 
+PROBLEM 12:24
+input: integer
+
+output: integer, or string
+  - integer: next 'featured' number greater than input integer
+    - odd
+    - multiple of 7
+    - no duplicate digits
+  - string: 'There is no possible number that fulfills those requirements'
+    - if no greater featured number
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - maximum featured number
+    - last odd multiple of 7 before 9_876_543_210 with no duplicate digits
+  - way to count up from input integer to next featured number
+  - way to determine if a number is featured
+
+- start: integer
+  - ranger from input integer up to max featured number
+- end: integer or error message
+
+ALGORITHM
+- return error message if input integer is >= max featured number
+- create a constant for the max featured number
+- create a range from input integer up to max featured number
+- return the first number from the range that is a featured number
+- if no number found, return error message
+=end
+
+MAX_FEATURED_NUMBER = 9_876_543_201
+
+def featured(number)
+  return error_message if number >= MAX_FEATURED_NUMBER
+  start = find_next_odd_multiple_of_7(number + 1)
+
+  (start..MAX_FEATURED_NUMBER).step(14).find { |num| unique_digits?(num) }
+end
+
+def error_message
+  'There is no possible number that fulfills those requirements'
+end
+
+def find_next_odd_multiple_of_7(number)
+  number += number.odd? ? 0 : 1
+  (number..(number + 14)).step(2).find { |num| num % 7 == 0 }
+end
+
+def unique_digits?(num)
+  num.digits.uniq == num.digits
+end
+
+p featured(12) == 21
+p featured(20) == 21
+p featured(21) == 35
+p featured(997) == 1029
+p featured(1029) == 1043
+p featured(999_999) == 1_023_547
+p featured(999_999_987) == 1_023_456_987
+
+p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
 
 ### 7FE FIVE FRIDAYS
 =begin
