@@ -1,3 +1,6 @@
+
+
+
 ### 7FE FIVE FRIDAYS
 =begin
 An interesting variation on this problem is to count the number of months that have five Fridays. This one is harder than it sounds since you must account for leap years.
@@ -35,24 +38,41 @@ ALGORITHM
 - select the month if the array of Fridays == 5
 - return the size of the 5-Friday months array
 =end
-require 'date'
+# require 'date'
 
-def five_friday_months(year)
-  (1..12).select { |month| valid_fridays(year, month) == 5 }.size
-end
+# def five_friday_months(year)
+#   (1..12).count { |month| fridays_in_month(year, month) == 5 }
+# end
 
-def valid_fridays(year, month)
-  (1..31).select { |day| valid_friday?(year, month, day) }.size
-end
+# def fridays_in_month(year, month)
+#   (1..31).count { |day| valid_friday?(year, month, day) }
+# end
 
-def valid_friday?(year, month, day)
-  Date.valid_date?(year, month, day) && Date.new(year, month, day).friday?
-end
+# def valid_friday?(year, month, day)
+#   Date.valid_date?(year, month, day) && Date.new(year, month, day).friday?
+# end
 
-p five_friday_months(2015) == 4
-p five_friday_months(1986) == 4
-p five_friday_months(2019) == 4
-p five_friday_months(2021) == 5
+###
+# require 'date'
+
+# def five_friday_months(year)
+#   (1..12).count { |month| fridays_in_month(year, month) == 5 }
+# end
+
+# def fridays_in_month(year, month)
+#   first_friday = get_first_friday(year, month)
+#   (first_friday..31).step(7).count { |day| Date.valid_date?(year, month, day) }
+# end
+
+# def get_first_friday(year, month)
+#   (1..7).find { |day| Date.new(year, month, day).friday? }
+# end
+###
+
+# p five_friday_months(2015) == 4
+# p five_friday_months(1986) == 4
+# p five_friday_months(2019) == 4
+# p five_friday_months(2021) == 5
 
 ### 7 UNLUCKY DAYS
 =begin
@@ -83,10 +103,9 @@ ALGORITHM
   - increment counter if that day is a Friday
 - return the counter
 =end
-# require 'date'
 
 # def friday_13th(year)
-#   (1..12).select { |month| Date.new(year, month, 13).friday? }.size
+#   (1..12).count { |month| Time.new(year, month, 13).friday? }
 # end
 
 # p friday_13th(2015) == 3
