@@ -1,3 +1,83 @@
+### 6 TRI-ANGLES
+=begin
+A triangle is classified as follows:
+
+    right: One angle of the triangle is a right angle (90 degrees)
+    acute: All 3 angles of the triangle are less than 90 degrees
+    obtuse: One angle is greater than 90 degrees.
+
+To be a valid triangle, the sum of the angles must be exactly 180 degrees, and all angles must be greater than 0: if either of these conditions is not satisfied, the triangle is invalid.
+
+Write a method that takes the 3 angles of a triangle as arguments, and returns a symbol :right, :acute, :obtuse, or :invalid depending on whether the triangle is a right, acute, obtuse, or invalid triangle.
+
+You may assume integer valued angles so you don't have to worry about floating point errors. You may also assume that the arguments are specified in degrees.
+
+PROBLEM 7:16
+input: 3 integers
+  - represent the angles, in degrees, of a potential triangle
+
+output: symbol
+  - represent:
+    - whether its a valid triangle:
+      - sum of angles must == 180 AND
+      - all angles must be > 0
+      - if not valid, return :invalid
+    - if valid, return type of triangle:
+      - right: one angle is 90
+      - acute: all angles < 90
+      - obtuse: one angle is > 90
+
+EXAMPLES
+
+DATA STRUCTURES
+- needs:
+  - way to determine if triangle is valid
+    - sum of angles == 180
+    - all angles > 0
+  - way to determine type of triangle
+    - largest angle
+
+- start: 3 integers
+  - sum of angles
+  - smallest angle
+  - largest angle
+- end: symbol
+
+[:right, :obtuse, :acute]
+
+ALGORITHM
+- determine whether valid triangle
+  - return :invalid unless:
+    - sum of all angles == 180
+    - smallest angle > 0
+- determine type of triangle
+  - compare largest angle to 90
+    - if less than, :acute
+    - if equal to, :right
+    - if greater than, :obtuse
+=end
+
+def triangle(angle1, angle2, angle3)
+  angles = [angle1, angle2, angle3]
+  valid_triangle?(angles) ? type_of_triangle(angles) : :invalid
+end
+
+def valid_triangle?(angles)
+  angles.sum == 180 && angles.min > 0
+end
+
+def type_of_triangle(angles)
+  types = [:right, :obtuse, :acute]
+  index = angles.max <=> 90
+  types[index]
+end
+
+p triangle(60, 70, 50) == :acute
+p triangle(30, 90, 60) == :right
+p triangle(120, 50, 10) == :obtuse
+p triangle(0, 90, 90) == :invalid
+p triangle(50, 50, 50) == :invalid
+
 ### 5 TRIANGLE SIDES
 =begin
 A triangle is classified as follows:
@@ -49,11 +129,7 @@ ALGORITHM
   - get count of how many sides equal the first element
   - if 1, then return :scales
   - if 2, then return :isoscales
-  - if 3, then return equilateral
-
-=end
-
-# def triangle(side1, side2, side3)
+  - if 3, th# def triangle(side1, side2, side3)
 #   sides = [side1, side2, side3]
 #   valid_triangle?(sides) ? triangle_type(sides) : :invalid
 # end
@@ -63,7 +139,6 @@ ALGORITHM
 # end
 
 # def triangle_type(sides)
-#   # number_of_equal_sides = sides.count(sides.first)
 #   number_of_equal_sides = sides.tally.values.max
 #   case number_of_equal_sides
 #   when 3 then :equilateral
@@ -74,22 +149,23 @@ ALGORITHM
 
 # def triangle_type(sides)
 #   types = %i(isosceles scalene equilateral)
-#   number_of_equal_sides = sides.count(sides.first)
+#   number_of_equal_sides = sides.tally.values.max
 #   index = 2 <=> number_of_equal_sides
 #   types[index]
 # end
 
 # def triangle_type(sides)
 #   types = %i(zero scalene isosceles equilateral)
-#   number_of_equal_sides = sides.count(sides.first)
+#   number_of_equal_sides = sides.tally.values.max
 #   types[number_of_equal_sides]
 # end
 
-# p triangle(3, 3, 3) #== :equilateral
-# p triangle(3, 3, 1.5) #== :isosceles
-# p triangle(3, 4, 5) #== :scalene
-# p triangle(0, 3, 3) #== :invalid
-# p triangle(3, 1, 1) #== :invalid
+# p triangle(3, 3, 3) == :equilateral
+# p triangle(3, 3, 1.5) == :isosceles
+# p triangle(3, 4, 4) == :isosceles
+# p triangle(3, 4, 5) == :scalene
+# p triangle(0, 3, 3) == :invalid
+# p triangle(3, 1, 1) == :invalid
 
 ### 4 PARENTHESES
 =begin

@@ -1,37 +1,20 @@
-# def triangle(side1, side2, side3)
-#   sides = [side1, side2, side3]
-#   valid_triangle?(sides) ? triangle_type(sides) : :invalid
-# end
+def triangle(angle1, angle2, angle3)
+  angles = [angle1, angle2, angle3]
+  valid_triangle?(angles) ? type_of_triangle(angles) : :invalid
+end
 
-# def valid_triangle?(sides)
-#   sides.min(2).sum > sides.max
-# end
+def valid_triangle?(angles)
+  angles.sum == 180 && angles.min > 0
+end
 
-# def triangle_type(sides)
-#   # number_of_equal_sides = sides.count(sides.first)
-#   number_of_equal_sides = sides.tally.values.max
-#   case number_of_equal_sides
-#   when 3 then :equilateral
-#   when 2 then :isosceles
-#   when 1 then :scalene
-#   end
-# end
+def type_of_triangle(angles)
+  types = [:right, :obtuse, :acute]
+  index = angles.max <=> 90
+  types[index]
+end
 
-# def triangle_type(sides)
-#   types = %i(isosceles scalene equilateral)
-#   number_of_equal_sides = sides.count(sides.first)
-#   index = 2 <=> number_of_equal_sides
-#   types[index]
-# end
-
-# def triangle_type(sides)
-#   types = %i(zero scalene isosceles equilateral)
-#   number_of_equal_sides = sides.count(sides.first)
-#   types[number_of_equal_sides]
-# end
-
-p triangle(3, 3, 3) == :equilateral
-p triangle(3, 3, 1.5) == :isosceles
-p triangle(3, 4, 5) == :scalene
-p triangle(0, 3, 3) == :invalid
-p triangle(3, 1, 1) == :invalid
+p triangle(60, 70, 50) == :acute
+p triangle(30, 90, 60) == :right
+p triangle(120, 50, 10) == :obtuse
+p triangle(0, 90, 90) == :invalid
+p triangle(50, 50, 50) == :invalid
