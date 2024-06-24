@@ -1,3 +1,192 @@
+### 9 BUBBLE SORT
+=begin
+Write a method that takes an Array as an argument, and sorts that Array using the bubble sort algorithm as just described. Note that your sort will be "in-place"; that is, you will mutate the Array passed as an argument. You may assume that the Array contains at least 2 elements.
+
+PROBLEM 4:05
+input: array
+  - elements can be integers, strings (prob any sortable object)
+  - will always contain at least two elements
+output: same array
+  - in sorted order
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to keep track of current pair to compare
+  - way to swap places of elements
+  - way to tell if no swaps have been made
+- start: array
+  - variable to track if a swap has been made this iteration: boolean
+  - variable to track current index
+  - loop
+  - break condition: swaps_made = false
+- end: same array
+
+2 loops:
+  - array loop
+  - comparison loop
+
+ALGORITHM
+- start outer loop (iterate over whole array)
+  - set an index variable to 0
+  - set a variable `swaps_made_this_round` to false
+
+  - start inner loop (compare two elements)
+    - break if index == array.size - 1
+    - compare elements at current index and index + 1
+
+      - if 1st element is less than or equal to 2nd element
+        - increment index
+
+      - elsif 2nd element is greater than 1st element
+        - swap the places of these elements
+        - set swaps_made_this_round to true
+        - increment index
+
+
+
+  - break if `swaps_made_this_round` is false
+
+- return array
+
+=end
+
+# def bubble_sort!(array)
+#   loop do
+#     index = 0
+#     swaps_made_this_round = false
+
+#     loop do
+#       break if index >= array.size - 1
+
+#       if array[index] > array[index + 1]
+#         array[index], array[index + 1] = array[index + 1], array[index]
+#         swaps_made_this_round = true
+#       end
+#       index += 1
+#     end
+
+#     break if swaps_made_this_round == false
+#   end
+
+#   array
+# end
+
+# ###
+# def bubble_sort!(array)
+#   loop do
+#     swaps_made_this_round = false
+#     last_index = array.size - 2
+
+#     (0..last_index).each do |index|
+#       if array[index] > array[index + 1]
+#         array[index], array[index + 1] = array[index + 1], array[index]
+#         swaps_made_this_round = true
+#       end
+#     end
+
+#     break if swaps_made_this_round == false
+#   end
+
+#   array
+# end
+
+# ####
+# def bubble_sort!(array)
+#   offset = 2
+#   loop do
+#     swaps_made_this_round = false
+#     last_index = array.size - offset
+
+#     (0..last_index).each do |index|
+#       if array[index] > array[index + 1]
+#         array[index], array[index + 1] = array[index + 1], array[index]
+#         swaps_made_this_round = true
+#       end
+#     end
+#     offset += 1
+#     break if swaps_made_this_round == false
+#   end
+
+#   array
+# end
+
+####
+# def bubble_sort!(array)
+#   last_index = array.length - 1
+
+#   until last_index == 0
+#     last_swap = 0
+
+#     (0..(last_index - 1)).each do |index|
+#       if array[index] > array[index + 1]
+#         array[index], array[index + 1] = array[index + 1], array[index]
+#         last_swap = index
+#       end
+#     end
+
+#     last_index = last_swap
+#   end
+
+#   array
+# end
+
+###
+# def bubble_sort!(array)
+#   last_index = array.length
+
+#   until last_index == 0
+#     last_swap = 0
+
+#     (1..(last_index - 1)).each do |index|
+#       if array[index - 1] > array[index]
+#         array[index - 1], array[index] = array[index], array[index - 1]
+#         last_swap = index
+#       end
+#     end
+
+#     last_index = last_swap
+#   end
+
+#   array
+# end
+
+###
+# def bubble_sort!(array)
+#   loop until array.each_cons(2).with_index.none?{ |(e1,e2),i| array[i],array[i+1] = e2, e1 if e1 > e2 }
+# end
+
+# def bubble_sort!(array)
+#   until array.each_cons(2).all? { |ele1, ele2| ele2 > ele1 }
+#     array.each_cons(2).with_index do |(ele1, ele2), index|
+#       if ele1 > ele2
+#         array[index], array[index + 1] = array[index + 1], array[index]
+#       end
+#     end
+#   end
+# end
+
+def bubble_sort!(array)
+  until array.each_cons(2).all? { |ele1, ele2| ele2 > ele1 }
+    array.each_cons(2).with_index do |(ele1, ele2), idx|
+      array[idx], array[idx + 1] = array[idx + 1], array[idx] if ele1 > ele2
+    end
+  end
+end
+
+array1 = [5, 3]
+bubble_sort!(array1)
+p array1 == [3, 5]
+
+array2 = [6, 2, 7, 1, 4]
+bubble_sort!(array2)
+p array2 == [1, 2, 4, 6, 7]
+
+array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+bubble_sort!(array3)
+p array3 == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+
 ### 8 FEATURED NUMBERS
 =begin
 A featured number (something unique to this exercise) is an odd number that is a multiple of 7, and whose digits occur exactly once each. So, for example, 49 is a featured number, but 98 is not (it is not odd), 97 is not (it is not a multiple of 7), and 133 is not (the digit 3 appears twice).
@@ -36,37 +225,47 @@ ALGORITHM
 - if no number found, return error message
 =end
 
-MAX_FEATURED_NUMBER = 9_876_543_201
+# MAX_FEATURED_NUMBER = 9_876_543_201
 
-def featured(number)
-  return error_message if number >= MAX_FEATURED_NUMBER
-  start = find_next_odd_multiple_of_7(number + 1)
+# def featured(number)
+#   return no_solution_message if number >= MAX_FEATURED_NUMBER
+#   next_featured_number(number)
+# end
 
-  (start..MAX_FEATURED_NUMBER).step(14).find { |num| unique_digits?(num) }
-end
+# def no_solution_message
+#   'There is no possible number that fulfills those requirements'
+# end
 
-def error_message
-  'There is no possible number that fulfills those requirements'
-end
+# def next_featured_number(number)
+#   start = find_next_odd_multiple_of_seven(number + 1)
+#   (start..MAX_FEATURED_NUMBER).step(14).find { |num| unique_digits?(num) }
+# end
 
-def find_next_odd_multiple_of_7(number)
-  number += number.odd? ? 0 : 1
-  (number..(number + 14)).step(2).find { |num| num % 7 == 0 }
-end
+# def find_next_odd_multiple_of_seven(number)
+#   number += number.odd? ? 0 : 1
+#   (number..(number + 14)).step(2).find { |num| num % 7 == 0 }
+# end
 
-def unique_digits?(num)
-  num.digits.uniq == num.digits
-end
+# def unique_digits?(number)
+#   seen_digits = Array.new(10, false)
+#   loop do
+#     number, current_digit = number.divmod(10)
+#     return false if seen_digits[current_digit]
+#     seen_digits[current_digit] = true
+#     break if number == 0
+#   end
+#   true
+# end
 
-p featured(12) == 21
-p featured(20) == 21
-p featured(21) == 35
-p featured(997) == 1029
-p featured(1029) == 1043
-p featured(999_999) == 1_023_547
-p featured(999_999_987) == 1_023_456_987
+# p featured(12) == 21
+# p featured(20) == 21
+# p featured(21) == 35
+# p featured(997) == 1029
+# p featured(1029) == 1043
+# p featured(999_999) == 1_023_547
+# p featured(999_999_987) == 1_023_456_987
 
-p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
+# p featured(9_999_999_999) # -> There is no possible number that fulfills those requirements
 
 ### 7FE FIVE FRIDAYS
 =begin
