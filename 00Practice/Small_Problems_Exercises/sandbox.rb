@@ -1,20 +1,26 @@
-def triangle(angle1, angle2, angle3)
-  angles = [angle1, angle2, angle3]
-  valid_triangle?(angles) ? type_of_triangle(angles) : :invalid
+def friday_13th(year)
+  (1..12).count { |month| Time.new(year, month, 13).friday? }
 end
 
-def valid_triangle?(angles)
-  angles.sum == 180 && angles.min > 0
+p friday_13th(2015) == 3
+p friday_13th(1986) == 1
+p friday_13th(2019) == 2
+
+require 'date'
+
+def five_friday_months(year)
+  (1..12).count { |month| fridays_in_month(year, month) == 5 }
 end
 
-def type_of_triangle(angles)
-  types = [:right, :obtuse, :acute]
-  index = angles.max <=> 90
-  types[index]
+def fridays_in_month(year, month)
+  (1..31).count { |day| valid_friday?(year, month, day) }
 end
 
-p triangle(60, 70, 50) == :acute
-p triangle(30, 90, 60) == :right
-p triangle(120, 50, 10) == :obtuse
-p triangle(0, 90, 90) == :invalid
-p triangle(50, 50, 50) == :invalid
+def valid_friday?(year, month, day)
+  Date.valid_date?(year, month, day) && Date.new(year, month, day).friday?
+end
+
+p five_friday_months(2015) == 4
+p five_friday_months(1986) == 4
+p five_friday_months(2019) == 4
+p five_friday_months(2021) == 5

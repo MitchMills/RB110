@@ -1,3 +1,98 @@
+### 7FE FIVE FRIDAYS
+=begin
+An interesting variation on this problem is to count the number of months that have five Fridays. This one is harder than it sounds since you must account for leap years.
+
+PROBLEM 8:17
+input: integer
+  - represents a year
+  - Gregorian calendar (> 1752, assume no future changes)
+output: integer
+  - represents number of months in that year that have 5 fridays
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider every month
+  - way to determine number of fridays in that month
+    - way to find first friday in a given month
+    - way to get all remaining fridays in that month
+  - way to account for leap years
+
+start: integer (year)
+  - range 1 to 12 (months)
+  - range 1 to 7 to find first Friday of that month
+  - range from first Friday date up to 31, stepping by 7
+end: integer (number of 5-friday months)
+
+ALGORITHM
+- require 'date'
+- create a range to represent months, from 1 to 12
+- for each month
+  - consider every number from 1 to 31
+    - convert it into a date
+    - select date if it's a Friday AND a valid date
+- select the month if the array of Fridays == 5
+- return the size of the 5-Friday months array
+=end
+require 'date'
+
+def five_friday_months(year)
+  (1..12).select { |month| valid_fridays(year, month) == 5 }.size
+end
+
+def valid_fridays(year, month)
+  (1..31).select { |day| valid_friday?(year, month, day) }.size
+end
+
+def valid_friday?(year, month, day)
+  Date.valid_date?(year, month, day) && Date.new(year, month, day).friday?
+end
+
+p five_friday_months(2015) == 4
+p five_friday_months(1986) == 4
+p five_friday_months(2019) == 4
+p five_friday_months(2021) == 5
+
+### 7 UNLUCKY DAYS
+=begin
+Write a method that returns the number of Friday the 13ths in the year given by an argument. You may assume that the year is greater than 1752 (when the United Kingdom adopted the modern Gregorian Calendar) and that it will remain in use for the foreseeable future.
+
+PROBLEM 8:03
+input: integer
+  - represents a year
+  - > 1752
+output: integer
+  - represents number of Friday the 13ths in that year
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to examine every month's 13th day
+  - way to determine if that day is a Friday
+
+start: integer (year)
+  - range from 1 to 12 (months)
+end: integer (number of Friday the 13ths)
+
+ALGORITHM
+- create a counter to track number of Friday the 13ths
+- iterate over a range from 1 to 12
+  - for each month, create a new Date object: Date.new(input integer, month, 13)
+  - increment counter if that day is a Friday
+- return the counter
+=end
+# require 'date'
+
+# def friday_13th(year)
+#   (1..12).select { |month| Date.new(year, month, 13).friday? }.size
+# end
+
+# p friday_13th(2015) == 3
+# p friday_13th(1986) == 1
+# p friday_13th(2019) == 2
+
 ### 6 TRI-ANGLES
 =begin
 A triangle is classified as follows:
@@ -57,26 +152,26 @@ ALGORITHM
     - if greater than, :obtuse
 =end
 
-def triangle(angle1, angle2, angle3)
-  angles = [angle1, angle2, angle3]
-  valid_triangle?(angles) ? type_of_triangle(angles) : :invalid
-end
+# def triangle(angle1, angle2, angle3)
+#   angles = [angle1, angle2, angle3]
+#   valid_triangle?(angles) ? type_of_triangle(angles) : :invalid
+# end
 
-def valid_triangle?(angles)
-  angles.sum == 180 && angles.min > 0
-end
+# def valid_triangle?(angles)
+#   angles.sum == 180 && angles.min > 0
+# end
 
-def type_of_triangle(angles)
-  types = [:right, :obtuse, :acute]
-  index = angles.max <=> 90
-  types[index]
-end
+# def type_of_triangle(angles)
+#   types = [:right, :obtuse, :acute]
+#   index = angles.max <=> 90
+#   types[index]
+# end
 
-p triangle(60, 70, 50) == :acute
-p triangle(30, 90, 60) == :right
-p triangle(120, 50, 10) == :obtuse
-p triangle(0, 90, 90) == :invalid
-p triangle(50, 50, 50) == :invalid
+# p triangle(60, 70, 50) == :acute
+# p triangle(30, 90, 60) == :right
+# p triangle(120, 50, 10) == :obtuse
+# p triangle(0, 90, 90) == :invalid
+# p triangle(50, 50, 50) == :invalid
 
 ### 5 TRIANGLE SIDES
 =begin
