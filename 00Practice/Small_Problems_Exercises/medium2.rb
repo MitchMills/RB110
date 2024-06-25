@@ -1,3 +1,142 @@
+### 9.2 BUBBLE SORT AGAIN
+=begin
+Write a method that takes an Array as an argument, and sorts that Array using the bubble sort algorithm as just described. Note that your sort will be "in-place"; that is, you will mutate the Array passed as an argument. You may assume that the Array contains at least 2 elements.
+
+PROBLEM 7:27
+input: array
+  - elements are all the same type (presumably)
+    - integers
+    - strings
+    - presumably any other sortable objects
+output: same array
+  - sorted (smallest to largest) using bubble sort
+    - sorted by making multiple passes through collection
+      - on each pass, each subsequent pair of elements is compared
+        - swapped if element 1 is larger than element 2
+      - once no swaps have been made on a pass, return the array
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider each subsequent pair of elements
+    - way to keep track of place in collection
+  - way to know when to stop iterations and return array
+    - way to keep track of whether a swap was made on a particular round
+
+start: array
+  - outer loop: control number of passes through array
+    - boolean to track whether a swap was made
+  - inner loop: control one pass through the array
+    - range to represent start and stop indexes
+end: same array
+
+ALGORITHM
+- start outer loop to control number of passes through input array
+  - create a variable to track swaps: `no_swaps`
+  - set `no_swaps` to `true`
+
+    - start inner loop to control each pass through input array
+      - create a range to track current index
+        - from 0 up to (array length - 2)
+        - for each index
+          - compare elements at index and index + 1
+          - if 1st element is greater than 2nd
+            - swap elements
+            - set `no_swaps` to `false`
+
+  - break from outer loop if `no_swaps` is still `true`
+
+- return the sorted array
+
+=end
+
+### basic
+# def bubble_sort!(list)
+#   loop do
+#     no_swaps = true
+
+#     (0..(list.size - 2)).each do |index|
+#       if list[index] > list[index + 1]
+#         swap_elements!(list, index)
+#         no_swaps = false
+#       end
+#     end
+
+#     break if no_swaps
+#   end
+
+#   list
+# end
+
+# def swap_elements!(list, index)
+#   list[index], list[index + 1] = list[index + 1], list[index]
+# end
+
+### optimized 1
+# def bubble_sort!(list)
+#   offset = 2
+
+#   loop do
+#     no_swaps = true
+
+#     last_index = list.size - offset
+#     (0..last_index).each do |index|
+#       if list[index] > list[index + 1]
+#         swap_elements!(list, index)
+#         no_swaps = false
+#       end
+#     end
+
+#     break if no_swaps
+#     offset += 1
+#   end
+
+#   list
+# end
+
+# def swap_elements!(list, index)
+#   list[index], list[index + 1] = list[index + 1], list[index]
+# end
+
+### optimized 2
+def bubble_sort!(list)
+  last_swap = list.size - 1
+
+  loop do
+
+
+    last_index = list.size - offset
+    (0..last_index).each do |index|
+      if list[index] > list[index + 1]
+        swap_elements!(list, index)
+        no_swaps = false
+      end
+    end
+
+    break if no_swaps
+    offset += 1
+  end
+
+  list
+end
+
+def swap_elements!(list, index)
+  list[index], list[index + 1] = list[index + 1], list[index]
+end
+
+array1 = [5, 3]
+bubble_sort!(array1)
+p array1 #== [3, 5]
+
+array2 = [6, 2, 7, 1, 4]
+bubble_sort!(array2)
+p array2 #== [1, 2, 4, 6, 7]
+
+array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+bubble_sort!(array3)
+p array3 #== %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+
 ### 9 BUBBLE SORT
 =begin
 Write a method that takes an Array as an argument, and sorts that Array using the bubble sort algorithm as just described. Note that your sort will be "in-place"; that is, you will mutate the Array passed as an argument. You may assume that the Array contains at least 2 elements.
@@ -167,25 +306,25 @@ ALGORITHM
 #   end
 # end
 
-def bubble_sort!(array)
-  until array.each_cons(2).all? { |ele1, ele2| ele2 > ele1 }
-    array.each_cons(2).with_index do |(ele1, ele2), idx|
-      array[idx], array[idx + 1] = array[idx + 1], array[idx] if ele1 > ele2
-    end
-  end
-end
+# def bubble_sort!(array)
+#   until array.each_cons(2).all? { |ele1, ele2| ele2 > ele1 }
+#     array.each_cons(2).with_index do |(ele1, ele2), idx|
+#       array[idx], array[idx + 1] = array[idx + 1], array[idx] if ele1 > ele2
+#     end
+#   end
+# end
 
-array1 = [5, 3]
-bubble_sort!(array1)
-p array1 == [3, 5]
+# array1 = [5, 3]
+# bubble_sort!(array1)
+# p array1 == [3, 5]
 
-array2 = [6, 2, 7, 1, 4]
-bubble_sort!(array2)
-p array2 == [1, 2, 4, 6, 7]
+# array2 = [6, 2, 7, 1, 4]
+# bubble_sort!(array2)
+# p array2 == [1, 2, 4, 6, 7]
 
-array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
-bubble_sort!(array3)
-p array3 == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+# array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+# bubble_sort!(array3)
+# p array3 == %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
 
 ### 8 FEATURED NUMBERS
 =begin
