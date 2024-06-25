@@ -101,21 +101,19 @@ ALGORITHM
 
 ### optimized 2
 def bubble_sort!(list)
-  last_swap = list.size - 1
+  last_index = list.size - 1
 
-  loop do
+  until last_index == 0
+    last_swap = 0
 
-
-    last_index = list.size - offset
-    (0..last_index).each do |index|
+    (0..(last_index - 1)).each do |index|
       if list[index] > list[index + 1]
         swap_elements!(list, index)
-        no_swaps = false
+        last_swap = index
       end
     end
 
-    break if no_swaps
-    offset += 1
+    last_index = last_swap
   end
 
   list
@@ -136,6 +134,10 @@ p array2 #== [1, 2, 4, 6, 7]
 array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
 bubble_sort!(array3)
 p array3 #== %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+
+array4 = (0..9).to_a.reverse
+bubble_sort!(array4)
+p array4
 
 ### 9 BUBBLE SORT
 =begin
@@ -191,6 +193,7 @@ ALGORITHM
 
 =end
 
+### very basic
 # def bubble_sort!(array)
 #   loop do
 #     index = 0
@@ -212,7 +215,7 @@ ALGORITHM
 #   array
 # end
 
-# ###
+# ### basic
 # def bubble_sort!(array)
 #   loop do
 #     swaps_made_this_round = false
@@ -231,7 +234,7 @@ ALGORITHM
 #   array
 # end
 
-# ####
+# #### optimized 1
 # def bubble_sort!(array)
 #   offset = 2
 #   loop do
@@ -251,7 +254,7 @@ ALGORITHM
 #   array
 # end
 
-####
+### optimized 2
 # def bubble_sort!(array)
 #   last_index = array.length - 1
 
