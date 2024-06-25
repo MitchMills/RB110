@@ -2,13 +2,13 @@
 # def bubble_sort!(list)
 #   loop do
 #     no_swaps = true
-#     no_swaps = one_pass!(list, no_swaps)
+#     no_swaps = one_pass(list, no_swaps)
 #     break if no_swaps
 #   end
 #   list
 # end
 
-# def one_pass!(list, no_swaps)
+# def one_pass(list, no_swaps)
 #   (0..(list.size - 2)).each do |index|
 #     if list[index] > list[index + 1]
 #       swap_elements!(list, index)
@@ -28,7 +28,7 @@
 
 #   loop do
 #     no_swaps = true
-#     no_swaps = one_pass!(list, offset, no_swaps)
+#     no_swaps = one_pass(list, offset, no_swaps)
 #     break if no_swaps
 #     offset += 1
 #   end
@@ -36,7 +36,7 @@
 #   list
 # end
 
-# def one_pass!(list, offset, no_swaps)
+# def one_pass(list, offset, no_swaps)
 #   last_index = list.size - offset
 #     (0..last_index).each do |index|
 #       if list[index] > list[index + 1]
@@ -57,14 +57,14 @@ def bubble_sort!(list)
 
   until last_index == 0
     last_swap = 0
-    last_swap = one_pass!(list, last_index, last_swap)
+    last_swap = one_pass(list, last_index, last_swap)
     last_index = last_swap
   end
 
   list
 end
 
-def one_pass!(list, last_index, last_swap)
+def one_pass(list, last_index, last_swap)
   (0..(last_index - 1)).each do |index|
     if list[index] > list[index + 1]
       swap_elements!(list, index)
