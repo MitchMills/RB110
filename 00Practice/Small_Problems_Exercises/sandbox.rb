@@ -23,33 +23,33 @@
 # end
 
 ### first optimization
-def bubble_sort!(list)
-  offset = 2
+# def bubble_sort!(list)
+#   offset = 2
 
-  loop do
-    no_swaps = true
-    no_swaps = one_pass(list, offset, no_swaps)
-    break if no_swaps
-    offset += 1
-  end
+#   loop do
+#     no_swaps = true
+#     no_swaps = one_pass(list, offset, no_swaps)
+#     break if no_swaps
+#     offset += 1
+#   end
 
-  list
-end
+#   list
+# end
 
-def one_pass(list, offset, no_swaps)
-  last_index = list.size - offset
-  (0..last_index).each do |current_index|
-    if list[current_index] > list[current_index + 1]
-      swap_elements!(list, current_index)
-      no_swaps = false
-    end
-  end
-  no_swaps
-end
+# def one_pass(list, offset, no_swaps)
+#   last_index = list.size - offset
+#   (0..last_index).each do |current_index|
+#     if list[current_index] > list[current_index + 1]
+#       swap_elements!(list, current_index)
+#       no_swaps = false
+#     end
+#   end
+#   no_swaps
+# end
 
-def swap_elements!(list, index)
-  list[index], list[index + 1] = list[index + 1], list[index]
-end
+# def swap_elements!(list, index)
+#   list[index], list[index + 1] = list[index + 1], list[index]
+# end
 
 ### second optimization
 # def bubble_sort!(list)
@@ -78,17 +78,100 @@ end
 #   list[index], list[index + 1] = list[index + 1], list[index]
 # end
 
+# # # # # # # # # # # # # # # # # # # #
+
+##### basic algorithm
+def bubble_sort!(list)
+  no_swaps = false
+  until no_swaps
+    no_swaps = one_pass(list, no_swaps)
+  end
+end
+
+def one_pass(list, no_swaps)
+  no_swaps = true
+  list.each_cons(2).with_index do |(element1, element2), index|
+    if element1 > element2
+      swap_elements!(list, index)
+      no_swaps = false
+    end
+  end
+  no_swaps
+end
+
+def swap_elements!(list, index)
+  list[index], list[index + 1] = list[index + 1], list[index]
+end
+
+
+
+##### first optimization
+# def bubble_sort!(list)
+#   offset = 1
+#   until sorted?(list, offset)
+#     one_pass(list, offset)
+#     offset += 1
+#   end
+#   list
+# end
+
+# def sorted?(list, offset)
+#   last_index = list.size - offset
+#   (0..last_index).each_cons(2).all? { |idx1, idx2| list[idx1] <= list[idx2] }
+# end
+
+# def one_pass(list, offset)
+#   (0..(list.size - offset)).each_cons(2) do |index1, index2|
+#     swap_elements!(list, index1) if list[index1] > list[index2]
+#   end
+# end
+
+# def swap_elements!(list, index)
+#   list[index], list[index + 1] = list[index + 1], list[index]
+# end
+
+##### second optimization
+# def bubble_sort!(list)
+#   last_index = list.size -1
+
+#   until last_index.zero?
+#     last_index = one_pass(list, last_index)
+#   end
+#   list
+# end
+
+# def sorted?(list, last_index)
+#   (0..last_index).each_cons(2).all? { |idx1, idx2| list[idx1] <= list[idx2] }
+# end
+
+# def one_pass(list, offset)
+#   (0..(list.size - offset)).each_cons(2) do |index1, index2|
+#     if list[index1] > list[index2]
+#       swap_elements!(list, index1)
+#       last_swap = index1
+#     end
+#   end
+# end
+
+# def swap_elements!(list, index)
+#   list[index], list[index + 1] = list[index + 1], list[index]
+# end
+
+##### TESTS
 array1 = [5, 3]
 bubble_sort!(array1)
 p array1 #== [3, 5]
+puts
 
-array2 = [6, 2, 7, 1, 4]
+array2 = [6, 2, 7, 1, 4, 6, 2, 7, 1, 4]
 bubble_sort!(array2)
 p array2 #== [1, 2, 4, 6, 7]
+puts
 
 array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
 bubble_sort!(array3)
 p array3 #== %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+puts
 
 array4 = (0..9).to_a.reverse
 bubble_sort!(array4)
