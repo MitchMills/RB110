@@ -1,3 +1,61 @@
+### 10 SUM SQUARE SUM
+=begin
+Write a method that computes the difference between the square of the sum of the first n positive integers and the sum of the squares of the first n positive integers.
+
+PROBLEM 7:19
+input: integer
+  - represents number of positive integers to use
+    - from 1 up to input integer
+
+output: integer
+  - difference between
+    - (sum of integers) square minus
+      - (each integer squared).sum
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider all positive numbers between 1 and input integer
+  - way to square sum
+  - way to sum squares
+
+start: integer
+  - range from 1 up to input integer
+  - sum of that range, squared
+  - sum of square of each number in that range
+  - difference
+finish: integer
+
+ALGORITHM
+- create a range from 1 up to the input integer
+- get the sum of that range and square it: sum_squared
+  - get the sum of the range
+  - square it
+- get the sum of the squares of each number: squares_summed
+  - iterate over the range
+    - transform each number into its square
+    - get the sum of the return array
+- get the difference between the two and return it
+=end
+
+# def sum_square_difference(number)
+#   sum_squared(number) - squares_summed(number)
+# end
+
+# def sum_squared(number)
+#   (1..number).sum.abs2
+# end
+
+# def squares_summed(number)
+#   (1..number).map(&:abs2).sum
+# end
+
+# p sum_square_difference(3) == 22 # -> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
+# p sum_square_difference(10) == 2640
+# p sum_square_difference(1) == 0
+# p sum_square_difference(100) == 25164150
+
 ### 9.2 BUBBLE SORT AGAIN
 =begin
 Write a method that takes an Array as an argument, and sorts that Array using the bubble sort algorithm as just described. Note that your sort will be "in-place"; that is, you will mutate the Array passed as an argument. You may assume that the Array contains at least 2 elements.
@@ -131,21 +189,21 @@ ALGORITHM
 #   list[index], list[index + 1] = list[index + 1], list[index]
 # end
 
-array1 = [5, 3]
-bubble_sort!(array1)
-p array1 #== [3, 5]
+# array1 = [5, 3]
+# bubble_sort!(array1)
+# p array1 #== [3, 5]
 
-array2 = [6, 2, 7, 1, 4]
-bubble_sort!(array2)
-p array2 #== [1, 2, 4, 6, 7]
+# array2 = [6, 2, 7, 1, 4]
+# bubble_sort!(array2)
+# p array2 #== [1, 2, 4, 6, 7]
 
-array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
-bubble_sort!(array3)
-p array3 #== %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
+# array3 = %w(Sue Pete Alice Tyler Rachel Kim Bonnie)
+# bubble_sort!(array3)
+# p array3 #== %w(Alice Bonnie Kim Pete Rachel Sue Tyler)
 
-array4 = (0..9).to_a.reverse
-bubble_sort!(array4)
-p array4
+# array4 = (0..9).to_a.reverse
+# bubble_sort!(array4)
+# p array4
 
 ### 9 BUBBLE SORT
 =begin
