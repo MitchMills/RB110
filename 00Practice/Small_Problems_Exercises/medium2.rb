@@ -1,3 +1,67 @@
+### PRIME?
+=begin
+A prime number is a positive number that is evenly divisible only by itself and 1. Thus, 23 is prime since its only divisors are 1 and 23. However, 24 is not prime since it has divisors of 1, 2, 3, 4, 6, 8, 12, and 24. Note that the number 1 is not prime.
+
+Write a method that takes a positive integer as an argument and returns true if the number is prime, false if it is not prime.
+
+You may not use Ruby's Prime class to solve this problem. Your task is to programmatically determine whether a number is prime without relying on any methods that already do that for you.
+
+PROBLEM 12:00
+input: integer
+  - positive
+output: boolean
+  - true if input integer is prime
+    - only evenly divisible by 1 and itself
+    - NB: 1 is not considered a prime number
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if a number is evenly divisible by any number other than 1 and itself
+    - way to consider every number between 2 and input integer
+    - way to determine if input integer is evenly divisible by one of those numbers
+
+start: integer
+  - guard clause? return `false` if input integer is 1
+  - range of numbers from 2 to (input integer - 1)
+finish: boolean
+
+ALGORITHM
+(- return `false` if input integer is 1)
+- create a range from 2 up to square root of input integer
+- consider each number in the range until
+  - input integer is evenly divisible by that number => return `false`
+  - end of range is reached with no multiple found => return `true`
+=end
+
+def is_prime?(integer)
+  integer > 1 && no_factors?(integer)
+end
+
+def no_factors?(integer)
+  largest_possible_factor = Integer.sqrt(integer)
+  (2..largest_possible_factor).none? { |candidate| integer % candidate == 0 }
+end
+
+p is_prime?(1) == false
+p is_prime?(2) == true
+p is_prime?(3) == true
+p is_prime?(4) == false
+p is_prime?(5) == true
+p is_prime?(6) == false
+p is_prime?(7) == true
+p is_prime?(8) == false
+p is_prime?(9) == false
+p is_prime?(10) == false
+p is_prime?(23) == true
+p is_prime?(24) == false
+p is_prime?(997) == true
+p is_prime?(998) == false
+p is_prime?(3_297_061) == true
+p is_prime?(23_297_061) == false
+
 ### 10 SUM SQUARE SUM
 =begin
 Write a method that computes the difference between the square of the sum of the first n positive integers and the sum of the squares of the first n positive integers.
