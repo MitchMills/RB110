@@ -1,13 +1,14 @@
 def sum_square_difference(number)
-  sum_squared(number) - squares_summed(number)
+  numbers = (1..number)
+  sum_squared(numbers) - squares_summed(numbers)
 end
 
-def sum_squared(number)
-  (1..number).sum.abs2
+def sum_squared(numbers)
+  numbers.sum.abs2
 end
 
-def squares_summed(number)
-  (1..number).map(&:abs2).sum
+def squares_summed(numbers)
+  numbers.sum(&:abs2)
 end
 
 p sum_square_difference(3) == 22 # -> (1 + 2 + 3)**2 - (1**2 + 2**2 + 3**2)
