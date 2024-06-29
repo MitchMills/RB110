@@ -1,25 +1,15 @@
-def is_prime?(integer)
-  integer > 1 && no_factors?(integer)
+def smaller_numbers_than_current(numbers)
+  uniques = numbers.uniq
+  numbers.map do |number|
+    uniques.count { |unique| number > unique }
+  end
 end
 
-def no_factors?(integer)
-  largest_possible_factor = Integer.sqrt(integer)
-  (2..largest_possible_factor).none? { |candidate| integer % candidate == 0 }
-end
+p smaller_numbers_than_current([8, 1, 2, 2, 3]) == [3, 0, 1, 1, 2]
+p smaller_numbers_than_current([7, 7, 7, 7]) == [0, 0, 0, 0]
+p smaller_numbers_than_current([6, 5, 4, 8]) == [2, 1, 0, 3]
+p smaller_numbers_than_current([1]) == [0]
 
-p is_prime?(1) == false
-p is_prime?(2) == true
-p is_prime?(3) == true
-p is_prime?(4) == false
-p is_prime?(5) == true
-p is_prime?(6) == false
-p is_prime?(7) == true
-p is_prime?(8) == false
-p is_prime?(9) == false
-p is_prime?(10) == false
-p is_prime?(23) == true
-p is_prime?(24) == false
-p is_prime?(997) == true
-p is_prime?(998) == false
-p is_prime?(3_297_061) == true
-p is_prime?(23_297_061) == false
+my_array = [1, 4, 6, 8, 13, 2, 4, 5, 4]
+result   = [0, 2, 4, 5, 6,  1, 2, 3, 2]
+p smaller_numbers_than_current(my_array) == result
