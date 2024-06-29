@@ -1,7 +1,50 @@
 ### TWO
 =begin
 Create a method that takes an array of integers as an argument. The method should return the minimum sum of 5 consecutive numbers in the array. If the array contains fewer than 5 elements, the method should return nil.
+
+PROBLEM 7:40
+input: array
+  - elements are integers
+
+- output: integer or nil
+  - nil if input array contains fewer than 5 elements
+  - otherwise: smallest sum of 5 consecutive elements in array
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all five-element subarrays from input array
+    - way to sum subarrays
+  - way to return nil if length < 5
+
+start: array
+  - array of all possible 5-element subarrays
+  - array of sums of those subarrays
+  - smallest sum
+finish: integer or nil
+
+ALGORITHM
+- return `nil` if input array length < 5
+- get all possible 5-element subarrays
+  - start at index 0, up to array length - 5
+  - length is always 5
+- transform into an array of sums
+- return smallest sum
 =end
+
+def minimum_sum(numbers)
+  subarrays = get_subarrays(numbers)
+  sums = subarrays.map(&:sum)
+  sums.min
+end
+
+def get_subarrays(array)
+  last_index = array.size - 5
+  (0..last_index).map do |start_index|
+    array[start_index, 5]
+  end
+end
 
 p minimum_sum([1, 2, 3, 4]) == nil
 p minimum_sum([1, 2, 3, 4, 5, -5]) == 9

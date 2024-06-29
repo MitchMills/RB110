@@ -1,15 +1,18 @@
-def smaller_numbers_than_current(numbers)
-  uniques = numbers.uniq
-  numbers.map do |number|
-    uniques.count { |unique| number > unique }
+def minimum_sum(numbers)
+  subarrays = get_subarrays(numbers)
+  sums = subarrays.map(&:sum)
+  sums.min
+end
+
+def get_subarrays(array)
+  last_index = array.size - 5
+  (0..last_index).map do |start_index|
+    array[start_index, 5]
   end
 end
 
-p smaller_numbers_than_current([8, 1, 2, 2, 3]) == [3, 0, 1, 1, 2]
-p smaller_numbers_than_current([7, 7, 7, 7]) == [0, 0, 0, 0]
-p smaller_numbers_than_current([6, 5, 4, 8]) == [2, 1, 0, 3]
-p smaller_numbers_than_current([1]) == [0]
-
-my_array = [1, 4, 6, 8, 13, 2, 4, 5, 4]
-result   = [0, 2, 4, 5, 6,  1, 2, 3, 2]
-p smaller_numbers_than_current(my_array) == result
+p minimum_sum([1, 2, 3, 4]) == nil
+p minimum_sum([1, 2, 3, 4, 5, -5]) == 9
+p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
