@@ -1,3 +1,69 @@
+### FOUR
+=begin
+Create a method that takes an array of integers as an argument and returns an array of two numbers that are closest together in value. If there are multiple pairs that are equally close, return the pair that occurs first in the array.
+
+PROBLEM 5:12
+input: array
+  - elements are integers
+output: array
+  - contains two integers:
+    - the two from input array that are closest in value
+      - need not be contiguous
+    - return first pair if there are more than one pair equally close
+      - presumably: which pair's first number occurs first
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - a way to compare each number to every other number
+  - a way to get the difference in value between each pair
+  - a way to identify the pair with the smallest difference
+
+start: array
+  - array of all possible pairs
+    - no need for 'reverse' pairs: [5, 25] and not [25, 5]
+    - first number index: from 0 up to (array length - 1)
+    - second number index: (current index + 1) up to (array length - 1)
+  - pairs array sorted by difference between its elements
+output: array (smallest difference pair)
+
+ALGORITHM
+- get all possible pairs:
+  - create an empty array to hold pairs: pairs
+  - create a range from 0 up to (array length - 1): index1
+    - for each number in index1
+      - create a range from (index1 + 1) up to (array length - 1): index2
+      - add an array with elements at index 1 and index 2 to pairs
+- return the pair with the smallest difference between its elements
+=end
+
+def closest_numbers(array)
+  pairs = get_pairs(array)
+  pairs.min_by { |pair| pair.inject(:-).abs }
+end
+
+def get_pairs(array)
+  pairs = []
+  last_index = array.size - 1
+
+  (0..last_index).each do |index1|
+    ((index1 + 1)..last_index).each do |index2|
+      pairs << get_one_pair(array, index1, index2)
+    end
+  end
+
+  pairs
+end
+
+def get_one_pair(array, index1, index2)
+  [array[index1], array[index2]]
+end
+
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 22, 7, 17]) == [12, 7]
+
 ### THREE
 =begin
 Create a method that takes a string argument and returns a copy of the string with every second character in every third word converted to uppercase. Other characters should remain the same.

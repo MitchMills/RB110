@@ -1,28 +1,25 @@
-def to_weird_case(string)
-  words = string.split
-  weird_words = words.map.with_index do |word, index|
-    (index + 1) % 3 == 0 ? change_word(word) : word
+def closest_numbers(array)
+  pairs = get_pairs(array)
+  pairs.min_by { |pair| pair.inject(:-).abs }
+end
+
+def get_pairs(array)
+  pairs = []
+  last_index = array.size - 1
+
+  (0..last_index).each do |index1|
+    ((index1 + 1)..last_index).each do |index2|
+      pairs << get_one_pair(array, index1, index2)
+    end
   end
-  weird_words.join(' ')
+
+  pairs
 end
 
-def change_word(word)
-  characters = word.chars
-  characters.map.with_index do |character, index|
-    index.odd? ? character.upcase : character
-  end.join
+def get_one_pair(array, index1, index2)
+  [array[index1], array[index2]]
 end
 
-original = 'Lorem Ipsum is simply dummy text of the printing world'
-expected = 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG world'
-p to_weird_case(original) == expected
-
-original = 'It is a long established fact that a reader will be distracted'
-expected = 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
-p to_weird_case(original) == expected
-
-p to_weird_case('aaA bB c') == 'aaA bB c'
-
-original = "Mary Poppins' favorite word is supercalifragilisticexpialidocious"
-expected = "Mary Poppins' fAvOrItE word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS"
-p to_weird_case(original) == expected
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 22, 7, 17]) == [12, 7]
