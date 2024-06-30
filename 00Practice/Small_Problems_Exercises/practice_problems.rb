@@ -1,3 +1,90 @@
+### THREE
+=begin
+Create a method that takes a string argument and returns a copy of the string with every second character in every third word converted to uppercase. Other characters should remain the same.
+
+PROBLEM 4:40
+input: string
+
+output: new string
+  - in every third word
+    - every second character converted to uppercase
+      - if less than two characters, word is unchanged
+    - 'word' = contiguous string of non-space characters
+  - all other characters remain the same
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to access each individual word
+    - way to identify every third word
+  - way to access each indvidual character in third words
+    - way to identify every second character
+    - way to change case of appropriate characters
+
+start: string
+  - array of individual words
+    - with indexes
+      - (index + 1) % 3 == 0?
+  - array of individual characters for every third word
+    - with indexes
+      - is index odd?
+  - transformed array of individual characters of every third word
+  - transformed array of individual words
+finish: new string
+
+ALGORITHM
+- create an array of individual words from input string
+- transform words array:
+  - for every word and its index
+    - check whether it is a 'third word'
+      - is (index + 1) evenly divisible by 3?
+
+      - if yes
+        - create an array of individual characters from that word
+        - transform characters array:
+          - check whether it is a 'second character'
+            - is index odd?
+          - if yes
+            - uppercase that character
+          - if no
+            - do nothing
+
+      - if no
+        - do nothing
+
+- convert words array into a string and return it
+=end
+
+# def to_weird_case(string)
+#   words = string.split
+#   weird_words = words.map.with_index do |word, index|
+#     (index + 1) % 3 == 0 ? change_word(word) : word
+#   end
+#   weird_words.join(' ')
+# end
+
+# def change_word(word)
+#   characters = word.chars
+#   characters.map.with_index do |character, index|
+#     index.odd? ? character.upcase : character
+#   end.join
+# end
+
+# original = 'Lorem Ipsum is simply dummy text of the printing world'
+# expected = 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG world'
+# p to_weird_case(original) == expected
+
+# original = 'It is a long established fact that a reader will be distracted'
+# expected = 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+# p to_weird_case(original) == expected
+
+# p to_weird_case('aaA bB c') == 'aaA bB c'
+
+# original = "Mary Poppins' favorite word is supercalifragilisticexpialidocious"
+# expected = "Mary Poppins' fAvOrItE word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS"
+# p to_weird_case(original) == expected
+
 ### TA SESSION
 =begin
 Implement a function that calculates the sum of numbers inside of a string.
@@ -52,34 +139,34 @@ ALGORITHM
 - return the sum of those integers
 =end
 
-NUMERICS = ('0'..'9').to_a
+# NUMERICS = ('0'..'9').to_a
 
-def sum_of_numbers(string)
-  numeric_strings = get_numeric_strings(string)
-  integers = numeric_strings.map(&:to_i)
-  integers.sum
-end
+# def sum_of_numbers(string)
+#   numeric_strings = get_numeric_strings(string)
+#   integers = numeric_strings.map(&:to_i)
+#   integers.sum
+# end
 
-def get_numeric_strings(string)
-  numeric_strings = []
-  num_string = ''
+# def get_numeric_strings(string)
+#   numeric_strings = []
+#   num_string = ''
 
-  string.each_char do |char|
-    if NUMERICS.include?(char)
-      num_string << char
-    else
-      numeric_strings << num_string unless num_string.empty?
-      num_string = ''
-    end
-  end
+#   string.each_char do |char|
+#     if NUMERICS.include?(char)
+#       num_string << char
+#     else
+#       numeric_strings << num_string unless num_string.empty?
+#       num_string = ''
+#     end
+#   end
 
-  numeric_strings << num_string unless num_string.empty?
-  numeric_strings
-end
+#   numeric_strings << num_string unless num_string.empty?
+#   numeric_strings
+# end
 
-p sum_of_numbers("L12aun3ch Sch3oo451") == 469
-p sum_of_numbers("HE2LL3O W1OR5LD") == 11
-p sum_of_numbers("The30quick20brown10f0x1203jumps914ov3r1349the102l4zy dog") == 3635
+# p sum_of_numbers("L12aun3ch Sch3oo451") == 469
+# p sum_of_numbers("HE2LL3O W1OR5LD") == 11
+# p sum_of_numbers("The30quick20brown10f0x1203jumps914ov3r1349the102l4zy dog") == 3635
 
 ### TWO
 =begin

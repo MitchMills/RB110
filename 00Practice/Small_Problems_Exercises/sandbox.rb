@@ -1,28 +1,28 @@
-NUMERICS = ('0'..'9').to_a
-
-def sum_of_numbers(string)
-  numeric_strings = get_numeric_strings(string)
-  integers = numeric_strings.map(&:to_i)
-  integers.sum
-end
-
-def get_numeric_strings(string)
-  numeric_strings = []
-  num_string = ''
-
-  string.each_char do |char|
-    if NUMERICS.include?(char)
-      num_string << char
-    else
-      numeric_strings << num_string unless num_string.empty?
-      num_string = ''
-    end
+def to_weird_case(string)
+  words = string.split
+  weird_words = words.map.with_index do |word, index|
+    (index + 1) % 3 == 0 ? change_word(word) : word
   end
-
-  numeric_strings << num_string unless num_string.empty?
-  numeric_strings
+  weird_words.join(' ')
 end
 
-p sum_of_numbers("L12aun3ch Sch3oo451") == 469
-p sum_of_numbers("HE2LL3O W1OR5LD") == 11
-p sum_of_numbers("The30quick20brown10f0x1203jumps914ov3r1349the102l4zy dog") == 3635
+def change_word(word)
+  characters = word.chars
+  characters.map.with_index do |character, index|
+    index.odd? ? character.upcase : character
+  end.join
+end
+
+original = 'Lorem Ipsum is simply dummy text of the printing world'
+expected = 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG world'
+p to_weird_case(original) == expected
+
+original = 'It is a long established fact that a reader will be distracted'
+expected = 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+p to_weird_case(original) == expected
+
+p to_weird_case('aaA bB c') == 'aaA bB c'
+
+original = "Mary Poppins' favorite word is supercalifragilisticexpialidocious"
+expected = "Mary Poppins' fAvOrItE word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS"
+p to_weird_case(original) == expected
