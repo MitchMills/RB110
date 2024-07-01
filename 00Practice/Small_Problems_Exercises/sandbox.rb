@@ -9,15 +9,11 @@ def get_pairs(array)
 
   (0..last_index).each do |index1|
     ((index1 + 1)..last_index).each do |index2|
-      pairs << get_one_pair(array, index1, index2)
+      pairs << [array[index1], array[index2]]
     end
   end
 
   pairs
-end
-
-def get_one_pair(array, index1, index2)
-  [array[index1], array[index2]]
 end
 
 p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
