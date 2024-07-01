@@ -1,21 +1,15 @@
-def closest_numbers(array)
-  pairs = get_pairs(array)
-  pairs.min_by { |pair| pair.inject(:-).abs }
+def most_common_char(string)
+  all_downcase = string.downcase
+  all_downcase.chars.max_by { |char| all_downcase.count(char) }
 end
 
-def get_pairs(array)
-  pairs = []
-  last_index = array.size - 1
+p most_common_char('Hello World') == 'l'
+p most_common_char('Mississippi') == 'i'
+p most_common_char('Happy birthday!') == 'h'
+p most_common_char('aaaaaAAAA') == 'a'
 
-  (0..last_index).each do |index1|
-    ((index1 + 1)..last_index).each do |index2|
-      pairs << [array[index1], array[index2]]
-    end
-  end
+my_str = 'Peter Piper picked a peck of pickled peppers.'
+p most_common_char(my_str) == 'p'
 
-  pairs
-end
-
-p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
-p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
-p closest_numbers([12, 22, 7, 17]) == [12, 7]
+my_str = 'Peter Piper repicked a peck of repickled peppers. He did!'
+p most_common_char(my_str) == 'e'

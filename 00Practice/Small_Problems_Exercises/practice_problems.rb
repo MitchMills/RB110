@@ -1,3 +1,53 @@
+### FIVE
+=begin
+Create a method that takes a string argument and returns the character that occurs most often in the string. If there are multiple characters with the same greatest frequency, return the one that appears first in the string. When counting characters, consider uppercase and lowercase versions to be the same.
+
+PROBLEM 9:11
+input: string
+  - contains upper and lowercase letters
+output: string
+  - most frequent character
+    - case insensitive: 'a' == 'A' in terms of counting
+    - returned character should be lower case
+  - if any ties, return character that appears first in the string
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider each character
+  - way to count occurrences of every character
+    - way to treat different case characters as the same character
+  - way to find the earliest character with the highest count
+
+start: string
+  - array of individual characters
+  - hash with character counts?
+finish: one-character string
+
+ALGORITHM
+- create an array of the downcased individual characters in the string
+- examine each character
+  - get the number of times the downcased version of that character occurs in the downcased string
+  - return the earliest character with the highest number of occurences
+=end
+
+def most_common_char(string)
+  all_downcase = string.downcase
+  all_downcase.chars.max_by { |char| all_downcase.count(char) }
+end
+
+p most_common_char('Hello World') == 'l'
+p most_common_char('Mississippi') == 'i'
+p most_common_char('Happy birthday!') == 'h'
+p most_common_char('aaaaaAAAA') == 'a'
+
+my_str = 'Peter Piper picked a peck of pickled peppers.'
+p most_common_char(my_str) == 'p'
+
+my_str = 'Peter Piper repicked a peck of repickled peppers. He did!'
+p most_common_char(my_str) == 'e'
+
 ### FOUR
 =begin
 Create a method that takes an array of integers as an argument and returns an array of two numbers that are closest together in value. If there are multiple pairs that are equally close, return the pair that occurs first in the array.
@@ -38,27 +88,27 @@ ALGORITHM
 - return the pair with the smallest difference between its elements
 =end
 
-def closest_numbers(array)
-  pairs = get_pairs(array)
-  pairs.min_by { |pair| pair.inject(:-).abs }
-end
+# def closest_numbers(array)
+#   pairs = get_pairs(array)
+#   pairs.min_by { |pair| pair.inject(:-).abs }
+# end
 
-def get_pairs(array)
-  pairs = []
-  last_index = array.size - 1
+# def get_pairs(array)
+#   pairs = []
+#   last_index = array.size - 1
 
-  (0..last_index).each do |index1|
-    ((index1 + 1)..last_index).each do |index2|
-      pairs << [array[index1], array[index2]]
-    end
-  end
+#   (0..last_index).each do |index1|
+#     ((index1 + 1)..last_index).each do |index2|
+#       pairs << [array[index1], array[index2]]
+#     end
+#   end
 
-  pairs
-end
+#   pairs
+# end
 
-p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
-p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
-p closest_numbers([12, 22, 7, 17]) == [12, 7]
+# p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+# p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+# p closest_numbers([12, 22, 7, 17]) == [12, 7]
 
 ### THREE
 =begin
