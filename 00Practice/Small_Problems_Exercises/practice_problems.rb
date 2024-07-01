@@ -1,9 +1,70 @@
 ### SIX
 =begin
+Create a method that takes a string argument and returns a hash in which the keys represent the lowercase letters in the string, and the values represent how often the corresponding letter occurs in the string.
 
+PROBLEM 8:32
+input: string
+  - may contain both lower and uppercase letter characters
+  - may contain punctuation, whitespace
+  - may be empty
+  - may contain 0 lowercase letters
+
+output: hash
+  - keys: each lowercase letter in string (as a string)
+  - values: number of occurrences of that letter
+  - if no lowercase letters in input string, return empty hash
+    - empty, or only uppercase, punctuation, etc
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider each character in input string
+  - way to distinguish lowercase letters from any other letters
+  - way to count occurrences of lowercase letters
+
+start: string
+  - array of all lowercase alphabetic characters
+  - empty hash, default value of 0
+  - array of individual characters
+  - conditional
+    - if lowercase, add to hash count
+    - else ignore
+finish: hash
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters: LOWERCASE
+- create an empty hash, with a default value of 0: counts
+- create an array of individual characters from the input string
+  - for each character:
+    - if it is not lowercase, go to the next character
+    - if it is lowercase, increment that letter in counts hash
+- return the counts hash
 =end
 
+# LOWERCASE = ('a'..'z').to_a
 
+# def count_letters(string)
+#   counts = Hash.new(0)
+#   string.chars.each do |char|
+#     counts[char] += 1 if LOWERCASE.include?(char)
+#   end
+#   counts
+# end
+
+# expected = {'w' => 1, 'o' => 2, 'e' => 3, 'b' => 1, 'g' => 1, 'n' => 1}
+# p count_letters('woebegone') == expected
+
+# expected = {'l' => 1, 'o' => 1, 'w' => 1, 'e' => 4, 'r' => 2,
+#             'c' => 2, 'a' => 2, 's' => 2, 'u' => 1, 'p' => 2}
+# p count_letters('lowercase/uppercase') == expected
+
+# expected = {'u' => 1, 'o' => 1, 'i' => 1, 's' => 1}
+# p count_letters('W. E. B. Du Bois') == expected
+
+# p count_letters('x') == {'x' => 1}
+# p count_letters('') == {}
+# p count_letters('!!!') == {}
 
 ### FIVE
 =begin
