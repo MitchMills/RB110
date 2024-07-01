@@ -1,3 +1,64 @@
+### FOURTEEN
+=begin
+Create a method that takes a single integer argument and returns the sum of all the multiples of 7 or 11 that are less than the argument. If a number is a multiple of both 7 and 11, count it just once.
+
+For example, the multiples of 7 and 11 that are below 25 are 7, 11, 14, 21, and 22. The sum of these multiples is 75.
+
+If the argument is negative, return 0.
+
+PROBLEM 10:40
+input: integer
+  - can be positive, 0, or negative
+  - if negative, return 0
+  - if 0, return 0
+
+output: integer
+  - sum of all multiples of 7 or 11 that are
+    - less than input integer
+    - only count a particular multiple once:
+      - if multiple of both 7 and 11, count it just once
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider every number between 7 and (input integer - 1)
+  - way to determine if a multiple of 7 or 11
+  - way to exclude double counting
+    - if multiple of BOTH 7 and 11
+
+start: integer
+  - range: from 7 up to integer - 1
+  - array of all multiples of 7 or 11 from that range
+  - sum of multiples array
+finish: integer
+
+ALGORITHM
+- create a range from 7 up to (input integer - 1)
+- for every number in that range
+  - select it if it is a multiple of 7 or a multiple of 11
+- get the sum of that array
+=end
+
+# def seven_eleven(number)
+#   multiples = (7...number).select { |num| num % 7 == 0 || num % 11 == 0 }
+#   multiples.sum
+# end
+
+def seven_eleven(number)
+  (1...number).filter_map do |candidate|
+    candidate if [7, 11].any? { |divisor| candidate % divisor == 0 }
+  end.sum
+end
+
+p seven_eleven(10) == 7
+p seven_eleven(11) == 7
+p seven_eleven(12) == 18
+p seven_eleven(25) == 75
+p seven_eleven(100) == 1153
+p seven_eleven(0) == 0
+p seven_eleven(-100) == 0
+
 ### SEVEN
 =begin
 Create a method that takes an array of integers as an argument and returns the number of identical pairs of integers in that array. For instance, the number of identical pairs in [1, 2, 3, 2, 1] is 2: there are two occurrences each of both 2 and 1.
@@ -44,24 +105,24 @@ ALGORITHM
 - return the sum of that array
 =end
 
-def pairs(numbers)
-  uniques = numbers.uniq
-  counts = uniques.map { |number| numbers.count(number) }
-  pair_count = counts.map { |count| count / 2 }
-  pair_count.sum
-end
+# def pairs(numbers)
+#   uniques = numbers.uniq
+#   counts = uniques.map { |number| numbers.count(number) }
+#   pair_count = counts.map { |count| count / 2 }
+#   pair_count.sum
+# end
 
-def pairs(numbers)
-  numbers.uniq.map { |number| numbers.count(number) / 2 }.sum
-end
+# def pairs(numbers)
+#   numbers.uniq.map { |number| numbers.count(number) / 2 }.sum
+# end
 
-p pairs([3, 1, 4, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7]) == 3
-p pairs([2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4]) == 4
-p pairs([]) == 0
-p pairs([23]) == 0
-p pairs([997, 997]) == 1
-p pairs([32, 32, 32]) == 1
-p pairs([7, 7, 7, 7, 7, 7, 7]) == 3
+# p pairs([3, 1, 4, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7]) == 3
+# p pairs([2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4]) == 4
+# p pairs([]) == 0
+# p pairs([23]) == 0
+# p pairs([997, 997]) == 1
+# p pairs([32, 32, 32]) == 1
+# p pairs([7, 7, 7, 7, 7, 7, 7]) == 3
 
 ### SIX
 =begin
