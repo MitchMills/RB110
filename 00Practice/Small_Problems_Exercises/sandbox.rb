@@ -1,18 +1,30 @@
-def pairs1(numbers)
-  uniques = numbers.uniq
-  counts = uniques.map { |number| numbers.count(number) }
-  pair_count = counts.map { |count| count / 2 }
-  pair_count.sum
+def longest_vowel_substring(string)
+  substrings = get_substrings(string)
+  vowel_substrings = substrings.select do |substring|
+    substring.each_char.all? { |char| 'aeiou'.include?(char) }
+  end
+  largest = vowel_substrings.max_by(&:size) || ''
+  largest.size
 end
 
-def pairs(numbers)
-  numbers.uniq.map { |number| numbers.count(number) / 2 }.sum
+def get_substrings(string)
+  substrings = []
+  final_index = string.size - 1
+
+  (0..final_index).each do |start_index|
+    max_length = string.size - start_index
+
+    (1..max_length).each do |length|
+      substrings << string[start_index, length]
+    end
+  end
+  substrings
 end
 
-p pairs([3, 1, 4, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7]) == 3
-p pairs([2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4]) == 4
-p pairs([]) == 0
-p pairs([23]) == 0
-p pairs([997, 997]) == 1
-p pairs([32, 32, 32]) == 1
-p pairs([7, 7, 7, 7, 7, 7, 7]) == 3
+p longest_vowel_substring('cwm') == 0
+p longest_vowel_substring('many') == 1
+p longest_vowel_substring('launchschoolstudents') == 2
+p longest_vowel_substring('eau') == 3
+p longest_vowel_substring('beauteous') == 3
+p longest_vowel_substring('sequoia') == 4
+p longest_vowel_substring('miaoued') == 5

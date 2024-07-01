@@ -1,3 +1,79 @@
+### EIGHT
+=begin
+Create a method that takes a non-empty string as an argument. The string consists entirely of lowercase alphabetic characters. The method should return the length of the longest vowel substring. The vowels of interest are "a", "e", "i", "o", and "u".
+
+PROBLEM 11:00
+input: string
+  - not empty
+  - contains only lowercase alphabetic characteers
+output: integer
+  - length of longest 'vowel substring'
+    - substring consisting solely of vowels
+      - vowels: a e i o u
+  - can be 0
+    - if no vowels in input string
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all vowel substrings from input string
+  - way to determine longest vowel substring
+
+start: string
+  - array of all possible substrings
+  - array of all vowel substrings
+  - transformed array: lengths
+  - largest length
+finish: integer
+
+ALGORITHM
+- get all possible substrings
+  - create an empty array to hold substrings
+  - create a range to represent starting index
+    - start at index 0, then index 1, up to final index
+      - final index: (string length - 1)
+
+    - create a range to represent current length
+      - start at length 1, up to maximum length
+        - maximum length: string length - current index
+    - add string[starting index, current length] to substrings array
+- get all vowel substrings
+  - select only substrings that contain only vowels (a e i o u)
+- get length of longest vowel substrings
+=end
+
+def longest_vowel_substring(string)
+  substrings = get_substrings(string)
+  vowel_substrings = substrings.select do |substring|
+    substring.each_char.all? { |char| 'aeiou'.include?(char) }
+  end
+  largest = vowel_substrings.max_by(&:size) || ''
+  largest.size
+end
+
+def get_substrings(string)
+  substrings = []
+  final_index = string.size - 1
+
+  (0..final_index).each do |start_index|
+    max_length = string.size - start_index
+
+    (1..max_length).each do |length|
+      substrings << string[start_index, length]
+    end
+  end
+  substrings
+end
+
+p longest_vowel_substring('cwm') == 0
+p longest_vowel_substring('many') == 1
+p longest_vowel_substring('launchschoolstudents') == 2
+p longest_vowel_substring('eau') == 3
+p longest_vowel_substring('beauteous') == 3
+p longest_vowel_substring('sequoia') == 4
+p longest_vowel_substring('miaoued') == 5
+
 ### FOURTEEN
 =begin
 Create a method that takes a single integer argument and returns the sum of all the multiples of 7 or 11 that are less than the argument. If a number is a multiple of both 7 and 11, count it just once.
@@ -40,24 +116,28 @@ ALGORITHM
 - get the sum of that array
 =end
 
+# # def seven_eleven(number)
+# #   multiples = (7...number).select { |num| num % 7 == 0 || num % 11 == 0 }
+# #   multiples.sum
+# # end
+
+# # def seven_eleven(number)
+# #   (1...number).filter_map do |candidate|
+# #     candidate if [7, 11].any? { |divisor| candidate % divisor == 0 }
+# #   end.sum
+# # end
+
 # def seven_eleven(number)
-#   multiples = (7...number).select { |num| num % 7 == 0 || num % 11 == 0 }
-#   multiples.sum
+#   ((7...number).step(7).to_a + (11...number).step(11).to_a).uniq.sum
 # end
 
-def seven_eleven(number)
-  (1...number).filter_map do |candidate|
-    candidate if [7, 11].any? { |divisor| candidate % divisor == 0 }
-  end.sum
-end
-
-p seven_eleven(10) == 7
-p seven_eleven(11) == 7
-p seven_eleven(12) == 18
-p seven_eleven(25) == 75
-p seven_eleven(100) == 1153
-p seven_eleven(0) == 0
-p seven_eleven(-100) == 0
+# p seven_eleven(10) == 7
+# p seven_eleven(11) == 7
+# p seven_eleven(12) == 18
+# p seven_eleven(25) == 75
+# p seven_eleven(100) == 1153
+# p seven_eleven(0) == 0
+# p seven_eleven(-100) == 0
 
 ### SEVEN
 =begin
