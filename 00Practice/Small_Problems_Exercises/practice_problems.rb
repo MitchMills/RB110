@@ -1,3 +1,68 @@
+### SEVEN
+=begin
+Create a method that takes an array of integers as an argument and returns the number of identical pairs of integers in that array. For instance, the number of identical pairs in [1, 2, 3, 2, 1] is 2: there are two occurrences each of both 2 and 1.
+
+If the array is empty or contains exactly one value, return 0.
+
+If a certain number occurs more than twice, count each complete pair once. For instance, for [1, 1, 1, 1] and [2, 2, 2, 2, 2], the method should return 2. The first array contains two complete pairs while the second has an extra 2 that isn't part of the other two pairs.
+
+PROBLEM 9:09
+input: array
+  - elements are integers
+  - some integers may be repeated
+  - may be empty
+  - may contain only 1 value
+
+output: integer
+  - represents the number of 'identical pairs'
+    - an identical pair contains the same two numbers
+    - numbers need not be contiguous
+  - if no identical pairs, return 0
+    - an empty input array
+    - an array with only one element
+    - an array with no repeated numbers
+  - count only 'complete' pairs
+    - if there are 5 occurrences of a number, there are only 2 complete pairs
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to count occurrences of each unique number
+  - way to determine 'complete' pairs
+
+start: array
+  - array of unique integers from input array: uniques
+  - transformed unique array: counts for each unique integer: pairs
+  - transformed counts array: each count divided by 2: pair_counts
+finish: integer: sum of pair_counts array
+
+ALGORITHM
+- create an array of the unique values in the input array
+- transform this array into counts of the occurrences of each unique value
+- transform counts array: divide each value by 2 (integer division)
+- return the sum of that array
+=end
+
+def pairs(numbers)
+  uniques = numbers.uniq
+  counts = uniques.map { |number| numbers.count(number) }
+  pair_count = counts.map { |count| count / 2 }
+  pair_count.sum
+end
+
+def pairs(numbers)
+  numbers.uniq.map { |number| numbers.count(number) / 2 }.sum
+end
+
+p pairs([3, 1, 4, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7]) == 3
+p pairs([2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4]) == 4
+p pairs([]) == 0
+p pairs([23]) == 0
+p pairs([997, 997]) == 1
+p pairs([32, 32, 32]) == 1
+p pairs([7, 7, 7, 7, 7, 7, 7]) == 3
+
 ### SIX
 =begin
 Create a method that takes a string argument and returns a hash in which the keys represent the lowercase letters in the string, and the values represent how often the corresponding letter occurs in the string.

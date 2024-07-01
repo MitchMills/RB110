@@ -1,19 +1,18 @@
-def count_letters(string)
-  string.chars.each_with_object(Hash.new(0)) do |char, counts|
-    counts[char] += 1 if ('a'..'z').include?(char)
-  end
+def pairs1(numbers)
+  uniques = numbers.uniq
+  counts = uniques.map { |number| numbers.count(number) }
+  pair_count = counts.map { |count| count / 2 }
+  pair_count.sum
 end
 
-# expected = {'w' => 1, 'o' => 2, 'e' => 3, 'b' => 1, 'g' => 1, 'n' => 1}
-# p count_letters('woebegone') == expected
+def pairs(numbers)
+  numbers.uniq.map { |number| numbers.count(number) / 2 }.sum
+end
 
-# expected = {'l' => 1, 'o' => 1, 'w' => 1, 'e' => 4, 'r' => 2,
-#             'c' => 2, 'a' => 2, 's' => 2, 'u' => 1, 'p' => 2}
-# p count_letters('lowercase/uppercase') == expected
-
-# expected = {'u' => 1, 'o' => 1, 'i' => 1, 's' => 1}
-# p count_letters('W. E. B. Du Bois') == expected
-
-# p count_letters('x') == {'x' => 1}
-# p count_letters('') == {}
-# p count_letters('!!!') == {}
+p pairs([3, 1, 4, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7]) == 3
+p pairs([2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4]) == 4
+p pairs([]) == 0
+p pairs([23]) == 0
+p pairs([997, 997]) == 1
+p pairs([32, 32, 32]) == 1
+p pairs([7, 7, 7, 7, 7, 7, 7]) == 3
