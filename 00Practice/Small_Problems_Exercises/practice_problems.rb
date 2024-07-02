@@ -1,3 +1,107 @@
+### TEN
+=begin
+Create a method that takes a string of digits as an argument and returns the number of even-numbered substrings that can be formed. For example, in the case of '1432', the even-numbered substrings are '14', '1432', '4', '432', '32', and '2', for a total of 6 substrings.
+
+If a substring occurs more than once, you should count each occurrence as a separate substring.
+
+PROBLEM 3:20
+input: string
+  - contains only numeric characters
+
+output: integer
+  - represents number of even-numbered substrings that can be created
+    - repetitions are included in count
+    - substring can equal entire input string
+  - can be 0
+    - if no even number in input string
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all possible substrings
+  - way to determine which substrings represent even numbers
+  - way to count number of even-numbered substrings
+
+start: string
+  - array of all possible substrings
+  - filtered array: only even-numbered substrings
+finish: integer (size of filtered array)
+
+ALGORITHM
+- get all possible substrings
+  - create an empty array to hold substrings
+  - consider each starting index
+    - from 0 up to (string length - 1)
+
+  - get all possible substrings from that starting index
+    - use length
+      - from 1 up to (string length - current starting index)
+  - add substrings to substring array
+    - string[starting index, current length]
+
+- find even-numbered substrings
+  - for each substring
+    - convert it to an integer
+    - select it if it is even
+    - ignore otherwise
+- return number of even-numbered substrings
+  - size of even-numbered substrings array
+=end
+
+# def even_substrings(string)
+#   substrings = get_substrings(string)
+#   even_numbered_substrings = substrings.select do |substring|
+#     substring.to_i.even?
+#   end
+#   even_numbered_substrings.size
+# end
+
+# def get_substrings(string)
+#   substrings = []
+#   last_index = string.size - 1
+
+#   (0..last_index).each do |start_index|
+#     max_size = string.size - start_index
+
+#     (1..max_size).each do |length|
+#       substrings << string[start_index, length]
+#     end
+#   end
+#   substrings
+# end
+
+####
+def even_substrings(string)
+  even_substrings = find_substrings(string)
+  even_substrings.size
+end
+
+def find_substrings(string)
+  substrings = []
+  last_index = string.size - 1
+
+  (0..last_index).each do |start_index|
+    get_even_substrings(string, start_index, substrings)
+  end
+
+  substrings
+end
+
+def get_even_substrings(string, start_index, substrings)
+  max_size = string.size - start_index
+  (1..max_size).each do |length|
+    current_substring = string[start_index, length]
+    substrings << current_substring if current_substring.to_i.even?
+  end
+end
+
+p even_substrings('1432') == 6
+p even_substrings('3145926') == 16
+p even_substrings('2718281') == 16
+p even_substrings('13579') == 0
+p even_substrings('143232') == 12
+
 ### NINE
 =begin
 Create a method that takes two string arguments and returns the number of times that the second string occurs in the first string. Note that overlapping strings don't count: 'babab' contains 1 instance of 'bab', not 2.
@@ -50,31 +154,34 @@ ALGORITHM
 - return matches
 =end
 
-def count_substrings(string1, string2)
-  matches = 0
-  start_index = 0
-  max_index = string1.size - string2.size
+# def count_substrings(string1, string2)
+#   matches = 0
+#   start_index = 0
+#   max_index = string1.size - string2.size
 
-  (0..max_index).each do |current_index|
-    next unless current_index == start_index
-    if string1[current_index, string2.size] == string2
-      matches += 1
-      start_index = current_index + string2.size
-    else
-      start_index += 1
-    end
-  end
-  matches
-end
+#   (0..max_index).each do |current_index|
+#     next unless current_index == start_index
+#     length = string2.size
 
-p count_substrings('babab', 'bab') == 1
-p count_substrings('babab', 'ba') == 2
-p count_substrings('babab', 'b') == 3
-p count_substrings('babab', 'x') == 0
-p count_substrings('', 'x') == 0
-p count_substrings('bbbaabbbbaab', 'baab') == 2
-p count_substrings('bbbaabbbbaab', 'bbaab') == 2
-p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
+#     if string1[current_index, length] == string2
+#       matches += 1
+#       start_index = current_index + length
+#     else
+#       start_index += 1
+#     end
+#   end
+
+#   matches
+# end
+
+# p count_substrings('babab', 'bab') == 1
+# p count_substrings('babab', 'ba') == 2
+# p count_substrings('babab', 'b') == 3
+# p count_substrings('babab', 'x') == 0
+# p count_substrings('', 'x') == 0
+# p count_substrings('bbbaabbbbaab', 'baab') == 2
+# p count_substrings('bbbaabbbbaab', 'bbaab') == 2
+# p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
 
 ### EIGHT
 =begin
