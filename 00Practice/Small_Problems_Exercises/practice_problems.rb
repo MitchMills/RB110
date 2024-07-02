@@ -1,3 +1,81 @@
+### NINE
+=begin
+Create a method that takes two string arguments and returns the number of times that the second string occurs in the first string. Note that overlapping strings don't count: 'babab' contains 1 instance of 'bab', not 2.
+
+You may assume that the second argument is never an empty string.
+
+PROBLEM 1:13
+input: 2 strings
+  - first string can be empty
+  - second string is never empty
+
+output: integer
+  - represents number of times that 2nd string occurs in 1st
+    - overlapping strings don't count:
+      - 'bab' only occurs once in 'babab'
+      - i.e. can only count each letter once
+  - if first string is empty, return 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to find occurrences of 2nd string in 1st string
+  - way to keep track of number of occurrences
+  - way to avoid double counting
+
+start: 2 strings
+  - counter to track number of matches
+  - compare slices from 1st string to 2nd string
+    - slice size == 2nd string size
+    - index of last character of matching slice ==
+      - where to start searching again after match found
+finish: integer
+
+ALGORITHM
+- create a counter to track matches: matches = 0
+- create a counter to track starting index: start_index = 0
+- consider each possible start index of string1
+  - from 0 up to (string1 length - string2 length): current_index
+    - skip this iteration unless current_index == start_index
+    - for each current_index
+      - compare a slice starting from that index
+        - and with the same size as string2
+          - to string2: string1[current_index, string2 length] == string2
+      - if they match
+        - increment matches by 1
+        - set start_index to: current_index + string2 length
+      - otherwise
+        - increment start_index by 1
+- return matches
+=end
+
+def count_substrings(string1, string2)
+  matches = 0
+  start_index = 0
+  max_index = string1.size - string2.size
+
+  (0..max_index).each do |current_index|
+    next unless current_index == start_index
+    if string1[current_index, string2.size] == string2
+      matches += 1
+      start_index = current_index + string2.size
+    else
+      start_index += 1
+    end
+  end
+  matches
+end
+
+p count_substrings('babab', 'bab') == 1
+p count_substrings('babab', 'ba') == 2
+p count_substrings('babab', 'b') == 3
+p count_substrings('babab', 'x') == 0
+p count_substrings('', 'x') == 0
+p count_substrings('bbbaabbbbaab', 'baab') == 2
+p count_substrings('bbbaabbbbaab', 'bbaab') == 2
+p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
+
 ### EIGHT
 =begin
 Create a method that takes a non-empty string as an argument. The string consists entirely of lowercase alphabetic characters. The method should return the length of the longest vowel substring. The vowels of interest are "a", "e", "i", "o", and "u".
@@ -43,36 +121,36 @@ ALGORITHM
 - get length of longest vowel substrings
 =end
 
-def longest_vowel_substring(string)
-  substrings = get_substrings(string)
-  vowel_substrings = substrings.select do |substring|
-    substring.each_char.all? { |char| 'aeiou'.include?(char) }
-  end
-  largest = vowel_substrings.max_by(&:size) || ''
-  largest.size
-end
+# def longest_vowel_substring(string)
+#   substrings = get_substrings(string)
+#   vowel_substrings = substrings.select do |substring|
+#     substring.each_char.all? { |char| 'aeiou'.include?(char) }
+#   end
+#   largest = vowel_substrings.max_by(&:size) || ''
+#   largest.size
+# end
 
-def get_substrings(string)
-  substrings = []
-  final_index = string.size - 1
+# def get_substrings(string)
+#   substrings = []
+#   final_index = string.size - 1
 
-  (0..final_index).each do |start_index|
-    max_length = string.size - start_index
+#   (0..final_index).each do |start_index|
+#     max_length = string.size - start_index
 
-    (1..max_length).each do |length|
-      substrings << string[start_index, length]
-    end
-  end
-  substrings
-end
+#     (1..max_length).each do |length|
+#       substrings << string[start_index, length]
+#     end
+#   end
+#   substrings
+# end
 
-p longest_vowel_substring('cwm') == 0
-p longest_vowel_substring('many') == 1
-p longest_vowel_substring('launchschoolstudents') == 2
-p longest_vowel_substring('eau') == 3
-p longest_vowel_substring('beauteous') == 3
-p longest_vowel_substring('sequoia') == 4
-p longest_vowel_substring('miaoued') == 5
+# p longest_vowel_substring('cwm') == 0
+# p longest_vowel_substring('many') == 1
+# p longest_vowel_substring('launchschoolstudents') == 2
+# p longest_vowel_substring('eau') == 3
+# p longest_vowel_substring('beauteous') == 3
+# p longest_vowel_substring('sequoia') == 4
+# p longest_vowel_substring('miaoued') == 5
 
 ### FOURTEEN
 =begin
