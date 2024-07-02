@@ -1,3 +1,107 @@
+
+
+
+### ELEVEN
+=begin
+Create a method that takes a nonempty string as an argument and returns an array consisting of a string and an integer. If we call the string argument s, the string component of the returned array t, and the integer component of the returned array k, then s, t, and k must be related to each other such that s == t * k. The values of t and k should be the shortest possible substring and the largest possible repeat count that satisfies this equation.
+
+You may assume that the string argument consists entirely of lowercase alphabetic letters.
+
+PROBLEM 3:51
+input: string: `string`
+  - not empty
+  - contains only lowercase alphabetic letters
+
+output: array
+  - two elements
+    - string: `substring`
+      - substring of input string
+      - can == entire input string
+    - integer: `repeat_count`
+      - represents times `substring` is multiplied to equal `string`
+      - can be 1 (if `substring` == entire input string)
+    - must satisfy: `substring` * `repeat_count` == `string`
+      - `substring` should be shortest possible substring
+      - `repeat_count` should be highest possible number
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate potential substrings
+    - all will start at index 0
+    - length can be from 1 up to input string length
+  - way to determine potential repeat count
+    - string length / substring length
+  - way to test whether substring * repeat_count equals string
+    - substring * repeat_count == string
+
+start: string
+  - array of all possible substrings
+    - all start at index 0
+    - length: from 1 up to input string length
+  - array of all substrings sorted by length (shortest to longest)
+  - repeat_count: input string length / current substring length
+finish: [substring, repeat_count]
+  - first substring which return true to:
+    - substring * repeat_count == string]
+
+ALGORITHM
+- get all possible substrings from first index
+  - create an empty array to hold substrings: substrings
+  - get all possible length substrings that start at index 0
+    - lengths: from 1 up to input string length
+      - for each length
+        - add appropriate substring to `substrings` array
+          - string[0, current length]
+- find shortest substring that satisfies formula
+  - transform into a nested array
+    - repeat count = string length / substring length
+    - [substring, repeat_count]
+
+  - for each subarray
+    - test: substring * repeat_count == string
+    - return first subarray that satisfies test
+=end
+
+# def repeated_substring(string)
+#   substrings = get_substrings(string)
+#   candidates = get_candidates(substrings)
+#   candidates.find { |candidate| candidate.inject(:*) == string }
+# end
+
+# def get_substrings(string)
+#   substrings = []
+#   max_length = string.size
+#   (1..max_length).each do |current_length|
+#     substrings << string[0, current_length]
+#   end
+#   substrings
+# end
+
+# def get_candidates(substrings)
+#   substrings.map do |substring|
+#     repeat_count = substrings.last.size / substring.size
+#     [substring, repeat_count]
+#   end
+# end
+
+####
+# def repeated_substring(string)
+#   1.upto(string.size).each do |current_length|
+#     current_substring = string[0, current_length]
+#     repeat_count = string.length / current_length
+#     pair = [current_substring, repeat_count]
+#     return pair if pair.inject(:*) == string
+#   end
+# end
+
+# p repeated_substring('xyzxyzxyz') == ['xyz', 3]
+# p repeated_substring('xyxy') == ['xy', 2]
+# p repeated_substring('xyz') == ['xyz', 1]
+# p repeated_substring('aaaaaaaa') == ['a', 8]
+# p repeated_substring('superduper') == ['superduper', 1]
+
 ### TEN
 =begin
 Create a method that takes a string of digits as an argument and returns the number of even-numbered substrings that can be formed. For example, in the case of '1432', the even-numbered substrings are '14', '1432', '4', '432', '32', and '2', for a total of 6 substrings.
@@ -72,35 +176,35 @@ ALGORITHM
 # end
 
 ####
-def even_substrings(string)
-  even_substrings = find_substrings(string)
-  even_substrings.size
-end
+# def even_substrings(string)
+#   even_substrings = get_even_substrings(string)
+#   even_substrings.size
+# end
 
-def find_substrings(string)
-  substrings = []
-  last_index = string.size - 1
+# def get_even_substrings(string)
+#   substrings = []
+#   last_index = string.size - 1
 
-  (0..last_index).each do |start_index|
-    get_even_substrings(string, start_index, substrings)
-  end
+#   (0..last_index).each do |start_index|
+#     add_even_substrings(string, start_index, substrings)
+#   end
 
-  substrings
-end
+#   substrings
+# end
 
-def get_even_substrings(string, start_index, substrings)
-  max_size = string.size - start_index
-  (1..max_size).each do |length|
-    current_substring = string[start_index, length]
-    substrings << current_substring if current_substring.to_i.even?
-  end
-end
+# def add_even_substrings(string, start_index, substrings)
+#   max_size = string.size - start_index
+#   (1..max_size).each do |length|
+#     current_substring = string[start_index, length]
+#     substrings << current_substring if current_substring.to_i.even?
+#   end
+# end
 
-p even_substrings('1432') == 6
-p even_substrings('3145926') == 16
-p even_substrings('2718281') == 16
-p even_substrings('13579') == 0
-p even_substrings('143232') == 12
+# p even_substrings('1432') == 6
+# p even_substrings('3145926') == 16
+# p even_substrings('2718281') == 16
+# p even_substrings('13579') == 0
+# p even_substrings('143232') == 12
 
 ### NINE
 =begin
