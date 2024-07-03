@@ -1,5 +1,57 @@
+### THIRTEEN
 
 
+### TWELVE
+=begin
+Create a method that takes a string as an argument and returns true if the string is a pangram, false if it is not.
+
+Pangrams are sentences that contain every letter of the alphabet at least once. For example, the sentence "Five quacking zephyrs jolt my wax bed." is a pangram since it uses every letter at least once. Note that case is irrelevant.
+
+PROBLEM 4:44
+input: string
+
+output:boolean
+  - true if input string is a 'pangram'
+    - uses every letter of the alphabet at least once
+    - ignore case
+      - 'a' and 'A' are treated the same
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if every alphabet letter is used at least once
+
+start: string
+  - array of all alphabetic characters (lowercase)
+  - downcased version of input string
+  - conditional based on count of each letter
+finish: boolean
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters
+- create a downcased version of the input string
+- iterate over the alphabet array
+  - return 'false' if any letter has a count of 0
+  - return 'true' if all have a count > 0
+=end
+
+# LETTERS = ('a'..'z').to_a
+
+# def is_pangram?(string)
+#   LETTERS.all? { |letter| string.downcase.count(letter).positive? }
+#   # LETTERS.none? { |letter| string.downcase.count(letter).zero? }
+# end
+
+# p is_pangram?('The quick, brown fox jumps over the lazy dog!') #== true
+# p is_pangram?('The slow, brown fox jumps over the lazy dog!') == false
+# p is_pangram?("A wizard's job is to vex chumps quickly in fog.") == true
+# p is_pangram?("A wizard's task is to vex chumps quickly in fog.") == false
+# p is_pangram?("A wizard's job is to vex chumps quickly in golf.") == true
+
+# my_str = 'Sixty zippers were quickly picked from the woven jute bag.'
+# p is_pangram?(my_str) == true
 
 ### ELEVEN
 =begin
@@ -86,7 +138,7 @@ ALGORITHM
 #   end
 # end
 
-####
+###
 # def repeated_substring(string)
 #   1.upto(string.size).each do |current_length|
 #     current_substring = string[0, current_length]
