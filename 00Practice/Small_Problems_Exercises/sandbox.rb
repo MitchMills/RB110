@@ -1,41 +1,38 @@
-def longest_alternating_subarray(array)
-  alternating_subarrays = get_alternating_subarrays(array)
-  alternating_subarrays.max_by(&:size) || []
-end
+# def bouncy_count(numbers)
+#   count = 0
 
-def get_alternating_subarrays(array)
-  alternating_subarrays = []
-  last_index = array.size - 2
+#   numbers.each do |number|
+#     digits = number.digits.reverse
+#     count += 1 if ascending?(digits) && descending?(digits)
+#   end
 
-  (0..last_index).each do |start_index|
-    max_length = array.size - start_index
+#   count
+# end
 
-    (2..max_length).each do |length|
-      subarray = array[start_index, length]
-      alternating_subarrays << subarray if alternating?(subarray)
-    end
-  end
+# def bouncy_count(numbers)
+#   numbers.map do |number|
+#     digits = number.digits.reverse
+#     ascending?(digits) && descending?(digits) ? 1 : 0
+#   end.sum
+# end
 
-  alternating_subarrays
-end
-
-def alternating?(array)
-  last_index = array.size - 2
-
-  (0..last_index).all? do |current_index|
-    number = array[current_index]
-    next_number = array[current_index + 1]
-
-    if number.odd?
-      next_number.even?
-    elsif number.even?
-      next_number.odd?
-    end
+def bouncy_count(numbers)
+  numbers.inject(0) do |count, number|
+    digits = number.digits.reverse
+    addition = ascending?(digits) && descending?(digits) ? 1 : 0
+    count + addition
   end
 end
 
-p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
-p longest_alternating_subarray([2, 4, 6, 8]) == []
-p longest_alternating_subarray([1, 3, 5, 7]) == []
-p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
-p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]
+def ascending?(digits_array)
+  digits_array.each_cons(2).any? { |pair| pair.first < pair.last }
+end
+
+def descending?(digits_array)
+  digits_array.each_cons(2).any? { |pair| pair.first > pair.last }
+end
+
+p bouncy_count([]) == 0
+p bouncy_count([11, 0, 345, 21]) == 0
+p bouncy_count([121, 4114]) == 2
+p bouncy_count([176, 442, 80701644]) == 2
