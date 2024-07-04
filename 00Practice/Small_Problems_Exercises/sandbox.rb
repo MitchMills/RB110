@@ -19,7 +19,7 @@
 def bouncy_count(numbers)
   numbers.inject(0) do |count, number|
     digits = number.digits.reverse
-    addition = ascending?(digits) && descending?(digits) ? 1 : 0
+    addition = (ascending?(digits) && descending?(digits) ? 1 : 0)
     count + addition
   end
 end
