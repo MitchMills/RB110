@@ -1,38 +1,7 @@
-# def bouncy_count(numbers)
-#   count = 0
-
-#   numbers.each do |number|
-#     digits = number.digits.reverse
-#     count += 1 if ascending?(digits) && descending?(digits)
-#   end
-
-#   count
-# end
-
-# def bouncy_count(numbers)
-#   numbers.map do |number|
-#     digits = number.digits.reverse
-#     ascending?(digits) && descending?(digits) ? 1 : 0
-#   end.sum
-# end
-
-def bouncy_count(numbers)
-  numbers.inject(0) do |count, number|
-    digits = number.digits.reverse
-    addition = (ascending?(digits) && descending?(digits) ? 1 : 0)
-    count + addition
-  end
+def get_all_subarrays(array)
+  lengths = (1..array.size)
+  lengths.flat_map { |length| array.each_cons(length).to_a }
 end
 
-def ascending?(digits_array)
-  digits_array.each_cons(2).any? { |pair| pair.first < pair.last }
-end
-
-def descending?(digits_array)
-  digits_array.each_cons(2).any? { |pair| pair.first > pair.last }
-end
-
-p bouncy_count([]) == 0
-p bouncy_count([11, 0, 345, 21]) == 0
-p bouncy_count([121, 4114]) == 2
-p bouncy_count([176, 442, 80701644]) == 2
+test_array = (1..5).to_a
+p get_all_subarrays(test_array) == [[1], [2], [3], [4], [5], [1, 2], [2, 3], [3, 4], [4, 5], [1, 2, 3], [2, 3, 4], [3, 4, 5], [1, 2, 3, 4], [2, 3, 4, 5], [1, 2, 3, 4, 5]]

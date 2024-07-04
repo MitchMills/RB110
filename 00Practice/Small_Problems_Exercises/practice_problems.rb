@@ -48,31 +48,31 @@ ALGORITHM
 - return bouncy numbers count
 =end
 
-def bouncy_count(numbers)
-  count = 0
+# def bouncy_count(numbers)
+#   count = 0
 
-  numbers.each do |number|
-    digits = number.digits.reverse
-    last_index = digits.size - 2
+#   numbers.each do |number|
+#     digits = number.digits.reverse
+#     last_index = digits.size - 2
 
-    ascending = (0..last_index).any? do |current_index|
-      digits[current_index] < digits[current_index + 1]
-    end
+#     ascending = (0..last_index).any? do |current_index|
+#       digits[current_index] < digits[current_index + 1]
+#     end
 
-    descending = (0..last_index).any? do |current_index|
-      digits[current_index] > digits[current_index + 1]
-    end
+#     descending = (0..last_index).any? do |current_index|
+#       digits[current_index] > digits[current_index + 1]
+#     end
 
-    count += 1 if ascending && descending
-  end
+#     count += 1 if ascending && descending
+#   end
 
-  count
-end
+#   count
+# end
 
-p bouncy_count([]) == 0
-p bouncy_count([11, 0, 345, 21]) == 0
-p bouncy_count([121, 4114]) == 2
-p bouncy_count([176, 442, 80701644]) == 2
+# p bouncy_count([]) == 0
+# p bouncy_count([11, 0, 345, 21]) == 0
+# p bouncy_count([121, 4114]) == 2
+# p bouncy_count([176, 442, 80701644]) == 2
 
 ### NORA VOGT'S TA QUESTION
 =begin
