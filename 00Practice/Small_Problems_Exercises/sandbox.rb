@@ -1,34 +1,41 @@
-def find_fibonacci_slices(array)
-  fib_slices = []
-  last_index = array.size - 3
+def longest_alternating_subarray(array)
+  alternating_subarrays = get_alternating_subarrays(array)
+  alternating_subarrays.max_by(&:size) || []
+end
+
+def get_alternating_subarrays(array)
+  alternating_subarrays = []
+  last_index = array.size - 2
 
   (0..last_index).each do |start_index|
-    get_fib_slices(array, start_index, fib_slices)
+    max_length = array.size - start_index
+
+    (2..max_length).each do |length|
+      subarray = array[start_index, length]
+      alternating_subarrays << subarray if alternating?(subarray)
+    end
   end
 
-  fib_slices
+  alternating_subarrays
 end
 
-def get_fib_slices(source_array, start_index, results_array)
-  max_size = source_array.size - start_index
+def alternating?(array)
+  last_index = array.size - 2
 
-  (3..max_size).each do |length|
-    current_subarray = source_array[start_index, length]
-    results_array << current_subarray if fibonacci_slice?(current_subarray)
+  (0..last_index).all? do |current_index|
+    number = array[current_index]
+    next_number = array[current_index + 1]
+
+    if number.odd?
+      next_number.even?
+    elsif number.even?
+      next_number.odd?
+    end
   end
 end
 
-def fibonacci_slice?(array)
-  final_index = array.size - 3
-
-  (0..final_index).all? do |index|
-    current_three_elements = array[index, 3]
-    current_three_elements.take(2).sum == current_three_elements.last
-  end
-end
-
-p find_fibonacci_slices([1, 1, 2, 3, 5, 8]) == [[1, 1, 2], [1, 1, 2, 3], [1, 1, 2, 3, 5], [1, 1, 2, 3, 5, 8], [1, 2, 3], [1, 2, 3, 5], [1, 2, 3, 5, 8], [2, 3, 5], [2, 3, 5, 8], [3, 5, 8]]
-p find_fibonacci_slices([2, 4, 7, 11, 18]) == [[4, 7, 11], [4, 7, 11, 18], [7, 11, 18]]
-p find_fibonacci_slices([5, 5, 10, 15, 24, 40]) == [[5, 5, 10], [5, 5, 10, 15], [5, 10, 15]]
-p find_fibonacci_slices([1, 2, 4, 6, 10, 16]) == [[2, 4, 6], [2, 4, 6, 10], [2, 4, 6, 10, 16], [4, 6, 10], [4, 6, 10, 16], [6, 10, 16]]
-p find_fibonacci_slices([10, 22, 33, 43, 56]) == []
+p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
+p longest_alternating_subarray([2, 4, 6, 8]) == []
+p longest_alternating_subarray([1, 3, 5, 7]) == []
+p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
+p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]

@@ -1,5 +1,113 @@
-### THIRTEEN
+### GRAHAM JARVIS' TA QUESTION
+=begin
+Some numbers have only ascending digits, like 123, 3445, 2489, etc.
+Some numbers have only descending digits, like 321, 5443, 9842, etc.
+A number is "bouncy" if it has both ascending and descending digits, like 313, 92543, etc.
+Write a method that takes a list of numbers and counts how many of them are bouncy.
+=end
 
+
+p bouncyCount([]) == 0;
+p bouncyCount([11, 0, 345, 21]) == 0;
+p bouncyCount([121, 4114]) == 2;
+p bouncyCount([176, 442, 80701644]) == 2;
+
+
+
+
+
+
+
+
+
+### NORA VOGT'S TA QUESTION
+=begin
+Write a function that returns the maximum possible consecutive alternating odd and even (or even and odd) numbers. Minimum possible length is 2. If there's none return [].
+
+PROBLEM 11:07
+input: array
+  - contains integers
+
+output: array
+  - longest possible sequence of
+    - consecutive alternating even/odd or odd/even numbers
+  - minimum length = 2
+  - return an empty array if no such sequence
+  - can be entire sequence of input array
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all possible subarrays of consecutive elements
+    - minimum length 2
+  - way to determine if a subarray alternates between odd and even
+
+start: array
+  - array of all possible subarrays
+    - minimum length 2
+  - array of all subarrays that alternate
+finish: array (longest alternating subarray)
+
+ALGORITHM
+- get all possible subarrays, minimum length 2
+  - create an empty array to hold subarrays
+  - consider every starting index from 0 up to array length - 2
+    - consider every possible length from 2 up to (current_index - length)
+      - add subarray from [start index, length] to subarrays array
+
+- get all alternating subarrays
+  - for each subarray:
+    - select it if:
+      - for all pairs of consecutive elements in the array
+        - if the first element is odd
+          - the second element is even
+        - elsif the first element is even
+          - the second element is odd
+
+- return the longest alternating subarray, or an empty array
+=end
+
+def longest_alternating_subarray(array)
+  sequences = get_sequences(array)
+  alternators = sequences.select { |sequence| alternating?(sequence) }
+  alternators.max_by(&:size) || []
+end
+
+def get_sequences(array)
+  sequences = []
+  last_index = array.size - 2
+
+  (0..last_index).each do |start_index|
+    max_length = array.size - start_index
+    (2..max_length).each do |length|
+      sequences << array[start_index, length]
+    end
+  end
+  sequences
+end
+
+def alternating?(array)
+  last_index = array.size - 2
+
+  (0..last_index).all? do |current_index|
+    number = array[current_index]
+    next_number = array[current_index + 1]
+
+    if number.odd?
+      next_number.even?
+    elsif number.even?
+      next_number.odd?
+    end
+
+  end
+end
+
+p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
+p longest_alternating_subarray([2, 4, 6, 8]) == []
+p longest_alternating_subarray([1, 3, 5, 7]) == []
+p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
+p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]
 
 ### TWELVE
 =begin
