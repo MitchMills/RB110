@@ -2,7 +2,7 @@
 BASIC ALGORITHM
 - create an empty array to add subarrays to: `subarrays`
 
-- for each index in the input array
+- for each index of the input array
   - from index 0 up to (array length - 1)
 
   - get every possible length subarray starting from that index
@@ -111,9 +111,7 @@ def get_all_subarrays(array)
   max_length = array.size
   lengths = (1..max_length)
 
-  lengths.each do |length|
-    subarrays += array.each_cons(length).to_a
-  end
+  lengths.each { |length| subarrays += array.each_cons(length).to_a }
 
   subarrays.sort
 end

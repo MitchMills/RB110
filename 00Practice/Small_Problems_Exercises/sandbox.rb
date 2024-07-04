@@ -6,7 +6,7 @@ end
 def get_alternating_subarrays(array)
   alternating_subarrays = []
   max_length = array.size
-  lengths = (2..array.size)
+  lengths = (2..max_length)
 
   lengths.each do |length|
     array.each_cons(length) do |subarray|
