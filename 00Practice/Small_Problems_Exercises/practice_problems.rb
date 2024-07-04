@@ -4,21 +4,75 @@ Some numbers have only ascending digits, like 123, 3445, 2489, etc.
 Some numbers have only descending digits, like 321, 5443, 9842, etc.
 A number is "bouncy" if it has both ascending and descending digits, like 313, 92543, etc.
 Write a method that takes a list of numbers and counts how many of them are bouncy.
+
+PROBLEM 11:51
+input: array
+  - can be empty
+  - otherwise contains integers
+
+output: integer
+  - represents number of 'bouncy' elements in input array
+    - 'bouncy':
+      - contains both ascending digits and descending digits
+      - order and occurences of ascending / descending is not important
+        - e.g. 92543: down, up, down, down
+  - input array is empty, return 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider each number in input array
+  - way to consider each pair of digits in each number
+  - way to determine if a given pair is ascending or descending
+  - way to determine whether a number has both ascending and descending pairs
+
+start: array of numbers
+  - array of individual digits in each number
+  - range for indexes: from 0 up to array length - 2
+    - number at current index <=> number at current index + 1
+    - if at least one is ascending and one is descending, count that number as bouncy
+finish: integer (number of bouncy numbers)
+
+[1, 2, 1]
+
+ALGORITHM
+- create a variable to track number of bouncy numbers in input array
+  - set to 0
+- for each number in the input array
+  - create an array of individual digits
+  - examine each pair of digits
+    - if any pair is ascending AND
+    - any pair is descending
+    - increment bouncy numbers count
+- return bouncy numbers count
 =end
 
+def bouncy_count(numbers)
+  count = 0
 
-p bouncyCount([]) == 0;
-p bouncyCount([11, 0, 345, 21]) == 0;
-p bouncyCount([121, 4114]) == 2;
-p bouncyCount([176, 442, 80701644]) == 2;
+  numbers.each do |number|
+    digits = number.digits.reverse
+    last_index = digits.size - 2
 
+    ascending = (0..last_index).any? do |current_index|
+      digits[current_index] < digits[current_index + 1]
+    end
 
+    descending = (0..last_index).any? do |current_index|
+      digits[current_index] > digits[current_index + 1]
+    end
 
+    count += 1 if ascending && descending
+  end
 
+  count
+end
 
-
-
-
+p bouncy_count([]) == 0
+p bouncy_count([11, 0, 345, 21]) == 0
+p bouncy_count([121, 4114]) == 2
+p bouncy_count([176, 442, 80701644]) == 2
 
 ### NORA VOGT'S TA QUESTION
 =begin
