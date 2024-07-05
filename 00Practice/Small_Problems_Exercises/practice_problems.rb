@@ -1,3 +1,71 @@
+### FOURTEEN
+=begin
+
+=end
+
+### THIRTEEN
+=begin
+Create a method that takes two strings as arguments and returns true if some portion of the characters in the first string can be rearranged to match the characters in the second. Otherwise, the method should return false.
+
+You may assume that both string arguments only contain lowercase alphabetic characters. Neither string will be empty.
+
+PROBLEM 9:12
+input: 2 strings
+  - both contain only lowercase alphabetic characters
+    - case is irrelevant
+  - neither string is empty
+  - can be different lengths
+
+output: boolean
+  - true if:
+    - some portion of characters in string 1
+      - can be rearranged to match characters in string 2
+    - string 1 can contain letters that are not in string 2
+
+  - false otherwise
+    - string 2 can contain letters that are not in string 1
+      - will produce a return of `false`
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine whether all letters from string 2 appear in string 1
+
+start: string1, string 2
+  - hash from string1
+    - keys are letters
+    - values are counts of that letter
+  - array of individual characters in string2
+finish: boolean
+
+ALGORITHM
+- create a hash from string1
+  - keys are letters
+  - values are counts
+- create an array of individual letters in string 2
+- for every letter in string 2, check
+  - if it exists as a key in string1 hash AND
+  - if the hash value for that letter is >= count of that letter in string2
+- return true if all letters pass that test, false otherwise
+=end
+
+# def unscramble(string1, string2)
+#   string1_hash = string1.chars.tally
+#   string2.chars.all? do |char|
+#     string1_hash[char] && string1_hash[char] >= string2.count(char)
+#   end
+# end
+
+# def unscramble(string1, string2)
+#   string2.chars.all? { |char| string1.count(char) >= string2.count(char) }
+# end
+
+# p unscramble('ansucchlohlo', 'launchschool') == true
+# p unscramble('phyarunstole', 'pythonrules') == true
+# p unscramble('phyarunstola', 'pythonrules') == false
+# p unscramble('boldface', 'coal') == true
+
 ### GRAHAM JARVIS' TA QUESTION
 =begin
 Some numbers have only ascending digits, like 123, 3445, 2489, etc.
@@ -122,46 +190,46 @@ ALGORITHM
 - return the longest alternating subarray, or an empty array
 =end
 
-def longest_alternating_subarray(array)
-  sequences = get_sequences(array)
-  alternators = sequences.select { |sequence| alternating?(sequence) }
-  alternators.max_by(&:size) || []
-end
+# def longest_alternating_subarray(array)
+#   sequences = get_sequences(array)
+#   alternators = sequences.select { |sequence| alternating?(sequence) }
+#   alternators.max_by(&:size) || []
+# end
 
-def get_sequences(array)
-  sequences = []
-  last_index = array.size - 2
+# def get_sequences(array)
+#   sequences = []
+#   last_index = array.size - 2
 
-  (0..last_index).each do |start_index|
-    max_length = array.size - start_index
-    (2..max_length).each do |length|
-      sequences << array[start_index, length]
-    end
-  end
-  sequences
-end
+#   (0..last_index).each do |start_index|
+#     max_length = array.size - start_index
+#     (2..max_length).each do |length|
+#       sequences << array[start_index, length]
+#     end
+#   end
+#   sequences
+# end
 
-def alternating?(array)
-  last_index = array.size - 2
+# def alternating?(array)
+#   last_index = array.size - 2
 
-  (0..last_index).all? do |current_index|
-    number = array[current_index]
-    next_number = array[current_index + 1]
+#   (0..last_index).all? do |current_index|
+#     number = array[current_index]
+#     next_number = array[current_index + 1]
 
-    if number.odd?
-      next_number.even?
-    elsif number.even?
-      next_number.odd?
-    end
+#     if number.odd?
+#       next_number.even?
+#     elsif number.even?
+#       next_number.odd?
+#     end
 
-  end
-end
+#   end
+# end
 
-p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
-p longest_alternating_subarray([2, 4, 6, 8]) == []
-p longest_alternating_subarray([1, 3, 5, 7]) == []
-p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
-p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]
+# p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
+# p longest_alternating_subarray([2, 4, 6, 8]) == []
+# p longest_alternating_subarray([1, 3, 5, 7]) == []
+# p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
+# p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]
 
 ### TWELVE
 =begin
