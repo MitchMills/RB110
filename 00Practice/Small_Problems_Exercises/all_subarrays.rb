@@ -14,7 +14,7 @@ BASIC ALGORITHM
 =end
 
 ### Using simple do..end loops
-def get_all_subarrays(array)
+def get_all_subarrays1(array)
   subarrays = []
   current_index = 0
   last_index = array.size - 1
@@ -38,7 +38,7 @@ def get_all_subarrays(array)
 end
 
 ### Using until loops
-def get_all_subarrays(array)
+def get_all_subarrays2(array)
   subarrays = []
   current_index = 0
   last_index = array.size - 1
@@ -59,7 +59,7 @@ def get_all_subarrays(array)
 end
 
 ### Using ranges
-def get_all_subarrays(array)
+def get_all_subarrays3(array)
   subarrays = []
   last_index = array.size - 1
   start_indexes = (0..last_index)
@@ -77,7 +77,7 @@ def get_all_subarrays(array)
 end
 
 ### Using ranges and a helper method
-def get_all_subarrays(array)
+def get_all_subarrays4(array)
   subarrays = []
   last_index = array.size - 1
   start_indexes = (0..last_index)
@@ -106,25 +106,25 @@ end
 # the subarrays in the same order as the other methods above so the
 # test case passes.
 
-def get_all_subarrays(array)
+def get_all_subarrays5(array)
   subarrays = []
   max_length = array.size
   lengths = (1..max_length)
 
   lengths.each { |length| subarrays += array.each_cons(length).to_a }
 
-  subarrays.sort
+  subarrays
 end
 
 ### Using `#each_cons` and `#flat_map`
-def get_all_subarrays(array)
+def get_all_subarrays6(array)
   lengths = (1..array.size)
-  lengths.flat_map { |length| array.each_cons(length).to_a }.sort
+  lengths.flat_map { |length| array.each_cons(length).to_a }
 end
 
 ### Test
 test_array = [1, 2, 3, 4, 5]
-expected_result = [
+expected_result1 = [
   [1], [1, 2], [1, 2, 3], [1, 2, 3, 4], [1, 2, 3, 4, 5],
   [2], [2, 3], [2, 3, 4], [2, 3, 4, 5],
   [3], [3, 4], [3, 4, 5],
@@ -132,4 +132,13 @@ expected_result = [
   [5]
 ]
 
-p get_all_subarrays(test_array) == expected_result
+test_array = [1, 2, 3, 4, 5]
+expected_result2 = [
+  [1], [2], [3], [4], [5],
+  [1, 2], [2, 3], [3, 4], [4, 5],
+  [1, 2, 3], [2, 3, 4], [3, 4, 5],
+  [1, 2, 3, 4], [2, 3, 4, 5],
+  [1, 2, 3, 4, 5]
+]
+
+p get_all_subarrays6(test_array) == expected_result2

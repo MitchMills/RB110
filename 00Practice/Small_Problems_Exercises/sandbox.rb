@@ -1,36 +1,27 @@
-def longest_alternating_subarray(array)
-  alternating_subarrays = get_alternating_subarrays(array)
-  alternating_subarrays.max_by(&:size) || []
+def find_fibonacci_slices(array)
+  fib_slices = []
+  last_index = array.size - 3
+  start_indexes = (0..last_index)
+
+  start_indexes.each do |start_index|
+    get_fib_slices(array, start_index, fib_slices)
+  end
+
+  fib_slices
 end
 
-def get_alternating_subarrays(array)
-  alternating_subarrays = []
-  max_length = array.size
-  lengths = (2..max_length)
+def get_fib_slices(source_array, start_index, results_array)
+  max_length = source_array.size - start_index
+  lengths = (3..max_length)
 
   lengths.each do |length|
-    array.each_cons(length) do |subarray|
-      alternating_subarrays << subarray if alternating?(subarray)
-    end
-  end
-
-  alternating_subarrays
-end
-
-def alternating?(array)
-  last_index = array.size - 2
-  indexes = (0..last_index)
-
-  indexes.all? do |index|
-    number = array[index]
-    next_number = array[index + 1]
-
-    number.odd? ? next_number.even? : next_number.odd?
+    current_subarray = source_array[start_index, length]
+    results_array << current_subarray if fibonacci_slice?(current_subarray)
   end
 end
 
-p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
-p longest_alternating_subarray([2, 4, 6, 8]) == []
-p longest_alternating_subarray([1, 3, 5, 7]) == []
-p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
-p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]
+def fibonacci_slice?(array)
+  array.each_cons(3).all? do |three_elements|
+    three_elements.take(2).sum == three_elements.last
+  end
+end
