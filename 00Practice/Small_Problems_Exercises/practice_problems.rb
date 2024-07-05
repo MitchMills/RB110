@@ -1,7 +1,180 @@
-### FOURTEEN
+### SEVENTEEN
 =begin
 
 =end
+
+
+
+### SIXTEEN
+=begin
+Create a method that returns the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. You may assume that the input string contains only alphanumeric characters.
+
+PROBLEM 3:08
+input: string
+  - contains only alphanumeric characters
+  - letters can be any case
+
+output: integer
+  - count of distinct alphabetic or numeric characters that
+    - appear more than once
+    - case insensivite: treat 'a' and 'A' as the same character
+  - can be 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if a given character occurs more than once
+  - way to treat upper and lowercase letters as the same character
+  - way to keep track of count of number of multiple-occurence characters
+
+start: string
+  - downcased string
+  - array of unique downcased characters from string
+finish: integer: count of unique characters that occur more than once
+
+ALGORITHM
+- create a downcase version of the input string
+- create an array of unique individual characters from that string
+- count the number of those unique characters that occur more than once in downcased string
+- return that count
+=end
+
+# def distinct_multiples(string)
+#   downcased = string.downcase
+#   uniques = downcased.chars.uniq
+#   uniques.count { |letter| downcased.count(letter) > 1 }
+# end
+
+# p distinct_multiples('xyz') == 0               # (none
+# p distinct_multiples('xxyypzzr') == 3          # x, y, z
+# p distinct_multiples('xXyYpzZr') == 3          # x, y, z
+# p distinct_multiples('unununium') == 2         # u, n
+# p distinct_multiples('multiplicity') == 3      # l, t, i
+# p distinct_multiples('7657') == 1              # 7
+# p distinct_multiples('3141592653589793') == 4  # 3, 1, 5, 9
+# p distinct_multiples('2718281828459045') == 5  # 2, 1, 8, 4, 5
+
+### FIFTEEN
+=begin
+Create a method that takes a string argument that consists entirely of numeric digits and computes the greatest product of four consecutive digits in the string. The argument will always have more than 4 digits.
+
+PROBLEM 2:40
+input: string
+  - contains only numeric characters
+  - will always have a length > 4
+
+output: integer
+  - greatest product of 4 consecutive digits
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all sequences of four consecutive digits
+  - way to change substrings into arrays of individual characters
+  - way to convert string digits into integers
+  - way to get products
+  - way to get greatest product
+
+start: string
+  - array of individual digits converted to integers
+  - array of all four-digit subarrays
+  - array of all products
+finish: integer (greatest product)
+
+ALGORITHM
+- create an array of individual characters from input string
+- transform into an array of integers
+- create an array of all 4-element subarrays
+  - start indexes: from 0 up to (array length - 4)
+  - lengths: always 4
+- transform into an array of product of each subarray's integers
+- return the greatest product
+=end
+
+# def greatest_product(string)
+#   digits = string.chars.map(&:to_i)
+#   subarrays = get_subarrays(digits)
+#   products = subarrays.map { |subarray| subarray.inject(:*) }
+#   products.max
+# end
+
+# def get_subarrays(array)
+#   subarrays = []
+#   target_length = 4
+#   last_index = array.size - target_length
+#   start_indexes = (0..last_index)
+
+#   start_indexes.each do |start_index|
+#     subarrays << array[start_index, target_length]
+#   end
+
+#   subarrays
+# end
+
+###
+# def get_subarrays(array)
+#   array.each_cons(4).to_a
+# end
+###
+
+# p greatest_product('23456') == 360      # 3 * 4 * 5 * 6
+# p greatest_product('3145926') == 540    # 5 * 9 * 2 * 6
+# p greatest_product('1828172') == 128    # 1 * 8 * 2 * 8
+# p greatest_product('123987654') == 3024 # 9 * 8 * 7 * 6
+
+### FOURTEEN
+=begin
+Create a method that takes a single integer argument and returns the sum of all the multiples of 7 or 11 that are less than the argument. If a number is a multiple of both 7 and 11, count it just once.
+
+For example, the multiples of 7 and 11 that are below 25 are 7, 11, 14, 21, and 22. The sum of these multiples is 75.
+
+If the argument is negative, return 0.
+
+PROBLEM 2:31
+input: integer
+  - can be positive, negative, or zero
+
+output: integer
+  - sum of all multiples of 7 or 11
+    - that are less than input integer
+    - if multiple of BOTH 7 and 11
+      - only count that multiple once
+  - if input integer is negative, return 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to find all multiples of 7 & 11 less than input integer
+  - way to sum multiples
+  - way to deal with negative input integers?
+
+start: integer
+  - array of all multiples of 7 & 11 less than input integer
+finish: integer (summed array)
+
+ALGORITHM
+- get all unique multiples of 7 and 11 less than input integer
+  - create a range from 7 up to (input integer - 1)
+    - select numbers from range if they are multiples of 7 or 11
+- get sum of those multiples and return it
+  - return 0 if input integer is < 1
+=end
+
+# def seven_eleven(number)
+#   multiples = (7...number).select { |num| num % 7 == 0 || num % 11 == 0 }
+#   multiples.sum
+# end
+
+# p seven_eleven(10) == 7
+# p seven_eleven(11) == 7
+# p seven_eleven(12) == 18
+# p seven_eleven(25) == 75
+# p seven_eleven(100) == 1153
+# p seven_eleven(0) == 0
+# p seven_eleven(-100) == 0
 
 ### THIRTEEN
 =begin
