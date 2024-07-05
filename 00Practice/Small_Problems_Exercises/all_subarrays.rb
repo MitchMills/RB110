@@ -14,59 +14,62 @@ BASIC ALGORITHM
 =end
 
 ### Using simple do..end loops
-def get_all_subarrays1(array)
+# def get_all_subarrays(array)
+#   subarrays = []
+#   current_index = 0
+#   min_length = 1
+#   last_index = array.size - min_length
+
+#   loop do   # outer loop: controls starting index of subarrays
+#     current_length = min_length
+#     max_length = array.size - current_index
+
+#     loop do   # inner loop: controls subarray lengths
+#       subarrays << array[current_index, current_length]
+
+#       current_length += 1
+#       break if current_length > max_length
+#     end
+
+#     current_index += 1
+#     break if current_index > last_index
+#   end
+
+#   subarrays
+# end
+
+##### Using until loops
+# def get_all_subarrays(array)
+#   subarrays = []
+#   current_index = 0
+#   min_length = 1
+#   last_index = array.size - min_length
+
+#   until current_index > last_index   # outer loop: start indexes
+#     current_length = min_length
+#     max_length = array.size - current_index
+
+#     until current_length > max_length   # inner loop: subarray lengths
+#       subarrays << array[current_index, current_length]
+#       current_length += 1
+#     end
+
+#     current_index += 1
+#   end
+
+#   subarrays
+# end
+
+##### Using ranges
+def get_all_subarrays(array)
   subarrays = []
-  current_index = 0
-  last_index = array.size - 1
-
-  loop do   # outer loop: controls starting index of subarrays
-    current_length = 1
-    max_length = array.size - current_index
-
-    loop do   # inner loop: controls subarray lengths
-      subarrays << array[current_index, current_length]
-
-      current_length += 1
-      break if current_length > max_length
-    end
-
-    current_index += 1
-    break if current_index > last_index
-  end
-
-  subarrays
-end
-
-### Using until loops
-def get_all_subarrays2(array)
-  subarrays = []
-  current_index = 0
-  last_index = array.size - 1
-
-  until current_index > last_index   # outer loop: start indexes
-    current_length = 1
-    max_length = array.size - current_index
-
-    until current_length > max_length   # inner loop: subarray lengths
-      subarrays << array[current_index, current_length]
-      current_length += 1
-    end
-
-    current_index += 1
-  end
-
-  subarrays
-end
-
-### Using ranges
-def get_all_subarrays3(array)
-  subarrays = []
-  last_index = array.size - 1
+  min_length = 1
+  last_index = array.size - min_length
   start_indexes = (0..last_index)
 
   start_indexes.each do |start_index|   # outer loop
     max_length = array.size - start_index
-    lengths = (1..max_length)
+    lengths = (min_length..max_length)
 
     lengths.each do |length|    # inner loop
       subarrays << array[start_index, length]
@@ -76,29 +79,7 @@ def get_all_subarrays3(array)
   subarrays
 end
 
-### Using ranges and a helper method
-def get_all_subarrays4(array)
-  subarrays = []
-  last_index = array.size - 1
-  start_indexes = (0..last_index)
-
-  start_indexes.each do |start_index|   # outer loop
-    add_subarrays(array, subarrays, start_index)
-  end
-
-  subarrays
-end
-
-def add_subarrays(array, subarrays, start_index)
-  max_length = array.size - start_index
-  lengths = (1..max_length)
-
-  lengths.each do |length|    # inner loop
-    subarrays << array[start_index, length]
-  end
-end
-
-### Using `Enumerable#each_cons`
+##### Using `Enumerable#each_cons`
 # Here `#each_cons` handles the starting indexes (which the outer
 # loop controlled in the other methods)
 
@@ -106,25 +87,29 @@ end
 # the subarrays in the same order as the other methods above so the
 # test case passes.
 
-def get_all_subarrays5(array)
-  subarrays = []
-  max_length = array.size
-  lengths = (1..max_length)
+# def get_all_subarrays(array)
+#   subarrays = []
+#   min_length = 1
+#   max_length = array.size
+#   lengths = (min_length..max_length)
 
-  lengths.each { |length| subarrays += array.each_cons(length).to_a }
+#   lengths.each { |length| subarrays += array.each_cons(length).to_a }
 
-  subarrays
-end
+#   subarrays.sort
+# end
 
-### Using `#each_cons` and `#flat_map`
-def get_all_subarrays6(array)
-  lengths = (1..array.size)
-  lengths.flat_map { |length| array.each_cons(length).to_a }
-end
+##### Using `#each_cons` and `#flat_map`
+# def get_all_subarrays(array)
+#   min_length = 1
+#   max_length = array.size
+#   lengths = (min_length..max_length)
+
+#   lengths.flat_map { |length| array.each_cons(length).to_a }.sort
+# end
 
 ### Test
 test_array = [1, 2, 3, 4, 5]
-expected_result1 = [
+expected_result = [
   [1], [1, 2], [1, 2, 3], [1, 2, 3, 4], [1, 2, 3, 4, 5],
   [2], [2, 3], [2, 3, 4], [2, 3, 4, 5],
   [3], [3, 4], [3, 4, 5],
@@ -132,13 +117,13 @@ expected_result1 = [
   [5]
 ]
 
-test_array = [1, 2, 3, 4, 5]
-expected_result2 = [
-  [1], [2], [3], [4], [5],
-  [1, 2], [2, 3], [3, 4], [4, 5],
-  [1, 2, 3], [2, 3, 4], [3, 4, 5],
-  [1, 2, 3, 4], [2, 3, 4, 5],
-  [1, 2, 3, 4, 5]
-]
+# test_array = [1, 2, 3, 4, 5]
+# expected_result2 = [
+#   [1], [2], [3], [4], [5],
+#   [1, 2], [2, 3], [3, 4], [4, 5],
+#   [1, 2, 3], [2, 3, 4], [3, 4, 5],
+#   [1, 2, 3, 4], [2, 3, 4, 5],
+#   [1, 2, 3, 4, 5]
+# ]
 
-p get_all_subarrays6(test_array) == expected_result2
+p get_all_subarrays(test_array) #== expected_result

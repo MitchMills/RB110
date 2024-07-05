@@ -14,59 +14,63 @@ BASIC ALGORITHM
 =end
 
 ### Using simple do..end loops
-def get_all_substrings(string)
-  substrings = []
-  current_index = 0
-  last_index = string.size - 1
+# def get_all_substrings(string)
+#   substrings = []
+#   current_index = 0
+#   min_length = 1
+#   last_index = string.size - min_length
 
-  loop do # outer loop: controls starting index of substrings
-    current_length = 1
-    max_length = string.size - current_index
 
-    loop do # inner loop: controls substring lengths
-      substrings << string[current_index, current_length]
+#   loop do # outer loop: controls starting index of substrings
+#     current_length = min_length
+#     max_length = string.size - current_index
 
-      current_length += 1
-      break if current_length > max_length
-    end
+#     loop do # inner loop: controls substring lengths
+#       substrings << string[current_index, current_length]
 
-    current_index += 1
-    break if current_index > last_index
-  end
+#       current_length += 1
+#       break if current_length > max_length
+#     end
 
-  substrings
-end
+#     current_index += 1
+#     break if current_index > last_index
+#   end
 
-### Using until loops
-def get_all_substrings(string)
-  substrings = []
-  current_index = 0
-  last_index = string.size - 1
+#   substrings
+# end
 
-  until current_index > last_index # outer loop: start indexes
-    current_length = 1
-    max_length = string.size - current_index
+# ### Using until loops
+# def get_all_substrings(string)
+#   substrings = []
+#   current_index = 0
+#   min_length = 1
+#   last_index = string.size - min_length
 
-    until current_length > max_length # inner loop: substring lengths
-      substrings << string[current_index, current_length]
-      current_length += 1
-    end
+#   until current_index > last_index # outer loop: start indexes
+#     current_length = min_length
+#     max_length = string.size - current_index
 
-    current_index += 1
-  end
+#     until current_length > max_length # inner loop: substring lengths
+#       substrings << string[current_index, current_length]
+#       current_length += 1
+#     end
 
-  substrings
-end
+#     current_index += 1
+#   end
+
+#   substrings
+# end
 
 ### Using ranges
 def get_all_substrings(string)
   substrings = []
-  last_index = string.size - 1
+  min_length = 1
+  last_index = string.size - min_length
   start_indexes = (0..last_index)
 
   start_indexes.each do |start_index| # outer loop
     max_length = string.size - start_index
-    lengths = (1..max_length)
+    lengths = (min_length..max_length)
 
     lengths.each do |length| # inner loop
       substrings << string[start_index, length]
@@ -74,28 +78,6 @@ def get_all_substrings(string)
   end
 
   substrings
-end
-
-### Using ranges and a helper method
-def get_all_substrings(string)
-  substrings = []
-  last_index = string.size - 1
-  start_indexes = (0..last_index)
-
-  start_indexes.each do |start_index| # outer loop
-    add_substrings(string, substrings, start_index)
-  end
-
-  substrings
-end
-
-def add_substrings(string, substrings, start_index)
-  max_length = string.size - start_index
-  lengths = (1..max_length)
-
-  lengths.each do |length| # inner loop
-    substrings << string[start_index, length]
-  end
 end
 
 ### Using `Enumerable#each_cons`
@@ -106,25 +88,29 @@ end
 # the substrings in the same order as the other methods above so the
 # test case passes.
 
-def get_all_substrings(string)
-  substrings = []
-  max_length = string.size
-  lengths = (1..max_length)
+# def get_all_substrings(string)
+#   substrings = []
+#   min_length = 1
+#   max_length = string.size
+#   lengths = (min_length..max_length)
 
-  lengths.each do |length|
-    substrings += string.chars.each_cons(length).to_a.map(&:join)
-  end
+#   lengths.each do |length|
+#     substrings += string.chars.each_cons(length).to_a.map(&:join)
+#   end
 
-  substrings.sort
-end
+#   substrings.sort
+# end
 
 ### Using `#each_cons` and `#flat_map`
-def get_all_substrings(string)
-  lengths = (1..string.size)
-  lengths.flat_map do |length|
-    string.chars.each_cons(length).to_a.map(&:join)
-  end.sort
-end
+# def get_all_substrings(string)
+#   min_length = 1
+#   max_length = string.size
+#   lengths = (min_length..max_length)
+
+#   lengths.flat_map do |length|
+#     string.chars.each_cons(length).to_a.map(&:join)
+#   end.sort
+# end
 
 ### Test
 test_string = '12345'
@@ -136,4 +122,4 @@ expected_result = [
   "5"
 ]
 
-p get_all_substrings(test_string) == expected_result
+p get_all_substrings(test_string) #== expected_result
