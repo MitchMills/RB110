@@ -1,3 +1,92 @@
+
+
+### EIGHTEEN
+=begin
+Create a method that takes an array of integers as an argument. Determine and return the index N for which all numbers with an index less than N sum to the same value as the numbers with an index greater than N. If there is no index that would make this happen, return -1.
+
+If you are given an array with multiple answers, return the index with the smallest value.
+
+The sum of the numbers to the left of index 0 is 0. Likewise, the sum of the numbers to the right of the last element is 0.
+
+PROBLEM 11:09
+input: array
+  - contains only integers
+
+output: integer
+  - index for which
+    - sum of all numbers with indexes less than that index
+    - equals
+    - sum of all numbers with indexes greater than that index
+  - if no such index, return -1
+  - if more than 1 such index, return lowest index
+  - sum of numbers to left of first index is 0
+  - sum of numbers to right of last index is 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to access all elements to right and left of a given index
+  - way to compare sums of left and right elements
+  - way to handle 'left of first index' and 'right of last index' sums
+
+start: array of integers
+  - variables to track left and right sums
+    - set to 0 ???
+  - subarrays to represent left and right slices
+    - left slice:
+      - [0...current index]
+    - right slice:
+      - [(current index + 1)..(array size)]
+
+finish: integer (index)j
+  - return -1 if no index found
+
+ALGORITHM
+XXX- create two variables to track left and right sums
+  - left_sum, right_sum
+    - left_sum = 0
+    - right_sum = array[1..array.size]
+
+- create a range to track current index
+  - indexes = (0..array.size - 1)
+
+- for each index
+  - create left_slice
+    - array[0...current_index]
+  - create right_slice
+    - array[(current_index + 1)..array.size]
+
+  - update sums of both slices
+  - compare sums
+    - if they are equal
+      - return current_index
+    - otherwise, continue
+
+- return -1 if no index found
+=end
+
+# def equal_sum_index(numbers)
+#   indexes = (0..(numbers.size - 1))
+
+#   midpoint = indexes.find do |current_index|
+#     left_slice = numbers[0...current_index]
+#     right_slice = numbers[(current_index + 1)..numbers.size]
+#     left_slice.sum == right_slice.sum
+#   end
+
+#   midpoint || -1
+# end
+
+# p equal_sum_index([1, 2, 4, 4, 2, 3, 2]) == 3
+# p equal_sum_index([7, 99, 51, -48, 0, 4]) == 1
+# p equal_sum_index([17, 20, 5, -60, 10, 25]) == 0
+
+# p equal_sum_index([0, 20, 10, -60, 5, 25]) == 0
+# The above test case could return 0 or 3. Since we're
+# supposed to return the smallest correct index, the correct
+# return value is 0.
+
 ### SEVENTEEN
 =begin
 Create a method that takes an array of integers as an argument. The method should determine the minimum integer value that can be appended to the array so the sum of all the elements equal the closest prime number that is greater than the current sum of the numbers. For example, the numbers in [1, 2, 3] sum to 6. The nearest prime number greater than 6 is 7. Thus, we can add 1 to the array to sum to 7.
@@ -54,36 +143,36 @@ ALGORITHM
 - return the difference between `sum` and `candidate`
 =end
 
-def nearest_prime_sum(numbers)
-  sum = numbers.sum
-  next_prime = find_next_prime(sum)
-  next_prime - sum
-end
+# def nearest_prime_sum(numbers)
+#   sum = numbers.sum
+#   next_prime = find_next_prime(sum)
+#   next_prime - sum
+# end
 
-def find_next_prime(number)
-  candidate = number + 1
+# def find_next_prime(number)
+#   candidate = number + 1
 
-  candidate += 1 until prime?(candidate)
+#   candidate += 1 until prime?(candidate)
 
-  candidate
-end
+#   candidate
+# end
 
-def prime?(number)
-  max_possible_factor = Integer.sqrt(number)
-  possible_factors = (2..max_possible_factor)
+# def prime?(number)
+#   max_possible_factor = Integer.sqrt(number)
+#   possible_factors = (2..max_possible_factor)
 
-  possible_factors.none? do |possible_factor|
-    number % possible_factor == 0
-  end
-end
+#   possible_factors.none? do |possible_factor|
+#     number % possible_factor == 0
+#   end
+# end
 
-p nearest_prime_sum([1, 2, 3]) == 1        # Nearest prime to 6 is 7
-p nearest_prime_sum([5, 2]) == 4           # Nearest prime to 7 is 11
-p nearest_prime_sum([1, 1, 1]) == 2        # Nearest prime to 3 is 5
-p nearest_prime_sum([2, 12, 8, 4, 6]) == 5 # Nearest prime to 32 is 37
+# p nearest_prime_sum([1, 2, 3]) == 1        # Nearest prime to 6 is 7
+# p nearest_prime_sum([5, 2]) == 4           # Nearest prime to 7 is 11
+# p nearest_prime_sum([1, 1, 1]) == 2        # Nearest prime to 3 is 5
+# p nearest_prime_sum([2, 12, 8, 4, 6]) == 5 # Nearest prime to 32 is 37
 
-# Nearest prime to 163 is 167
-p nearest_prime_sum([50, 39, 49, 6, 17, 2]) == 4
+# # Nearest prime to 163 is 167
+# p nearest_prime_sum([50, 39, 49, 6, 17, 2]) == 4
 
 ### SIXTEEN
 =begin
