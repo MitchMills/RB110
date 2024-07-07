@@ -1,4 +1,84 @@
-### 2
+### 2 MUTATING
+=begin
+PROBLEM 4:51
+input: array
+  - nested:
+    - array contains three subarray elements
+      - each subarray contains three integer elements
+
+output: same array
+  - mutated in place
+  - transposed:
+    - the element in each index position of each subarray should now be in
+      - the subarray at that index position
+
+EXAMPLES
+matrix[0] => [
+  1, # matrix[0][0] => matrix![0][0]
+  5, # matrix[0][1] => matrix![1][0]
+  8  # matrix[0][2] => matrix![2][0]
+]
+
+DATA STRUCTURES
+needs:
+  - way to control row number
+  - way to control subarray index
+  - way to mutate array (reassign elements)
+
+start: array of subarrays
+  - each row: matrix[0], matrix[1], matrix[2]
+  - subarray indexes: matrix[0][0], matrix[0][1], etc
+finish: same array of subarrays
+
+matrix[0][1] => 5
+matrix[1][0] => 4
+
+matrix[0][2] => 8
+matrix[2][0]
+###
+matrix =. [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
+matrix[1] => [4, 7, 2]
+matrix[1][0] => 4
+matrix[0][1] => 5
+
+ALGORITHM
+- for each subarray, with its index: row index
+  - for each subarray element, with its index: column index
+    - reassign the element
+      - matrix[row_index][column_index] = matrix[column_index][row_index]
+- return the mutated array
+=end
+
+def transpose!(array)
+  array.each_with_index do |subarray, row_index|
+    subarray.each_with_index.map do |element, column_index|
+      array[column_index][row_index]
+    end
+  end
+  array
+end
+
+matrix = [
+  [1, 5, 8],
+  [4, 7, 2],
+  [3, 9, 6]
+]
+
+mmaattrriixx = [
+  [1, 4, 3],
+  [5, 7, 9],
+  [8, 2, 6]
+]
+
+p matrix
+puts
+transpose!(matrix)
+puts
+transpose!(mmaattrriixx)
+puts
+p matrix #== [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
+
+### 2 NON-MUTATING
 =begin
 A 3 x 3 matrix can be represented by an Array of Arrays in which the main Array and all of the sub-Arrays has 3 elements. For example:
 
@@ -59,26 +139,26 @@ ALGORITHM
 - return result
 =end
 
-def transpose(matrix)
-  new_matrix = Array.new(3) { [] }
+# def transpose(matrix)
+#   new_matrix = Array.new(3) { [] }
 
-  matrix.each do |subarray|
-    subarray.each_with_index { |element, index| new_matrix[index] << element }
-  end
+#   matrix.each do |subarray|
+#     subarray.each_with_index { |element, index| new_matrix[index] << element }
+#   end
 
-  new_matrix
-end
+#   new_matrix
+# end
 
-matrix = [
-  [1, 5, 8],
-  [4, 7, 2],
-  [3, 9, 6]
-]
+# matrix = [
+#   [1, 5, 8],
+#   [4, 7, 2],
+#   [3, 9, 6]
+# ]
 
-new_matrix = transpose(matrix)
+# new_matrix = transpose(matrix)
 
-p new_matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
-p matrix == [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
+# p new_matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
+# p matrix == [[1, 5, 8], [4, 7, 2], [3, 9, 6]]
 
 ### 1 MADLIBS II
 =begin
