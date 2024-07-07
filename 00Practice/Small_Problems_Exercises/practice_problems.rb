@@ -484,6 +484,33 @@ ALGORITHM
 # p bouncy_count([121, 4114]) == 2
 # p bouncy_count([176, 442, 80701644]) == 2
 
+### refactored
+# def bouncy_count(numbers)
+#   count = 0
+
+#   numbers.each do |number|
+#     digits = number.digits.reverse
+#     count += 1 if ascending?(digits) && descending?(digits)
+#   end
+
+#   count
+# end
+
+# def ascending?(digits_array)
+#   last_index = digits_array.size - 2
+#   (0..last_index).any? do |current_index|
+#     digits_array[current_index] < digits_array[current_index + 1]
+#   end
+# end
+
+# def descending?(digits_array)
+#   last_index = digits_array.size - 2
+#   (0..last_index).any? do |current_index|
+#     digits_array[current_index] > digits_array[current_index + 1]
+#   end
+# end
+###
+
 ### NORA VOGT'S TA QUESTION
 =begin
 Write a function that returns the maximum possible consecutive alternating odd and even (or even and odd) numbers. Minimum possible length is 2. If there's none return [].
