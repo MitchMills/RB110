@@ -51,8 +51,10 @@ ALGORITHM
 
 def transpose!(array)
   array.each_with_index do |subarray, row_index|
-    subarray.each_with_index.map do |element, column_index|
-      array[column_index][row_index]
+    subarray.each_with_index do |element, column_index|
+      ele1 = array[row_index][column_index]
+      ele2 = array[column_index][row_index]
+      ele1, ele2 = ele2, ele1 unless row_index >= column_index
     end
   end
   array
@@ -74,8 +76,8 @@ p matrix
 puts
 transpose!(matrix)
 puts
-transpose!(mmaattrriixx)
-puts
+# transpose!(mmaattrriixx)
+# puts
 p matrix #== [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
 
 ### 2 NON-MUTATING

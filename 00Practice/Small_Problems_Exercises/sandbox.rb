@@ -1,40 +1,65 @@
-=begin
-ALGORITH
-- Consider every possible length of substring
-  - set a variable to the minimum length of substrings sought: `min_length`
-  - set a variable to maximum length of substrings sought: `max_length`
-  - create a range to represent possible lengths: (min_length..max_length)
 
-- For each length, get a substring of that length from every possible start index
-  - transform lengths range
-    - each length becomes an array of all possible substrings of that length
-      - convert input string into an array of individual characters
-      - create all possible subarrays of current length
-      - convert each subarray into a string
-    - flatten the resulting array so it isn't nested
+matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+]
 
-- Return the array of substrings
-=end
+# [0]
+#   [0] 1 => 1 [0][0]
+#   [1] 2 => 4 [1][0]
+#   [2] 3 => 7 [2][2]
+# [1]
+#   [0] 4 => 2 [0][1]
+#   [1] 5 => 5 [1][1]
+#   [2] 6 => 8 [2][1]
+# [2]
+#   [0] 7 => 3 [0][2]
+#   [1] 8 => 6 [1][2]
+#   [2] 9 => 9 [2][2]
 
-# def get_all_substrings(string)
-#   substrings = []
-  # min_length = 2
-  # max_length = string.size
-  # lengths = (min_length..max_length)
+transposed = [
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 6, 9]
+]
 
-#   lengths.each do |length|
-#     substrings += string.chars.each_cons(length).map(&:join)
+# def transpose!(array)
+#   array.each_with_index do |subarray, row_index|
+#     subarray.each_index do |column_index|
+#       row = array[row_index]
+#       column = array[column_index]
+#       if row_index > column_index
+#         row[column_index], column[row_index] = column[row_index], row[column_index]
+#       end
+#     end
 #   end
-#   substrings
+#   array
 # end
 
-def get_all_substrings(string)
-  min_length = 2
-  max_length = string.size
-  lengths = (min_length..max_length)
-
-  lengths.flat_map { |length| string.chars.each_cons(length).map(&:join) }
+def transpose!(array)
+  array.each_index do |row_index|
+    (0..row_index).each do |column_index|
+      row = array[row_index]
+      column = array[column_index]
+      row[column_index], column[row_index] = column[row_index], row[column_index]
+    end
+  end
+  array
 end
 
-test_string = '12345'
-p get_all_substrings(test_string)
+p matrix
+transpose!(matrix)
+p matrix
+
+
+def transpose!(matrix)
+  size = matrix.size
+
+  size.times do |row|
+    size.times do |col|
+      matrix[col] << matrix[row].shift
+    end
+  end
+  matrix
+end
