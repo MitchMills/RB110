@@ -14,6 +14,11 @@ output: integer
     - contain all the same type and number of characters
       - regardless of order
     - two empty strings are considered anagrams
+  - largest possible anagram is shorter of two input strings
+    - minimum number of characters removed =
+      - longer string length - shorter string length
+  - if no characters in common, return will be combined lengths
+  - (string 1 length - anagram length) + (string 2 length - anagram length)
 
 EXAMPLES
 
@@ -21,59 +26,69 @@ DATA STRUCTURES
 needs:
   - way to determine all the characters both strings have in common
   - way to determine how many characters must be removed
+  - way to guard agains counting letters twice if they occur more often
+    - in one string but not the other
 
 start: 2 strings
-  - shorter string with non-common characters removed
-
-finish: integer: string lengths - array length
+  - array of letters both strings have in common (i.e. the anagram)
+    - should not contain more of a particular letter than appears in either string
+      - i.e. if string 1 has 2 'r's and string 2 has only 1 'r',
+        - anagram can only contain 1 'r'
+  - anagram length
+finish: integer: string 1 length - anagram length + string 2 length - anagram length
 
 ALGORITHM
-- determine the shorter input string
-- remove non-common characters
-  - iterate over each character
-    - select only characters that appear in longer string
-- determine how many characters were removed
-  - original string length - common characters string length
-- subtract that number from both input strings
-- add those two together and return
+- create an empty array to hold common characters
+- iterate over each character in first string
+  - if it appears in second string
+    - add it to common characters array UNLESS
+      - the count of that letter in the common characters array is >=
+        - the count of that letter in the second string
+- subtract the length of the common characters array from length of each input string, then add them together and return
+-
 =end
 
 # def anagram_difference(string1, string2)
-#   shorter, longer = [string1, string2].sort_by(&:size)
-#   commons = shorter.chars.select { |char| longer.include?(char) }
-#   removed = [shorter, longer].map { |string| string.size - commons.size }
-#   removed.sum
+#   common_characters = []
+
+#   string1.chars.each do |char|
+#     if string2.include?(char)
+#       common_count = common_characters.count(char)
+#       count2 = string2.count(char)
+
+#       common_characters << char unless common_count >= count2
+#     end
+#   end
+#   common_size = common_characters.size
+#   (string1.size - common_size) + (string2.size - common_size)
 # end
 
-def anagram_difference(string1, string2)
-  tally1 = get_tally(string1, string2)
-  tally2 = get_tally(string2, string1)
-  removed = (tally1.values).zip(tally2.values).map(&:min).sum
-  (string1.size - removed) + (string2.size - removed)
-end
+###
+# def anagram_difference(string1, string2)
+#   common_characters = get_common_characters(string1, string2)
+#   anagram_length = common_characters.size
+#   (string1.size - anagram_length) + (string2.size - anagram_length)
+# end
 
-def get_tally(first_string, second_string)
-  tally = Hash.new(0)
+# def get_common_characters(string1, string2)
+#   string1.chars.each_with_object([]) do |char, common_characters|
+#     if string2.include?(char)
+#       common_count = common_characters.count(char)
+#       count2 = string2.count(char)
+#       common_characters << char unless common_count >= count2
+#     end
+#   end
+# end
 
-  first_string.chars.sort.uniq.each do |char|
-    count = second_string.count(char)
-    tally[char] += count if count > 0
-  end
-
-  tally
-end
-
-{"a"=>2, "c"=>1, "e"=>1, "r"=>1}
-{"a"=>1, "c"=>1, "e"=>1, "r"=>2}
-
-p anagram_difference('', '') == 0                     # anagrams: '', ''
-p anagram_difference('a', '') == 1                    # anagrams: '', ''
-p anagram_difference('', 'a') == 1                    # anagrams: '', ''
-p anagram_difference('ab', 'a') == 1                  # anagrams: 'a', 'a'
-p anagram_difference('ab', 'ba') == 0                 # anagrams: 'ab', 'ba'
-p anagram_difference('ab', 'cd') == 4                 # anagrams: '', ''
-p anagram_difference('a', 'aab') == 2                 # anagrams: 'a', 'a'
-p anagram_difference('codewarrs', 'hackerank') #== 10  # anagrams: 'cear', 'acer'
+# p anagram_difference('', '') == 0                     # anagrams: '', ''
+# p anagram_difference('a', '') == 1                    # anagrams: '', ''
+# p anagram_difference('', 'a') == 1                    # anagrams: '', ''
+# p anagram_difference('ab', 'a') == 1                  # anagrams: 'a', 'a'
+# p anagram_difference('ab', 'ba') == 0                 # anagrams: 'ab', 'ba'
+# p anagram_difference('ab', 'cd') == 4                 # anagrams: '', ''
+# p anagram_difference('a', 'aab') == 2                 # anagrams: 'a', 'a'
+# p anagram_difference('codewarrs', 'hackerank') == 10 # anagrams: 'cear', 'acer'
+# p anagram_difference('hackerank', 'codewarrs') == 10 # anagrams: 'cear', 'acer'
 
 ### ANAGRAMS
 =begin
