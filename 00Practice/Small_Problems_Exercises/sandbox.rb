@@ -1,77 +1,30 @@
-
-matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-]
-
-# [0]
-#   [0] 1 => 1 [0][0]
-#   [1] 2 => 4 [1][0]
-#   [2] 3 => 7 [2][2]
-# [1]
-#   [0] 4 => 2 [0][1]
-#   [1] 5 => 5 [1][1]
-#   [2] 6 => 8 [2][1]
-# [2]
-#   [0] 7 => 3 [0][2]
-#   [1] 8 => 6 [1][2]
-#   [2] 9 => 9 [2][2]
-
-transposed = [
-  [1, 4, 7],
-  [2, 5, 8],
-  [3, 6, 9]
-]
-
-# def transpose!(array)
-#   array.each_with_index do |subarray, row_index|
-#     subarray.each_index do |column_index|
-#       row = array[row_index]
-#       column = array[column_index]
-#       if row_index > column_index
-#         row[column_index], column[row_index] = column[row_index], row[column_index]
-#       end
-#     end
-#   end
-#   array
-# end
-
-# def transpose!(array)
-#   array.each_index do |row_index|
-#     (0..row_index).each do |column_index|
-#       row = array[row_index]
-#       column = array[column_index]
-#       row[column_index], column[row_index] = column[row_index], row[column_index]
-#     end
-#   end
-#   array
-# end
-
-def transpose!(array)
-  array.each_index do |row_index|
-    (0..row_index).each do |column_index|
-      element1 = array[row_index][column_index]
-      element2 = array[column_index][row_index]
-
-      element1, element2 = element2, element1
-    end
-  end
-  array
+def shortest_length(numbers, target)
+  subarrays = get_subarrays(numbers)
+  candidates = subarrays.select { |subarray| subarray.sum >= target }
+  shortest = candidates.min_by(&:size) || []
+  shortest.size
 end
 
-p matrix
-transpose!(matrix)
-p matrix
+def get_subarrays(array)
+  subarrays = []
+  min_length = 1
+  last_index = array.size - min_length
+  start_indexes = (0..last_index)
 
+  start_indexes.each do |start_index|
+    max_length = array.size - start_index
+    lengths = (min_length..max_length)
 
-def transpose!(matrix)
-  size = matrix.size
-
-  size.times do |row|
-    size.times do |col|
-      matrix[col] << matrix[row].shift
+    lengths.each do |length|
+      subarrays << array[start_index, length]
     end
   end
-  matrix
+  subarrays
 end
+
+p shortest_length([2, 3, 1, 2, 4, 3], 7) == 2 # [4, 2]
+p shortest_length([1, 10, 5, 2, 7], 9) == 1 # [10]
+p shortest_length([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+p shortest_length([1, 2, 4, 1], 8) == 4 # [1, 2, 4, 1]
+p shortest_length([1, 2, 4], 8) == 0
+p shortest_length([], 1) == 0

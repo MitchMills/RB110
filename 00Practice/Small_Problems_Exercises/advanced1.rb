@@ -52,9 +52,10 @@ ALGORITHM
 def transpose!(array)
   array.each_index do |row_index|
     (0..row_index).each do |column_index|
-      row = array[row_index]
-      column = array[column_index]
-      row[column_index], column[row_index] = column[row_index], row[column_index]
+      element1 = array[row_index][column_index]
+      element2 = array[column_index][row_index]
+
+      element1, element2 = element2, element1
     end
   end
   array

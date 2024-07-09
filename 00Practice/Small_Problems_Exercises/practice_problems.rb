@@ -1,4 +1,100 @@
+### SHORTEST LENGTH SUBARRAY
+=begin
+Write a method that takes two inputs: an array of positive integers, and a positive integer. The method should return the shortest length of a subarray of consecutive elements from the input array for which the sum of its numbers is greater than or equal to the input integer. If no such subarray exists, return 0
 
+PROBLEM 8:39
+input: array, integer
+  - array:
+    - contains only positive integers
+    - can be empty
+  - integer:
+    - positive
+output: integer
+  - represents shortest length of
+    - a subarray of consecutive elements from input array
+      - for which sum of its numbers >= input integer
+  - subarray can consist of all elements from input array
+  - return 0 if no such subarray exists
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate all possible consecutive subarrays from input array
+  - way to get sums of each subarray
+  - way to choose shortest subarray that meets criteria
+
+start: array, integer
+  - array of all possible subarrays
+    - from starting index 0 up to (array.size - 1)
+    - from length 1 up to (array.size - starting index)
+  - array of subarrays whose sum >= input integer
+  - shortest subarray
+finish: integer (shortest subarray length)
+
+ALGORITHM
+- get all possible subarrays from input array
+  - create an empty array to hold subarrays: `subarrays`
+  - set a variable `min_length` to 1
+  - set a variable `last_index` to array length - min_length
+  - create a range `start_indexes`: (0..last_index)
+
+  - for each index in `start_indexes`
+    - set a variable `max_length` to array length - current index
+    - create a range `lengths`: (min_length..max_length)
+
+    - for each length in `lengths`
+      - add a subarray to `subarrays`
+        - array[current starting index, current length]
+
+  return `subarrays`
+
+- select subarrays whose sum >= input integer
+- return the length of the shortest such subarray
+=end
+
+def shortest_length(numbers, target)
+  subarrays = get_subarrays(numbers)
+  candidates = subarrays.select { |subarray| subarray.sum >= target }
+  shortest = candidates.min_by { |candidate| candidate.size } || []
+  shortest.size
+end
+
+def get_subarrays(array)
+  subarrays = []
+  min_length = 1
+  last_index = array.size - min_length
+  start_indexes = (0..last_index)
+
+  start_indexes.each do |start_index|
+    max_length = array.size - start_index
+    lengths = (min_length..max_length)
+
+    lengths.each do |length|
+      subarrays << array[start_index, length]
+    end
+  end
+  subarrays
+end
+
+###
+# def get_subarrays(array)
+#   min_length = 1
+#   max_length = array.size
+#   lengths = (min_length..max_length)
+
+#   lengths.flat_map do |length|
+#     array.each_cons(length).to_a
+#   end
+# end
+###
+#
+# p shortest_length([2, 3, 1, 2, 4, 3], 7) == 2 # [4, 2]
+# p shortest_length([1, 10, 5, 2, 7], 9) == 1 # [10]
+# p shortest_length([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4 # [100, 1, 0, 200]
+# p shortest_length([1, 2, 4, 1], 8) == 4 # [1, 2, 4, 1]
+# p shortest_length([1, 2, 4], 8) == 0
+# p shortest_length([], 1) == 0
 
 ### EIGHTEEN
 =begin
