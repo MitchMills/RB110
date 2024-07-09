@@ -1,3 +1,91 @@
+### ANAGRAM DIFFERENCES
+=begin
+Write a method that takes two strings as arguments and returns the total number of characters that must be removed from them to make them anagrams of each other. For this problem, two strings are anagrams if they contain all the same characters regardless of order. All input strings are either empty or contain only lowercase letters.
+
+Examples:
+p anagram_difference('', '') == 0                     # anagrams: '', ''
+p anagram_difference('a', '') == 1                    # anagrams: '', ''
+p anagram_difference('', 'a') == 1                    # anagrams: '', ''
+p anagram_difference('ab', 'a') == 1                  # anagrams: 'a', 'a'
+p anagram_difference('ab', 'ba') == 0                 # anagrams: 'ab', 'ba'
+p anagram_difference('ab', 'cd') == 4                 # anagrams: '', ''
+p anagram_difference('a', 'aab') == 2                 # anagrams: 'a', 'a'
+p anagram_difference('codewars', 'hackerrank') == 10  # anagrams: 'cear', 'acer'
+=end
+
+
+### ANAGRAMS
+=begin
+Write a method that takes two strings as arguments and returns true if they are anagrams of each other, false otherwise. For this problem, two strings are considered anagrams if they both contain all the same type and number of letters, regardless of case.
+
+PROBLEM 12:10
+input: 2 strings
+  - can be empty
+
+output: boolean
+  - true if two strings are "anagrams"
+    - both contain all the same type and number of letters
+      - ignore case: 'abc' == 'AbC'
+    - two empty strings are considered anagrams of each other
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to access each individual character in strings
+  - way to determine if both strings contain same kind and number of characters
+  - way to treat upper and lowercase versions of same letter the same
+
+start: 2 strings
+  - count of each individual character in both strings
+finish: boolean
+
+ALGORITHM
+- return false unless both string are the same length
+- iterate over each character in string 1
+  - if all downcased characters have same count as downcased characters in string 2
+    - return true
+  - otherwise return false
+
+=end
+
+# def anagram?(string1, string2)
+#   same_size?(string1, string2) && same_letters?(string1, string2)
+# end
+
+# def same_size?(string1, string2)
+#   string1.size == string2.size
+# end
+
+# def same_letters?(string1, string2)
+#   downcased1 = string1.downcase
+#   downcased2 = string2.downcase
+
+#   downcased1.each_char.all? do |char|
+#     downcased1.count(char) == downcased2.count(char)
+#   end
+# end
+
+###
+# def anagram?(string1, string2)
+#   all_letters = (string1 + string2).chars.uniq.join.downcase
+#   string1, string2 = [string1, string2].map(&:downcase)
+
+#   all_letters.chars.all? do |char|
+#     string1.count(char) == string2.count(char)
+#   end
+# end
+
+# p anagram?('Creative', 'Reactive') == true
+# p anagram?('Creative', 'Reactived') == false
+# p anagram?('bold', 'DLOB') == true
+# p anagram?('apple', 'apple') == true
+# p anagram?('Apple', 'apple') == true
+# p anagram?('apple', 'apply') == false
+# p anagram?('apple', 'appl') == false
+# p anagram?('', '') == true
+
 ### SHORTEST LENGTH SUBARRAY
 =begin
 Write a method that takes two inputs: an array of positive integers, and a positive integer. The method should return the shortest length of a subarray of consecutive elements from the input array for which the sum of its numbers is greater than or equal to the input integer. If no such subarray exists, return 0
@@ -53,29 +141,29 @@ ALGORITHM
 - return the length of the shortest such subarray
 =end
 
-def shortest_length(numbers, target)
-  subarrays = get_subarrays(numbers)
-  candidates = subarrays.select { |subarray| subarray.sum >= target }
-  shortest = candidates.min_by { |candidate| candidate.size } || []
-  shortest.size
-end
+# def shortest_length(numbers, target)
+#   subarrays = get_subarrays(numbers)
+#   candidates = subarrays.select { |subarray| subarray.sum >= target }
+#   shortest = candidates.min_by { |candidate| candidate.size } || []
+#   shortest.size
+# end
 
-def get_subarrays(array)
-  subarrays = []
-  min_length = 1
-  last_index = array.size - min_length
-  start_indexes = (0..last_index)
+# def get_subarrays(array)
+#   subarrays = []
+#   min_length = 1
+#   last_index = array.size - min_length
+#   start_indexes = (0..last_index)
 
-  start_indexes.each do |start_index|
-    max_length = array.size - start_index
-    lengths = (min_length..max_length)
+#   start_indexes.each do |start_index|
+#     max_length = array.size - start_index
+#     lengths = (min_length..max_length)
 
-    lengths.each do |length|
-      subarrays << array[start_index, length]
-    end
-  end
-  subarrays
-end
+#     lengths.each do |length|
+#       subarrays << array[start_index, length]
+#     end
+#   end
+#   subarrays
+# end
 
 ###
 # def get_subarrays(array)
