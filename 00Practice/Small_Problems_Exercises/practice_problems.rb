@@ -2,7 +2,70 @@
 =begin
 Write a method that takes two strings as arguments and returns the total number of characters that must be removed from them to make them anagrams of each other. For this problem, two strings are anagrams if they contain all the same characters regardless of order. All input strings are either empty or contain only lowercase letters.
 
-Examples:
+PROBLEM 12:37
+input: 2 strings
+  - can be empty
+  - otherwise contain only lowercase letter characters
+
+output: integer
+  - represents total number of characters that
+    - must be removed from input strings to make them "anagrams" of each other
+  - anagrams:
+    - contain all the same type and number of characters
+      - regardless of order
+    - two empty strings are considered anagrams
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine all the characters both strings have in common
+  - way to determine how many characters must be removed
+
+start: 2 strings
+  - shorter string with non-common characters removed
+
+finish: integer: string lengths - array length
+
+ALGORITHM
+- determine the shorter input string
+- remove non-common characters
+  - iterate over each character
+    - select only characters that appear in longer string
+- determine how many characters were removed
+  - original string length - common characters string length
+- subtract that number from both input strings
+- add those two together and return
+=end
+
+# def anagram_difference(string1, string2)
+#   shorter, longer = [string1, string2].sort_by(&:size)
+#   commons = shorter.chars.select { |char| longer.include?(char) }
+#   removed = [shorter, longer].map { |string| string.size - commons.size }
+#   removed.sum
+# end
+
+def anagram_difference(string1, string2)
+  tally1 = get_tally(string1, string2)
+  tally2 = get_tally(string2, string1)
+  removed = (tally1.values).zip(tally2.values).map(&:min).sum
+  (string1.size - removed) + (string2.size - removed)
+end
+
+def get_tally(first_string, second_string)
+  tally = Hash.new(0)
+
+  first_string.chars.sort.uniq.each do |char|
+    count = second_string.count(char)
+    tally[char] += count if count > 0
+  end
+
+  tally
+end
+
+{"a"=>2, "c"=>1, "e"=>1, "r"=>1}
+{"a"=>1, "c"=>1, "e"=>1, "r"=>2}
+
 p anagram_difference('', '') == 0                     # anagrams: '', ''
 p anagram_difference('a', '') == 1                    # anagrams: '', ''
 p anagram_difference('', 'a') == 1                    # anagrams: '', ''
@@ -10,9 +73,7 @@ p anagram_difference('ab', 'a') == 1                  # anagrams: 'a', 'a'
 p anagram_difference('ab', 'ba') == 0                 # anagrams: 'ab', 'ba'
 p anagram_difference('ab', 'cd') == 4                 # anagrams: '', ''
 p anagram_difference('a', 'aab') == 2                 # anagrams: 'a', 'a'
-p anagram_difference('codewars', 'hackerrank') == 10  # anagrams: 'cear', 'acer'
-=end
-
+p anagram_difference('codewarrs', 'hackerank') #== 10  # anagrams: 'cear', 'acer'
 
 ### ANAGRAMS
 =begin
