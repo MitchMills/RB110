@@ -1,3 +1,117 @@
+# SUBSTRING COUNT
+=begin
+Write a method that takes two strings as arguments and returns the number of times the second input string occurs as a substring within the first input string. Both input strings will consist solely of lowercase letters, and will always be at least one character in length.
+
+PROBLEM 4:45
+input: 2 strings
+  - contains only lowercase letters
+  - minimum length of 1
+
+output: integer
+  - number of times 2nd string occurs as a substring in 1st string
+  - can be 0
+  - overlapping substrings count
+    - e.g. 'aaaa', 'aa' => 4
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to count occurrences of string 2 in string 1
+
+start: 2 strings: string1, string2
+  - array of all possible substrings of same length as string 2 from string 1
+  - matches for string 2 from those substrings
+finish: integer (number of matches)
+
+ALGORITHM
+- get all possible candidate substrings
+  - get length of string2
+  - get all possible consecutive substrings of that length from string1
+- count occurrences of string2 among those substrings
+- return count
+=end
+
+def count_substrings(string1, string2)
+  target_length = string2.size
+  substrings = get_substrings(string1, target_length)
+  substrings.count(string2)
+end
+
+def get_substrings(string, target_length)
+  subarrays = string.chars.each_cons(target_length).to_a
+  substrings = subarrays.map(&:join)
+end
+
+p count_substrings('abcdeb', 'b') == 2
+p count_substrings('cc', 'cc') == 1
+p count_substrings('abbcbb', 'bb') #== 2
+p count_substrings('abcdef', 'gh') == 0
+p count_substrings('aaaaa', 'aa') == 4
+
+### GREATEST PRODUCT
+=begin
+Write a method that takes an integer and returns the greatest product of five consecutive digits from the integer. The input integer will always be positive and will always contain more than five digits.
+
+PROBLEM 4:28
+input: integer
+  - positive
+  - contains > 5 digits
+
+output: integer
+  - greatest product of 5 consecutive digits from input integer
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate all possible 5-digit sequences
+  - way to get products of all 5-digit sequences
+  - way to choose greatest product
+
+start: integer
+  - array of individual digits
+  - array of all 5 element subarrays
+  - array of all products
+finish: integer (greatest product)
+
+ALGORITHM
+- get all possible 5 digit sequences from input integer
+  - create an array of individual digits from input integer
+  - get all 5 digit subarrays
+- transform all subarrays into their products
+- return the greatest product
+=end
+
+# def greatest_product(integer)
+#   subarrays = integer.digits.reverse.each_cons(5).to_a
+#   products = subarrays.map { |subarray| subarray.inject(:*) }
+#   products.max
+# end
+
+###
+# def greatest_product(integer)
+#   subarrays = get_subarrays(integer)
+#   products = subarrays.map { |subarray| subarray.inject(:*) }
+#   products.max
+# end
+
+# def get_subarrays(integer)
+#   digits = integer.digits.reverse
+#   target_length = 5
+#   last_index = digits.size - target_length
+#   start_indexes = (0..last_index)
+
+#   start_indexes.map do |start_index|
+#     digits[start_index, target_length]
+#   end
+# end
+
+# p greatest_product(123456) #== 720 # (2 * 3 * 4 * 5 * 6)
+# p greatest_product(923456) == 1080 # (9 * 2 * 3 * 4 * 5)
+# p greatest_product(1234567890) == 15120 # (5 * 6 * 7 * 8 * 9)
+# p greatest_product(2494037820244202221011110532909999) == 0
+
 ### ANAGRAM DIFFERENCES
 =begin
 Write a method that takes two strings as arguments and returns the total number of characters that must be removed from them to make them anagrams of each other. For this problem, two strings are anagrams if they contain all the same characters regardless of order. All input strings are either empty or contain only lowercase letters.
