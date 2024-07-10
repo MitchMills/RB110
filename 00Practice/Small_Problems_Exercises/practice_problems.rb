@@ -1,4 +1,6 @@
-# SUBSTRING COUNT
+
+
+### SUBSTRING COUNT
 =begin
 Write a method that takes two strings as arguments and returns the number of times the second input string occurs as a substring within the first input string. Both input strings will consist solely of lowercase letters, and will always be at least one character in length.
 
@@ -32,22 +34,22 @@ ALGORITHM
 - return count
 =end
 
-def count_substrings(string1, string2)
-  target_length = string2.size
-  substrings = get_substrings(string1, target_length)
-  substrings.count(string2)
-end
+# def count_substrings(string1, string2)
+#   target_length = string2.size
+#   substrings = get_substrings(string1, target_length)
+#   substrings.count(string2)
+# end
 
-def get_substrings(string, target_length)
-  subarrays = string.chars.each_cons(target_length).to_a
-  substrings = subarrays.map(&:join)
-end
+# def get_substrings(string, target_length)
+#   subarrays = string.chars.each_cons(target_length).to_a
+#   substrings = subarrays.map(&:join)
+# end
 
-p count_substrings('abcdeb', 'b') == 2
-p count_substrings('cc', 'cc') == 1
-p count_substrings('abbcbb', 'bb') #== 2
-p count_substrings('abcdef', 'gh') == 0
-p count_substrings('aaaaa', 'aa') == 4
+# p count_substrings('abcdeb', 'b') == 2
+# p count_substrings('cc', 'cc') == 1
+# p count_substrings('abbcbb', 'bb') #== 2
+# p count_substrings('abcdef', 'gh') == 0
+# p count_substrings('aaaaa', 'aa') == 4
 
 ### GREATEST PRODUCT
 =begin
