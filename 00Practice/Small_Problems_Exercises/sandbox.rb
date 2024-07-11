@@ -1,16 +1,19 @@
-def count_substrings(string1, string2)
-  target_length = string2.size
-  substrings = get_substrings(string1, target_length)
-  substrings.count(string2)
+def pairs(array)
+  pairs = []
+  length = array.size
+  reps = (length + 1) / 2
+  reps.times { |rep| pairs << [array[rep], array[length - (rep + 1)]] }
+  pairs
 end
 
-def get_substrings(string, target_length)
-  subarrays = string.chars.each_cons(target_length).to_a
-  subarrays.map(&:join)
+def pairs1(array)
+  length = array.size
+  reps = (length + 1) / 2
+  reps.times.map { |rep| [array[rep], array[length - (rep + 1)]] }
 end
 
-p count_substrings('abcdeb', 'b') == 2
-p count_substrings('cc', 'cc') == 1
-p count_substrings('abbcbb', 'bb') #== 2
-p count_substrings('abcdef', 'gh') == 0
-p count_substrings('aaaaa', 'aa') == 4
+p pairs([1, 2, 3, 4, 5, 6]) == [[1, 6], [2, 5], [3, 4]]
+p pairs([1, 2, 3, 4, 5]) == [[1, 5], [2, 4], [3, 3]]
+p pairs([1, 2]) == [[1, 2]]
+p pairs([1]) == [[1, 1]]
+p pairs([]) == []

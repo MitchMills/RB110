@@ -1,3 +1,163 @@
+### PAIRS
+=begin
+Write a function that takes an array as an argument, and returns an array with pairs of elements grouped into subarrays. The first element should be paired with the last, the second element with the second to last, etc.
+
+If the array has an odd number of elements, repeat the middle element twice for the final pair.
+
+PROBLEM 12:25
+input: array
+  - can be empty
+
+output: array
+  - contains subarrays with pairs of elements from input array
+    - first element with last element
+    - second element with second to last
+    - etc
+  - if input array length is odd:
+    - repeat middle element twice for final pair
+  - if input array empty
+    - return empty array
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to pair appropriate elements with each other
+  - way to repeat middle element if array size is odd
+  - way to deal with empty input array
+
+start: array
+  - counters to control current index
+    - first: 0, then increment by 1
+      - use reps index
+    - second: array length - 1, then decrement by 1
+      - array length - (reps index + 1)
+  - variable to control number of reps
+    - (array size + 1) / 2
+finish: array
+
+ALGORITHM
+- create an empty array to hold pairs: pairs
+- get the number of reps to perform
+  - (array length + 1) / 2
+- on each rep
+  - add a subarray to pairs
+    - first element: array[rep index]
+    - second element: array[array length - (rep index + 1)]
+- return pairs array
+=end
+
+# def pairs(array)
+#   pairs = []
+#   length = array.size
+#   reps = (length + 1) / 2
+#   reps.times { |rep| pairs << [array[rep], array[length - (rep + 1)]] }
+#   pairs
+# end
+
+# def pairs1(array)
+#   length = array.size
+#   reps = (length + 1) / 2
+#   reps.times.map { |rep| [array[rep], array[length - (rep + 1)]] }
+# end
+
+# p pairs([1, 2, 3, 4, 5, 6]) == [[1, 6], [2, 5], [3, 4]]
+# p pairs([1, 2, 3, 4, 5]) == [[1, 5], [2, 4], [3, 3]]
+# p pairs([1, 2]) == [[1, 2]]
+# p pairs([1]) == [[1, 1]]
+# p pairs([]) == []
+
+### VOWEL SUBSTRINGS
+=begin
+Write a method that takes a string as an argument and returns the number of "vowel substrings" within it. A "vowel substring" is a consecutive sequence of characters within the input string that consists only of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it at least once. All input strings will contain only lowercase letters.
+
+PROBLEM 11:54
+input: string
+  - contains only lowercase letters
+
+output: integer
+  - represents number of "vowel substrings"
+    - consecutive sequence of characters from input string that
+      - contains only vowels (a e i o u) and
+        - contains all five vowels at least once
+    - order does not matter
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if a substring consists only of vowels
+    - way to determine if a character is a vowel
+  - way to determine if all five vowels are present in a substring
+
+start: string
+  - array of vowels [a, e, i, o, u]
+  - array of all possible substrings
+    - minimum length: 5
+    - maximum length: string length
+    - start indexes: 0 up to string length - minimum length
+  - array of substrings that contain only vowels
+  - array of vowel substrings
+finish: integer (size of vowel substrings array)
+
+ALGORITHM
+- create an array of all vowels: vowels
+- get all candidate substrings from input string
+  - start indexes: 0 up to (string length - 5)
+    - lengths: 5 up to string length
+- get all substrings that contain only vowels
+  - all characters are included in vowels array
+- get all vowel substrings
+  - iterate over vowels array
+    - select substrings where all vowels are used
+- return size of vowel substrings array
+=end
+
+# VOWELS = %w(a e i o u)
+
+# def count_vowel_substrings(string)
+#   substrings = get_substrings(string)
+#   only_vowels = get_only_vowels(substrings)
+#   number_of_vowel_substrings(only_vowels)
+# end
+
+# def get_substrings(string)
+#   substrings = []
+#   min_length = 5
+#   last_index = string.size - min_length
+#   start_indexes = (0..last_index)
+
+#   start_indexes.each do |start_index|
+#     max_length = string.size - start_index
+#     lengths = (min_length..max_length)
+
+#     lengths.each do |length|
+#       substrings << string[start_index, length]
+#     end
+#   end
+#   substrings
+# end
+
+# def get_only_vowels(substrings)
+#   substrings.select do |substring|
+#     substring.chars.all? { |char| VOWELS.include?(char) }
+#   end
+# end
+
+# def number_of_vowel_substrings(substrings)
+#   substrings.count do |substring|
+#     VOWELS.all? { |vowel| substring.include?(vowel) }
+#   end
+# end
+
+# p count_vowel_substrings('abcde') == 0
+# p count_vowel_substrings('aeiou') == 1
+# p count_vowel_substrings('iaoue') == 1
+# p count_vowel_substrings('aeiogu') == 0
+# p count_vowel_substrings('aeiouu') == 2
+# p count_vowel_substrings('aeiouuu') == 3
+# p count_vowel_substrings('aaeeiioouu') == 4
+
 ### LETTER CHANGES
 =begin
 Write a method that takes a string as an argument and returns a new string with every letter character replaced with the 3rd letter following it in the alphabet ('a' becomes 'd', 'b' becomes 'e', etc).
@@ -31,24 +191,24 @@ start: string
 finish: string
 =end
 
-uppercase = ('A'..'Z').to_a + ('A'..'C').to_a
-lowercase = ('a'..'z').to_a + ('a'..'c').to_a
-ALPHABET = uppercase + lowercase
+# uppercase = ('A'..'Z').to_a + ('A'..'C').to_a
+# lowercase = ('a'..'z').to_a + ('a'..'c').to_a
+# ALPHABET = uppercase + lowercase
 
-def letter_changes(string)
-  string.chars.map do |char|
-    ALPHABET.include?(char) ? change_letter(char) : char
-  end.join
-end
+# def letter_changes(string)
+#   string.chars.map do |char|
+#     ALPHABET.include?(char) ? change_letter(char) : char
+#   end.join
+# end
 
-def change_letter(letter)
-  ALPHABET[ALPHABET.index(letter) + 3]
-end
+# def change_letter(letter)
+#   ALPHABET[ALPHABET.index(letter) + 3]
+# end
 
-p letter_changes('abc') == 'def'
-p letter_changes('WxY') == 'ZaB'
-p letter_changes('364.39') == '364.39'
-p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
+# p letter_changes('abc') == 'def'
+# p letter_changes('WxY') == 'ZaB'
+# p letter_changes('364.39') == '364.39'
+# p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
 
 ### SMALLER THAN CURRENT
 =begin
