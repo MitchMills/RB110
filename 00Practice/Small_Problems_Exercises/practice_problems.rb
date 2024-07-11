@@ -1,3 +1,109 @@
+### LETTER CHANGES
+=begin
+Write a method that takes a string as an argument and returns a new string with every letter character replaced with the 3rd letter following it in the alphabet ('a' becomes 'd', 'b' becomes 'e', etc).
+
+Maintain the case of the original letter. Loop back to the beginning of the alphabet if the 3rd letter is past the end ('x' becomes 'a', 'Y' becomes 'B', etc). Leave any non-letter characters unchanged.
+
+PROBLEM 9:08
+input: string
+  - can contain all types of characters
+
+output: string
+  - every letter character replaced with 3rd letter following it in alphabet
+    - maintain case
+    - loop back to beginning of alphabet if 3rd letter past the end
+  - all other characters remain the same
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to identify letter characters
+  - way to get 3rd letter after a letter character
+  - way to maintain case
+
+start: string
+  - array of all alphabetic characters, in order
+    - uppercase and lowercase
+      - append 'XYZ' and 'xyz'
+  - array of individual letters in string
+  - transformed array
+finish: string
+=end
+
+uppercase = ('A'..'Z').to_a + ('A'..'C').to_a
+lowercase = ('a'..'z').to_a + ('a'..'c').to_a
+ALPHABET = uppercase + lowercase
+
+def letter_changes(string)
+  string.chars.map do |char|
+    ALPHABET.include?(char) ? change_letter(char) : char
+  end.join
+end
+
+def change_letter(letter)
+  ALPHABET[ALPHABET.index(letter) + 3]
+end
+
+p letter_changes('abc') == 'def'
+p letter_changes('WxY') == 'ZaB'
+p letter_changes('364.39') == '364.39'
+p letter_changes("JaneDoe37@gmail.com") == 'MdqhGrh37@jpdlo.frp'
+
+### SMALLER THAN CURRENT
+=begin
+Write a method that takes an array of numbers as an argument. For each number in the input array, determine how many other numbers in the array are less than that current number. Return these results in an array.
+
+When counting how many numbers are less than the current number, only consider unique values. If a given number occurs more than once in the array, it should only be counted once.
+
+PROBLEM 8:59
+input: array
+  - elements are numbers
+  - not empty
+
+output: array
+  - each element: how many other unique numbers in the array are
+    - less than the number at that position
+  - only consider unique values
+    - if a given number occurs more than once in the input array
+      - only count it once
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+- way to compare current number to all other UNIQUE numbers in array
+
+start: array
+  - array of unique values in input array
+finish: array (transformed input array)
+
+ALGORITHM
+- create an array of unique values in input array: uniques
+- transform the input array
+  - for each number
+    - count the number of values in the uniques array that are
+      - less than the current number
+    - make that count the new element in the transformed array
+- return the transformed array
+=end
+
+# def smaller_than(array)
+#   uniques = array.uniq
+#   array.map do |number|
+#     uniques.count { |unique| unique < number }
+#   end
+# end
+
+
+# p smaller_than([1, 2]) == [0, 1] # 0 numbers are less than 1, 1 number is less than 2
+# p smaller_than([1, 200]) == [0, 1]
+# p smaller_than([1, 1, 2, 2]) == [0, 0, 1, 1]
+# p smaller_than([1, 1, 2, 3]) #== [0, 0, 1, 2]
+# p smaller_than([8, 1, 2, 3]) == [3, 0, 1, 2]
+# p smaller_than([7, 7, 7]) == [0, 0, 0]
+# p smaller_than([1]) == [0]
+
 
 
 ### SUBSTRING COUNT
