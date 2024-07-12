@@ -1,3 +1,94 @@
+### VOWEL SUBSTRINGS AGAIN
+=begin
+Write a method that takes a string as an argument and returns the number of "vowel substrings" within it. A "vowel substring" is a consecutive sequence of characters within the input string that consists only of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it at least once. All input strings will contain only lowercase letters.
+
+PROBLEM 8:15
+input: string
+  - contains only lowercase letter characters
+
+output: integer
+  - number of "vowel strings" in input string
+    - vowel string:
+      - consecutive sequence of characters
+      - contains only vowels (a e i o u)
+      - every vowel is present at least once
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all relevant substrings
+    - minimum length = 5
+  - way to get all substrings which contain only vowels
+    - way to distinguish vowels from other letters
+  - way to determine if an all-vowel substring contains at least one of each vowel
+
+start: string
+  - array of all possible substrings
+    - length >= 5
+  - array of vowel-only substrings
+  - array of vowel substrings
+finish: integer (length of array)
+
+ALGORITHM
+  - get all possible substrings from input string
+    - minimum length = 5
+    - start indexes: 0 up to (string length - 5)
+    - maximum length = (string length - current start index)
+  - get substrings that contain only vowels
+    - create an array of vowels: %w(a e i o u)
+    - select if every character in substring is included in vowels array
+  - count vowel substrings
+    - iterate over vowels array
+      - check if all vowels occur in a substring
+  - return count
+=end
+
+VOWELS = %w(a e i o u)
+
+def count_vowel_substrings(string)
+  substrings = get_substrings(string)
+  vowels_only_substrings = get_vowels_only_substrings(substrings)
+  vowel_substring_count(vowels_only_substrings)
+end
+
+def get_substrings(string)
+  substrings = []
+  min_length = 5
+  last_index = (string.size - min_length)
+  start_indexes = (0..last_index)
+
+  start_indexes.each do |start_index|
+    max_length = string.size - start_index
+    lengths = (min_length..max_length)
+
+    lengths.each do |length|
+      substrings << string[start_index, length]
+    end
+  end
+  substrings
+end
+
+def get_vowels_only_substrings(substrings)
+  substrings.select do |substring|
+    substring.chars.all? { |char| VOWELS.include?(char) }
+  end
+end
+
+def vowel_substring_count(vowels_only_substrings)
+  vowels_only_substrings.count do |substring|
+    VOWELS.all? { |vowel| substring.include?(vowel) }
+  end
+end
+
+p count_vowel_substrings('abcde') == 0
+p count_vowel_substrings('aeiou') == 1
+p count_vowel_substrings('iaoue') == 1
+p count_vowel_substrings('aeiogu') == 0
+p count_vowel_substrings('aeiouu') == 2
+p count_vowel_substrings('aeiouuu') == 3
+p count_vowel_substrings('aaeeiioouu') == 4
+
 ### PAIRS
 =begin
 Write a function that takes an array as an argument, and returns an array with pairs of elements grouped into subarrays. The first element should be paired with the last, the second element with the second to last, etc.
