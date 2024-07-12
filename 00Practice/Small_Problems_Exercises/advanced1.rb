@@ -50,14 +50,15 @@ ALGORITHM
 =end
 
 def transpose!(array)
-  array.each_index do |row_index|
-    (0..row_index).each do |column_index|
-      element1 = array[row_index][column_index]
-      element2 = array[column_index][row_index]
+  array.each_index do |row_idx|
+    (0..row_idx).each do |column_idx|
+      row = array[row_idx]
+      column = array[column_idx]
 
-      element1, element2 = element2, element1
+      row[column_idx], column[row_idx] = column[row_idx], row[column_idx]
     end
   end
+
   array
 end
 
@@ -67,18 +68,9 @@ matrix = [
   [7, 8, 9]
 ]
 
-# mmaattrriixx = [
-#   [1, 4, 3],
-#   [5, 7, 9],
-#   [8, 2, 6]
-# ]
-
 p matrix
 puts
 transpose!(matrix)
-puts
-# transpose!(mmaattrriixx)
-# puts
 p matrix #== [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
 
 ### 2 NON-MUTATING

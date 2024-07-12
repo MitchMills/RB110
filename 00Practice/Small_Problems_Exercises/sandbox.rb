@@ -1,23 +1,57 @@
-def pairs(array)
-  pairs = []
-  number_of_pairs = (array.size / 2.0).ceil
+def transpose!(array)
+  array.each_index do |row_idx|
+    (0..row_idx).each do |column_idx|
+      puts "row: #{row_idx}, column: #{column_idx}"
+      row = array[row_idx]
+      column = array[column_idx]
 
-  number_of_pairs.times do |pair_index|
-    pairs << [array[pair_index], array[-(pair_index + 1)]]
+      row[column_idx], column[row_idx] = column[row_idx], row[column_idx]
+    end
   end
-  pairs
+  array
 end
 
-def pairs1(array)
-  number_of_pairs = (array.size / 2.0).ceil
+# def transpose!(array)
+#   array.each_with_index do |subarray, row_idx|
+#     subarray.each_index do |column_idx|
+#       row = array[row_idx]
+#       column = array[column_idx]
 
-  number_of_pairs.times.map do |pair_index|
-    [array[pair_index], array[-(pair_index + 1)]]
-  end
-end
+#       if column_idx > row_idx
+#         p "row: #{row_idx}, column: #{column_idx}"
+#         row[column_idx], column[row_idx] = column[row_idx], row[column_idx]
+#       end
+#     end
+#     puts
+#   end
+#   array
+# end
 
-p pairs([1, 2, 3, 4, 5, 6]) == [[1, 6], [2, 5], [3, 4]]
-p pairs([1, 2, 3, 4, 5]) == [[1, 5], [2, 4], [3, 3]]
-p pairs([1, 2]) == [[1, 2]]
-p pairs([1]) == [[1, 1]]
-p pairs([]) == []
+matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+]
+
+transposed_matrix = [
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 6, 9]
+]
+
+index_matrix = [
+  ['0/0', '0/1', '0/2'],
+  ['1/0', '1/1', '1/2'],
+  ['2/0', '2/1', '2/2']
+]
+
+transposed_index_matrix = [
+  ["0/0", "1/0", "2/0"],
+  ["0/1", "1/1", "2/1"],
+  ["0/2", "1/2", "2/2"]
+]
+
+p index_matrix
+puts
+transpose!(index_matrix)
+p index_matrix #== [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
