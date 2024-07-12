@@ -1,3 +1,72 @@
+
+
+### PAIRS
+=begin
+Write a function that takes an array as an argument, and returns an array with pairs of elements grouped into subarrays. The first element should be paired with the last, the second element with the second to last, etc.
+
+If the array has an odd number of elements, repeat the middle element twice for the final pair.
+
+PROBLEM 8:42
+input: array
+  - can be empty
+
+output: array
+  nested:
+    - elements in input array are paired into subarrays
+      - first element with last element
+      - second element with second to last, etc
+    - if input array length is odd
+      - repeat middle element twice for final pair
+    - number of subarrays = input array length / 2 (rounded up)
+  - if input array is empty, return array will be empty
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get correct number of pairs / subarrays
+  - way to get correct elements into each pair
+
+start: array
+  - number of subarrays: array length / 2.0, rounded up to integer
+  - indexes
+    - [0, -1], [1, -2], [2, -3]
+finish: nested array
+
+ALGORITHM
+- create an empty array to hold subarrays
+- determine the number of subarrays
+  - array length  / 2.0, rounded up to integer
+- for each subarray number (1 up to (array.size / 2.0).ceil): index
+  - add a subarray to empty array
+    - [[array[index], array[-(index + 1)]]
+- return subarrays array
+=end
+
+# def pairs(array)
+#   pairs = []
+#   number_of_pairs = (array.size / 2.0).ceil
+
+#   number_of_pairs.times do |pair_index|
+#     pairs << [array[pair_index], array[-(pair_index + 1)]]
+#   end
+#   pairs
+# end
+
+# def pairs1(array)
+#   number_of_pairs = (array.size / 2.0).ceil
+
+#   number_of_pairs.times.map do |pair_index|
+#     [array[pair_index], array[-(pair_index + 1)]]
+#   end
+# end
+
+# p pairs([1, 2, 3, 4, 5, 6]) == [[1, 6], [2, 5], [3, 4]]
+# p pairs([1, 2, 3, 4, 5]) == [[1, 5], [2, 4], [3, 3]]
+# p pairs([1, 2]) == [[1, 2]]
+# p pairs([1]) == [[1, 1]]
+# p pairs([]) == []
+
 ### VOWEL SUBSTRINGS AGAIN
 =begin
 Write a method that takes a string as an argument and returns the number of "vowel substrings" within it. A "vowel substring" is a consecutive sequence of characters within the input string that consists only of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it at least once. All input strings will contain only lowercase letters.
@@ -44,50 +113,50 @@ ALGORITHM
   - return count
 =end
 
-VOWELS = %w(a e i o u)
+# VOWELS = %w(a e i o u)
 
-def count_vowel_substrings(string)
-  substrings = get_substrings(string)
-  vowels_only_substrings = get_vowels_only_substrings(substrings)
-  vowel_substring_count(vowels_only_substrings)
-end
+# def count_vowel_substrings(string)
+#   substrings = get_substrings(string)
+#   vowels_only_substrings = get_vowels_only_substrings(substrings)
+#   vowel_substring_count(vowels_only_substrings)
+# end
 
-def get_substrings(string)
-  substrings = []
-  min_length = 5
-  last_index = (string.size - min_length)
-  start_indexes = (0..last_index)
+# def get_substrings(string)
+#   substrings = []
+#   min_length = 5
+#   last_index = (string.size - min_length)
+#   start_indexes = (0..last_index)
 
-  start_indexes.each do |start_index|
-    max_length = string.size - start_index
-    lengths = (min_length..max_length)
+#   start_indexes.each do |start_index|
+#     max_length = string.size - start_index
+#     lengths = (min_length..max_length)
 
-    lengths.each do |length|
-      substrings << string[start_index, length]
-    end
-  end
-  substrings
-end
+#     lengths.each do |length|
+#       substrings << string[start_index, length]
+#     end
+#   end
+#   substrings
+# end
 
-def get_vowels_only_substrings(substrings)
-  substrings.select do |substring|
-    substring.chars.all? { |char| VOWELS.include?(char) }
-  end
-end
+# def get_vowels_only_substrings(substrings)
+#   substrings.select do |substring|
+#     substring.chars.all? { |char| VOWELS.include?(char) }
+#   end
+# end
 
-def vowel_substring_count(vowels_only_substrings)
-  vowels_only_substrings.count do |substring|
-    VOWELS.all? { |vowel| substring.include?(vowel) }
-  end
-end
+# def vowel_substring_count(vowels_only_substrings)
+#   vowels_only_substrings.count do |substring|
+#     VOWELS.all? { |vowel| substring.include?(vowel) }
+#   end
+# end
 
-p count_vowel_substrings('abcde') == 0
-p count_vowel_substrings('aeiou') == 1
-p count_vowel_substrings('iaoue') == 1
-p count_vowel_substrings('aeiogu') == 0
-p count_vowel_substrings('aeiouu') == 2
-p count_vowel_substrings('aeiouuu') == 3
-p count_vowel_substrings('aaeeiioouu') == 4
+# p count_vowel_substrings('abcde') == 0
+# p count_vowel_substrings('aeiou') == 1
+# p count_vowel_substrings('iaoue') == 1
+# p count_vowel_substrings('aeiogu') == 0
+# p count_vowel_substrings('aeiouu') == 2
+# p count_vowel_substrings('aeiouuu') == 3
+# p count_vowel_substrings('aaeeiioouu') == 4
 
 ### PAIRS
 =begin
