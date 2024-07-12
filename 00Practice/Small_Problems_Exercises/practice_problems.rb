@@ -1,6 +1,67 @@
 
 
 
+### MULTIPLY ALL PAIRS
+=begin
+Write a method that, given two arrays each containing lists of numbers, returns a new array that contains the product of every pair of numbers that can be formed between the elements of the two arrays. The results should be sorted by increasing value.
+
+You may assume that neither argument is an empty array.
+
+PROBLEM 1:01
+input: 2 arrays
+  - elements are numbers
+  - not empty
+  - can be different sizes
+
+output: array
+  - products of every pair of numbers that can be formed between
+    - one element from each input array
+  - sorted in ascending value
+  - don't need to consider 'reverse pairs'
+    - [1], [4] => [4]
+      - i.e. don't need to do both 1 * 4 AND 4 * 1
+  - output array size = product of input array sizes
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+- way to consider every pair of numbers
+- way to avoid considering 'reverse pairs'
+
+start: 2 arrays
+  - empty array to hold products
+finish: array (sorted products array)
+
+ALGORITHM
+- create an empty array to add products to
+- for each number in array 1
+  - for each number array 2
+    - multiply numbers together
+    - add to products array
+- sort products array, and return it
+=end
+
+# def multiply_all_pairs(array1, array2)
+#   products =[]
+
+#   array1.each do |number1|
+#     array2.each { |number2| products << (number1 * number2) }
+#   end
+
+#   products.sort
+# end
+
+# def multiply_all_pairs(array1, array2)
+#   array1.each_with_object([]) do |number1, products|
+#     array2.each { |number2| products << (number1 * number2) }
+#   end.sort
+# end
+
+# p multiply_all_pairs([3], [1, 3, 2]) == [3, 6, 9]
+# p multiply_all_pairs([1, 2], [3, 4]) == [3, 4, 6, 8]
+# p multiply_all_pairs([1, 2], [4, 3, 1, 2]) == [1, 2, 2, 3, 4, 4, 6, 8]
+
 ### NEXT BIGGEST NUMBER
 =begin
 Write a method that, given a positive integer, returns the next biggest number that can be formed from the same digits. If no bigger number can be formed from those digits, return -1
