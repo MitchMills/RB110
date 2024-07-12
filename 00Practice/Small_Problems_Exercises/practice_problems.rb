@@ -1,5 +1,77 @@
 
 
+
+### NEXT BIGGEST NUMBER
+=begin
+Write a method that, given a positive integer, returns the next biggest number that can be formed from the same digits. If no bigger number can be formed from those digits, return -1
+
+PROBLEM 12:43
+input: integer
+  - positive
+output: integer
+  - next biggest number that can be formed from same digits
+  - if no bigger number possible
+    - return -1
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate candidate numbers (i.e. with same digits)
+  - way to determine if a number is next biggest
+  - way to determine if no bigger number is possible
+
+start: integer
+  - greatest possible integer with given digits:
+    - array of individual digits
+    - array sorted largest to smallest
+    - sorted array converted to an integer
+  - range from (integer + 1) up to greatest possible integer
+  - for each number in the range
+    - converted to array of digits, then sorted
+    - compared to sorted array of input integer digits
+finish: integer
+  - first number that has all the same digits as input integer
+
+ALGORITHM
+- determine the greatest possible integer using the same digits as input integer
+  - convert input integer into an array of digits
+  - sort from highest to lowest
+  - convert into a string, then into an integer
+- consider each number between input integer and greatest possible integer
+  - if number contains all the same digits as input integer
+    - return it
+      - convert number to an array of digits
+      - sort
+      - compare for equality with input integer digits sorted
+  - else continue
+- return -1 if no integer found in range
+=end
+
+# def next_bigger_num(number)
+#   max_number = get_max_number(number)
+#   candidates = ((number + 1)..max_number)
+#   result = candidates.find { |candidate| same_digits?(candidate, number) }
+#   result || -1
+# end
+
+# def get_max_number(number)
+#   number.digits.sort.reverse.join.to_i
+# end
+
+# def same_digits?(candidate, target)
+#   candidate.digits.sort == target.digits.sort
+# end
+
+# p next_bigger_num(9) == -1
+# p next_bigger_num(12) == 21
+# p next_bigger_num(315) == 351
+# p next_bigger_num(111) == -1
+# p next_bigger_num(13579) == 13597
+# p next_bigger_num(13573) == 13735
+# p next_bigger_num(13576) == 13657
+# p next_bigger_num(97531) == -1
+
 ### PAIRS
 =begin
 Write a function that takes an array as an argument, and returns an array with pairs of elements grouped into subarrays. The first element should be paired with the last, the second element with the second to last, etc.
