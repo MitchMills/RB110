@@ -1,16 +1,21 @@
-def dasherizer(number)
-  digits = number.digits.reverse
-  digits.map.with_index do |digit, index|
-    consecutive_odds?(digits, index) ? "#{digit}-" : digit.to_s
-  end.join
+def closest_numbers(numbers)
+  pairs = get_pairs(numbers)
+  minimum_difference = pairs.map { |pair| pair.inject(:-).abs }.min
+  pairs.find { |pair| pair.inject(:-).abs == minimum_difference }
 end
 
-def consecutive_odds?(digits, index)
-  next_digit = digits[index + 1] || 0
-  digits[index].odd? && next_digit.odd?
+def get_pairs(array)
+  pairs = []
+  last_index = array.size - 1
+  array.each_index do |index1|
+    ((index1 + 1)..last_index).each do |index2|
+      pairs << [array[index1], array[index2]]
+    end
+  end
+  pairs
 end
 
-p dasherizer(2112) == '21-12'
-p dasherizer(201305742) == '201-305-742'
-p dasherizer(123456789) == '123456789'
-p dasherizer(217521) == '21-7-521'
+p closest_numbers([2, 4, 6, 7]) == [6, 7]
+p closest_numbers([5, 15, 25, 11, 20]) == [15, 11]
+p closest_numbers([3, 6, 8, 11, 13]) == [6, 8]
+p closest_numbers([12, 7, 17]) == [12, 7]

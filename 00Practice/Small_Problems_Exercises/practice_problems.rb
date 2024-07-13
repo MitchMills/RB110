@@ -1,3 +1,77 @@
+
+
+
+### CLOSEST VALUES
+=begin
+Write a method that takes an array of integers as an argument and returns the two numbers that are closest together in value. If more than one pair of integers satisfies this condition, return the pair whose elements occurs first in the input array.
+
+You may assume that the input array will always contain at least three elements.
+
+PROBLEM
+input: array
+  - contains integers
+  - minimum length: 3
+
+output: array
+  - two elements
+    - two elements from input array that are closest in value
+    - if any ties, return the earliest pair
+    - elements do not need to be consecutive
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to compare each possible pair of numbers
+    - don't need to worry about 'reverse pairs'
+  - way to get difference between numbers in each pair
+    - regardless of order: [4, 2] = 2 ; [2, 4] = 2 (NOT -2)
+  - way to find earliest pair with smallest difference
+
+start: array
+  - array of all possible pairs
+    - arranged in starting index order
+  - smallest difference between numbers in pairs
+  - first pair that has that same difference
+finish: array (closest, earliest pair)
+
+ALGORITHM
+- get all possible forward pairs of numbers from input array
+  - create an empty array to hold pair arrays
+  - for each index in input array (number1_index)
+    - for each index from number1_index to last index (number2_index)
+      - create a pair
+        - number at number1_index, number at number2_index
+      - add pair to pairs array
+- get the smallest difference between any two pairs
+  - transform pairs array into differences
+    - absolute value of numbers subtracted from each other
+  - get the smallest difference: min_difference
+- find the first pair that has same difference as min_difference
+=end
+
+# def closest_numbers(numbers)
+#   pairs = get_pairs(numbers)
+#   minimum_difference = pairs.map { |pair| pair.inject(:-).abs }.min
+#   pairs.find { |pair| pair.inject(:-).abs == minimum_difference }
+# end
+
+# def get_pairs(array)
+#   pairs = []
+#   last_index = array.size - 1
+#   array.each_index do |index1|
+#     ((index1 + 1)..last_index).each do |index2|
+#       pairs << [array[index1], array[index2]]
+#     end
+#   end
+#   pairs
+# end
+
+# p closest_numbers([2, 4, 6, 7]) == [6, 7]
+# p closest_numbers([5, 15, 25, 11, 20]) == [15, 11]
+# p closest_numbers([3, 6, 8, 11, 13]) == [6, 8]
+# p closest_numbers([12, 7, 17]) == [12, 7]
+
 ### DASHERIZER
 =begin
 Write a method that takes an integer as an argument and returns a string, with a dash placed between any consecutive odd digits.
@@ -33,23 +107,22 @@ ALGORITHM
 - convert the array into a string and return it
 =end
 
-def dasherizer(number)
-  digits = number.digits.reverse
-  digits.map.with_index do |digit, index|
-    consecutive_odds?(digits, index) ? digit.to_s + '-' : digit.to_s
-  end.join
-end
+# def dasherizer(number)
+#   digits = number.digits.reverse
+#   digits.map.with_index do |digit, index|
+#     consecutive_odds?(digits, index) ? digit.to_s + '-' : digit.to_s
+#   end.join
+# end
 
-def consecutive_odds?(digits, index)
-  next_digit = digits[index + 1] || 0
-  digits[index].odd? && next_digit.odd?
-end
+# def consecutive_odds?(digits, index)
+#   next_digit = digits[index + 1] || 0
+#   digits[index].odd? && next_digit.odd?
+# end
 
-p dasherizer(2112) == '21-12'
-p dasherizer(201305742) == '201-305-742'
-p dasherizer(123456789) == '123456789'
-p dasherizer(217521) == '21-7-521'
-
+# p dasherizer(2112) == '21-12'
+# p dasherizer(201305742) == '201-305-742'
+# p dasherizer(123456789) == '123456789'
+# p dasherizer(217521) == '21-7-521'
 
 ### LONGEST ALPHABETICAL
 =begin
