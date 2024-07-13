@@ -1,23 +1,38 @@
-def delete_digit(number)
-  candidates = get_candidates(number)
-  candidates.max
+def longest(string)
+  substrings = get_substrings(string)
+  alpha_substrings = substrings.select { |substring| alphabetical?(substring) }
+  max_length = alpha_substrings.map(&:size).max
+  alpha_substrings.find { |substring| substring.size == max_length }
 end
 
-def get_candidates(number)
-  all_digits = number.digits.reverse
+def get_substrings(string)
+  substrings = []
+  min_length = 1
+  last_index = string.size - min_length
+  start_indexes = (0..last_index)
 
-  all_digits.each_index.map do |index|
-    candidate_digits = number.digits.reverse
-    candidate_digits.delete_at(index)
-    candidate_digits.join.to_i
+  start_indexes.each do |start_index|
+    max_length = string.size - start_index
+    lengths = (min_length..max_length)
+
+    lengths.each do |length|
+      substrings << string[start_index, length]
+    end
   end
+
+  substrings
 end
 
-p delete_digit(10) == 1
-p delete_digit(12) == 2
-p delete_digit(123) == 23
-p delete_digit(321) == 32
-p delete_digit(12345) == 2345
-p delete_digit(62345) == 6345
-p delete_digit(791983) == 91983
-p delete_digit(1001) == 101
+def alphabetical?(string)
+  string.chars.sort == string.chars
+end
+
+p longest('abc') == 'abc'
+p longest('abcace') == 'abc'
+p longest('asd') == 'as'
+p longest('nab') == 'ab'
+p longest('abcdeapbcdef') == 'abcde'
+p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+p longest('asdfbyfgiklag') == 'fgikl'
+p longest('z') == 'z'
+p longest('zyba') == 'z'

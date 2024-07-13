@@ -1,5 +1,161 @@
+### LONGEST ALPHABETICAL
+=begin
+Write a method that takes a string containing only lowercase letters as an argument, and returns the longest substring that is in alphabetical order. If there are multiple solutions, return the substring that occurs first in the input string. All input strings will be at least one character in length.
 
+PROBLEM 12:01
+input: string
+  - contains only lowercase letters
+  - at least one character in length
+output: string
+  - longest substring that is in alphabetical order
+  - if any ties, return the earliest substring
+  - substring can be same length as input string
 
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all possible substrings from input string
+  - way to determine if a substring is in alphabetical order
+  - way to determine longest alphabetical substring
+    - way to return earliest if a tie
+
+start: string
+  - array of all possible substrings
+    - in start index order
+  - array of all alphabetical substrings
+  - longest length in that array
+finish: string (first substring that matches that length)
+
+ALGORITHM
+- create an array of all possible substrings from input string
+  - should be in start index order
+
+  - create an empty array to hold substrings
+  - for each index in input string
+    - from 0 up to (string length - 1)
+
+    - get every possible length substring from that index
+      - length 1 up to (string length - current index)
+      - add substring to substrings array
+
+- select all substrings that are in alphabetical order
+  - for each substring
+    - create an array of individual characters
+    - compare this array to sorted version of array
+    - if equal, then substring is alphabetical
+
+- return the longest (and earliest) substring
+  - get the longest length of a substring in the alphabetical substrings array
+  - select the first substring that matches that length
+=end
+
+def longest(string)
+  substrings = get_substrings(string)
+  alpha_substrings = substrings.select { |substring| alphabetical?(substring) }
+  max_length = alpha_substrings.map(&:size).max
+  alpha_substrings.find { |substring| substring.size == max_length }
+end
+
+def get_substrings(string)
+  substrings = []
+  min_length = 1
+  last_index = string.size - min_length
+  start_indexes = (0..last_index)
+
+  start_indexes.each do |start_index|
+    max_length = string.size - start_index
+    lengths = (min_length..max_length)
+
+    lengths.each do |length|
+      substrings << string[start_index, length]
+    end
+  end
+
+  substrings
+end
+
+def alphabetical?(string)
+  string.chars.sort == string.chars
+end
+
+p longest('abc') == 'abc'
+p longest('abcace') == 'abc'
+p longest('asd') == 'as'
+p longest('nab') == 'ab'
+p longest('abcdeapbcdef') == 'abcde'
+p longest('asdfaaaabbbbcttavvfffffdf') == 'aaaabbbbctt'
+p longest('asdfbyfgiklag') == 'fgikl'
+p longest('z') == 'z'
+p longest('zyba') == 'z'
+
+### ALPHABET SCORE
+=begin
+Write a method that takes a string of words as an argument and returns the word that scores highest according to the letters it contains. Each letter of a word scores points according to its position in the alphabet: a = 1, b = 2, etc. So, for example, the word "ace" has a score of 9 (1 + 3 + 5).
+
+If two words are tied for highest score, return the word that appears earliest in the original string.
+
+You can assume that all letters in the input string are lowercase and all input strings are valid.
+
+PROBLEM
+input: string
+  - contains "words"
+    - consecutive non-space characters
+  - all letters in string are lowercase
+
+output: string
+  - word with highest "alphabet score"
+    - each letter scores points based on position in alphabet:
+      - a = 1, b = 2, etc
+  - if any ties, return word that appears earliest in input string
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to consider each word individually
+  - way to get score of each word
+    - way to consider each character individually
+    - way to score each letter
+  - way to determine word to return
+    - highest score
+    - if tie, then earliest
+
+start: string
+  - array of individual words
+  - array of individual characters in each word
+finish: string (highest scoring word)
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters
+  - in order
+  - prepend a '0'
+- create an array of individual words from input string
+- for each word
+  - create an array of individual characters
+    - convert each character into its alphabet score
+      - get the index of that character form the alphabet array
+    - get the sum of all scores
+- return the word with the highest score
+=end
+
+# ALPHABET = ('a'..'z').to_a.prepend('0')
+
+# def alphabet_score(string)
+#   words = string.split
+#   max_score = words.map { |word| score(word) }.max
+#   words.find { |word| score(word) == max_score }
+# end
+
+# def score(word)
+#   word.chars.map { |char| ALPHABET.index(char) || 0 }.sum
+# end
+
+# p alphabet_score('time is up') == 'time'
+# p alphabet_score('time to stop') == 'stop'
+# p alphabet_score('aced up') == 'up'
+# p alphabet_score('ebb ace') == 'ebb'
+# p alphabet_score('c ba') == 'c'
 
 ### DELETE A DIGIT
 =begin
