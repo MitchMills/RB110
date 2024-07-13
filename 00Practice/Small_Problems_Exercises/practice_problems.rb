@@ -1,4 +1,86 @@
-# REPEATED SUBSTRING
+
+
+
+### DELETE A DIGIT
+=begin
+Write a method that takes an integer as an argument and returns the largest integer that can be obtained by deleting exactly one digit.
+
+Assume all input integers will contain at least two digits
+
+PROBLEM 8:41
+input: integer
+  - contains at least two digits
+output: integer
+  - largest integer that can be obtained by
+    - deleting exactly one digit
+  - all other digits remain in same order
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to delete one digit without affecting other digits
+  - way to determine largest number generated
+
+start: integer
+  - array of individual digits in input integer
+  - array of subarrays
+    - each subarray has one digit deleted
+  - array of integers
+output: integer (largest integer)
+
+ALGORITHM
+- get candidate integers
+  - create an empty array to store subarrays
+  - create a range from 0 up to (array length - 1)
+  - for every number in the range
+    - create a new subarray:
+      - create an array of individual digits from input integer
+      - delete element at current index
+  - convert each subarray into an integer
+    - first string, then integer
+- return largest integer
+=end
+
+# def delete_digit(number)
+#   last_index = number.to_s.size - 1
+#   indexes = (0..last_index)
+
+#   candidates = indexes.map do |index|
+#     digits = number.digits.reverse
+#     digits.delete_at(index)
+#     digits.join.to_i
+#   end
+
+#   candidates.max
+# end
+
+##
+# def delete_digit(number)
+#   candidates = get_candidates(number)
+#   candidates.max
+# end
+
+# def get_candidates(number)
+#   all_digits = number.digits.reverse
+
+#   all_digits.each_index.map do |index|
+#     candidate_digits = number.digits.reverse
+#     candidate_digits.delete_at(index)
+#     candidate_digits.join.to_i
+#   end
+# end
+
+# p delete_digit(10) == 1
+# p delete_digit(12) == 2
+# p delete_digit(123) == 23
+# p delete_digit(321) == 32
+# p delete_digit(12345) == 2345
+# p delete_digit(62345) == 6345
+# p delete_digit(791983) == 91983
+# p delete_digit(1001) == 101
+
+### REPEATED SUBSTRING
 =begin
 Write a method that takes a string as an argument and returns true if that string can be constructed by taking a substring and concatenating two or more copies of the substring together. Return false otherwise.
 
