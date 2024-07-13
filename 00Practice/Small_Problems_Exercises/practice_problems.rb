@@ -1,3 +1,171 @@
+# REPEATED SUBSTRING
+=begin
+Write a method that takes a string as an argument and returns true if that string can be constructed by taking a substring and concatenating two or more copies of the substring together. Return false otherwise.
+
+PROBLEM 8:04
+input: string
+
+output: boolean
+  - true if:
+    - input string can be constructed by
+      - taking a substring and concatenating 2 or more copies together
+    - case sensitive
+      - 'abc' != 'ABC'
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all possible substrings
+    - max length is string length divided by 2
+    - min length is 1
+  - way to determine if substring repeated equals string
+
+start: string
+  - array of all candidate substrings
+    - length 1 up to string length / 2
+  - multiplier
+    - string length / substring length
+finish: boolean
+
+ALGORITHM
+- get all possible substrings
+  - minimum length = 1
+  - starting indexes: from index 0 up to string length - 1
+  - maximum length = string length / 2
+- determine if any substring can be repeated to produce string
+  - for each substring
+    - get multiplier
+      - string length / substring length
+    - test if substring * multiplier == string
+=end
+
+# def repeated_substring(string)
+#   substrings = get_substrings(string)
+#   substrings.any? do |substring|
+#     multiplier = string.size / substring.size
+#     substring * multiplier == string
+#   end
+# end
+
+# def get_substrings(string)
+#   min_length = 1
+#   max_length = string.size / 2
+#   lengths = (min_length..max_length)
+
+#   lengths.map { |length| string[0, length] }
+# end
+
+# p repeated_substring('aba') == false
+# p repeated_substring('aaa') == true
+# p repeated_substring('abab') == true
+# p repeated_substring('abcABC') == false
+# p repeated_substring('AabAaba') == false
+# p repeated_substring('aB@AbaB@Ab') == true
+# p repeated_substring('ab3ab3ab3') == true
+
+### TRIPLE DOUBLE
+=begin
+Write a method that takes two integers as arguments and returns true if the first integer has a sequence of at least three in a row of the same number, and the second integer has a sequence of at least two in a row of that same number. Otherwise, return false.
+
+PROBLEM 7:07
+input: 2 integers
+
+output: boolean
+  - true if:
+    - 1st input integer has a "triple" of any number
+      - sequence of at least three in a row of any number
+    - 2nd input integer has a "double" of the same number
+  - otherwise false
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to find triples / doubles from input integers
+    - way to generate all possible 3 or 2 digit sequences from input integers
+    - way to determine if a sequence contains all the same number
+
+start: 2 integers
+  - both integers converted to arrays of digits
+  - all 3 digit sequences from string 1
+  - all triples from string 1
+  - all 2 digit sequences from string 2
+  - all doubles from string 2
+finish: boolean:
+  -true if the triple and double 'match'
+  -false otherwise
+
+ALGORITHM
+- determine if 1st input integer contains a triple
+  - convert integer to an array of individual digits
+  - get all possible 3-digit subarrays
+  - get all triples
+  - if no triples, return false
+- determine if 2nd input integer contains a double
+  - convert integer to an array of individual digits
+  - get all possible 2-digit subarrays
+  - get all doubles
+  - if no doubles, return false
+- compare triples to doubles
+  - transform triples array into array of single digits
+  - for every double, check if first letter of double is included in single digits array
+  - return true if a match
+  - else return false
+=end
+
+# def triple_double(number1, number2)
+#   potential_triples = get_potentials(number1, 3)
+#   triples = get_multiples(potential_triples)
+#   return false if triples.empty?
+
+#   potential_doubles = get_potentials(number2, 2)
+#   doubles = get_multiples(potential_doubles)
+#   return false if doubles.empty?
+
+#   triple_digits = triples.map(&:first)
+#   doubles.any? { |double| triple_digits.include?(double.first) }
+# end
+
+# def get_potentials(number, length)
+#   digits = number.digits.reverse
+#   digits.each_cons(length).to_a
+# end
+
+# def get_multiples(potentials)
+#   potentials.select do |potential|
+#     potential.all? { |digit| digit == potential.first }
+#   end
+# end
+
+# ##
+# def triple_double?(number1, number2)
+#   triple_digits = get_multiple_digits(number1, 3)
+#   return false if triple_digits.empty?
+
+#   double_digits = get_multiple_digits(number2, 2)
+#   return false if double_digits.empty?
+
+#   triple_digits.any? { |digit| double_digits.include?(digit) }
+# end
+
+# def get_multiple_digits(number, length)
+#   digits = number.digits.reverse
+#   potentials = digits.each_cons(length).to_a
+
+#   multiples = potentials.select do |potential|
+#     potential.all? { |digit| digit == potential.first }
+#   end
+
+#   multiples.map(&:first)
+# end
+
+# p triple_double(12345, 12345) == false
+# p triple_double(1222345, 122345) == true
+# p triple_double(1222345, 123345) == false
+# p triple_double(666789, 12345666) == true
+# p triple_double(451999277888, 41177722899) == true
 
 
 
