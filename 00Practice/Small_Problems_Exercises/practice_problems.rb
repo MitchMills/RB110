@@ -1,6 +1,143 @@
 
 
 
+### SUBSTRING TWICE
+=begin
+Write a method that takes two strings and returns true if there exists a substring that appears in both of them. Return false otherwise. Only consider substrings that are at least two characters in length. Disregard case (for example, 'ace' and 'Ace' would be considered the same substring).
+
+All input strings will contain at least two characters, and will not contain any spaces.
+
+PROBLEM 1:20
+input: 2 strings
+  - minimum length is 2
+  - do not contain spaces
+
+output: boolean
+  - true if
+    - a substring exists which appears in both input strings
+      - only consider substrings of length 2 or greater
+      - disregard case: 'ace' and 'Ace' are considered same substring
+      - substring can be same length as input string
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate all substrings of length 2 and greater
+  - way to determine if a substring exists in both input strings
+
+start: 2 strings
+  - array of all relevant substrings from shortest input string
+finish: boolean
+
+ALGORITHM
+  - get all relevant substrings:
+  - determine which substring is shortest
+  - create an array of all relevant substrings from shortest input string
+    - create an empty array to hold substrings
+    - create a range of starting indexes
+      - from 0 up to (string length - 2)
+    - for each starting index
+      - create a range of possible lengths
+        - from 2 up to (string length - current starting index)
+      - add a substring from current startin index of current length
+        - to substrings array
+  - determine if any substrings appear in longer input string
+    - for each substring, check if it appears in string
+    - return true if yes
+    - return false if no
+
+=end
+
+# def substring_twice?(string1, string2)
+#   shorter, longer = [string1, string2].sort_by(&:size).map(&:downcase)
+#   substrings = get_substrings(shorter)
+#   substrings.any? { |substring| longer.include?(substring) }
+# end
+
+# def get_substrings(string)
+#   substrings = []
+#   min_length = 2
+#   last_index = string.size - min_length
+#   start_indexes = (0..last_index)
+
+#   start_indexes.each do |start_index|
+#     max_length = string.size - start_index
+#     lengths = (min_length..max_length)
+
+#     lengths.each do |length|
+#       substrings << string[start_index, length]
+#     end
+#   end
+
+#   substrings
+# end
+
+# p substring_twice?('face', 'Ace') == true
+# p substring_twice?('face', 'ACTUALLY') == true
+# p substring_twice?('face', 'gave') == false
+# p substring_twice?('aa', 'aa') == true
+
+### ALPHABETICAL ORDER
+=begin
+Write a method that, given a string, returns a new string containing only the alphabetic characters (all whitespace and non-alphabetic characters removed). These characters should be in case-insensitive alphabetical order, in the order they appear in the original string.
+
+PROBLEM 1:05
+input: string
+  - can contain any type of character
+    - can contain only whitespace
+  - can be empty
+
+output: new string
+  - all whitespace and non-alpha characters removed
+    - if no alpha characters in input string, return empty string
+  - in case-insensitive alphabetical order
+    - in order they appear in original string
+      - i.e. uppercase of a particular letter should not be sorted ahead of lowercase of that letter; order should be based on order of appearance
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to remove all non-alpha characters
+  - way to sort alphabetically but case-insensitively
+
+start: string
+  - array of individual characters
+  - array of only alpha characters
+  - sorted array
+output: string
+
+ALGORITHM
+- create an array of all possible alpha characters
+- create an array of individual characters from input string
+- select all characters that are also included in alpha characters array
+- sort array by
+  - downcased character
+    - index
+- convert sorted array into a string and return it
+=end
+# ALPHA_CHARACTERS = ('A'..'Z').to_a + ('a'..'z').to_a
+
+# def alphabetized(string)
+#   characters = string.chars
+#   alphas = characters.select { |char| ALPHA_CHARACTERS.include?(char) }
+#   sorted = alphas.sort_by.with_index do |character, index|
+#     [character.downcase, index]
+#   end
+#   sorted.join
+# end
+
+# p alphabetized('') == ''
+# p alphabetized(' ') == ''
+# p alphabetized('9#$.%') == ''
+# p alphabetized(' ba ') == 'ab'
+# p alphabetized('Ab Ba') == 'AabB'
+# p alphabetized('Ba Ab') == 'aABb'
+# p alphabetized('9A #b$B .a%') == 'AabB'
+# p alphabetized('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') == 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ'
+
 ### CLOSEST VALUES
 =begin
 Write a method that takes an array of integers as an argument and returns the two numbers that are closest together in value. If more than one pair of integers satisfies this condition, return the pair whose elements occurs first in the input array.
