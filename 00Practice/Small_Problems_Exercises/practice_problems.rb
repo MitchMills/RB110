@@ -1,6 +1,81 @@
 
 
 
+### MAX SUM
+=begin
+Write a method that takes an array containing 0 or more integers and returns the maximum sum of a consecutive sequence of integers from that array.
+
+The consecutive sequence can range from 0 elements up to all elements of the input array. A sequence with 0 elements in it should be considered to have a sum of 0.
+
+PROBLEM 1:49
+input: array
+  - contains 0 or more integers
+    - can be empty
+output: integer
+  - max sum of a consecutive sequence of integers
+    - sequence can be from 0 elements up to all elements of input array
+    - a sequence of 0 elements has a sum of 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all possible sequences of integers (subarrays)
+    - including 0 length sequences
+  - way to get sum of each sequence
+  - way to determine greatest sum of any sequence
+
+start: array of integers
+  - array of all possible sequences
+  - transformed array: sums
+finish: integer (greatest sum)
+
+ALGORITHM
+- get all possible sequences of integers
+  - create an empty array to hold sequences
+  - create a range of all possible start indexes
+    - from 0 up to (array length - 1)
+    - for every start index
+      - create a range of possible lengths
+        - from 0 up to (array length - current index)
+        - for every length
+          - add a subarray from current starting index of current length
+            - to sequences array
+
+- get sums of every sequence
+  - transform sequences array into an array of sums
+- return the greatest sum
+=end
+
+# def max_sum(numbers)
+#   sequences = get_sequences(numbers)
+#   sums = sequences.map(&:sum)
+#   sums.max
+# end
+
+# def get_sequences(array)
+#   sequences = [[]]
+#   start_indexes = (0..(array.size - 1))
+
+#   start_indexes.each do |start_index|
+#     max_length = array.size - start_index
+#     lengths = (1..max_length)
+
+#     lengths.each do |length|
+#       sequences << array[start_index, length]
+#     end
+#   end
+
+#   sequences
+# end
+
+# p max_sum([]) == 0
+# p max_sum([1, 2, 3]) == 6
+# p max_sum([-1, -2, -3]) == 0
+# p max_sum([1, 2, 3, -1]) == 6
+# p max_sum([1, -1, 2, 3, -1, 2]) == 6
+# p max_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6 # [4, -1, 2, 1]
+
 ### SUBSTRING TWICE
 =begin
 Write a method that takes two strings and returns true if there exists a substring that appears in both of them. Return false otherwise. Only consider substrings that are at least two characters in length. Disregard case (for example, 'ace' and 'Ace' would be considered the same substring).
