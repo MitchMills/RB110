@@ -1,5 +1,64 @@
+### LETTER COUNT
+=begin
+Write a method that takes a string as an argument and returns a hash containing the number of times each character present in the string occurs. The input string wil contain only alphabetic lowercase characters, and no spaces.
 
+The hash keys should be symbols, and should be in alphabetical order, not order of appearance in the input string. The hash values should be the number of occurrences of the letter represented by the symbol.
 
+PROBLEM 5:07
+input: string
+  - contains only alphabetic lowercase characters
+  - no spaces
+
+output: hash
+  - keys:
+    - letters that appear in input string
+    - as symbols
+    - should be in alphabetical order, not order of appearance in input string
+  - values:
+    - number of occurrences of key character in input string
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to count occurrences of each letter
+  - way to put keys in alphabetical order
+
+start: string
+  - array of all lowercase alphabetical letters
+  - empty hash
+finish: hash
+
+ALGORITHM
+- create an array of individual characters in the input string
+- sort the array into alphabetical order
+- create an empty hash, with a default value of 0
+- for each letter in the array
+  - increment the value of the key associated with that letter
+- return the hash
+=end
+
+# def letter_count(string)
+#   letters = string.chars.sort
+#   counts = Hash.new(0)
+#   letters.each do |letter|
+#     counts[letter.to_sym] += 1
+#   end
+#   counts
+# end
+
+# ##
+# def letter_count(string)
+#   letters = string.chars.sort
+
+#   letters.each_with_object(Hash.new(0)) do |letter, counts|
+#     counts[letter.to_sym] += 1
+#   end
+# end
+
+# p letter_count('codewars') == { :a=>1, :c=>1, :d=>1, :e=>1, :o=>1, :r=>1, :s=>1, :w=>1 }
+# p letter_count('activity') == { :a=>1, :c=>1, :i=>2, :t=>2, :v=>1, :y=>1 }
+# p letter_count('arithmetics') == { :a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2 }
 
 ### MAX SUM
 =begin

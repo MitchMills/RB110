@@ -1,28 +1,11 @@
-def max_sum(numbers)
-  sequences = get_sequences(numbers)
-  sums = sequences.map(&:sum)
-  sums.max
-end
+def letter_count(string)
+  letters = string.chars.sort
 
-def get_sequences(array)
-  sequences = [[]]
-  start_indexes = (0..(array.size - 1))
-
-  start_indexes.each do |start_index|
-    max_length = array.size - start_index
-    lengths = (1..max_length)
-
-    lengths.each do |length|
-      sequences << array[start_index, length]
-    end
+  letters.each_with_object(Hash.new(0)) do |letter, counts|
+    counts[letter.to_sym] += 1
   end
-
-  sequences
 end
 
-p max_sum([]) == 0
-p max_sum([1, 2, 3]) == 6
-p max_sum([-1, -2, -3]) == 0
-p max_sum([1, 2, 3, -1]) == 6
-p max_sum([1, -1, 2, 3, -1, 2]) == 6
-p max_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6 # [4, -1, 2, 1]
+p letter_count('codewars') == { :a=>1, :c=>1, :d=>1, :e=>1, :o=>1, :r=>1, :s=>1, :w=>1 }
+p letter_count('activity') == { :a=>1, :c=>1, :i=>2, :t=>2, :v=>1, :y=>1 }
+p letter_count('arithmetics') == { :a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2 }
