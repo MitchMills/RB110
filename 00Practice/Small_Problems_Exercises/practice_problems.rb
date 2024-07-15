@@ -1,4 +1,79 @@
-# ALTERNATING ODD AND EVEN
+# BOUNCY COUNT
+=begin
+Some numbers have only ascending digits, like 123, 3445, 2489, etc. Some numbers have only descending digits, like 321, 5443, 9842, etc.
+
+A number is "bouncy" if it has both ascending and descending digits, like 313, 92543, etc.
+
+Write a method that takes a list of numbers and counts how many of them are bouncy.
+
+PROBLEM 5:07
+input: array
+  - elements are integers
+  - can be empty
+
+output: integer
+  - count of how many integers in input array are "bouncy"
+    - bouncy:
+      - has both ascending and descending digits
+        - ascending: current digit < next digit
+        - descending: current digit > next digit
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if an integer is bouncy
+    - way to examine successive pairs of digits from input array numbers
+
+start: array of integers
+  - for each integer
+    - array of individual digits
+    - array of all consecutive two-element subarrays
+    - count integer as bouncy if there is at least one:
+      - pair where first < second
+      - pair where first > second
+finish: integer (count of bouncy numbers)
+
+ALGORITHM
+- for each integer in input array
+  - create an array of individual digits
+  - create an array of consecutive two-element subarrays: pair
+    - check if any pair in array is ascending
+    - check if any pair in array is descending
+  - if both are true, count that integer as bouncy
+- return count of bouncy integers
+=end
+
+def bouncy_count(numbers)
+  numbers.count do |number|
+    bouncy?(number)
+  end
+end
+
+def bouncy?(number)
+  digits = number.digits.reverse
+  pairs = digits.each_cons(2).to_a
+  ascending?(pairs) && descending?(pairs)
+end
+
+def ascending?(pairs)
+  pairs.any? do |pair|
+    pair.first < pair.last
+  end
+end
+
+def descending?(pairs)
+  pairs.any? do |pair|
+    pair.first > pair.last
+  end
+end
+
+p bouncy_count([]) == 0
+p bouncy_count([11, 0, 345, 21]) == 0
+p bouncy_count([121, 4114]) == 2
+p bouncy_count([176, 442, 80701644]) == 2
+
+### ALTERNATING ODD AND EVEN
 =begin
 Write a function that returns the maximum possible consecutive alternating odd and even (or even and odd) numbers. Minimum possible length is 2. If there's none return [].
 
@@ -42,41 +117,41 @@ ALGORITHM
   - return an empty array if no alternating subarrays
 =end
 
-def longest_alternating_subarray(numbers)
-  subarrays = get_subarrays(numbers)
-  alternating = subarrays.select { |subarray| alternating?(subarray) }
-  alternating.max_by(&:size) || []
-end
+# def longest_alternating_subarray(numbers)
+#   subarrays = get_subarrays(numbers)
+#   alternating = subarrays.select { |subarray| alternating?(subarray) }
+#   alternating.max_by(&:size) || []
+# end
 
-def get_subarrays(array)
-  subarrays = []
-  min_length = 2
-  last_index = array.size - min_length
-  start_indexes = (0..last_index)
+# def get_subarrays(array)
+#   subarrays = []
+#   min_length = 2
+#   last_index = array.size - min_length
+#   start_indexes = (0..last_index)
 
-  start_indexes.each do |start_index|
-    max_length = array.size - start_index
-    lengths = (min_length..max_length)
+#   start_indexes.each do |start_index|
+#     max_length = array.size - start_index
+#     lengths = (min_length..max_length)
 
-    lengths.each do |length|
-      subarrays << array[start_index, length]
-    end
-  end
-  subarrays
-end
+#     lengths.each do |length|
+#       subarrays << array[start_index, length]
+#     end
+#   end
+#   subarrays
+# end
 
-def alternating?(subarray)
-  pairs = subarray.each_cons(2).to_a
-  pairs.all? do |pair|
-    pair.first.odd? ? pair.last.even? : pair.last.odd?
-  end
-end
+# def alternating?(subarray)
+#   pairs = subarray.each_cons(2).to_a
+#   pairs.all? do |pair|
+#     pair.first.odd? ? pair.last.even? : pair.last.odd?
+#   end
+# end
 
-p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
-p longest_alternating_subarray([2, 4, 6, 8]) == []
-p longest_alternating_subarray([1, 3, 5, 7]) == []
-p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
-p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]
+# p longest_alternating_subarray([1, 2, 3, 4, 5, 6]) == [1, 2, 3, 4, 5, 6]
+# p longest_alternating_subarray([2, 4, 6, 8]) == []
+# p longest_alternating_subarray([1, 3, 5, 7]) == []
+# p longest_alternating_subarray([1, 1, 3, 7, 8, 5]) == [7, 8, 5]
+# p longest_alternating_subarray([4, 6, 7, 12, 11, 9, 17]) == [6, 7, 12, 11]
 
 ### DECODER
 =begin
