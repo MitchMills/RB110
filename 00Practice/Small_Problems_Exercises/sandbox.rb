@@ -1,11 +1,22 @@
-def letter_count(string)
-  letters = string.chars.sort
+UPPERCASE = ('A'..'Z').to_a
 
-  letters.each_with_object(Hash.new(0)) do |letter, counts|
-    counts[letter.to_sym] += 1
+def decode(strings)
+  strings.map do |string|
+    uppercase_indexes = get_uppercase_indexes(string)
+    uppercase_indexes.size < 2 ? 0 : index_difference(uppercase_indexes)
   end
 end
 
-p letter_count('codewars') == { :a=>1, :c=>1, :d=>1, :e=>1, :o=>1, :r=>1, :s=>1, :w=>1 }
-p letter_count('activity') == { :a=>1, :c=>1, :i=>2, :t=>2, :v=>1, :y=>1 }
-p letter_count('arithmetics') == { :a=>1, :c=>1, :e=>1, :h=>1, :i=>2, :m=>1, :r=>1, :s=>1, :t=>2 }
+def get_uppercase_indexes(string)
+  indexes = string.chars.each_index.to_a
+  indexes.select { |index| UPPERCASE.include?(string[index]) }
+end
+
+def index_difference(array)
+  array.take(2).inject(:-).abs - 1
+end
+
+p decode(['ZoL', 'heLlo', 'XX']) == [1, 0, 0]
+p decode(['foUrsCoreAnd', 'seven', '']) == [2, 0, 0]
+p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
+p decode([]) == []
