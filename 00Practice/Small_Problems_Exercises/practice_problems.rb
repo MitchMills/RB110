@@ -1,4 +1,182 @@
-# BOUNCY COUNT
+### THREE
+=begin
+Create a method that takes a string argument and returns a copy of the string with every second character in every third word converted to uppercase. Other characters should remain the same.
+
+PROBLEM 5:46
+input: string
+
+output: new string
+  - every second character in every third word converted to uppercase
+  - all other characters remain the same
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine every third word
+  - way to determine every second character
+
+start: string
+  - array of individual words
+    - every third word: (index + 1) % 3 == 0
+  - transform every third word:
+    - array of individual characters
+      - transform second character: (index + 1) % 2 == 0
+  - transformed array
+finish: string
+
+ALGORITHM
+- create an array of individual words form input string
+- transform every third word
+  - for each word with its index:
+
+    - if (index + 1) % 3 == 0
+
+      - create an array of individual characters from word
+      - transform every second character
+        - for each character with its index
+
+          - if (index + 1) % 2 == 0
+            - upcase that character
+          - else do nothing
+
+      - convert transformed characters array into a string
+
+    - else do nothing
+- convert transformed words array into a string and return it
+=end
+
+# def to_weird_case(string)
+#   words = string.split
+#   words.map.with_index do |word, index|
+#     target?(index, 3) ? change_chars(word) : word
+#   end.join(' ')
+# end
+
+# def target?(index, target)
+#   (index + 1) % target == 0
+# end
+
+# def change_chars(word)
+#   characters = word.chars
+#   characters.map.with_index do |character, index|
+#     target?(index, 2) ? character.upcase : character
+#   end.join
+# end
+
+# original = 'Lorem Ipsum is simply dummy text of the printing world'
+# expected = 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG world'
+# p to_weird_case(original) == expected
+
+# original = 'It is a long established fact that a reader will be distracted'
+# expected = 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
+# p to_weird_case(original) == expected
+
+# p to_weird_case('aaA bB c') == 'aaA bB c'
+
+# original = "Mary Poppins' favorite word is supercalifragilisticexpialidocious"
+# expected = "Mary Poppins' fAvOrItE word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS"
+# p to_weird_case(original) == expected
+
+### TWO
+=begin
+Create a method that takes an array of integers as an argument. The method should return the minimum sum of 5 consecutive numbers in the array. If the array contains fewer than 5 elements, the method should return nil.
+
+PROBLEM 5:36
+input: array
+  - elements are integers
+    - can be positive or negative
+ouptut: integer or nil
+  - smallest sum of 5 consecutive integers in input array
+    - can be positive or negative
+  - if input array length < 5, return nil
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate all possible 5 number sequences
+  - way to get sums of each sequence
+  - way to determine the smallest sum
+
+start: array
+  - array of all possible 5-element subarrays
+  - transformed array: sums
+finish: integer (smallest sum) or nil
+
+ALGORITHM
+- create an array of all possible 5-element subarrays
+- transform this array into the sums of each subarray
+- return the smallest sum
+=end
+
+# def minimum_sum(numbers)
+#   sequences = numbers.each_cons(5).to_a
+#   sums = sequences.map(&:sum)
+#   sums.min
+# end
+
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, -5]) == 9
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
+### ONE
+=begin
+Create a method that takes an array of numbers as an argument. For each number, determine how many numbers in the array are smaller than it, and place the answer in an array. Return the resulting array.
+
+When counting numbers, only count unique values. That is, if a number occurs multiple times in the array, it should only be counted once.
+
+PROBLEM 5:28
+input: array
+  - elements are numbers
+  - not empty
+
+output: new array
+  - elements are counts
+    - how many other numbers in array are less than number in that position
+      - only count unique values
+  - same number of elements as input array
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to compare number to all other unique values in input array
+  - way to avoid double counting
+
+start: array
+  - array of unique values
+  - transformed array
+    - each number is transformed into a count of how many unique values are less than it
+finish: new array
+
+ALGORITHM
+- create an array of unique values in the input array
+- transform the input array
+  - for each number
+    - count how many unique values are less than it
+- return the transformed array
+=end
+
+# def smaller_numbers_than_current(numbers)
+#   uniques = numbers.uniq
+#   numbers.map do |number|
+#     uniques.count { |unique| number > unique }
+#   end
+# end
+
+# p smaller_numbers_than_current([8, 1, 2, 2, 3]) == [3, 0, 1, 1, 2]
+# p smaller_numbers_than_current([7, 7, 7, 7]) == [0, 0, 0, 0]
+# p smaller_numbers_than_current([6, 5, 4, 8]) == [2, 1, 0, 3]
+# p smaller_numbers_than_current([1]) == [0]
+
+# my_array = [1, 4, 6, 8, 13, 2, 4, 5, 4]
+# result   = [0, 2, 4, 5,  6, 1, 2, 3, 2]
+# p smaller_numbers_than_current(my_array) == result
+
+### BOUNCY COUNT
 =begin
 Some numbers have only ascending digits, like 123, 3445, 2489, etc. Some numbers have only descending digits, like 321, 5443, 9842, etc.
 
@@ -44,34 +222,23 @@ ALGORITHM
 - return count of bouncy integers
 =end
 
-def bouncy_count(numbers)
-  numbers.count do |number|
-    bouncy?(number)
-  end
-end
+# def bouncy_count(numbers)
+#   numbers.count { |number| bouncy?(number) }
+# end
 
-def bouncy?(number)
-  digits = number.digits.reverse
-  pairs = digits.each_cons(2).to_a
-  ascending?(pairs) && descending?(pairs)
-end
+# def bouncy?(number)
+#   digits = number.digits.reverse
+#   pairs = digits.each_cons(2).to_a
 
-def ascending?(pairs)
-  pairs.any? do |pair|
-    pair.first < pair.last
-  end
-end
+#   [:<, :>].all? do |comparator|
+#     pairs.any? { |pair| pair.inject(comparator) }
+#   end
+# end
 
-def descending?(pairs)
-  pairs.any? do |pair|
-    pair.first > pair.last
-  end
-end
-
-p bouncy_count([]) == 0
-p bouncy_count([11, 0, 345, 21]) == 0
-p bouncy_count([121, 4114]) == 2
-p bouncy_count([176, 442, 80701644]) == 2
+# p bouncy_count([]) == 0
+# p bouncy_count([11, 0, 345, 21]) == 0
+# p bouncy_count([121, 4114]) == 2
+# p bouncy_count([176, 442, 80701644]) == 2
 
 ### ALTERNATING ODD AND EVEN
 =begin
