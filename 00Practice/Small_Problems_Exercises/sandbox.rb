@@ -1,31 +1,24 @@
-def to_weird_case(string)
-  words = string.split
-  words.map.with_index do |word, index|
-    target?(index, 3) ? change_chars(word) : word
-  end.join(' ')
+def closest_numbers(numbers)
+  pairs = get_pairs(numbers)
+  # differences = pairs.map { |pair| pair.inject(:-).abs }
+  # min_difference = differences.min
+  # pairs.find { |pair| pair.inject(:-).abs == min_difference }
 end
 
-def target?(index, target)
-  (index + 1) % target == 0
+def get_pairs(numbers)
+  pairs = []
+  first_indexes = (0..(numbers.size - 2))
+
+  first_indexes.each do |index1|
+    second_indexes = ((index1 + 1)..(numbers.size - 1))
+
+    second_indexes.each do |index2|
+      pairs << [numbers[index1], numbers[index2]]
+    end
+  end
+  pairs
 end
 
-def change_chars(word)
-  characters = word.chars
-  characters.map.with_index do |character, index|
-    target?(index, 2) ? character.upcase : character
-  end.join
-end
-
-original = 'Lorem Ipsum is simply dummy text of the printing world'
-expected = 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG world'
-p to_weird_case(original) == expected
-
-original = 'It is a long established fact that a reader will be distracted'
-expected = 'It is a long established fAcT that a rEaDeR will be dIsTrAcTeD'
-p to_weird_case(original) == expected
-
-p to_weird_case('aaA bB c') == 'aaA bB c'
-
-original = "Mary Poppins' favorite word is supercalifragilisticexpialidocious"
-expected = "Mary Poppins' fAvOrItE word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS"
-p to_weird_case(original) == expected
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 22, 7, 17]) == [12, 7]

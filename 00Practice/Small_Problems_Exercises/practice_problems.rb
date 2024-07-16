@@ -1,3 +1,80 @@
+### FOUR
+=begin
+Create a method that takes an array of integers as an argument and returns an array of two numbers that are closest together in value. If there are multiple pairs that are equally close, return the pair that occurs first in the array.
+
+PROBLEM 7:07
+input: array
+  - elements are integers
+
+output: array
+  - the two values from input array that are closest in value
+    - need not be consecutive
+  - if any ties, return the earliest pair
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate all possible pairs of elements from input array
+    - don't need "reverse pairs"
+      - only need to pair a given element with later elements from the array
+  - way to get differences from each pair
+  - way to get smallest difference and return pair with that difference
+
+start: array
+  - array of all possible pairs
+    - possible indexes, first element: 0 up to (array length - 2)
+    - possible indexes, second element: index1 + 1, up to (array length - 1)
+    - length is always 2
+  - smallest difference between pairs
+finish: array (first pair with that difference)
+
+ALGORITHM
+- create an array of all relevant pairs of elements from input array
+  - create an empty array to hold pair subarrays: subarrays
+  - create a range to control index of the first element: index1
+    - from 0 up to array length - 2
+
+    - for each index1
+      - create a range to control index of second element: index2
+        - from index1 + 1 up to array length - 1
+
+      - for each index2
+        - add a subarray to subarrays
+          - [array[index1], array[index2]]
+
+- determine the smallest difference between any pair
+  - transform subarrays array into differences
+  - get the smallest value
+- return the first pair with that difference
+  - search through subarrays array and return first pair with smallest difference
+=end
+
+def closest_numbers(numbers)
+  pairs = get_pairs(numbers)
+  differences = pairs.map { |pair| pair.inject(:-).abs }
+  min_difference = differences.min
+  pairs.find { |pair| pair.inject(:-).abs == min_difference }
+end
+
+def get_pairs(numbers)
+  pairs = []
+  first_indexes = (0..(numbers.size - 2))
+
+  first_indexes.each do |index1|
+    second_indexes = ((index1 + 1)..(numbers.size - 1))
+
+    second_indexes.each do |index2|
+     pairs << [numbers[index1], numbers[index2]]
+    end
+  end
+  pairs
+end
+
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 22, 7, 17]) == [12, 7]
+
 ### THREE
 =begin
 Create a method that takes a string argument and returns a copy of the string with every second character in every third word converted to uppercase. Other characters should remain the same.
