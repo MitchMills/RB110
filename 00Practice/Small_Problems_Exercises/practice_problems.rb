@@ -1,3 +1,136 @@
+### SEVEN
+=begin
+
+=end
+
+### SIX
+=begin
+Create a method that takes a string argument and returns a hash in which the keys represent the lowercase letters in the string, and the values represent how often the corresponding letter occurs in the string.
+
+PROBLEM 7:56
+input: string
+  - can contain any type of character
+  - can be empty
+output: hash
+  - counts of lowercase letters in input string
+    - keys:
+      - lowercase letters in string
+    - values:
+      - occurrences of that letter in the string
+  - all other types of characters are ignored
+  - if input string is empty, return empty hash
+  - if input string contains no lowercase letters, return empty hash
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine whether a character is lowercase or not
+  - way to get counts of each lowercase character
+
+start: string
+  - array of all lowercase letters in alphabet
+  - empty hash, with a default value of 0
+finish: hash
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters
+- create an empty hash, with a default value of 0: counts
+- consider each character in the input string
+  - go to the next character unless the character appears in the alphabet array
+  - increment the value for that key in the counts hash
+- return the counts hash
+=end
+
+# LOWERCASE = ('a'..'z').to_a
+
+# def count_letters(string)
+#   counts = Hash.new(0)
+#   string.each_char do |char|
+#     next unless LOWERCASE.include?(char)
+#     counts[char] += 1
+#   end
+#   counts
+# end
+
+# expected = {'w' => 1, 'o' => 2, 'e' => 3, 'b' => 1, 'g' => 1, 'n' => 1}
+# p count_letters('woebegone') == expected
+
+# expected = {'l' => 1, 'o' => 1, 'w' => 1, 'e' => 4, 'r' => 2,
+#             'c' => 2, 'a' => 2, 's' => 2, 'u' => 1, 'p' => 2}
+# p count_letters('lowercase/uppercase') == expected
+
+# expected = {'u' => 1, 'o' => 1, 'i' => 1, 's' => 1}
+# p count_letters('W. E. B. Du Bois') == expected
+
+# p count_letters('x') == {'x' => 1}
+# p count_letters('') == {}
+# p count_letters('!!!') == {}
+
+### FIVE
+=begin
+Create a method that takes a string argument and returns the character that occurs most often in the string. If there are multiple characters with the same greatest frequency, return the one that appears first in the string. When counting characters, consider uppercase and lowercase versions to be the same.
+
+PROBLEM
+input: string
+  - can contain both upper and lowercase characters
+output: string
+  - single character
+    - occurs most often in input string
+    - if any ties, return the character that occurs first in input string
+      - return lowercase version of that letter
+    - ignore case: 'a' == 'A' in terms of counting
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to count occurrences of every letter in input string
+    - while ignoring case
+  - way to get highest count
+  - way to find first character with that count
+
+start: string
+  - downcased input string
+  - array of lowercase unique characters in input string
+    - array of individual letters from downcased string
+    - array of unique values from that array
+  - counts of each lowercase unique characters
+    - transform uniques array
+  - largest value in counts array
+finish: string (first character with that value as its count)
+
+ALGORITHM
+- create a downcased version of the input string
+- create an array of unique characters from downcased string
+- create an array of counts of unique characters
+  - for each unique character
+    - transform character into its count in the downcased input string
+- get the largest value from the counts array
+- find the first character in the downcased string that has that value
+=end
+
+# def most_common_char(string)
+#   downcased = string.downcase
+#   uniques = downcased.chars.uniq
+#   counts = uniques.map do |unique|
+#     downcased.count(unique)
+#   end
+#   max_count = counts.max
+#   downcased.chars.find { |char| downcased.count(char) == max_count }
+# end
+
+# p most_common_char('Hello World') == 'l'
+# p most_common_char('Mississippi') == 'i'
+# p most_common_char('Happy birthday!') == 'h'
+# p most_common_char('aaaaaAAAA') == 'a'
+
+# my_str = 'Peter Piper picked a peck of pickled peppers.'
+# p most_common_char(my_str) == 'p'
+
+# my_str = 'Peter Piper repicked a peck of repickled peppers. He did!'
+# p most_common_char(my_str) == 'e'
+
 ### FOUR
 =begin
 Create a method that takes an array of integers as an argument and returns an array of two numbers that are closest together in value. If there are multiple pairs that are equally close, return the pair that occurs first in the array.
@@ -50,30 +183,30 @@ ALGORITHM
   - search through subarrays array and return first pair with smallest difference
 =end
 
-def closest_numbers(numbers)
-  pairs = get_pairs(numbers)
-  differences = pairs.map { |pair| pair.inject(:-).abs }
-  min_difference = differences.min
-  pairs.find { |pair| pair.inject(:-).abs == min_difference }
-end
+# def closest_numbers(numbers)
+#   pairs = get_pairs(numbers)
+#   differences = pairs.map { |pair| pair.inject(:-).abs }
+#   min_difference = differences.min
+#   pairs.find { |pair| pair.inject(:-).abs == min_difference }
+# end
 
-def get_pairs(numbers)
-  pairs = []
-  first_indexes = (0..(numbers.size - 2))
+# def get_pairs(numbers)
+#   pairs = []
+#   first_indexes = (0..(numbers.size - 2))
 
-  first_indexes.each do |index1|
-    second_indexes = ((index1 + 1)..(numbers.size - 1))
+#   first_indexes.each do |index1|
+#     second_indexes = ((index1 + 1)..(numbers.size - 1))
 
-    second_indexes.each do |index2|
-     pairs << [numbers[index1], numbers[index2]]
-    end
-  end
-  pairs
-end
+#     second_indexes.each do |index2|
+#      pairs << [numbers[index1], numbers[index2]]
+#     end
+#   end
+#   pairs
+# end
 
-p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
-p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
-p closest_numbers([12, 22, 7, 17]) == [12, 7]
+# p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+# p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+# p closest_numbers([12, 22, 7, 17]) == [12, 7]
 
 ### THREE
 =begin

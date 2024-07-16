@@ -1,24 +1,33 @@
-def closest_numbers(numbers)
-  pairs = get_pairs(numbers)
-  # differences = pairs.map { |pair| pair.inject(:-).abs }
-  # min_difference = differences.min
-  # pairs.find { |pair| pair.inject(:-).abs == min_difference }
-end
+LOWERCASE = ('a'..'z').to_a
 
-def get_pairs(numbers)
-  pairs = []
-  first_indexes = (0..(numbers.size - 2))
+# def count_letters(string)
+#   counts = Hash.new(0)
+#   string.each_char do |char|
+#     next unless LOWERCASE.include?(char)
+#     counts[char] += 1
+#   end
+#   counts
+# end
 
-  first_indexes.each do |index1|
-    second_indexes = ((index1 + 1)..(numbers.size - 1))
-
-    second_indexes.each do |index2|
-      pairs << [numbers[index1], numbers[index2]]
-    end
+def count_letters(string)
+  counts = {}
+  string.each_char do |char|
+    next unless LOWERCASE.include?(char)
+    counts[char] = string.count(char)
   end
-  pairs
+  counts
 end
 
-p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
-p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
-p closest_numbers([12, 22, 7, 17]) == [12, 7]
+# expected = {'w' => 1, 'o' => 2, 'e' => 3, 'b' => 1, 'g' => 1, 'n' => 1}
+# p count_letters('woebegone') == expected
+
+# expected = {'l' => 1, 'o' => 1, 'w' => 1, 'e' => 4, 'r' => 2,
+#             'c' => 2, 'a' => 2, 's' => 2, 'u' => 1, 'p' => 2}
+# p count_letters('lowercase/uppercase') == expected
+
+# expected = {'u' => 1, 'o' => 1, 'i' => 1, 's' => 1}
+# p count_letters('W. E. B. Du Bois') == expected
+
+# p count_letters('x') == {'x' => 1}
+# p count_letters('') == {}
+# p count_letters('!!!') == {}
