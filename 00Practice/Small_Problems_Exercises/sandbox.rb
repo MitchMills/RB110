@@ -1,24 +1,14 @@
-def repeated_substring(string)
-  substrings = get_substrings(string)
-  pairs = substrings.map do |substring|
-    repeat_count = string.size / substring.size
-    [substring, repeat_count]
+def seven_eleven(number)
+  candidates = (7...number)
+  candidates.sum do |candidate|
+    candidate % 7 == 0 || candidate % 11 == 0 ? candidate : 0
   end
-  pairs.find { |pair| pair.inject(:*) == string }
 end
 
-def get_substrings(string)
-  substrings = []
-  lengths = (1..string.size)
-
-  lengths.each do |length|
-    substrings << string[0, length]
-  end
-  substrings
-end
-
-p repeated_substring('xyzxyzxyz') == ['xyz', 3]
-p repeated_substring('xyxy') == ['xy', 2]
-p repeated_substring('xyz') == ['xyz', 1]
-p repeated_substring('aaaaaaaa') == ['a', 8]
-p repeated_substring('superduper') == ['superduper', 1]
+p seven_eleven(10) #== 7
+p seven_eleven(11) == 7
+p seven_eleven(12) == 18
+p seven_eleven(25) == 75
+p seven_eleven(100) == 1153
+p seven_eleven(0) == 0
+p seven_eleven(-100) == 0

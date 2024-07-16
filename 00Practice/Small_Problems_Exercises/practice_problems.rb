@@ -1,3 +1,320 @@
+### SEVENTEEN
+=begin
+Create a method that takes an array of integers as an argument. The method should determine the minimum integer value that can be appended to the array so the sum of all the elements equal the closest prime number that is greater than the current sum of the numbers. For example, the numbers in [1, 2, 3] sum to 6. The nearest prime number greater than 6 is 7. Thus, we can add 1 to the array to sum to 7.
+
+Notes:
+
+    The array will always contain at least 2 integers.
+    All values in the array must be positive (> 0).
+    There may be multiple occurrences of the various numbers in the array.
+
+PROBLEM 2:25
+input: array
+  - elements are integers
+    - all positive (> 0)
+  - minimum length = 2
+  - values can be repeated
+
+output: integer
+  - minimum value that can be added to array sum so that
+    - total sum equals closest prime number > current sum
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to find the next greatest prime number
+  - way to find current sum
+  - way to find difference
+
+start: array
+  - sum of array
+  - range of numbers: from sum + 1 up to . . .
+  - next prime number
+    - for each number in range
+      - make sure no numbers between 2 and current number divide evenly
+finish: integer (next prime - current sum)
+
+ALGORITHM
+=end
+
+p nearest_prime_sum([1, 2, 3]) == 1        # Nearest prime to 6 is 7
+p nearest_prime_sum([5, 2]) == 4           # Nearest prime to 7 is 11
+p nearest_prime_sum([1, 1, 1]) == 2        # Nearest prime to 3 is 5
+p nearest_prime_sum([2, 12, 8, 4, 6]) == 5 # Nearest prime to 32 is 37
+# Nearest prime to 163 is 167
+p nearest_prime_sum([50, 39, 49, 6, 17, 2]) == 4
+
+### SIXTEEN
+=begin
+Create a method that returns the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. You may assume that the input string contains only alphanumeric characters.
+
+PROBLEM 2:18
+input: string
+  - contains only alphanumeric characters
+
+output: integer
+  - number of:
+    - distinct alphabetic and numeric characters
+      - that occur more than once in input string
+        - case insensivite: 'A' == 'a'
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to count occurrences of each character in input string
+  - way to include only characters with a count > 1
+  - way to deal with case
+
+start: string
+  - downcased string
+  - array of individual characters in downcased string
+  - array of unique individual characters
+finish: integer
+
+ALGORITHM
+- create a downcased version of the input string
+- create an array of unique individual characters in input string
+- for every letter in this array
+  - count it if it occurs more than once in input string
+- return the count
+=end
+
+# def distinct_multiples(string)
+#   downcased = string.downcase
+#   uniques = downcased.chars.uniq
+#   uniques.count { |unique| downcased.count(unique) > 1 }
+# end
+
+# p distinct_multiples('xyz') == 0               # (none
+# p distinct_multiples('xxyypzzr') == 3          # x, y, z
+# p distinct_multiples('xXyYpzZr') == 3          # x, y, z
+# p distinct_multiples('unununium') == 2         # u, n
+# p distinct_multiples('multiplicity') == 3      # l, t, i
+# p distinct_multiples('7657') == 1              # 7
+# p distinct_multiples('3141592653589793') == 4  # 3, 1, 5, 9
+# p distinct_multiples('2718281828459045') == 5  # 2, 1, 8, 4, 5
+
+### FIFTEEN
+=begin
+Create a method that takes a string argument that consists entirely of numeric digits and computes the greatest product of four consecutive digits in the string. The argument will always have more than 4 digits.
+
+PROBLEM 1:31
+input: string
+  - contains only numeric characters
+  - will always have a length > 4
+output: integer
+  - greatest product of four consecutive digits from input string
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to create all possible consecutive 4-digit substrings
+  - way to get product of each substring
+  - way to get greatest product
+
+start: string
+  - array of all consecutive 4-digit substrings
+  - array of products
+finish: integer (greatest product)
+
+ALGORITHM
+- create an array of all 4-digit substrings from input string
+- transform substrings array into an array of products
+  - convert each substring into an integer
+  - create an array of individual digits from integer
+  - get product of digits
+- return the greatest product
+=end
+
+# def greatest_product(string)
+#   sequences = string.to_i.digits.each_cons(4).to_a
+#   products = sequences.map { |sequence| sequence.inject(:*) }
+#   products.max
+# end
+
+##
+# def greatest_product(string)
+#   substrings = string.chars.each_cons(4).map(&:join)
+#   products = substrings.map do |substring|
+#     substring.to_i.digits.inject(:*)
+#   end
+#   products.max
+# end
+
+# p greatest_product('23456') #== 360      # 3 * 4 * 5 * 6
+# p greatest_product('3145926') == 540    # 5 * 9 * 2 * 6
+# p greatest_product('1828172') == 128    # 1 * 8 * 2 * 8
+# p greatest_product('123987654') == 3024 # 9 * 8 * 7 * 6
+
+### FOURTEEN
+=begin
+Create a method that takes a single integer argument and returns the sum of all the multiples of 7 or 11 that are less than the argument. If a number is a multiple of both 7 and 11, count it just once.
+
+For example, the multiples of 7 and 11 that are below 25 are 7, 11, 14, 21, and 22. The sum of these multiples is 75.
+
+If the argument is negative, return 0.
+
+PROBLEM 1:19
+input: integer
+  - can be positive or negtive
+
+output: integer
+  - sum of all multiples of 7 or 11 that are less than input integer
+    - count a number only once if it is a multiple of both 7 and 11
+  - return 0 if input integer is negative
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to generate all multiples of 7 or 11 that are less than input integer
+  - way to avoid counting a multiple of both 7 and 11 twice
+  - way to get sum of multiples
+  - way to deal with negative numbers?
+
+start: integer
+  - create a range from 7 up to input integer (non-inclusive)
+  - select numbers from the range if they are multiples of 7 OR multiples of 11
+finish: integer (sum of mulitples)
+
+ALGORITHM
+- create a range of potential multiples
+  - from 7 up to (input integer - 1)
+- for every number in the range
+  - select it if:
+    - it is evenly divisible by 7 OR
+    - it is evenly divisible by 11
+- return the sum of the selected multiples
+=end
+
+# def seven_eleven(number)
+#   candidates = (7...number)
+#   multiples = candidates.select do |candidate|
+#     candidate % 7 == 0 || candidate % 11 == 0
+#   end
+#   multiples.sum
+# end
+
+##
+# def seven_eleven(number)
+#   candidates = (7...number)
+#   candidates.sum do |candidate|
+#     candidate % 7 == 0 || candidate % 11 == 0 ? candidate : 0
+#   end
+# end
+
+# p seven_eleven(10) == 7
+# p seven_eleven(11) == 7
+# p seven_eleven(12) == 18
+# p seven_eleven(25) == 75
+# p seven_eleven(100) == 1153
+# p seven_eleven(0) == 0
+# p seven_eleven(-100) == 0
+
+### THIRTEEN
+=begin
+Create a method that takes two strings as arguments and returns true if some portion of the characters in the first string can be rearranged to match the characters in the second. Otherwise, the method should return false.
+
+You may assume that both string arguments only contain lowercase alphabetic characters. Neither string will be empty.
+
+PROBLEM 1:11
+input: 2 strings
+  - not empty
+  - contain only lowercase alphabetic characters
+
+output: boolean
+  - true if:
+    - some portion of characters in string 1 can be rearranged to
+      - match all characters in string 2
+    - i.e. all characters of string 2 are present in string 1
+      - in at least the same number
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if all string 2 characters are in string 1 in the right amount
+    - way to compare counts of each letter in string 1 to counts in string 2
+
+start: string1, string2
+  - string1 counts of every letter in string2 must be >= string2 counts of that letter
+finish: boolean
+
+ALGORITHM
+- consider each letter in string2
+  - compare count of that letter in string2 to
+    - count of that letter in string1
+  - return true if all string1 counts >= string2 counts
+  - return false otherwise
+=end
+
+# def unscramble(string1, string2)
+#   string2.chars.all? do |char|
+#     string1.count(char) >= string2.count(char)
+#   end
+# end
+
+# p unscramble('ansucchlohlo', 'launchschool') == true
+# p unscramble('phyarunstole', 'pythonrules') == true
+# p unscramble('phyarunstola', 'pythonrules') == false
+# p unscramble('boldface', 'coal') == true
+
+### TWELVE
+=begin
+Create a method that takes a string as an argument and returns true if the string is a pangram, false if it is not.
+
+Pangrams are sentences that contain every letter of the alphabet at least once. For example, the sentence "Five quacking zephyrs jolt my wax bed." is a pangram since it uses every letter at least once. Note that case is irrelevant.
+
+PROBLEM 1:03
+input: string
+  - can contain any type of character
+
+output: boolean
+  - true if input string is a "pangram"
+    - pangram:
+      - contains every letter of alphabet at least once
+      - ignore case: 'T' == 't'
+  - false otherwise
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to check if every letter in alphabet is used
+    - regardless of case
+
+start: string
+  - array of all lowercase alphabetic letters
+  - downcased string
+end: boolean
+
+ALGORITHM
+- create an array of all lowercase alphabetic characters
+- downcase the input string
+- check if all letters in the alphabet array are present in the downcased string
+  - return true if yes
+  - return false if no
+=end
+
+# ALPHABET = ('a'..'z').to_a
+
+# def is_pangram(string)
+#   ALPHABET.all? { |letter| string.downcase.include?(letter) }
+# end
+
+# p is_pangram('The quick, brown fox jumps over the lazy dog!') == true
+# p is_pangram('The slow, brown fox jumps over the lazy dog!') == false
+# p is_pangram("A wizard's job is to vex chumps quickly in fog.") == true
+# p is_pangram("A wizard's task is to vex chumps quickly in fog.") == false
+# p is_pangram("A wizard's job is to vex chumps quickly in golf.") == true
+
+# my_str = 'Sixty zippers were quickly picked from the woven jute bag.'
+# p is_pangram(my_str) == true
+
 ### ELEVEN
 =begin
 Create a method that takes a nonempty string as an argument and returns an array consisting of a string and an integer. If we call the string argument s, the string component of the returned array t, and the integer component of the returned array k, then s, t, and k must be related to each other such that s == t * k. The values of t and k should be the shortest possible substring and the largest possible repeat count that satisfies this equation.
@@ -48,30 +365,30 @@ ALGORITHM
   - substring * repeat count == string
 =end
 
-def repeated_substring(string)
-  substrings = get_substrings(string)
-  pairs = substrings.map do |substring|
-    repeat_count = string.size / substring.size
-    [substring, repeat_count]
-  end
-  pairs.find { |pair| pair.inject(:*) == string }
-end
+# def repeated_substring(string)
+#   substrings = get_substrings(string)
+#   pairs = substrings.map do |substring|
+#     repeat_count = string.size / substring.size
+#     [substring, repeat_count]
+#   end
+#   pairs.find { |pair| pair.inject(:*) == string }
+# end
 
-def get_substrings(string)
-  substrings = []
-  lengths = (1..string.size)
+# def get_substrings(string)
+#   substrings = []
+#   lengths = (1..string.size)
 
-  lengths.each do |length|
-    substrings << string[0, length]
-  end
-  substrings
-end
+#   lengths.each do |length|
+#     substrings << string[0, length]
+#   end
+#   substrings
+# end
 
-p repeated_substring('xyzxyzxyz') == ['xyz', 3]
-p repeated_substring('xyxy') == ['xy', 2]
-p repeated_substring('xyz') == ['xyz', 1]
-p repeated_substring('aaaaaaaa') == ['a', 8]
-p repeated_substring('superduper') == ['superduper', 1]
+# p repeated_substring('xyzxyzxyz') == ['xyz', 3]
+# p repeated_substring('xyxy') == ['xy', 2]
+# p repeated_substring('xyz') == ['xyz', 1]
+# p repeated_substring('aaaaaaaa') == ['a', 8]
+# p repeated_substring('superduper') == ['superduper', 1]
 
 ### TEN
 =begin
