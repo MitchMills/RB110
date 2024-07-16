@@ -1,3 +1,146 @@
+### TEN
+=begin
+Create a method that takes a string of digits as an argument and returns the number of even-numbered substrings that can be formed. For example, in the case of '1432', the even-numbered substrings are '14', '1432', '4', '432', '32', and '2', for a total of 6 substrings.
+
+If a substring occurs more than once, you should count each occurrence as a separate substring.
+
+PROBLEM
+input: string
+  - all characters are numeric
+
+output: integer
+  - number of consecutive substrings that can be formed that
+    - represent an even number
+  - if a substring occurs more than once, count each occurrence
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to form all relevant substrings
+  - way to treat substrings as numbers
+  - way to count even substrings
+
+start: string
+  - array of all possible substrings
+    - all start indexes, all lengths
+  - array of substrings converted to integers
+  - array of even integers
+finish: integer (length of array)
+
+ALGORITHM
+- create an array of all possible substrings
+  - create an empty array to hold substrings
+  - create a range to control start indexes
+    - 0 from 0 up to (string length - 1)
+    -for each start index
+      - create a range to control length
+        - from 1 up to (string length - start index)
+        - for each length
+          - add a substring to substrings array
+            - string[start index, length]
+
+- select even substrings
+  - convert current substring to an integer
+  - select if the integer is even
+
+- return length of even substrings array
+=end
+
+def even_substrings(string)
+  substrings = get_substrings(string)
+  even_substrings = substrings.select { |substring| substring.to_i.even? }
+  even_substrings.size
+end
+
+def get_substrings(string)
+  substrings = []
+  min_length = 1
+  last_index = string.size - min_length
+  start_indexes = (0..last_index)
+
+  start_indexes.each do |start_index|
+    max_length = string.size - start_index
+    lengths = (min_length..max_length)
+
+    lengths.each do |length|
+      substrings << string[start_index, length]
+    end
+  end
+  substrings
+end
+
+p even_substrings('1432') == 6
+p even_substrings('3145926') == 16
+p even_substrings('2718281') == 16
+p even_substrings('13579') == 0
+p even_substrings('143232') == 12
+
+### EIGHTEEN
+=begin
+Create a method that takes an array of integers as an argument. Determine and return the index N for which all numbers with an index less than N sum to the same value as the numbers with an index greater than N. If there is no index that would make this happen, return -1.
+
+If you are given an array with multiple answers, return the index with the smallest value.
+
+The sum of the numbers to the left of index 0 is 0. Likewise, the sum of the numbers to the right of the last element is 0.
+
+PROBLEM 10:37
+input: array
+  - elements are integers
+
+output: integer
+  - represents index for which:
+    - all numbers with index < sum to the same as
+      - all numbers with index >
+  - return -1 if no such index exists
+  - if any ties, return the smallest index
+  - sum of numbers to left of index 0 is 0
+  - sum of numbers to right of last element is 0
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to control slices that will be compared
+
+start: array
+  - range to control 'middle' index
+    - from 0 up to array length
+    - array[0...middle] == array[middle + 1, last index]
+
+finish: integer
+
+ALGORITHM
+- create a range to track "middle" index
+  - from 0 up to array length
+- for each index
+  - create and compare two slices:
+    - array[0...index] == array[index + 1...array length]
+  - return current index if true
+  - otherwise continue
+- return -1 if no index returned
+=end
+
+# def equal_sum_index(array)
+#   indexes = (0..(array.size - 1))
+#   middle_index = indexes.find do |index|
+#     left_slice = array[0...index]
+#     right_slice = array[(index + 1)..array.size]
+#     left_slice.sum == right_slice.sum
+#   end
+#   middle_index || -1
+# end
+
+# p equal_sum_index([1, 2, 4, 4, 2, 3, 2]) == 3
+# p equal_sum_index([7, 99, 51, -48, 0, 4]) == 1
+# p equal_sum_index([17, 20, 5, -60, 10, 25]) == 0
+# p equal_sum_index([0, 2, 4, 4, 2, 3, 2]) == -1
+
+# The following test case could return 0 or 3. Since we're
+# supposed to return the smallest correct index, the correct
+# return value is 0.
+# p equal_sum_index([0, 20, 10, -60, 5, 25]) == 0
+
 ### NINE
 =begin
 Create a method that takes two string arguments and returns the number of times that the second string occurs in the first string. Note that overlapping strings don't count: 'babab' contains 1 instance of 'bab', not 2.
@@ -43,33 +186,33 @@ ALGORITHM
 - return matches count
 =end
 
-def count_substrings(string1, string2)
-  matches = 0
-  start_index = 0
-  target_length = string2.size
-  last_index = string1.size - target_length
-  indexes = (0..last_index)
+# def count_substrings(string1, string2)
+#   matches = 0
+#   start_index = 0
+#   target_length = string2.size
+#   last_index = string1.size - target_length
+#   indexes = (0..last_index)
 
-  indexes.each do |index|
-    next unless index == start_index
-    if string1[index, target_length] == string2
-      matches += 1
-      start_index += target_length
-    else
-      start_index += 1
-    end
-  end
-  matches
-end
+#   indexes.each do |index|
+#     next unless index == start_index
+#     if string1[index, target_length] == string2
+#       matches += 1
+#       start_index += target_length
+#     else
+#       start_index += 1
+#     end
+#   end
+#   matches
+# end
 
-p count_substrings('babab', 'bab') == 1
-p count_substrings('babab', 'ba') == 2
-p count_substrings('babab', 'b') == 3
-p count_substrings('babab', 'x') == 0
-p count_substrings('', 'x') == 0
-p count_substrings('bbbaabbbbaab', 'baab') == 2
-p count_substrings('bbbaabbbbaab', 'bbaab') == 2
-p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
+# p count_substrings('babab', 'bab') == 1
+# p count_substrings('babab', 'ba') == 2
+# p count_substrings('babab', 'b') == 3
+# p count_substrings('babab', 'x') == 0
+# p count_substrings('', 'x') == 0
+# p count_substrings('bbbaabbbbaab', 'baab') == 2
+# p count_substrings('bbbaabbbbaab', 'bbaab') == 2
+# p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
 
 ### EIGHT
 =begin
