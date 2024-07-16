@@ -1,33 +1,35 @@
-LOWERCASE = ('a'..'z').to_a
+VOWELS = %w(a e i o u)
 
-# def count_letters(string)
-#   counts = Hash.new(0)
-#   string.each_char do |char|
-#     next unless LOWERCASE.include?(char)
-#     counts[char] += 1
-#   end
-#   counts
-# end
-
-def count_letters(string)
-  counts = {}
-  string.each_char do |char|
-    next unless LOWERCASE.include?(char)
-    counts[char] = string.count(char)
+def longest_vowel_substring(string)
+  substrings = get_substrings(string)
+  vowels_only = substrings.select do |substring|
+    substring.chars.all? { |char| VOWELS.include?(char) }
   end
-  counts
+  lengths = vowels_only.map(&:size)
+  lengths.max || 0
 end
 
-# expected = {'w' => 1, 'o' => 2, 'e' => 3, 'b' => 1, 'g' => 1, 'n' => 1}
-# p count_letters('woebegone') == expected
+def get_substrings(string)
+  substrings = []
+  min_length = 1
+  last_index = string.size - min_length
+  start_indexes = (0..last_index)
 
-# expected = {'l' => 1, 'o' => 1, 'w' => 1, 'e' => 4, 'r' => 2,
-#             'c' => 2, 'a' => 2, 's' => 2, 'u' => 1, 'p' => 2}
-# p count_letters('lowercase/uppercase') == expected
+  start_indexes.each do |start_index|
+    max_length = string.size - start_index
+    lengths = (min_length..max_length)
 
-# expected = {'u' => 1, 'o' => 1, 'i' => 1, 's' => 1}
-# p count_letters('W. E. B. Du Bois') == expected
+    lengths.each do |length|
+      substrings << string[start_index, length]
+    end
+  end
+  substrings
+end
 
-# p count_letters('x') == {'x' => 1}
-# p count_letters('') == {}
-# p count_letters('!!!') == {}
+p longest_vowel_substring('cwm') == 0
+p longest_vowel_substring('many') == 1
+p longest_vowel_substring('launchschoolstudents') == 2
+p longest_vowel_substring('eau') == 3
+p longest_vowel_substring('beauteous') == 3
+p longest_vowel_substring('sequoia') == 4
+p longest_vowel_substring('miaoued') == 5

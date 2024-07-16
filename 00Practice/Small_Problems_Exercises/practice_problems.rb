@@ -1,7 +1,142 @@
+### NINE
+
+
+### EIGHT
+=begin
+Create a method that takes a non-empty string as an argument. The string consists entirely of lowercase alphabetic characters. The method should return the length of the longest vowel substring. The vowels of interest are "a", "e", "i", "o", and "u".
+
+PROBLEM 8:23
+input: string
+  - not empty
+  - contains only lowercase alphabetic characters
+output: integer
+  - length of longest substring that contains only vowels
+    - vowels = a e i o u
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to get all possible substrings
+  - way to get vowel-only substrings
+    - way to determine if a character is a vowel
+  - way to determine longest all-vowel substring
+
+start: string
+  - array of all possible substrings
+  - array of vowel-only substrings
+  - array of vowel-only substring length
+finish: integer (longest length)
+
+ALGORITHM
+- create an array of all lowercase vowels
+- create an array of all possible substrings from input string
+  - create an empty array to hold substrings: substrings
+  - create a range to control start indexes: start_indexes
+    - from 0 up to (string.size - 1)
+
+    - for each start index
+      - create a range to control length: lengths
+        - from 1 up to (string.size - current start index)
+
+      - for each length
+        - add a subarray to subarrays
+
+- create an array of all vowel-only substrings
+  - select subarrays where all characters are included in vowels array
+- create an array of vowel-only substring lengths
+  - transform each subarray into its length
+- return the greatest length
+=end
+
+# VOWELS = %w(a e i o u)
+
+# def longest_vowel_substring(string)
+#   substrings = get_substrings(string)
+#   vowels_only = substrings.select do |substring|
+#     substring.chars.all? { |char| VOWELS.include?(char) }
+#   end
+#   lengths = vowels_only.map(&:size)
+#   # lengths.max || 0
+# end
+
+# def get_substrings(string)
+#   substrings = []
+#   min_length = 1
+#   last_index = string.size - min_length
+#   start_indexes = (0..last_index)
+
+#   start_indexes.each do |start_index|
+#     max_length = string.size - start_index
+#     lengths = (min_length..max_length)
+
+#     lengths.each do |length|
+#       substrings << string[start_index, length]
+#     end
+#   end
+#   substrings
+# end
+
+# p longest_vowel_substring('cwm') #== 0
+# p longest_vowel_substring('many') == 1
+# p longest_vowel_substring('launchschoolstudents') == 2
+# p longest_vowel_substring('eau') == 3
+# p longest_vowel_substring('beauteous') == 3
+# p longest_vowel_substring('sequoia') == 4
+# p longest_vowel_substring('miaoued') == 5
+
 ### SEVEN
 =begin
+Create a method that takes an array of integers as an argument and returns the number of identical pairs of integers in that array. For instance, the number of identical pairs in [1, 2, 3, 2, 1] is 2: there are two occurrences each of both 2 and 1.
 
+If the array is empty or contains exactly one value, return 0.
+
+If a certain number occurs more than twice, count each complete pair once. For instance, for [1, 1, 1, 1] and [2, 2, 2, 2, 2], the method should return 2. The first array contains two complete pairs while the second has an extra 2 that isn't part of the other two pairs.
+
+PROBLEM 8:11
+input: array
+  - elements are integers
+output: integer
+  - number of pairs of elements
+    - pairs do not overlap: [2, 2, 2, 2] contains 2 pairs
+        - [2, 2, 2] contains 1 pair
+    - paired elements do not need to be consecutive in input array
+  - return 0 if input array is empty
+  - return 0 if input array only contains 1 element
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine number of complete pairs in input array
+
+start: array
+  - array of unique values in input array
+  - array of pair counts of unique values
+    - pair count = (count for that element in input array) / 2
+finish: integer (sum of pair counts)
+
+ALGORITHM
+- create an array of unique values from input array
+- get a count of pairs of each unique value
+  - for each unique value
+    - transform to (count of that value in input array) / 2
+- sum the pairs count array and return the sum
 =end
+
+# def pairs(numbers)
+#   uniques = numbers.uniq
+#   pairs = uniques.map { |unique| (numbers.count(unique)) / 2 }
+#   pairs.sum
+# end
+
+# p pairs([3, 1, 4, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7]) == 3
+# p pairs([2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4]) == 4
+# p pairs([]) == 0
+# p pairs([23]) == 0
+# p pairs([997, 997]) == 1
+# p pairs([32, 32, 32]) == 1
+# p pairs([7, 7, 7, 7, 7, 7, 7]) == 3
 
 ### SIX
 =begin
