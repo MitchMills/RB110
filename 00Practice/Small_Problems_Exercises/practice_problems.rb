@@ -1,5 +1,75 @@
 ### NINE
+=begin
+Create a method that takes two string arguments and returns the number of times that the second string occurs in the first string. Note that overlapping strings don't count: 'babab' contains 1 instance of 'bab', not 2.
 
+You may assume that the second argument is never an empty string.
+
+PROBLEM
+input: 2 strings
+  - string 1 can be empty
+  - string 2 is never empty
+output: integer
+  - number of times string 2 occurs in string 1
+    - overlapping strings don't count
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to determine if string 2 occurs in string 1
+  - way to avoid counting overlapping strings twice
+
+start: 2 strings
+  - variable to control start index
+  - length of string 2: target_length
+  - variable to count number of matches
+finish: integer
+
+ALGORITHM
+- create a variable to track matches: set to 0
+- create a variable to control starting index: set to 0
+- create a variable for target length: set to string 2 length
+
+- consider each index in string 1
+  - skip to next iteration unless current index == starting index
+  - compare a slice of string 1 to string 2
+    - string1[current index, target length] == string2
+
+    - if they are equal
+      - increment matches count by 1
+      - increment starting index by target length
+    - otherwise
+      - increment starting index by 1
+- return matches count
+=end
+
+def count_substrings(string1, string2)
+  matches = 0
+  start_index = 0
+  target_length = string2.size
+  last_index = string1.size - target_length
+  indexes = (0..last_index)
+
+  indexes.each do |index|
+    next unless index == start_index
+    if string1[index, target_length] == string2
+      matches += 1
+      start_index += target_length
+    else
+      start_index += 1
+    end
+  end
+  matches
+end
+
+p count_substrings('babab', 'bab') == 1
+p count_substrings('babab', 'ba') == 2
+p count_substrings('babab', 'b') == 3
+p count_substrings('babab', 'x') == 0
+p count_substrings('', 'x') == 0
+p count_substrings('bbbaabbbbaab', 'baab') == 2
+p count_substrings('bbbaabbbbaab', 'bbaab') == 2
+p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
 
 ### EIGHT
 =begin
