@@ -1,26 +1,24 @@
-def even_substrings(string)
+def repeated_substring(string)
   substrings = get_substrings(string)
-  even_substrings = substrings.select { |substring| substring.to_i.even? }
-  even_substrings.size
+  pairs = substrings.map do |substring|
+    repeat_count = string.size / substring.size
+    [substring, repeat_count]
+  end
+  pairs.find { |pair| pair.inject(:*) == string }
 end
 
 def get_substrings(string)
   substrings = []
+  lengths = (1..string.size)
 
-  string.chars.each_index do |start_index|
-    max_length = string.size - start_index
-    lengths = (1..max_length)
-
-    lengths.each do |length|
-      substrings << string[start_index, length]
-    end
+  lengths.each do |length|
+    substrings << string[0, length]
   end
-
   substrings
 end
 
-p even_substrings('1432') == 6
-p even_substrings('3145926') == 16
-p even_substrings('2718281') == 16
-p even_substrings('13579') == 0
-p even_substrings('143232') == 12
+p repeated_substring('xyzxyzxyz') == ['xyz', 3]
+p repeated_substring('xyxy') == ['xy', 2]
+p repeated_substring('xyz') == ['xyz', 1]
+p repeated_substring('aaaaaaaa') == ['a', 8]
+p repeated_substring('superduper') == ['superduper', 1]
