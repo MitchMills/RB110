@@ -1,3 +1,5 @@
+
+
 ### SEVENTEEN
 =begin
 Create a method that takes an array of integers as an argument. The method should determine the minimum integer value that can be appended to the array so the sum of all the elements equal the closest prime number that is greater than the current sum of the numbers. For example, the numbers in [1, 2, 3] sum to 6. The nearest prime number greater than 6 is 7. Thus, we can add 1 to the array to sum to 7.
@@ -8,7 +10,7 @@ Notes:
     All values in the array must be positive (> 0).
     There may be multiple occurrences of the various numbers in the array.
 
-PROBLEM 2:25
+PROBLEM 4:37
 input: array
   - elements are integers
     - all positive (> 0)
@@ -29,21 +31,44 @@ needs:
 
 start: array
   - sum of array
-  - range of numbers: from sum + 1 up to . . .
+  - range of numbers: from sum + 1 up to ...
   - next prime number
     - for each number in range
-      - make sure no numbers between 2 and current number divide evenly
+      - make sure no numbers between 2 and integer square root of current number divide evenly
 finish: integer (next prime - current sum)
 
 ALGORITHM
+- get the sum of the input array
+- find the next prime number larger than that sum
+  - create an endless range starting from (sum + 1)
+  - for each candidate number in that range
+    - create a potential factor range
+      -from 2 up to the integer square root of that number
+      - return the candidate number if none of the potential factors
+        - divide evenly into candidate number
+      - else proceed to the next number
+- subtract the sum from the next prime number, return the difference
 =end
 
-p nearest_prime_sum([1, 2, 3]) == 1        # Nearest prime to 6 is 7
-p nearest_prime_sum([5, 2]) == 4           # Nearest prime to 7 is 11
-p nearest_prime_sum([1, 1, 1]) == 2        # Nearest prime to 3 is 5
-p nearest_prime_sum([2, 12, 8, 4, 6]) == 5 # Nearest prime to 32 is 37
-# Nearest prime to 163 is 167
-p nearest_prime_sum([50, 39, 49, 6, 17, 2]) == 4
+# def nearest_prime_sum(array)
+#   sum = array.sum
+#   next_prime = find_next_prime(sum)
+#   next_prime - sum
+# end
+
+# def find_next_prime(number)
+#   ((number + 1)..).find do |candidate|
+#     max_factor = Integer.sqrt(candidate)
+#     (2..max_factor).none? { |factor| candidate % factor == 0 }
+#   end
+# end
+
+# p nearest_prime_sum([1, 2, 3]) == 1        # Nearest prime to 6 is 7
+# p nearest_prime_sum([5, 2]) == 4           # Nearest prime to 7 is 11
+# p nearest_prime_sum([1, 1, 1]) == 2        # Nearest prime to 3 is 5
+# p nearest_prime_sum([2, 12, 8, 4, 6]) == 5 # Nearest prime to 32 is 37
+# # Nearest prime to 163 is 167
+# p nearest_prime_sum([50, 39, 49, 6, 17, 2]) == 4
 
 ### SIXTEEN
 =begin
