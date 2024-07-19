@@ -1,4 +1,78 @@
-### 2 MUTATING
+### 2 SEEING START
+=begin
+Write a method that displays an 8-pointed star in an nxn grid, where n is an odd integer that is supplied as an argument to the method. The smallest such star you need to handle is a 7x7 grid.
+
+PROBLEM
+input: integer
+  - odd
+  - >= 7
+
+output: strings (displayed to screen)
+  - number of strings (rows) = input integer
+  - all rows contain three *s except middle row
+  - middle row = (input integer + 1) / 2
+    - contains same number of *s as input integer
+  - non-middle rows:
+    - number = input integer - 1
+      - number above and below: input integer / 2
+  - top and bottom rows:
+    - first and last characters are *s
+      - indexes 0 and (input integer - 1)
+    - middle character is a *
+      - index (input integer / 2)
+
+  - [['*' * input_integer] * input_integer]
+
+ADD
+* 1 2 * 4 5 *   # 0, 3, 6
+0 * 2 * 4 * 6   # 1, 3, 5
+0 1 * * * 5 6   # 2, 3, 4
+* * * * * * *
+0 1 * * * 5 6   # 2, 3, 4
+0 * 2 * 4 * 6   # 1, 3, 5
+* 1 2 * 4 5 *   # 0, 3, 6
+
+first star:   0 1 2
+second star:  3
+last star:   6 5 4
+=end
+
+def star(size)
+  all_rows = get_all_rows(size)
+  puts all_rows
+end
+
+def get_all_rows(star_size)
+  top_rows = get_top_rows(star_size)
+  middle_row = ['*' * star_size]
+  bottom_rows = top_rows.reverse
+  top_rows + middle_row + bottom_rows
+end
+
+def get_top_rows(star_size)
+  number_of_rows = star_size / 2
+  last_index = star_size - 1
+
+  number_of_rows.times.map do |row_number|
+    star_indexes = get_star_indexes(row_number, last_index)
+    get_one_row(star_size, star_indexes)
+  end
+end
+
+def get_star_indexes(row_number, last_index)
+  first_star_index = row_number
+  middle_star_index = last_index / 2
+  last_star_index = last_index - first_star_index
+  [first_star_index, middle_star_index, last_star_index]
+end
+
+def get_one_row(star_size, star_indexes)
+  star_size.times.map { |index| star_indexes.include?(index) ? '*' : ' ' }.join
+end
+
+star(7)
+
+### 3 MATRIX, MUTATING
 =begin
 PROBLEM 4:51
 input: array
@@ -49,31 +123,31 @@ ALGORITHM
 - return the mutated array
 =end
 
-def transpose!(array)
-  array.each_index do |row_idx|
-    (0..row_idx).each do |column_idx|
-      row = array[row_idx]
-      column = array[column_idx]
+# def transpose!(array)
+#   array.each_index do |row_idx|
+#     (0..row_idx).each do |column_idx|
+#       row = array[row_idx]
+#       column = array[column_idx]
 
-      row[column_idx], column[row_idx] = column[row_idx], row[column_idx]
-    end
-  end
+#       row[column_idx], column[row_idx] = column[row_idx], row[column_idx]
+#     end
+#   end
 
-  array
-end
+#   array
+# end
 
-matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-]
+# matrix = [
+#   [1, 2, 3],
+#   [4, 5, 6],
+#   [7, 8, 9]
+# ]
 
-p matrix
-puts
-transpose!(matrix)
-p matrix #== [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
+# p matrix
+# puts
+# transpose!(matrix)
+# p matrix #== [[1, 4, 3], [5, 7, 9], [8, 2, 6]]
 
-### 2 NON-MUTATING
+### 3 MATRIX, NON-MUTATING
 =begin
 A 3 x 3 matrix can be represented by an Array of Arrays in which the main Array and all of the sub-Arrays has 3 elements. For example:
 
