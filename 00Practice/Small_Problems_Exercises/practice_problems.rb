@@ -1,4 +1,57 @@
+### NUMBERS IN STRING
+=begin
+Implement a function that calculates the sum of numbers inside of a string.
 
+You can expect that the string will include only positive numbers.
+
+PROBLEM 7:41
+input: string
+  - can contain any type of character
+output: integer
+  - represents sum of any numeric characters found in string
+    - consecutive numeric characters represent multi-digit numbers
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to identify numeric characters
+  - way to extract numeric characters from string
+    - way to keep consecutive numeric characters together
+
+start: string
+  - array of all numeric characters
+  - array of individual characters from input string
+  - transformed array
+    - all non-numeric characters transformed into spaces
+  - string created from transformed array
+  - array of 'words' from transformed array
+  - array of integers
+finish: integer (sum of array)
+
+ALGORITHM
+- create an array of all numeric characters
+- create an array of individual characters from input string
+- transform this array
+  - if a character is numeric, leave it unchanged
+  - otherwise, replace it with a space
+- convert the transformed array into a string
+- create an array of 'words' from this string
+- transform the array into an array of integers
+- get the sum of the integers and return it
+=end
+
+NUMERICS = ('0'..'9').to_a
+
+def sum_of_numbers(string)
+  digits = string.chars.map { |char| NUMERICS.include?(char) ? char : ' ' }
+  numbers = digits.join.split.map(&:to_i)
+  numbers.sum
+end
+
+p sum_of_numbers("L12aun3ch Sch3oo451") #== 469
+p sum_of_numbers("HE2LL3O W1OR5LD") == 11
+p sum_of_numbers("The30quick20brown10f0x1203jumps914ov3r1349the102l4zy dog") == 3635
 
 ### SEVENTEEN
 =begin
