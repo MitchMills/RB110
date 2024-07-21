@@ -1,15 +1,26 @@
-NUMERICS = ('0'..'9').to_a
-
-def sum_of_numbers(string)
-  numeric_characters = get_numeric_characters(string)
-  integers = numeric_characters.map(&:to_i)
-  integers.sum
+def first_and_last_case(string)
+  multiples = get_multiples(string)
+  indexes = get_indexes(multiples, string)
+  string.chars.map.with_index do |char, index|
+    indexes.include?(index) ? char.upcase : char
+  end.join
 end
 
-def get_numeric_characters(string)
-  string.chars.map { |char| NUMERICS.include?(char) ? char : ' ' }.join.split
+def get_multiples(string)
+  string.chars.uniq.select { |char| string.count(char) > 1 }
 end
 
-p sum_of_numbers("L12aun3ch Sch3oo451") #== 469
-p sum_of_numbers("HE2LL3O W1OR5LD") == 11
-p sum_of_numbers("The30quick20brown10f0x1203j914ov3r1349the102l4zy dog") == 3635
+def get_indexes(multiples, string)
+  all_indexes = multiples.map do |letter|
+    string.chars.each_index.select { |index| string[index] == letter }
+  end
+  all_indexes.flat_map { |indexes| [indexes.first, indexes.last] }
+end
+
+p first_and_last_case('abc') == 'abc'
+p first_and_last_case('aaabc') == 'AaAbc'
+p first_and_last_case('aaabccbb') == 'AaABCCbB'
+
+string = 'thequickbrownfoxjumpsoverthelazydog'
+new_string = 'THEqUickbROwnfoxjUmpsoveRTHElazydOg'
+p first_and_last_case(string) == new_string
