@@ -1,3 +1,82 @@
+# ANAGRAM DIFFERENCE
+=begin
+Given two words, how many letters do you have to remove from them to make them anagrams?
+
+PROBLEM 6:47
+input: 2 strings
+  - can be empty
+  - all characters are lowercase alphabetic
+
+output: integer
+  - represents the number of characters that need to be removed from both or either input string so that the two strings are anagrams
+  - anagram: two strings contain all the same type and number of characters
+    - 2 empty strings are considered anagrams of each other
+
+EXAMPLES
+
+DATA STRUCTURES
+needs:
+  - way to find target anagram
+  - way to determine how many characters to remove from each input string to reach target anagram
+
+start: 2 strings
+  - longer and shorter input strings
+  - target anagram: shorter input string, with only common letters selected
+  - length of target anagram
+  - length of each input string - length of target anagram
+finish: integer (sum of above)
+
+ALGORITHM
+- determine which input string is shorter
+- create an array of each individual character in shorter input string
+- from this, create an array of only characters that also appear in longer input string: these are the letters in the target anagram
+- get the length of the target anagram
+- return the sum of (shorter length - target anagram length) and (longer length - target anagram length)
+=end
+
+def anagram_difference(string1, string2)
+  shorter, longer = [string1, string2].sort_by(&:size)
+  anagram = shorter.chars.select { |char| longer.include?(char) }
+  (shorter.size - anagram.size) + (longer.size - anagram.size)
+end
+
+# def anagram_difference(string1, string2)
+#   target_anagram = []
+
+#   target_letters1 = string1.chars.select { |char| string2.include?(char) }
+#   target_letters2 = string2.chars.select { |char| string1.include?(char) }
+
+#   target_letters1.each do |char|
+#     count1 = target_letters1.count(char)
+#     count2 = target_letters2.count(char)
+#     target_count = [count1, count2].min
+#     target_anagram << char if target_anagram.count(char) < target_count
+#   end
+
+#   target_size = target_anagram.size
+#   (string1.size - target_size) + (string2.size - target_size)
+# end
+
+p anagram_difference('', '') == 0
+p anagram_difference('a', '') == 1
+p anagram_difference('', 'a') == 1
+p anagram_difference('ab', 'a') == 1
+p anagram_difference('ab', 'ba') == 0
+p anagram_difference('ab', 'cd') == 4
+p anagram_difference('aab', 'a') == 2
+p anagram_difference('a', 'aab') == 2
+p anagram_difference('codewars', 'hackerrank') == 10
+
+p anagram_difference(
+  "oudvfdjvpnzuoratzfawyjvgtuymwzccpppeluaekdlvfkhclwau",
+  "trvhyfkdbdqbxmwpbvffiodwkhwjdjlynauunhxxafscwttqkkqw"
+  ) == 42
+p anagram_difference(
+  "fcvgqognzlzxhmtjoahpajlplfqtatuhckxpskhxiruzjirvpimrrqluhhfkkjnjeuvxzmxo",
+  "qcfhjjhkghnmanwcthnhqsuigwzashweevbegwsbetjuyfoarckmofrfcepkcafznykmrynt"
+  ) == 50
+
+
 # FIRST AND LAST
 =begin
 Write a method that takes a string as an argument and returns a new string according to
@@ -60,32 +139,32 @@ ALGORITHM
   - convert the array to a string and return it
 =end
 
-def first_and_last_case(string)
-  multiples = get_multiples(string)
-  indexes = get_indexes(multiples, string)
-  string.chars.map.with_index do |char, index|
-    indexes.include?(index) ? char.upcase : char
-  end.join
-end
+# def first_and_last_case(string)
+#   multiples = get_multiples(string)
+#   indexes = get_indexes(multiples, string)
+#   string.chars.map.with_index do |char, index|
+#     indexes.include?(index) ? char.upcase : char
+#   end.join
+# end
 
-def get_multiples(string)
-  string.chars.uniq.select { |char| string.count(char) > 1 }
-end
+# def get_multiples(string)
+#   string.chars.uniq.select { |char| string.count(char) > 1 }
+# end
 
-def get_indexes(multiples, string)
-  all_indexes = multiples.map do |letter|
-    string.chars.each_index.select { |index| string[index] == letter }
-  end
-  all_indexes.flat_map { |indexes| [indexes.first, indexes.last] }
-end
+# def get_indexes(multiples, string)
+#   all_indexes = multiples.map do |letter|
+#     string.chars.each_index.select { |index| string[index] == letter }
+#   end
+#   all_indexes.flat_map { |indexes| [indexes.first, indexes.last] }
+# end
 
-p first_and_last_case('abc') == 'abc'
-p first_and_last_case('aaabc') == 'AaAbc'
-p first_and_last_case('aaabccbb') == 'AaABCCbB'
+# p first_and_last_case('abc') == 'abc'
+# p first_and_last_case('aaabc') == 'AaAbc'
+# p first_and_last_case('aaabccbb') == 'AaABCCbB'
 
-string = 'thequickbrownfoxjumpsoverthelazydog'
-new_string = 'THEqUickbROwnfoxjUmpsoveRTHElazydOg'
-p first_and_last_case(string) == new_string
+# string = 'thequickbrownfoxjumpsoverthelazydog'
+# new_string = 'THEqUickbROwnfoxjUmpsoveRTHElazydOg'
+# p first_and_last_case(string) == new_string
 
 
 ### NUMBERS IN STRING
